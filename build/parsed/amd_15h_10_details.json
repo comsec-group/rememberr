@@ -1,0 +1,310 @@
+{
+    "361": {
+        "title": "Breakpoint Due to an Instruction That Has an Interrupt Shadow May Be Lost",
+        "problem": "A #DB exception occurring in guest mode may be discarded under the following conditions: \u2022 A trap-type #DB exception is generated in guest mode during execution of an instruction with an interrupt shadow, and \u2022 The instruction that generated the exception is immediately followed by an instruction resulting in #VMEXIT.",
+        "implication": "None expected under normal conditions. Debug exceptions may not be received for programs running under a hypervisor.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "470": {
+        "title": "Warm Reset May Cause System Hang",
+        "problem": "The processor may hang if a warm reset occurs while a register access to any of the PCI Express\u00ae controllers' internal registers is in progress. The processor may perform register accesses for internal management purposes that are transparent to software.",
+        "implication": "System hang.",
+        "workaround": "System BIOS should set D0F0xE4_x013[3:0]_8063 bits 4, 5, 12, 13 and 14 to 1b. This must be done early in the BIOS boot sequence to minimize the possibility of a hang due to a warm reset during the boot sequence. During a link reconfigure operation, system BIOS must perform the following steps: 1. Clear D0F0xE4_x013[3:0]_8063 bits 4, 5, 12, 13 and 14 to 0b. 2. Perform the link reconfigure operation. 3. Set D0F0xE4_x013[3:0]_8063 bits 4, 5, 12, 13 and 14 to 1b.",
+        "status": "No fix planned"
+    },
+    "608": {
+        "title": "P-state Limit Changes May Not Generate Interrupts",
+        "problem": "P-state limit changes fail to generate interrupts when the target P-state limit is a higher or equal performance P- state (lower or equal numbered P-state) than the Application Power Management (APM) P-state limit.",
+        "implication": "Operating systems monitoring processor P-state capabilities may not be notified of all P-state limit changes, resulting in either one of the following conditions: \u2022 The processor runs continuously in a lower performance (higher numbered) P-state than is actually available. \u2022 The operating system may request a higher performance (lower numbered) P-state than is actually available.",
+        "workaround": "BIOS should set MSRC001_1000[16] = 1b.",
+        "status": "No fix planned"
+    },
+    "625": {
+        "title": "SB-RMI Writes May Not Be Observed by Processor",
+        "problem": "After a write using the APML SB-RMI interface to either the Inbound Message Registers (SBRMI_x3[F:8]) or Software Interrupt Register (SBRMI_x40), the processor may observe the previous contents (as if the write did not occur) when reading these same registers using the SBI Address/Data registers (D18F3x1E8 and D18F3x1EC). The conditions under which this erratum may occur requires that northbridge clock gating is enabled for any C-state action (C-state Control[NbClkGate2, NbClkGate1, NbClkGate0], D18F4x118[27, 11], D18F4x11C[11]). The functionality of the SB-RMI interface is not otherwise affected.",
+        "implication": "Software running on the processor is not able to properly receive messages from system management software using the SB-RMI interface.",
+        "workaround": "None. In the event that system management software needs to communicate with software running on the processor, an alternative mechanism should be used.",
+        "status": "No fix planned"
+    },
+    "638": {
+        "title": "Processor May Violate Trp During Dynamic Mode Switch",
+        "problem": "The processor may violate the precharge time (Trp) for a DIMM when sending a mode register set (MRS) command to dynamically adjust MR0[PPD] during a precharge power down. This erratum may occur only when fast exit/slow exit (dynamic) mode is selected as follows: \u2022 D18F2x94_dct[1:0][15] = 1b (DRAM Configuration High[PowerDownEn]) \u2022 D18F2x84_dct[1:0][23] = 1b (DRAM MRS[PchgPDModeSel])",
+        "implication": "Unpredictable system operation.",
+        "workaround": "If D18F2x84_dct[1:0] bit 23 (PchgPDModeSel) = 1b and D18F2x94_dct[1:0] bit 15 (PowerDownEn) = 1b, then precharge time (D18F2x200_dct[1:0]_mp[1:0] bits 20:16, Trp) should be set one higher than the DIMM specified value.",
+        "status": "No fix planned"
+    },
+    "657": {
+        "title": "MC1_STATUS Enable Bit Not Set When Logging Corrected Errors",
+        "problem": "The processor does not set MC1_STATUS[En] = 1b (MSR0000_0405[60]) when logging an enabled and corrected error in the IF machine check register bank (bank 1). Software can identify the corrected errors that are affected by this erratum when it observes an MC1_STATUS register with all of the following: \u2022 MC1_STATUS[Valid] (bit 63) = 1b \u2022 MC1_STATUS[Uc] (bit 61) = 0b \u2022 MC1_STATUS[En] (bit 60) = 0b \u2022 MC1_STATUS[Pcc] (bit 57) = 0b \u2022 The corresponding enable bit in MC1_CTL (MSR0000_0404) = 1b",
+        "implication": "None expected.",
+        "workaround": "None required.",
+        "status": "No fix planned"
+    },
+    "661": {
+        "title": "P-State Limit and Stop Clock Assertion May Cause System Hang",
+        "problem": "A P-state limit change that occurs within a small timing window of a Stop Clock assertion may result in DRAM not entering self-refresh mode for an S3 sleep state transition.",
+        "implication": "System hang.",
+        "workaround": "Contact your AMD representative for information on a BIOS update.",
+        "status": "No fix planned"
+    },
+    "663": {
+        "title": "Local Interrupts LINT0/LINT1 May Occur While APIC is Software Disabled",
+        "problem": "The processor unmasks local interrupts (LINT0 and LINT1) while the APIC is software disabled (Spurious- Interrupt Vector Register[APICSWEn], APICF0[8] = 0b). The LINT[1:0] LVT entry mask bits (APIC3[60:50] bit 16) are cleared and cannot be set. Broadcast ExtInt and NMI interrupt requests can be converted to LINT0 and LINT1 local interrupts respectively by setting Link Transaction Control Register[LintEn] (D18F0x68[16]) = 1b. If this bit is set while the APIC is software disabled, an ExtInt or NMI interrupt causes an unexpected local interrupt.",
+        "implication": "Software may receive a local interrupt that was not expected, possibly leading to a system crash.",
+        "workaround": "BIOS should set MSRC001_001F[23] = 1b before enabling the APIC (APIC_BAR[ApicEn] (MSR0000_001B[11]) = 1b) or before setting Link Transaction Control[LintEn] (D18F0x68[16]) = 1b.",
+        "status": "No fix planned"
+    },
+    "667": {
+        "title": "Processor May Generate Incorrect P-state Limit Interrupts",
+        "problem": "P-state limit changes due to SB-RMI (SBI P-state Limit[PstateLimit], MSRC001_0072[10:8]), software (Software P-state Limit Register[SwPstateLimit], D18F3x68[30:28]), or hardware thermal control (entering HTC-active state, i.e. PROCHOT# assertion) may generate duplicate interrupts when Hardware Thermal Control Register bits [PslApicLoEn, PslApicHiEn] are not both zero (D18F3x64[7:6] != 00b). The processor actually uses APM TDP Control[ApmTdpLimitIntEn] = 1b to enable the generation of interrupts for P-state limit changes due to SB-RMI, software, or HTC.",
+        "implication": "Operating systems monitoring processor P-state capabilities may receive duplicate notification of P-state limit changes due to SB-RMI, software, or HTC.",
+        "workaround": "BIOS should leave Hardware Thermal Control[PslApicLoEn, PslApicHiEn] at their default reset value (D18F3x64[7:6] = 00b) and should instead set APM TDP Control[ApmTdpLimitIntEn] (D18F4x16C[4]) = 1b. In addition, BIOS should set D18F4x16C[1] = 1b and D18F5xAC[3] = 1b.",
+        "status": "No fix planned"
+    },
+    "671": {
+        "title": "Debug Breakpoint on Misaligned Store May Cause System Hang",
+        "problem": "A misaligned store that crosses cache lines and requires an address translation due to a TLB miss may cause a system hang if the trailing cache line has an address breakpoint enabled using DR7.",
+        "implication": "System hang.",
+        "workaround": "Contact your AMD representative for information on a BIOS update. This workaround has a performance impact when certain debug breakpoints are enabled. AMD recommends that BIOS disables this workaround by setting MSRC001_1000[17] = 1b.",
+        "status": "No fix planned"
+    },
+    "685": {
+        "title": "Some Processor Cores May Have Inaccurate Instruction Cache Fetch Performance Counter",
+        "problem": "The processor may over-report PMCx080 (instruction cache fetches) when the performance monitor is enabled on an odd processor core number (APIC20[ApicId] is odd - i.e. bit 24 is 1b), as compared to when the performance counter is used on an even processor core number.",
+        "implication": "Performance monitoring software may not have an accurate count of instruction cache fetch operations. The performance counter may overcount.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "686": {
+        "title": "Processor Does Not Implement MSRC001_0055",
+        "problem": "The processor does not properly allow writes to MSRC001_0055 (Interrupt Pending Register). A write to MSRC001_0055 is ignored and a read to the register returns zero.",
+        "implication": "BIOS is unable to program this register.",
+        "workaround": "Contact your AMD representative for information on a BIOS update.",
+        "status": "No fix planned"
+    },
+    "687": {
+        "title": "Memory Arbitration May Stall",
+        "problem": "The processor arbitration between CPU, I/O transactions and graphics transactions to the DRAM controller may not recognize and properly prioritize a CPU or I/O transaction that has been marked high priority. This causes the internal transaction arbiter to stall. This stall may occur only if the processor reports D18F3x1FC[29] = 0b (Product Information Register 1[EnDcqChgPriToHigh]).",
+        "implication": "The memory bus may stall for excessive periods, causing display buffer under-run (screen corruption).",
+        "workaround": "BIOS should set D18F2x408_dct[1:0] bit 0 (GMC to DCT Control 2[CpuElevPrioDis]) = !D18F3x1FC[29] (the inverse of D18F3x1FC bit 29) and should set D18F5x88[14] = D18F3x1FC[29] (without inverting).",
+        "status": "No fix planned"
+    },
+    "693": {
+        "title": "Performance Counter May Incorrectly Count MXCSR Loads",
+        "problem": "The processor may incorrectly increment the following performance counter due to XRSTOR, FXRSTOR, LDMXCSR or VLDMXCSR instructions loading the MXCSR register: \u2022 PMCx003 (Retired Floating Point Ops)",
+        "implication": "Performance monitoring software will not have an accurate count of the number of retired floating point operations reported by the above performance counter.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "694": {
+        "title": "IBS Sampling of Instruction Fetches May Be Uneven",
+        "problem": "Instructions selected for instruction-based sampling (IBS) of fetch performance (Fetch Control[IbsFetchEn], MSRC001_1030[48] = 1b) may be sampled unevenly when the instruction fetch stream is redirected (e.g., due to a branch taken).",
+        "implication": "Performance monitoring software may not receive even, unbiased IBS sampling of the instruction fetch stream. However, IBS can still be used effectively for identifying performance issues associated with specific instructions. The sampling bias makes IBS less effective for measuring the statistical distribution of operations and events.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "695": {
+        "title": "Processor May Interpret FCW Incorrectly after FNSAVE/ FSAVE Limit Fault",
+        "problem": "The processor operates as if the floating-point control word (FCW) has been initialized after executing an FNSAVE or FSAVE instruction which generates a stack limit fault (SS). This occurs when the instruction attempts to store the state of the floating-point unit to a memory location that crosses a 16-bit (0xFFFF) or 32-bit (0xFFFF_FFFF) address boundary in real or protected mode respectively, and persists until software reinitializes the FCW. The FXSAVE instruction is not affected by this erratum.",
+        "implication": "None expected during normal operation. A stack limit fault while executing an FNSAVE or FSAVE instruction is unusual and AMD has not observed the above conditions in any commercially available software. In the unlikely event that software creates the conditions described above one of the following may occur: \u2022 The processor may write an indefinite value, as if masked, when signaling an invalid-operation exception (IE) after an FLD instruction executes with invalid operands while invalid operations are unmasked (FCW.IM, bit 0 = 0b). \u2022 The processor may set the FERR signal incorrectly after an FLDCW instruction updates the floating-point control word mask bits (FCW[5:0]). A subsequent floating point operation may then result in an incorrect or missing x87 floating-point exception (#MF).",
+        "workaround": "None required.",
+        "status": "No fix planned"
+    },
+    "697": {
+        "title": "P-State Limit Removal During PC6 Entry May Cause System Hang",
+        "problem": "The processor may hang if the following conditions occur: \u2022 A P-state limit has been applied that is actively restricting the current P-state to a lower-performing P-state than is requested by software. This limit may be due to application power management (APM), hardware thermal control (HTC), or Software P-state Limit Register[SwPstateLimit] (D18F3x68[30:28]). \u2022 The P-state limit is an equal or lower performance (higher numbered) P-state than the pop-down P-state (Pop Up and Down P-states Register[PopDownPstate], D18F3xA8[31:29]). \u2022 The P-state limit is removed during the period of time that the processor enters package C6 (PC6) state, i.e., the processor has a new P-state limit that is a lower P-state number (higher performing) than the previously applied P-state limit.",
+        "implication": "System hang. While the conditions for the erratum occur during the entry to PC6, the hang is observed during the exit from PC6.",
+        "workaround": "Contact your AMD representative for information on a BIOS update.",
+        "status": "No fix planned"
+    },
+    "698": {
+        "title": "Processor May Not Recognize P-state Limit Changes During Northbridge P-state Transition",
+        "problem": "During the period of time that a northbridge P-state transition is in process, a concurrent core P-state limit change may not transition the core P-state to reflect this new limit. The core P-state limit change may be due to application power management (APM), hardware thermal control (HTC), or Software P-state Limit Register[SwPstateLimit] (D18F3x68[30:28]).",
+        "implication": "If the core P-state limit changed to a higher P-state limit (i.e., the core P-state is now limited to lower performing P-states), then the processor cores may continue to operate at a P-state that is higher performing than this limit. This may result in a violation of the appropriate thermal design power (TDP). If the core P-state limit changed to a lower P-state limit (i.e., the core P-state is no longer limited to lower performing P-states), then the processor cores may continue to operate at the lower performing P-states. In addition, the processor does not generate an APIC330 interrupt for this P-state limit change.",
+        "workaround": "Contact your AMD representative for information on a BIOS update.",
+        "status": "No fix planned"
+    },
+    "699": {
+        "title": "Processor May Generate Illegal Access in VMLOAD or VMSAVE Instruction",
+        "problem": "The processor may generate a speculative access during execution of a VMLOAD or VMSAVE instruction. The memory type used for this access is defaulted to WB DRAM memory type, however the address used may not be a valid DRAM address or it may be an address that is not specified as cacheable in the memory type (i.e., the actual memory type is UC or WC).",
+        "implication": "When the address is not a valid DRAM address, the processor may recognize a northbridge machine check exception for a link protocol error. This machine check exception causes a sync flood and system reset under AMD recommended BIOS settings. The machine check has the following signature: \u2022 The MC4_STAT register (MSR0000_0411) is equal to BA000020_000B0C0F. Bit 62 (error overflow) or bit 59 (miscellaneous valid) of MC4_STAT may or may not be set. \u2022 Bits 5:1 of the MC4_ADDR register (MSR0000_0412) is equal to 01001b, indicating that a coherent-only packet was issued to a non-coherent link. When the address is actually a non-cacheable memory type, the processor may incorrectly cache the data, resulting in unpredictable system behavior. AMD has only observed a northbridge link protocol error machine check. The incorrect caching of an uncacheable memory region has not been observed by AMD.",
+        "workaround": "Contact your AMD representative for information on a BIOS update.",
+        "status": "No fix planned"
+    },
+    "703": {
+        "title": "SB-RMI Access While Northbridge is Power Gated May Cause Interface Hang",
+        "problem": "The processor SB-RMI state machine may hang if a SB-RMI access is performed while the northbridge is power gated. The northbridge is power gated when all cores are in the core C6 (CC6) state and the applied C-state Control Register northbridge power gating bit (NbPwrGate[2:0]) is set to 1b (i.e., D18F4x11C[11], D18F4x118[26], or D18F4x118[11] is set to 1b).",
+        "implication": "SB-RMI accesses may hang, resulting in failures or timeouts being returned to the platform management software. A warm reset may be necessary for SB-RMI accesses to be restored.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "704": {
+        "title": "Processor May Report Incorrect Instruction Pointer",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, the processor may store an incorrect instruction pointer (rIP) while processing an interrupt or a debug trap exception (#DB).",
+        "implication": "Unpredictable system behavior.",
+        "workaround": "Contact your AMD representative for information on a BIOS update.",
+        "status": "No fix planned"
+    },
+    "707": {
+        "title": "Performance Counter for Locked Operations May Count Cycles from Non-Locked Operations",
+        "problem": "PMCx024[2] may include cycles spent performing non-locked operations.",
+        "implication": "Performance monitoring software may receive an incorrect (larger) count of the number of cycles spent in the non-speculative phase of locked operations.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "709": {
+        "title": "Processor May Be Limited to Minimum P-state After a P- state Limit Change",
+        "problem": "Following a change to the P-state limit or a core C6 (CC6) exit, the processor may incorrectly restrict the processor to the lowest-performing P-state (Clock Power/Timing Control 2 Register[HwPstateMaxVal], D18F3xDC[10:8]). This restriction may not match any of the actual P-state limits and does not get removed until a processor reset occurs. P-state limit changes that may cause this erratum may be due to SB-RMI (SBI P-state Limit[PstateLimit], MSRC001_0072[10:8]), software (Software P-state Limit Register[SwPstateLimit], D18F3x68[30:28]), or hardware thermal control (entering HTC-active state, i.e. PROCHOT# assertion).",
+        "implication": "Processor performance is limited to the lowest-performing P-state.",
+        "workaround": "Contact your AMD representative for information on a BIOS update.",
+        "status": "No fix planned"
+    },
+    "712": {
+        "title": "Processor May Hang During Graphics Memory Controller Sequencing",
+        "problem": "The processor may hang during a graphics memory controller (GMC) sleep state transitioning. The failure may be processor specific and may be sensitive to temperature.",
+        "implication": "System hang.",
+        "workaround": "BIOS should set D18F2x408_dct[1:0] bit 31 = 1b.",
+        "status": "No fix planned"
+    },
+    "713": {
+        "title": "Processor May Hang Due to Short Graphics Memory Controller Activity",
+        "problem": "The processor may hang if LCLK deep sleep is enabled (LCLK_DEEP_SLEEP_CNTL[EnableDs], GMMx7A0[31] is 1b) and a short burst of activity occurs from the graphics memory controller.",
+        "implication": "System hang.",
+        "workaround": "BIOS should set GMMx7A0[31] = 0b.",
+        "status": "No fix planned"
+    },
+    "715": {
+        "title": "Processor May Alter Machine Check Registers on a Warm Reset",
+        "problem": "The processor may alter warm-reset persistent bits in MC0_STATUS (MSR0000_0401), MC0_ADDR (MSR0000_0402), MC0_MISC (MSR0000_0403), MC2_STATUS (MSR0000_0409), MC2_ADDR (MSR0000_040A), MC2_MISC (MSR0000_040B), MC5_STATUS (MSR0000_0415), MC5_ADDR (MSR0000_0416), MC5_MISC (MSR0000_0417), MC6_STATUS (MSR0000_0419) and MC6_ADDR (MSR0000_040A) during a warm reset. The status bits may be cleared of an actual error indication, or may be written to a non-zero value that does not correlate to an actual machine check error. A machine check exception (#MC) is not created when these registers are incorrectly altered. This erratum is only observed when the processor core operating frequency is less than 900 MHz at the time of the warm reset.",
+        "implication": "The operating system software may place the incorrect machine check status information in an error log. In the event that the warm-reset was the result of an actual machine check, the processor may also over-write the machine check information and the reason for the warm reset is not available for diagnostic purposes.",
+        "workaround": "Do not operate the processor core frequency less than 900 MHz. Software should not modify any of the P- state[7:0] Registers (MSRC001_00[6B:64]) such that the CpuFid (bits 5:0) and the CpuDid (bits 8:6) specify a core operating frequency that is less than 900 MHz. Some processors have a default configuration where the hardware thermal control (HTC) P-state is configured for a core frequency of 800 MHz. BIOS should perform the following algorithm to adjust this configuration: 1. Read Hardware Thermal Control Register[HtcPstateLimit] (D18F3x64[30:28]) 2. Use this value to index into the P-state Registers to the P-state register used in HTC mode (MSR(C001_0064 + HtcPstateLimit)). 3. Read this MSR and check if bits 8:6 (CpuDid) is 1h and bits 5:0 (CpuFid) is 0h. If these values are not observed, the algorithm ends at this step. 4. Read the MSR of the next higher-performing P-state register (MSR(C001_0064 + HtcPstateLimit - 1)), and save the value for CpuVid (bits 16:9). 5. Write the HTC P-state MSR (MSR(C001_0064 + HtcPstateLimit)) with CpuFid = 2h and the saved CpuVid from the previous step. The other fields in this MSR are unchanged. The above algorithm should be run by BIOS before entering CC6 mode and before enabling hardware thermal control (before writing Hardware Thermal Control Register[HtcEn] (D18F3x64[0]) = 1b).",
+        "status": "No fix planned"
+    },
+    "716": {
+        "title": "Warm Reset After BIOS Changes P-state During Early Boot May Cause System Hang",
+        "problem": "A warm reset that occurs following a BIOS change to the P-state may cause a system hang. In order for this erratum to occur, the BIOS change to the P-state must occur while at least one processor core has the corresponding core enable (CpuEn, D18F0x1DC[7:1]) bit clear after a reset.",
+        "implication": "System hang.",
+        "workaround": "The system BIOS should not perform a P-state change before the core enable bits are set for all cores.",
+        "status": "No fix planned"
+    },
+    "718": {
+        "title": "Instruction-Based Sampling May Be Inaccurate",
+        "problem": "The processor may experience sampling inaccuracies when Instruction-Based Sampling (IBS) is enabled in the following cases: \u2022 The processor may set IBS Op Data 3 Register[IbsDcStToLdCan, IbsDcStToLdFwd] (MSRC001_1037[12, 11]) incorrectly for load instructions that are tagged for IBS if there was a recently executed store instruction whose store address matches the load address in bits 11:0. \u2022 When performing an IBS execution sample, the processor only sets, but never clears, the following bits: \u2022 IbsDcL2TlbMiss (MSR C001_1037[3]) \u2022 IbsDcL2TlbHit2M (MSR C001_1037[6]) \u2022 IbsDcL2TlbHit1G (MSR C001_1037[19]) \u2022 The processor incorrectly updates IBS Op Data 2 Register[NbIbsReqCacheHitSt, NbIbsReqDstProc, NbIbsReqSrc] (MSR C001_1036[5,4,2:0]) during an IBS fetch sample. If both IBS execution sampling (IBS Execution Control[IbsOpEn], MSRC001_1033[17] = 1b) and IBS fetch sampling (IBS Fetch Control[IbsFetchEn], MSRC001_1030[48] = 1b) are enabled simultaneously, valid execution sample data may be overwritten by a fetch sample resulting in IBS data that is inconsistent with the accompanying IBS execution sample data. \u2022 The processor may infrequently report an incorrect instruction pointer in the IBS Fetch Linear Address (MSRC001_1031).",
+        "implication": "Inaccuracies in performance monitoring software may be experienced.",
+        "workaround": "The following workarounds can be used for the above issues: \u2022 No workaround exists for IbsDcStToLdCan and IbsDcStToLdFwd. These bits would not significantly over- indicate a store to load forwarding with most code. \u2022 Performance monitoring software should clear the IBS Op Data 3 Register (MSR C001_1037[63:0] = 0) between each IBS sample. \u2022 Performance monitoring software should not rely on MSRC001_1036 if both IBS execution sampling and IBS fetch sampling are enabled simultaneously. \u2022 Performance monitoring software should not rely on MSRC001_1031.",
+        "status": "No fix planned"
+    },
+    "719": {
+        "title": "Instruction-Based Sampling Fetch Counter Always Starts at Maximum Value",
+        "problem": "When setting IBS Fetch Control Register[IbsFetchEn] = 1b to enable IBS fetch sampling, the periodic fetch counter always starts at the maximum value programmed into IBS Fetch Control Register[IbsFetchMaxCnt] (MSRC001_1030[15:0]) instead of starting at the value written into IBS Fetch Control Register[IbsFetchCnt] (MSRC001_1030[19:4]).",
+        "implication": "System software that is managing multiple processes or virtual machines with different IBS configurations may create unintended delays before the next IBS sample by writing to MSRC001_1030. In the event that system software consistently writes to MSRC001_1030, it is possible that the IBS fetch counter never expires and no instruction fetches are tagged. AMD has not observed this effect with production software.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "720": {
+        "title": "Processor May Not Respect Interrupt Shadow",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, a #DB exception may be presented during execution of an instruction that is in an interrupt shadow. In order for this erratum to occur, the other processor core in the compute-unit must be performing microcoded functions that are uncommon in usage.",
+        "implication": "Under rare circumstances, a debug exception may occur in an interrupt shadow. Under common software use, this exception does not have a system effect. In the event that system software uses \"STI, RET\" instead of a single IRET instruction, or changes the stack segment simultaneously with the stack pointer (i.e. not using a flat segment for the stack), unpredictable system failure may result. AMD has not observed this erratum with any commercially available software.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "724": {
+        "title": "Unintercepted Halt Instruction May Cause Protocol Machine Check or Unpredictable System Behavior",
+        "problem": "An unintercepted halt instruction executed in guest mode may result in a processor core being in a cache-flush- on-halt state while having VMCB data in the cache.",
+        "implication": "Northbridge machine check exception (#MC) for a link protocol error. This machine check exception causes a sync flood and system reset under AMD recommended BIOS settings. The machine check has the following signature: \u2022 The MC4_STAT register (MSR0000_0411) is equal to BA000020_000B0C0F. Bit 62 (error overflow) or bit 59 (miscellaneous valid) of MC4_STAT may or may not be set. \u2022 Bits 5:1 of the MC4_ADDR register (MSR0000_0412) is equal to one of 10011b, 10100b, 11000b or 11001. In addition, it is possible for unpredictable system operation to occur without a machine check exception. For example, a processor core may not observe a write that is performed by another processor core. AMD has not observed this effect in any commercially available software.",
+        "workaround": "Hypervisors should intercept HLT instructions by setting VMCB.Intercept_HLT (offset 00Ch bit 24) to 1b.",
+        "status": "No fix planned"
+    },
+    "725": {
+        "title": "Incorrect APIC Remote Read Behavior",
+        "problem": "The processor may provide incorrect APIC register data on an APIC remote register read. A remote read is performed using Interrupt Command Register Low[MsgType] of 011b (APIC300[10:8]). The processor may, but does not always, provide an error indication in the remote read status field (APIC300[17:16]). This erratum does not impact the use of remote APIC reads by BIOS during early power-on-self-test (POST) when the remote read is performed for addresses APIC300-APIC3F0.",
+        "implication": "None expected, as it is anticipated that no software other than BIOS uses remote APIC reads.",
+        "workaround": "Software should not use remote APIC reads.",
+        "status": "No fix planned"
+    },
+    "726": {
+        "title": "Processor May Report Incorrect MCA Address for Loads that Cross Address Boundaries",
+        "problem": "In the event that a line fill error or system read data error is reported for some, but not all, bytes of an unaligned load instruction that crosses a cache line boundary (64 bytes), the processor may intermittently report the address of the unaffected cache line in MC0_ADDR (MSR0000_0402).",
+        "implication": "None expected.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "728": {
+        "title": "IOMMU Event Not Flagged when DTE Reserved Bits Are Not Zero",
+        "problem": "The processor IOMMU may not generate an event log entry when a translation table walk encounters a valid device table entry (DTE) with reserved bits 8:2 not equal to 000_0000b. The reserved bits are ignored by the processor.",
+        "implication": "None expected in the absence of IOMMU host software programming errors. In the presence of IOMMU host software programming errors, the device may receive and report a completion-abort response without an IOMMU event log to diagnose the reason for the completion-abort response. Debug information presented by the processor in the event logs may be missing.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "729": {
+        "title": "IOMMU Event Log Not Generated for Invalid DTE GCR3 Table Root Pointer",
+        "problem": "The processor IOMMU does not generate an event log entry when a translation table walk encounters a valid device table entry (DTE) whose GCR3 table root pointer is not a valid system address. When the IOMMU is operating in nested paging mode, the erratum occurs only if the host page table translations of the GCR3 root pointer translates this address to an invalid system address. Instead, the processor treats this as an IOMMU page fault.",
+        "implication": "None expected in the absence of IOMMU host software programming errors. In the presence of IOMMU host software programming errors, debug information presented by the processor in the event logs may be missing or incorrect.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "730": {
+        "title": "IOMMU Event Log Not Generated for Not Present Host Intermediate Page Tables",
+        "problem": "The processor IOMMU, when performing a nested address translation of a guest virtual address to a host physical address, does not generate event logs in the case that the table walk encounters an intermediate (non- leaf) host page table that is not present (valid bit is 0b). The IOMMU does abort this translation request and properly signals an I/O page fault. This erratum does not impact IOMMU operation with peripherals that use address translation service (ATS) in conjunction with peripheral page service requests (PPR). When PPR is not used, the page tables used by the IOMMU translation typically requires \"pinned\" pages where the present or valid bit is always 1b.",
+        "implication": "None expected in the absence of IOMMU or memory management software programming errors in the hypervisor or driver software errors in the guest. In the presence of programming errors, the device may receive and report a completion-abort response without an IOMMU event log to diagnose the reason for the completion- abort response. Debug information presented by the processor in the event logs may be missing.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "731": {
+        "title": "Incorrect Translation with IOMMU v1 512 GB Page Table",
+        "problem": "The processor may perform incorrect IOMMU translations using an IOMMU v1 page table that has a page size of 512 GB.",
+        "implication": "None expected. In the unlikely event that IOMMU software uses a 512 GB sized page table, unpredictable system behavior may result. AMD has not observed this erratum with any commercially available software.",
+        "workaround": "IOMMU software should limit the IOMMU v1 page table such that the page size is never greater than the system memory.",
+        "status": "No fix planned"
+    },
+    "732": {
+        "title": "IOMMU Event Log Ordering Violation",
+        "problem": "The processor IOMMU does not maintain producer-consumer ordering between the IOMMU event log DMA writes and IOMMU MMIO register read completions. The processor core may read stale or uninitialized event logs from memory when a read response from the event log tail pointer register passes the corresponding event log DMA write. A series or burst of event log DMA writes would normally be necessary for this ordering violation to be observed.",
+        "implication": "Software may process an event log before it has been completely written, possibly resulting in the operating system or Hypervisor taking improper corrective actions.",
+        "workaround": "The IOMMU driver of the hypervisor or operating system should initialize the event log buffer to all zeros and write event log entries to zero after they are processed. If software subsequently observes an all zero event log entry, it should re-read the buffer until a non-zero event log is returned. It is recommended that software detects that the log buffer has not been written by checking for an EventCode (bits 63:60) that is equal to 0000b.",
+        "status": "No fix planned"
+    },
+    "733": {
+        "title": "IOMMU PPR Log Ordering Violation",
+        "problem": "The processor IOMMU does not maintain producer-consumer ordering between the IOMMU peripheral page service request (PPR) log DMA writes and IOMMU MMIO register read completions. The processor core may read stale or uninitialized PPR logs from memory when a read response from the PPR log tail pointer register passes the corresponding PPR log DMA write. A series or burst of PPR log DMA writes would normally be necessary for this ordering violation to be observed. This erratum only applies in systems where a device is performing Address Translation Service (ATS) requests.",
+        "implication": "Software may process a PPR log before it has been completely written, possibly resulting in the IOMMU software not properly processing a page service request. This may result in unpredictable IOMMU behavior.",
+        "workaround": "The IOMMU driver of the hypervisor or operating system should initialize the PPR log buffer to all zeros and write PPR log entries to zero after they are processed. If software subsequently observes an all zero PPR log entry, it should re-read the buffer until a non-zero PPR log is returned. It is recommended that software detects that the log buffer has not been written by checking for a PPRCode (bits 63:60) that is equal to 0000b.",
+        "status": "No fix planned"
+    },
+    "734": {
+        "title": "Processor May Incorrectly Store VMCB Data",
+        "problem": "Under a highly specific and detailed set of internal timing conditions during a #VMEXIT for a virtual machine guest that has multiple virtual CPUs, the processor may store incorrect data to the virtual machine control block (VMCB) reserved and guest save areas and may also store outside of the VMCB.",
+        "implication": "Data corruption.",
+        "workaround": "Contact your AMD representative for information on a BIOS update.",
+        "status": "No fix planned"
+    },
+    "737": {
+        "title": "Processor Does Not Check 128-bit Canonical Address Boundary Case on Logical Address",
+        "problem": "The processor core may not detect a #GP exception if the processor is in 64-bit mode and the logical address of a 128-bit operation (for example, a octal-word SSE instruction) is canonical on the first byte, but whose final byte crosses over the canonical address boundary. The processor does check the linear address and signals a #GP exception if the linear address is not canonical (for all eight bytes of the operation). Therefore, this erratum can only occur if the segment register is non-zero and causes a wrap in the logical address space only. In the unlikely event that software causes this wrap, the processor core will execute the 128-bit operation as if the second part of the misaligned access starts at linear address equal to zero.",
+        "implication": "None expected, as the normal usage of segment registers and segment limits does not expose this erratum.",
+        "workaround": "None required.",
+        "status": "No fix planned"
+    },
+    "739": {
+        "title": "Processor May Read Branch Status Register With Inconsistent Parity Bit",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, the processor may read an internal branch status register (BSR) while the register is being updated and may observe a partially written entry with an inconsistent parity bit. When the conditions for this erratum occur, the processor does not actually use the contents of this branch status register, however it may report a parity error machine check exception (#MC).",
+        "implication": "The processor reports an uncorrectable machine check exception for a branch status register parity error. MC1_STATUS[ErrorCodeExt] (MSR0000_0405[20:16]) = 00110b identifies a branch status register parity error.",
+        "workaround": "BIOS should set MSRC001_0045[15] = 1b (MC1_CTL_MASK[BSRP]).",
+        "status": "No fix planned"
+    },
+    "740": {
+        "title": "Lightweight Profiling May Cause System Hang with Concurrent Stop Clock",
+        "problem": "The processor may hang if it performs an internal stop-clock event to handle an I/O C-state request or P-state change at approximately the same time that a lightweight profiling (LWP) monitored event overflows its event counter, signalling the need for an LWP event record to be stored. Only LWP record type 2 (instructions retired) or LWP record type 3 (branches retired) events can cause this hang to occur. LWP is enabled once software executes an LLWCP or XRSTOR instruction with a valid LWP control block (LWPCB) address.",
+        "implication": "System hang.",
+        "workaround": "Contact your AMD representative for information on a BIOS update.",
+        "status": "No fix planned"
+    },
+    "746": {
+        "title": "IOMMU Logging May Stall Translations",
+        "problem": "The processor IOMMU may stop processing IOMMU translations due to a perceived lack of credits for writing upstream periphial page service request (PPR) or event logs. The IOMMU does not properly register credits after the log request has completed if the L2B miscellaneous clock gating feature is enabled.",
+        "implication": "System hang.",
+        "workaround": "BIOS should disable L2B miscellaneous clock gating by setting L2_L2B_CK_GATE_CONTROL[CKGateL2BMiscDisable] (D0F2xF4_x90[2]) = 1b.",
+        "status": "No fix planned"
+    }
+}

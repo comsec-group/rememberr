@@ -1,0 +1,135 @@
+{
+    "77": {
+        "title": "Long Mode CALLF or JMPF May Fail To Signal GP When Callgate Descriptor is Beyond GDT/LDT Limit",
+        "problem": "If the target selector of a far call or far jump (CALLF or JMPF) instruction references a 16-byte long mode system descriptor where any of the last 8 bytes are beyond the GDT or LDT limit, the processor fails to report a General Protection fault.",
+        "implication": "None expected, since the operating system typically aligns the GDT/LDT limit such that all descriptors are legal. However, in the case of erroneous operating system software, the above described GP fault will not be signaled, resulting in unpredictable system failure.",
+        "workaround": "None required, it is anticipated that long mode operating system software will ensure the GDT and LDT limits are set high enough to cover the larger (16-byte) long mode system descriptors.",
+        "status": "No fix planned"
+    },
+    "361": {
+        "title": "Breakpoint Due to an Instruction That Has an Interrupt Shadow May Be Lost",
+        "problem": "A #DB exception occurring in guest mode may be discarded under the following conditions: \u2022 A trap-type #DB exception is generated in guest mode during execution of an instruction with an interrupt shadow, and \u2022 The instruction that generated the exception is immediately followed by an instruction resulting in #VMEXIT.",
+        "implication": "None expected under normal conditions. Debug exceptions may not be received for programs running under a hypervisor.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "541": {
+        "title": "IBS Registers May be Unpredictable After CC6 State",
+        "problem": "The following Instruction-Based Sampling (IBS) registers may be unpredictable after the processor core exits the core C6 (CC6) state: \u2022 Read-only bits MSRC001_1030 IBS Fetch Control Register \u2022 MSRC001_1031 IBS Fetch Linear Address Register \u2022 MSRC001_1032 IBS Fetch Physical Address Register \u2022 MSRC001_1034 IBS Op Logical Address Register \u2022 MSRC001_1035 IBS Op Data Register \u2022 MSRC001_1036 IBS Op Data 2 Register \u2022 MSRC001_1037 IBS Op Data 3 Register \u2022 MSRC001_1038 IBS DC Linear Address Register \u2022 MSRC001_1039 IBS DC Physical Address Register \u2022 MSRC001_103B IBS Branch Target Address Register The registers are predictable as long as IBS is not enabled at the time that the processor core enters CC6 state.",
+        "implication": "In cases where the performance monitoring software fetches the IBS sampled data and the processor core has entered the CC6 state since this sample, the performance monitoring software may observe unpredictable values and may generate inaccurate results. The performance monitoring software would normally consume the sampled IBS data before a CC6 entry occurs, resulting in no observed effect under normal conditions.",
+        "workaround": "Performance monitoring software should avoid entering ACPI sleep states (C1/HALT or C2) prior to accessing the IBS registers.",
+        "status": "No fix planned"
+    },
+    "638": {
+        "title": "Processor May Violate Trp During Dynamic Mode Switch",
+        "problem": "The processor may violate the precharge time (Trp) for a DIMM when sending a mode register set (MRS) command to dynamically adjust MR0[PPD] during a precharge power down. This erratum may occur only when fast exit/slow exit (dynamic) mode is selected as follows: \u2022 D18F2x94_dct[1:0][15] = 1b (DRAM Configuration High[PowerDownEn]) \u2022 D18F2x84_dct[1:0][23] = 1b (DRAM MRS[PchgPDModeSel])",
+        "implication": "Unpredictable system operation.",
+        "workaround": "If D18F2x84_dct[1:0] bit 23 (PchgPDModeSel) = 1b and D18F2x94_dct[1:0] bit 15 (PowerDownEn) = 1b, then precharge time (D18F2x200_dct[1:0]_mp[1:0] bits 20:16, Trp) should be set one higher than the DIMM specified value.",
+        "status": "No fix planned"
+    },
+    "732": {
+        "title": "IOMMU Event Log Ordering Violation",
+        "problem": "The processor IOMMU does not maintain producer-consumer ordering between the IOMMU event log DMA writes and IOMMU MMIO register read completions. The processor core may read stale or uninitialized event logs from memory when a read response from the event log tail pointer register passes the corresponding event log DMA write. A series or burst of event log DMA writes would normally be necessary for this ordering violation to be observed.",
+        "implication": "Software may process an event log before it has been completely written, possibly resulting in the operating system or hypervisor taking improper corrective actions.",
+        "workaround": "The IOMMU driver of the hypervisor or operating system should initialize the event log buffer to all zeros and write event log entries to zero after they are processed. If software subsequently observes an all zero event log entry, it should re-read the buffer until a non-zero event log is returned. It is recommended that software detects that the log buffer has not been written by checking for an EventCode (bits 63:60) that is equal to 0000b.",
+        "status": "No fix planned"
+    },
+    "733": {
+        "title": "IOMMU PPR Log Ordering Violation",
+        "problem": "The processor IOMMU does not maintain producer-consumer ordering between the IOMMU peripheral page service request (PPR) log DMA writes and IOMMU MMIO register read completions. The processor core may read stale or uninitialized PPR logs from memory when a read response from the PPR log tail pointer register passes the corresponding PPR log DMA write. A series or burst of PPR log DMA writes would normally be necessary for this ordering violation to be observed. This erratum only applies in systems where a device is performing Address Translation Service (ATS) requests.",
+        "implication": "Software may process a PPR log before it has been completely written, possibly resulting in the IOMMU software not properly processing a page service request. This may result in unpredictable IOMMU behavior.",
+        "workaround": "The IOMMU driver of the hypervisor or operating system should initialize the PPR log buffer to all zeros and write PPR log entries to zero after they are processed. If software subsequently observes an all zero PPR log entry, it should re-read the buffer until a non-zero PPR log is returned. It is recommended that software detects that the log buffer has not been written by checking for a PPRCode (bits 63:60) that is equal to 0000b.",
+        "status": "No fix planned"
+    },
+    "737": {
+        "title": "Processor Does Not Check 128-bit Canonical Address Boundary Case on Logical Address",
+        "problem": "The processor core may not detect a #GP exception if the processor is in 64-bit mode and the logical address of a 128-bit operation (for example, a octal-word SSE instruction) is canonical on the first byte, but whose final byte crosses over the canonical address boundary. The processor does check the linear address and signals a #GP exception if the linear address is not canonical (for all eight bytes of the operation). Therefore, this erratum can only occur if the segment register is non-zero and causes a wrap in the logical address space only. In the unlikely event that software causes this wrap, the processor core will execute the 128-bit operation as if the second part of the misaligned access starts at linear address equal to zero.",
+        "implication": "None expected, as the normal usage of segment registers and segment limits does not expose this erratum.",
+        "workaround": "None required.",
+        "status": "No fix planned"
+    },
+    "756": {
+        "title": "Machine Check Information May Show Inconsistent Signature from an Older Corrected Error",
+        "problem": "The processor core may not properly overwrite machine check architecture (MCA) information from an older corrected error in MC1_STATUS (MSR0000_0405) and MC1_ADDRESS (MSR0000_0406) when presenting a machine check exception (#MC) for a newer uncorrected error. Although the processor does set processor context corrupt (MC1_STATUS[PCC] bit 57) to 1b and error uncorrected status (MC1_STATUS[UC], bit 61) to 1b, it does not update the remaining bits in the registers.",
+        "implication": "The machine check handler may be presented with status and address registers that are not consistent with the cause of the uncorrected error. It is expected that the MCA handler will respond to a #MC when MC1_STATUS[PCC] is set with an operating system panic or crash, regardless of the remaining bits in MC1_STATUS. However, the information pertaining to the actual uncorrected error may be lost. In addition, debug engineers may note that the error signature does not align to MC1 error signatures documented in the BKDG, as the error signature will match a possibly unrelated corrected error except for the UC and PCC bits. This effect only occurs if a processor reports both corrected and uncorrected errors.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "757": {
+        "title": "L2 Tag Error Machine Check Status May Be Incorrect",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, the MC2 status information (MC2_STATUS, MSR0000_0409) for a corrected or uncorrected L2 tag error may not indicate the actual operation that was occurring at the time the error was detected. The status information may report that the processor was performing an L2 fill operation when in reality the error was detected while processing a probe. The MC2_STATUS fields that identify the possibility that this erratum applies (i.e., when MC2_STATUS may improperly indicate a fill operation) are: \u2022 MC2_STATUS[Valid] (bit 63) = 1b \u2022 MC2_STATUS[UC] (bit 61) = 0b or 1b (may be a corrected error or an uncorrected error) \u2022 MC2_STATUS[ErrorCodeExt] (bits 20:16) = 0Bh or 0Fh \u2022 MC2_STATUS[RRRR] (bits 7:4) = 0001b",
+        "implication": "None expected.",
+        "workaround": "None required.",
+        "status": "No fix planned"
+    },
+    "779": {
+        "title": "Initial Time Stamp Counter Frequency May Be Incorrect",
+        "problem": "The processor core may increment the core time stamp counter (TSC) at a frequency that is equal to the startup P-state frequency, instead of incrementing the TSC at the software P0 frequency. This effect occurs until the first instance of either a P-state or a C-state change. At the time that the first P-state or C-state change occurs, the actual value in the TSC will adjust as if it had incremented at this P-state rate for the entire duration.",
+        "implication": "The BIOS may calculate incorrect time stamps. For example, since the TSC is incrementing at a slower rate than it should increment, calculations of the elapsed time in BIOS boot may appear to be incorrect. In the unlikely event that the system is in a state where one or more cores are affected by the erratum (i.e., those cores have not performed any P-state or C-state changes) and other cores have performed a change, the operating system software may observe TSC synchronization failures during early boot due to the different frequencies. A normal system initialization causes at least one P-state change on all cores before the operating system boots.",
+        "workaround": "BIOS must perform a P-state change on all cores prior to the transfer of control to the operating system.",
+        "status": "No fix planned"
+    },
+    "786": {
+        "title": "APIC Timer Periodic Mode is Imprecise",
+        "problem": "The APIC timer may not properly initialize back to the APIC timer initial count value (APIC380) when it transitions to zero and Timer Local Vector Table Entry[Mode] (APIC320[17]) is configured to run in periodic mode. In this mode, when the APIC timer reaches zero, the next value in the APIC current count register (APIC390) is set to the APIC initial count (APIC380), but the processor may incorrectly add or subtract an offset that is between 0 and 31.",
+        "implication": "The standard use of the APIC timer and the level of accuracy required does not make this error significant.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "792": {
+        "title": "DRAM Scrubbing May Overwrite CC6 Core Save State Data Resulting in Unpredictable System Behavior",
+        "problem": "The processor does not properly ensure that a DRAM scrub read and write sequence is atomic with respect to simultaneous processor core accesses to the CC6 save area. If a DRAM scrub access is to the same address as a concurrent save of the processor state, the CC6 entry may appear as if it was not written.",
+        "implication": "Unpredictable system behavior.",
+        "workaround": "BIOS should set Scrub Rate Control D18F3x58[4:0] = 00h to disable sequential DRAM scrubbing. BIOS should set DRAM Scrub Address Low D18F3x5C[0] = 0b to disable re-direct DRAM scrubbing.",
+        "status": "No fix planned"
+    },
+    "793": {
+        "title": "Specific Combination of Writes to Write Combined Memory Types and Locked Instructions May Cause Core Hang",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, a locked instruction may trigger a timing sequence whereby the write to a write combined memory type is not flushed, causing the locked instruction to stall indefinitely.",
+        "implication": "Processor core hang.",
+        "workaround": "BIOS should set MSRC001_1020[15] = 1b.",
+        "status": "No fix planned"
+    },
+    "794": {
+        "title": "Performance Monitor PMCx076 May Be Inaccurate and Lose Overflow Interrupts When Halted",
+        "problem": "PMCx076, CPU Clocks Not Halted, should not increment whenever the core is in a halted state - e.g. due to a stop clock, I/O C-state or HALT instruction. However, the processor may continue to incorrectly increment this performance counter in these states. This may result in the performance monitor counter being incorrect. In addition, since overflows are not signaled in these states, an overflow interrupt may be lost.",
+        "implication": "Inaccuracies in performance monitoring software may be experienced.",
+        "workaround": "<KB or ML>Contact your AMD representative for information on a BIOS update. </KB or ML><ON>None.</ON>",
+        "status": "No fix planned"
+    },
+    "795": {
+        "title": "Core Performance Monitor Counters May Appear to be Cleared to Zero in the Least Significant 32 Bits",
+        "problem": "Core performance monitor counters may appear to clear to zero the least significant 32 bits of the count if disabled at the cycle that a carry-out from the least significant 32 bits to the most significant 16 bits of the counter occurs. Conditions which cause the counter to be disabled and may cause this erratum to be observed when: Explicitly disabled by software through PERF_CTL[22]The PMC is designated to count only in user or OS mode (PERF_CTL[17] is not equal to PERF_CTL[16]) and a change in the current privilege level (CPL) occursThe PMC is designated to count only in guest or host mode (PERF_CTL[41] is not equal to PERF_CTL[40]) and a change between guest and host mode occurs",
+        "implication": "Inaccuracies in performance monitoring software may be experienced.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "798": {
+        "title": "Time Stamp Counter (TSC) value may be incorrect upon resume from S3 state",
+        "problem": "Upon resume from S3 state, the TSC value may not monotonically increment.",
+        "implication": "Software may observe that the Time Stamp Counter (TSC) appears to decrement which could result in a program crash.",
+        "workaround": "Contact your AMD representative for information on a BIOS update.",
+        "status": "No fix planned"
+    },
+    "799": {
+        "title": "U-bit May Not be Set Properly by IOMMU in the ATS Response for GVA-SPA Translations",
+        "problem": "The IOMMU incorrectly propagates the U-bit from a page table entry to an ATS response when translating guest virtual addresses to system physical addresses instead of forcing it to 0b as described in the IOMMU specification.",
+        "implication": "If the U-bit is propagated as 1b, devices would not be able to use pre-translated requests after receiving the address translation service response. This issues was observed in simulations and, to date, there have been no detrimental impacts seen in systems.",
+        "workaround": "IOMMU driver software should ensure that the U-bit in the PTE is always set to 0b.",
+        "status": "No fix planned"
+    },
+    "800": {
+        "title": "IOMMU IO_PAGE_FAULT Events Are Not Correctly Suppressed When DTE.SA=1 and PTE.PR=0",
+        "problem": "IO_PAGE_FAULT events may incorrectly be logged when DTE.SA=1 and PTE.PR=0.",
+        "implication": "This behavior has been observed in simulation. To date, no detrimental effects from this behavior have been observed in system.",
+        "workaround": "IOMMU driver software may need to ignore extraneous IO_PAGE_FAULT event logs.",
+        "status": "No fix planned"
+    },
+    "801": {
+        "title": "IOMMU IO_PAGE_FAULT Event May Be Logged Instead of INVALID_DEVICE_REQUEST Event",
+        "problem": "An IO_PAGE_FAULT event may be logged instead of an INVALID_DEVICE_REQUEST event for untranslated guest requests to the IOMMU with AT=0 and PASID TLP prefix.",
+        "implication": "This behavior has been observed in simulation. To date, no detrimental system impact has been observed.",
+        "workaround": "IOMMU driver software may need to treat IO_PAGE_FAULT events as INVALID_DEVICE_REQUEST events.",
+        "status": "No fix planned"
+    }
+}

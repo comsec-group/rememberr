@@ -1,0 +1,93 @@
+{
+    "732": {
+        "title": "IOMMU Event Log Ordering Violation",
+        "problem": "The processor IOMMU does not maintain producer-consumer ordering between the IOMMU event log DMA writes and IOMMU MMIO register read completions. The processor core may read stale or uninitialized event logs from memory when a read response from the event log tail pointer register passes the corresponding event log DMA write. A series or burst of event log DMA writes would normally be necessary for this ordering violation to be observed.",
+        "implication": "Software may process an event log before it has been completely written, possibly resulting in the operating system or hypervisor taking improper corrective actions.",
+        "workaround": "The IOMMU driver of the hypervisor or operating system should initialize the event log buffer to all zeros and write event log entries to zero after they are processed. If software subsequently observes an all zero event log entry, it should re-read the buffer until a non-zero event log is returned. It is recommended that software detects that the log buffer has not been written by checking for an EventCode (bits 63:60) that is equal to 0000b.",
+        "status": "No fix planned"
+    },
+    "733": {
+        "title": "IOMMU PPR Log Ordering Violation",
+        "problem": "The processor IOMMU does not maintain producer-consumer ordering between the IOMMU peripheral page service request (PPR) log DMA writes and IOMMU MMIO register read completions. The processor core may read stale or uninitialized PPR logs from memory when a read response from the PPR log tail pointer register passes the corresponding PPR log DMA write. A series or burst of PPR log DMA writes would normally be necessary for this ordering violation to be observed. This erratum only applies in systems where a device is performing Address Translation Service (ATS) requests.",
+        "implication": "Software may process a PPR log before it has been completely written, possibly resulting in the IOMMU software not properly processing a page service request. This may result in unpredictable IOMMU behavior.",
+        "workaround": "The IOMMU driver of the hypervisor or operating system should initialize the PPR log buffer to all zeros and write PPR log entries to zero after they are processed. If software subsequently observes an all zero PPR log entry, it should re-read the buffer until a non-zero PPR log is returned. It is recommended that software detects that the log buffer has not been written by checking for a PPRCode (bits 63:60) that is equal to 0000b.",
+        "status": "No fix planned"
+    },
+    "800": {
+        "title": "IOMMU IO_PAGE_FAULT Events Are Not Correctly Suppressed When DTE.SA=1 and PTE.PR=0",
+        "problem": "IO_PAGE_FAULT events may incorrectly be logged when DTE.SA=1 and PTE.PR=0.",
+        "implication": "This behavior has been observed in simulation. To date, no detrimental effects from this behavior have been observed in system.",
+        "workaround": "IOMMU driver software may need to ignore extraneous IO_PAGE_FAULT event logs.",
+        "status": "No fix planned"
+    },
+    "801": {
+        "title": "IOMMU IO_PAGE_FAULT Event May Be Logged Instead of INVALID_DEVICE_REQUEST Event",
+        "problem": "An IO_PAGE_FAULT event may be logged instead of an INVALID_DEVICE_REQUEST event for untranslated guest requests to the IOMMU with AT=0 and PASID TLP prefix.",
+        "implication": "This behavior has been observed in simulation. To date, no detrimental system impact has been observed.",
+        "workaround": "IOMMU driver software may need to treat IO_PAGE_FAULT events as INVALID_DEVICE_REQUEST events.",
+        "status": "No fix planned"
+    },
+    "813": {
+        "title": "D-bit May Not Be Set By IOMMU For Untranslated Guest PCIe\u00ae Atomic Requests",
+        "problem": "Under specific and detailed pipeline conditions, the IOMMU may not set the D-bit properly when handling untranslated guest PCIe\u00ae atomic requests.",
+        "implication": "If a page that should be marked dirty is paged out without IOMMU setting the D-bit, software will incorrectly revert back to the stored page, resulting in unpredictable system behavior. This behavior has been observed in simulation. To date, no detrimental effects from this behavior have been observed in system. No PCIe device that will issue untranslated guest PCIe atomic requests have been encountered.",
+        "workaround": "PCIe devices should be programmed not to issue untranslated guest PCIe atomic requests.",
+        "status": "No fix planned"
+    },
+    "814": {
+        "title": "IOMMU Event Not Flagged when Guest PTE Reserved Bits Are Not Zero",
+        "problem": "An IOMMU event is not flagged when a translation table walk encounters a guest page table entry (PTE) with non-zero values programmed for MBZ reserved bits 20:13 for a 2 MByte PTE, or bits 30:13 for a 1 GByte PTE. The reserved bits are incorrectly ignored by the IOMMU.",
+        "implication": "None expected in the absence of IOMMU software programming errors. This behavior has been observed in simulation. To date, no detrimental effects from this behavior have been observed in system.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "870": {
+        "title": "IOMMU Always Masks PASID TLP Prefix On PPR Auto Response Regardless Of PRG Response PASID Required Register Bit Setting On PRI Endpoint Devices",
+        "problem": "If the IOMMU PPR Auto Response feature is enabled and PPR Log overflow occurs, IOMMU generates PPR responses automatically. However, IOMMU always masks the PASID TLP Prefix in the PPR auto response regardless of the PRG Response PASID Required bit setting by the PRI endpoint devices; it fails to generate PPR response with PASID TLP Prefix even if the PRI request contains a valid PASID TLP Prefix and the originating endpoint device has the PRG Response PASID Required bit set.",
+        "implication": "None expected in the absence of PPR Log overflow events. If PRI endpoint devices stay within their quota and PPRLOG is sized appropriately, PPR Log overflow should not happen. In the unlikely event of PPR Log overflow, PRI endpoint devices expecting the PASID TLP Prefix in the PPR auto response and not getting it may cause unpredictable system behavior.",
+        "workaround": "IOMMU PPR Auto Response feature should not be used on systems with PRI endpoint devices with PRG Response PASID Required bit = 1 that do not initiate auto retry on incomplete responses.",
+        "status": "No fix planned"
+    },
+    "882": {
+        "title": "Down-cored Processor May Experience Incorrect Machine Check Error (MCE) Reporting via SB-RMI",
+        "problem": "Dual core or software down-cored processors may experience incorrect logical core number mapping. This may lead to erroneous MCE status reporting.",
+        "implication": "MCE alert event may be incorrectly reported via SB-RMI interface.",
+        "workaround": "SB-RMI should not be used on systems with dual core processors or four core processors that may be software down-cored.",
+        "status": "<No field for `status`>"
+    },
+    "902": {
+        "title": "LPC_SMI_L/AGPIO86 Pin On FP4 Package/Socket Does Not Support LPC SMI Function",
+        "problem": "LPC SMI function is not supported by the processor LPC_SMI_L/AGPIO86 pin on FP4 package or socket.",
+        "implication": "LPC SMI device will not function if connected to LPC_SMI_L/AGPIO86 pin.",
+        "workaround": "Connect LPC device SMI pin to any one of the pins according to the information in the section named \"Enabling LPC_SMI Function\" in the BIOS and Kernel Developers Guide (BKDG) for AMD Family 15h Models 60h-6Fh, PID # 50742, revision 3.01 or newer.Connect LPC device SMI pin to any one of the pins according to the information in the section named \"Enabling LPC_SMI Function\" in the BIOS and Kernel Developers Guide (BKDG) for AMD Family 15h Models 70h-7Fh, PID # 55072, revision 1.01 or newer.",
+        "status": "No fix planned"
+    },
+    "903": {
+        "title": "IOMMU Mishandles Invalid COMPLETE_PPR_REQUEST Command",
+        "problem": "When IOMMU encounters an invalid COMPLETE_PPR_REQUEST command, it will log the Invalid PPR Request event correctly with RX=1; however, it will not fetch new commands even after software recovers from the INVALID_PPR_REQUEST event and re-enables the command buffer. Invalid COMPLETE_PPR_REQUEST command can be caused by the following conditions: \u2022 out of range DeviceID value, \u2022 out of range PASID value, \u2022 GN=1 when guest translation is not enabled.",
+        "implication": "Unpredictable system behavior.",
+        "workaround": "Software should not issue an invalid COMPLETE_PPR_REQUEST command.",
+        "status": "No fix planned"
+    },
+    "911": {
+        "title": "IOMMU Unnecessarily Updates Dirty Bit (D-bit) While Handling Non-supervisor DMA Write Request To Writable Supervisor-only Page",
+        "problem": "IOMMU incorrectly sets the D-bit in the guest page table when it encounters a DMA write request without supervisor privilege to a writable supervisor-only page.",
+        "implication": "No functional issue is expected; the non-permitted DMA write request is aborted without any memory content modification. However, the affected pages may be unnecessarily written out to the pagefile by software.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "937": {
+        "title": "Unpredictable IOMMU IO_PAGE_FAULT Event Logging For PCIe\u00ae Atomic Requests To Protected Pages",
+        "problem": "IOMMU has unpredictable IO_PAGE_FAULT event logging when it encounters a PCIe\u00ae atomic request accessing protected pages. The following might occur when IOMMU encounters PCIe atomic requests accessing protected pages; \u2022 when DTE.SA = 1, IO_PAGE_FAULT might be logged when it should be suppressed, \u2022 when DTE.SA = 0, IO_PAGE_FAULT might be suppressed incorrectly.",
+        "implication": "Unpredictable event logging behavior. PCIe atomic requests to protected pages are aborted as expected.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "965": {
+        "title": "Incorrect IOMMU IO_PAGE_FAULT Event Logging For Reserved Message Type Interrupt Requests With DTE.IG = 1",
+        "problem": "IOMMU will log an IO_PAGE_FAULT event when it encounters any reserved message type interrupt request regardless of DTE.IG setting. Even when DTE.IG = 1, IO_PAGE_FAULT event is logged when it should be suppressed.",
+        "implication": "Software may encounter unexpected IO_PAGE_FAULT event logging. Reserved message type interrupt requests are aborted as expected.",
+        "workaround": "Software may ignore IO_PAGE_FAULT event log entries for reserved message type interrupt requests from devices with DTE.IG = 1.",
+        "status": "No fix planned"
+    }
+}

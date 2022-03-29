@@ -1,0 +1,126 @@
+{
+    "RKL001": [
+        "No Fix",
+        "Placing Page Table Information in the APIC-Access Page May Lead to Unexpected Page Faults While Performing Enclave Accesses"
+    ],
+    "RKL002": [
+        "Fixed",
+        "REP MOVSB Instruction To or From a Non-flat Segment May Cause Unpredictable System Behavior"
+    ],
+    "RKL003": [
+        "Fixed",
+        "Usage of Bit 55 of IA32_TSC_DEADLINE MSR May Cause Spurious Timer Interrupt"
+    ],
+    "RKL004": [
+        "No Fix",
+        "Overflow Flag in IA32_MC0_STATUS MSR May be Incorrectly Set"
+    ],
+    "RKL005": [
+        "No Fix",
+        "Wrong Page Access Semantics May be Reported When Intel\u00ae SGX ENCLU[EMODPE] Instruction Generates Page Fault (#PF) Exception"
+    ],
+    "RKL006": [
+        "No Fix",
+        "VERR Instruction Inside VM-entry May Cause DR6 to Contain Incorrect Values"
+    ],
+    "RKL007": [
+        "No Fix",
+        "Processor May Hang if Warm Reset Triggers During BIOS Initialization"
+    ],
+    "RKL008": [
+        "No Fix",
+        "IA32_RTIT_STATUS.FilterEn Bit Might Reflect a Previous Value"
+    ],
+    "RKL009": [
+        "Fixed",
+        "Time Stamp Counters May Contain a Shifted Time Value"
+    ],
+    "RKL010": [
+        "No Fix",
+        "Incorrect ECC Errors Reporting Following Entry to PKG-C7"
+    ],
+    "RKL011": [
+        "No Fix",
+        "PMU MSR_UNC_PERF_FIXED_CTR is Cleared after Pkg C7 or Deeper"
+    ],
+    "RKL012": [
+        "No Fix",
+        "Unable to Transmit Modified Compliance Test Pattern at 2.5 GT/S or 5.0 GT/s Link Speeds"
+    ],
+    "RKL013": [
+        "No Fix",
+        "PCIe Root Ports May Fail Tx Differential Return Loss Compliance Test"
+    ],
+    "RKL014": [
+        "No Fix",
+        "PEG10 PCIe Root Port May Report Incorrect Maximum Link Width"
+    ],
+    "RKL015": [
+        "Fixed",
+        "DMI Link Failure During L1 Exit"
+    ],
+    "RKL016": [
+        "Fixed",
+        "Processor Peg Ports 10, 11, or 12 PCIe Link May Hang During S0ix/S3/S4/S5 Cycles"
+    ],
+    "RKL017": [
+        "No Fix",
+        "PCIe Root Ports May Fail Tx Differential Return Loss Compliance Test"
+    ],
+    "RKL018": [
+        "Fixed",
+        "System May Hang if Booted with TXT Disabled"
+    ],
+    "RKL019": [
+        "No Fix",
+        "Single Core Configurations May Hang on S3/S4 Resume"
+    ],
+    "RKL020": [
+        "Fixed",
+        "DMI Link May Hang During Package C State Exits"
+    ],
+    "RKL021": [
+        "No Fix",
+        "System May Hang When Booting in Single Core Configuration"
+    ],
+    "RKL022": [
+        "No Fix",
+        "Processor May Generate Malformed TLP"
+    ],
+    "RKL023": [
+        "No Fix",
+        "PCIe Link May Fail to Train Upon Exit From L1.2"
+    ],
+    "RKL024": [
+        "No Fix",
+        "Setting MISC_FEATURE_CONTROL.DISABLE_THREE_STRIKE_CNT Does Not Prevent The Three-strike Counter From Incrementing"
+    ],
+    "RKL025": [
+        "No Fix",
+        "Processor May Exceed Thermal Limits"
+    ],
+    "RKL026": [
+        "No Fix",
+        "Writing Non-Zero Values to Read Only Fields in IA32_THERM_STATUS MSR May Cause a #GP"
+    ],
+    "RKL027": [
+        "No Fix",
+        "Intel\u00ae PT TIP.PGD May Not Have Target IP Payload"
+    ],
+    "RKL028": [
+        "No Fix",
+        "Intel\u00ae Processor Trace PSB+ Packets May Contain Unexpected Packets"
+    ],
+    "RKL029": [
+        "No Fix",
+        "Intel\u00ae PT Trace May Drop Second Byte of CYC Packet"
+    ],
+    "RKL030": [
+        "No Fix",
+        "VM Entry That Clears TraceEn May Generate a FUP"
+    ],
+    "RKL031": [
+        "Fixed",
+        "Platform May Not Resume From G3/S3/S4/S5"
+    ]
+}

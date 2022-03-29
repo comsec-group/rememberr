@@ -1,0 +1,830 @@
+{
+    "BJ1": [
+        "X",
+        "X",
+        "No Fix",
+        "An Enabled Debug Breakpoint or Single Step Trap May Be Taken after MOV SS/POP SS Instruction if it is Followed by an Instruction That Signals a Floating Point Exception"
+    ],
+    "BJ2": [
+        "X",
+        "X",
+        "No Fix",
+        "APIC Error \u201cReceived Illegal Vector\u201d May be Lost"
+    ],
+    "BJ3": [
+        "X",
+        "X",
+        "No Fix",
+        "An Uncorrectable Error Logged in IA32_CR_MC2_STATUS May also Result in a System Hang"
+    ],
+    "BJ4": [
+        "X",
+        "X",
+        "No Fix",
+        "B0-B3 Bits in DR6 For Non-Enabled Breakpoints May be Incorrectly Set"
+    ],
+    "BJ5": [
+        "X",
+        "X",
+        "No Fix",
+        "Changing the Memory Type for an In-Use Page Translation May Lead to Memory-Ordering Violations"
+    ],
+    "BJ6": [
+        "X",
+        "X",
+        "No Fix",
+        "Code Segment Limit/Canonical Faults on RSM May be Serviced before Higher Priority Interrupts/Exceptions and May Push the Wrong Address Onto the Stack"
+    ],
+    "BJ7": [
+        "X",
+        "X",
+        "No Fix",
+        "Corruption of CS Segment Register During RSM While Transitioning From Real Mode to Protected Mode"
+    ],
+    "BJ8": [
+        "X",
+        "X",
+        "No Fix",
+        "Debug Exception Flags DR6.B0-B3 Flags May be Incorrect for Disabled Breakpoints"
+    ],
+    "BJ9": [
+        "X",
+        "X",
+        "No Fix",
+        "DR6.B0-B3 May Not Report All Breakpoints Matched When a MOV/POP SS is Followed by a Store or an MMX Instruction"
+    ],
+    "BJ10": [
+        "X",
+        "X",
+        "No Fix",
+        "EFLAGS Discrepancy on Page Faults and on EPT-Induced VM Exits after a Translation Change"
+    ],
+    "BJ11": [
+        "X",
+        "X",
+        "No Fix",
+        "Fault on ENTER Instruction May Result in Unexpected Values on Stack Frame"
+    ],
+    "BJ12": [
+        "X",
+        "X",
+        "No Fix",
+        "Faulting MMX Instruction May Incorrectly Update x87 FPU Tag Word"
+    ],
+    "BJ13": [
+        "X",
+        "X",
+        "No Fix",
+        "FREEZE_WHILE_SMM Does Not Prevent Event From Pending PEBS During SMM"
+    ],
+    "BJ14": [
+        "X",
+        "X",
+        "No Fix",
+        "General Protection Fault (#GP) for Instructions Greater than 15 Bytes May be Preempted"
+    ],
+    "BJ15": [
+        "X",
+        "X",
+        "No Fix",
+        "#GP on Segment Selector Descriptor that Straddles Canonical Boundary May Not Provide Correct Exception Error Code"
+    ],
+    "BJ16": [
+        "X",
+        "X",
+        "No Fix",
+        "IO_SMI Indication in SMRAM State Save Area May be Set Incorrectly"
+    ],
+    "BJ17": [
+        "X",
+        "X",
+        "No Fix",
+        "IRET under Certain Conditions May Cause an Unexpected Alignment Check Exception"
+    ],
+    "BJ18": [
+        "X",
+        "X",
+        "No Fix",
+        "LER MSRs May Be Unreliable"
+    ],
+    "BJ19": [
+        "X",
+        "X",
+        "No Fix",
+        "LBR, BTS, BTM May Report a Wrong Address when an Exception/Interrupt Occurs in 64-bit Mode"
+    ],
+    "BJ20": [
+        "X",
+        "X",
+        "No Fix",
+        "MCi_Status Overflow Bit May Be Incorrectly Set on a Single Instance of a DTLB Error"
+    ],
+    "BJ21": [
+        "X",
+        "X",
+        "No Fix",
+        "MONITOR or CLFLUSH on the Local XAPIC's Address Space Results in Hang"
+    ],
+    "BJ22": [
+        "X",
+        "X",
+        "No Fix",
+        "MOV To/From Debug Registers Causes Debug Exception"
+    ],
+    "BJ23": [
+        "X",
+        "X",
+        "No Fix",
+        "PEBS Record not Updated when in Probe Mode"
+    ],
+    "BJ24": [
+        "X",
+        "X",
+        "No Fix",
+        "<Erratum Removed>"
+    ],
+    "BJ25": [
+        "X",
+        "X",
+        "No Fix",
+        "REP MOVS/STOS Executing with Fast Strings Enabled and Crossing Page Boundaries with Inconsistent Memory Types may use an Incorrect Data Size or Lead to Memory-Ordering Violations"
+    ],
+    "BJ26": [
+        "X",
+        "X",
+        "No Fix",
+        "Reported Memory Type May Not Be Used to Access the VMCS and Referenced Data Structures"
+    ],
+    "BJ27": [
+        "X",
+        "X",
+        "No Fix",
+        "Single Step Interrupts with Floating Point Exception Pending May Be Mishandled"
+    ],
+    "BJ28": [
+        "X",
+        "X",
+        "No Fix",
+        "Storage of PEBS Record Delayed Following Execution of MOV SS or STI"
+    ],
+    "BJ29": [
+        "X",
+        "X",
+        "No Fix",
+        "The Processor May Report a #TS Instead of a #GP Fault"
+    ],
+    "BJ30": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Exits Due to \u201cNMI-Window Exiting\u201d May Be Delayed by One Instruction"
+    ],
+    "BJ31": [
+        "X",
+        "X",
+        "No Fix",
+        "Pending x87 FPU Exceptions (#MF) May be Signaled Earlier Than Expected"
+    ],
+    "BJ32": [
+        "X",
+        "X",
+        "No Fix",
+        "Values for LBR/BTS/BTM Will be Incorrect after an Exit from SMM"
+    ],
+    "BJ33": [
+        "X",
+        "X",
+        "No Fix",
+        "Unsupported PCIe* Upstream Access May Complete with an Incorrect Byte Count"
+    ],
+    "BJ34": [
+        "X",
+        "X",
+        "No Fix",
+        "Malformed PCIe* Transactions May be Treated as Unsupported Requests Instead of as Critical Errors"
+    ],
+    "BJ35": [
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Root Port May Not Initiate Link Speed Change"
+    ],
+    "BJ36": [
+        "X",
+        "X",
+        "No Fix",
+        "Incorrect Address Computed For Last Byte of FXSAVE/FXRSTOR or XSAVE/XRSTOR Image Leads to Partial Memory Update"
+    ],
+    "BJ37": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitoring counter SMID_INST_RETIRED (Even C7H) is used to track retired SSE instructions. Due to this erratum, the processor may also count other types of instructions resulting in higher than expected values."
+    ],
+    "BJ38": [
+        "X",
+        "X",
+        "No Fix",
+        "FP Data Operand Pointer May Be Incorrectly Calculated After an FP Access Which Wraps a 4-Gbyte Boundary in Code That Uses 32-Bit Address Size in 64-bit Mode"
+    ],
+    "BJ39": [
+        "X",
+        "X",
+        "No Fix",
+        "FP Data Operand Pointer May Be Incorrectly Calculated After an FP Access Which Wraps a 64-Kbyte Boundary in 16-Bit Code"
+    ],
+    "BJ40": [
+        "X",
+        "X",
+        "No Fix",
+        "Spurious Interrupts May be Generated From the Intel\u00ae VT-d Remap Engine"
+    ],
+    "BJ41": [
+        "X",
+        "X",
+        "No Fix",
+        "Fault Not Reported When Setting Reserved Bits of Intel\u00ae VT-d Queued Invalidation Descriptors"
+    ],
+    "BJ42": [
+        "X",
+        "X",
+        "No Fix",
+        "VPHMINPOSUW Instruction in Vex Format Does Not Signal #UD When vex.vvvv !=1111b"
+    ],
+    "BJ43": [
+        "X",
+        "X",
+        "No Fix",
+        "LBR, BTM or BTS Records May have Incorrect Branch From Information After an EIST/T-state/S-state/C1E Transition or Adaptive Thermal Throttling"
+    ],
+    "BJ44": [
+        "X",
+        "X",
+        "No Fix",
+        "VMREAD/VMWRITE Instructions May Not Fail When Accessing an Unsupported Field in VMCS"
+    ],
+    "BJ45": [
+        "X",
+        "X",
+        "No Fix",
+        "Clock Modulation Duty Cycle Cannot be Programmed to 6.25%"
+    ],
+    "BJ46": [
+        "X",
+        "X",
+        "No Fix",
+        "Execution of VAESIMC or VAESKEYGENASSIST With An Illegal Value for VEX.vvvv May Produce a #NM Exception"
+    ],
+    "BJ47": [
+        "X",
+        "X",
+        "No Fix",
+        "Memory Aliasing of Code Pages May Cause Unpredictable System Behavior"
+    ],
+    "BJ48": [
+        "X",
+        "X",
+        "No Fix",
+        "PCI Express* Graphics Receiver Error Reported When Receiver With L0s Enabled and Link Retrain Performed"
+    ],
+    "BJ49": [
+        "X",
+        "X",
+        "No Fix",
+        "Unexpected #UD on VZEROALL/VZEROUPPER"
+    ],
+    "BJ50": [
+        "X",
+        "X",
+        "No Fix",
+        "Perfmon Event LD_BLOCKS.STORE_FORWARD May Overcount"
+    ],
+    "BJ51": [
+        "X",
+        "X",
+        "No Fix",
+        "Conflict Between Processor Graphics Internal Message Cycles And Graphics Reads From Certain Physical Memory Ranges May Cause a System Hang"
+    ],
+    "BJ52": [
+        "X",
+        "X",
+        "No Fix",
+        "Execution of Opcode 9BH with the VEX Opcode Extension May Produce a #NM Exception"
+    ],
+    "BJ53": [
+        "X",
+        "X",
+        "No Fix",
+        "Executing The GETSEC Instruction While Throttling May Result in a Processor Hang"
+    ],
+    "BJ54": [
+        "X",
+        "X",
+        "No Fix",
+        "A Write to the IA32_FIXED_CTR1 MSR May Result in Incorrect Value in Certain Conditions"
+    ],
+    "BJ55": [
+        "X",
+        "X",
+        "No Fix",
+        "Instruction Fetch May Cause Machine Check if Page Size and Memory Type Was Changed Without Invalidation"
+    ],
+    "BJ56": [
+        "X",
+        "X",
+        "No Fix",
+        "Reception of Certain Malformed Transactions May Cause PCIe* Port to Hang Rather Than Reporting an Error"
+    ],
+    "BJ57": [
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* LTR Incorrectly Reported as Being Supported"
+    ],
+    "BJ58": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance-Counter Overflow Indication May Cause Undesired Behavior"
+    ],
+    "BJ59": [
+        "X",
+        "X",
+        "No Fix",
+        "XSAVE Executed During Paging-Structure Modification May Cause Unexpected Processor Behavior"
+    ],
+    "BJ60": [
+        "X",
+        "X",
+        "No Fix",
+        "C-state Exit Latencies May be Higher Than Expected"
+    ],
+    "BJ61": [
+        "X",
+        "X",
+        "No Fix",
+        "MSR_Temperature_Target May Have an Incorrect Value in the Temperature Control Offset Field"
+    ],
+    "BJ62": [
+        "X",
+        "X",
+        "No Fix",
+        "Intel\u00ae VT-d Interrupt Remapping Will Not Report a Fault if Interrupt Index Exceeds FFFFH"
+    ],
+    "BJ63": [
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Link Speed May Not Change From 5.0 GT/s to 2.5 GT/s"
+    ],
+    "BJ64": [
+        "X",
+        "X",
+        "No Fix",
+        "L1 Data Cache Errors May be Logged With Level Set to 1 Instead of 0"
+    ],
+    "BJ65": [
+        "X",
+        "X",
+        "No Fix",
+        "An Unexpected Page Fault or EPT Violation May Occur After Another Logical Processor Creates a Valid Translation for a Page"
+    ],
+    "BJ66": [
+        "X",
+        "X",
+        "No Fix",
+        "TSC Deadline Not Armed While in APIC Legacy Mode"
+    ],
+    "BJ67": [
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Upstream TCfgWr May Cause Unpredictable System Behavior"
+    ],
+    "BJ68": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor May Fail to Acknowledge a TLP Request"
+    ],
+    "BJ69": [
+        "X",
+        "X",
+        "No Fix",
+        "Executing The GETSEC Instruction While Throttling May Result in a Processor Hang"
+    ],
+    "BJ70": [
+        "X",
+        "X",
+        "No Fix",
+        "PerfMon Event LOAD_HIT_PRE.SW_PREFETCH May Overcount"
+    ],
+    "BJ71": [
+        "X",
+        "X",
+        "No Fix",
+        "Execution of FXSAVE or FXRSTOR With the VEX Prefix May Produce a #NM Exception"
+    ],
+    "BJ72": [
+        "X",
+        "X",
+        "No Fix",
+        "Unexpected #UD on VPEXTRD/VPINSRD"
+    ],
+    "BJ73": [
+        "X",
+        "X",
+        "No Fix",
+        "<Erratum Removed>"
+    ],
+    "BJ74": [
+        "X",
+        "X",
+        "No Fix",
+        "Successive Fixed Counter Overflows May be Discarded"
+    ],
+    "BJ75": [
+        "X",
+        "X",
+        "No Fix",
+        "#GP May be Signaled When Invalid VEX Prefix Precedes Conditional Branch Instructions"
+    ],
+    "BJ76": [
+        "X",
+        "X",
+        "No Fix",
+        "A Read from The APIC-Timer CCR May Disarm The TSC_Deadline Counter"
+    ],
+    "BJ77": [
+        "X",
+        "X",
+        "No Fix",
+        "An Unexpected PMI May Occur After Writing a Large Value to IA32_FIXED_CTR2"
+    ],
+    "BJ78": [
+        "X",
+        "X",
+        "No Fix",
+        "RDMSR From The APIC-Timer CCR May Disarm The APIC Timer in TSC Deadline Mode"
+    ],
+    "BJ79": [
+        "X",
+        "X",
+        "No Fix",
+        "RC6 Entry Can be Blocked by Asynchronous Intel\u00ae VT-d Flows"
+    ],
+    "BJ80": [
+        "X",
+        "X",
+        "No Fix",
+        "Repeated PCIe* and/or DMI L1 Transitions During Package Power States May Cause a System Hang"
+    ],
+    "BJ81": [
+        "X",
+        "X",
+        "No Fix",
+        "Execution of BIST During Cold RESET Will Result in a Machine Check Shutdown"
+    ],
+    "BJ82": [
+        "X",
+        "X",
+        "No Fix",
+        "PCI Express* Differential Peak-Peak Tx Voltage Swing May Violate the Specification"
+    ],
+    "BJ83": [
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Presence Detect State May Not be Accurate After a Warm Reset"
+    ],
+    "BJ84": [
+        "X",
+        "X",
+        "No Fix",
+        "Display Corruption May be Seen After Graphics Voltage Rail (VCC_AXG) Power Up"
+    ],
+    "BJ85": [
+        "X",
+        "X",
+        "No Fix",
+        "PCMPESTRI, PCMPESTRM, VPCMPESTRI and VPCMPESTRM Always Operate with 32-bit Length Registers"
+    ],
+    "BJ86": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Entries That Return From SMM Using VMLAUNCH May Not Update The Launch State of the VMCS"
+    ],
+    "BJ87": [
+        "X",
+        "X",
+        "No Fix",
+        "Interrupt From Local APIC Timer May Not Be Detectable While Being Delivered"
+    ],
+    "BJ88": [
+        "X",
+        "X",
+        "No Fix",
+        "An Unexpected Page Fault May Occur Following the Unmapping and Re-mapping of a Page"
+    ],
+    "BJ89": [
+        "X",
+        "X",
+        "No Fix",
+        "A PCIe* Device That Initially Transmits Minimal Posted Data Credits May Cause a System Hang"
+    ],
+    "BJ90": [
+        "X",
+        "X",
+        "No Fix",
+        "Some Model Specific Branch Events May Overcount"
+    ],
+    "BJ91": [
+        "X",
+        "X",
+        "No Fix",
+        "Some Performance Monitoring Events in AnyThread Mode May Get Incorrect Count"
+    ],
+    "BJ92": [
+        "X",
+        "X",
+        "No Fix",
+        "PDIR May Not Function Properly With FREEZE_PERFMON_ON_PMI"
+    ],
+    "BJ93": [
+        "X",
+        "X",
+        "No Fix",
+        "For A Single Logical Processor Package, HTT May be Set to Zero Even Though The Package Reserves More Than One APIC ID"
+    ],
+    "BJ94": [
+        "X",
+        "X",
+        "No Fix",
+        "LBR May Contain Incorrect Information When Using FREEZE_LBRS_ON_PMI"
+    ],
+    "BJ95": [
+        "X",
+        "x",
+        "No Fix",
+        "A First Level Data Cache Parity Error May Result in Unexpected Behavior"
+    ],
+    "BJ96": [
+        "X",
+        "X",
+        "No Fix",
+        "Intel\u00ae Trusted Execution Technology ACM Revocation"
+    ],
+    "BJ97": [
+        "X",
+        "X",
+        "Plan Fix",
+        "Programming PDIR And an Additional Precise PerfMon Event May Cause Unexpected PMI or PEBS Events"
+    ],
+    "BJ98": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitoring May Overcount Some Events During Debugging"
+    ],
+    "BJ99": [
+        "X",
+        "X",
+        "No Fix",
+        "LTR Message is Not Treated as an Unsupported Request"
+    ],
+    "BJ100": [
+        "X",
+        "X",
+        "No Fix",
+        "Use of VMASKMOV to Access Memory Mapped I/O or Uncached Memory May Cause The Logical Processor to Hang"
+    ],
+    "BJ101": [
+        "X",
+        "X",
+        "No Fix",
+        "PEBS May Unexpectedly Signal a PMI After The PEBS Buffer is Full"
+    ],
+    "BJ102": [
+        "X",
+        "X",
+        "No Fix",
+        "XSAVEOPT May Fail to Save Some State after Transitions Into or Out of STM"
+    ],
+    "BJ103": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Precise Instruction Retired Event May Present Wrong Indications"
+    ],
+    "BJ104": [
+        "X",
+        "X",
+        "No Fix",
+        "The Value in IA32_MC3_ADDR MSR May Not be Accurate When MCACOD 0119H is Reported in IA32_MC3_Status"
+    ],
+    "BJ105": [
+        "X",
+        "X",
+        "No Fix",
+        "MSR_PKG_Cx_RESIDENCY MSRs May Not be Accurate"
+    ],
+    "BJ106": [
+        "X",
+        "",
+        "No Fix",
+        "Enabling/Disabling PEBS May Result in Unpredictable System Behavior"
+    ],
+    "BJ107": [
+        "X",
+        "",
+        "No Fix",
+        "Execution of VAESIMC or VAESKEYGENASSIST With An Illegal Value for VEX.vvvv May Produce a #NM Exception"
+    ],
+    "BJ108": [
+        "X",
+        "",
+        "No Fix",
+        "Unexpected #UD on VZEROALL/VZEROUPPER"
+    ],
+    "BJ109": [
+        "X",
+        "",
+        "No Fix",
+        "Successive Fixed Counter Overflows May be Discarded"
+    ],
+    "BJ110": [
+        "X",
+        "X",
+        "No Fix",
+        "Execution of FXSAVE or FXRSTOR With the VEX Prefix May Produce a #NM Exception"
+    ],
+    "BJ111": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Exits Due to \u201cNMI-Window Exiting\u201d May Not Occur Following a VM Entry to the Shutdown State"
+    ],
+    "BJ112": [
+        "X",
+        "X",
+        "No Fix",
+        "Execution of INVVPID Outside 64-Bit Mode Cannot Invalidate Translations For 64-Bit Linear Addresses"
+    ],
+    "BJ113": [
+        "X",
+        "X",
+        "No Fix",
+        "VEX.L is Not Ignored with VCVT*2SI Instructions"
+    ],
+    "BJ114": [
+        "X",
+        "X",
+        "No Fix",
+        "MCI_ADDR May be Incorrect For Cache Parity Errors"
+    ],
+    "BJ115": [
+        "X",
+        "X",
+        "No Fix",
+        "Instruction Fetches Page-Table Walks May be Made Speculatively to Uncacheable Memory"
+    ],
+    "BJ116": [
+        "X",
+        "X",
+        "No Fix",
+        "Reported Maximum Memory Frequency Capability May Be Higher Than Expected"
+    ],
+    "BJ117": [
+        "X",
+        "X",
+        "No Fix",
+        "The Processor May Not Properly Execute Code Modified Using A Floating-Point Store"
+    ],
+    "BJ118": [
+        "X",
+        "X",
+        "No Fix",
+        "Execution of GETSEC[SEXIT] May Cause a Debug Exception to be Lost"
+    ],
+    "BJ119": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Exits Due to GETSEC May Save an Incorrect Value for \u201cBlocking by STI\u201d in the Context of Probe-Mode Redirection"
+    ],
+    "BJ120": [
+        "X",
+        "X",
+        "No Fix",
+        "Specific Graphics Blitter Instructions May Result in Unpredictable Graphics Controller Behavior"
+    ],
+    "BJ121": [
+        "X",
+        "X",
+        "No Fix",
+        "IA32_MC5_CTL2 is Not Cleared by a Warm Reset"
+    ],
+    "BJ122": [
+        "X",
+        "X",
+        "Plan Fix",
+        "Performance Monitor Counters May Produce Incorrect Results"
+    ],
+    "BJ123": [
+        "X",
+        "X",
+        "No Fix",
+        "The Corrected Error Count Overflow Bit in IA32_ MC0_STATUS is Not Updated When the UC Bit is Set"
+    ],
+    "BJ124": [
+        "X",
+        "X",
+        "No Fix",
+        "Spurious VT-d Interrupts May Occur When the PFO Bit is Set"
+    ],
+    "BJ125": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor May Livelock During On Demand Clock Modulation"
+    ],
+    "BJ126": [
+        "X",
+        "X",
+        "No Fix",
+        "The Upper 32 Bits of CR3 May be Incorrectly Used With 32-Bit Paging"
+    ],
+    "BJ127": [
+        "X",
+        "X",
+        "No Fix",
+        "EPT Violations May Report Bits 11:0 of Guest Linear Address Incorrectly"
+    ],
+    "BJ128": [
+        "X",
+        "X",
+        "No Fix",
+        "IA32_VMX_VMCS_ENUM MSR (48AH) Does Not Properly Report The Highest Index Value Used For VMCS Encoding"
+    ],
+    "BJ129": [
+        "X",
+        "X",
+        "No Fix",
+        "DMA Remapping Faults for the Graphics VT-d Unit May Not Properly Report Type of Faulted Request"
+    ],
+    "BJ130": [
+        "X",
+        "X",
+        "No Fix",
+        "Virtual-APIC Page Accesses With 32-Bit PAE Paging May Cause a System Crash"
+    ],
+    "BJ131": [
+        "X",
+        "X",
+        "No Fix",
+        "SMRAM State-Save Area Above the 4GB Boundary May Cause Unpredictable System Behavior"
+    ],
+    "BJ132": [
+        "X",
+        "X",
+        "No Fix",
+        "Intel\u00ae Trusted Execution Technology ACM Authentication Failure"
+    ],
+    "BJ133": [
+        "X",
+        "X",
+        "No Fix",
+        "Address Translation Faults for Intel\u00ae VT-d May Not be Reported for Display Engine Memory Accesses"
+    ],
+    "BJ134": [
+        "X",
+        "X",
+        "No Fix",
+        "<Erratum Removed>"
+    ],
+    "BJ135": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Exit May Set IA32_EFER.NXE When IA32_MISC_ENABLE Bit 34 is Set to 1"
+    ],
+    "BJ136": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Instructions Retired Event May Not Count Consistently"
+    ],
+    "BJ137": [
+        "X",
+        "X",
+        "No Fix",
+        "An IRET Instruction That Results in a Task Switch Does Not Serialize"
+    ],
+    "BJ138": [
+        "X",
+        "X",
+        "No Fix",
+        "MOVNTDQA From WC Memory May Pass Earlier Locked Instructions"
+    ]
+}

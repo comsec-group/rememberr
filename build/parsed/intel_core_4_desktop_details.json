@@ -1,0 +1,1192 @@
+{
+    "HSD001": {
+        "title": "LBR, BTS, BTM May Report a Wrong Address when an Exception/ Interrupt Occurs in 64-bit Mode",
+        "problem": "An exception/interrupt event should be transparent to the LBR (Last Branch Record), BTS (Branch Trace Store) and BTM (Branch Trace Message) mechanisms. However, during a specific boundary condition where the exception/interrupt occurs right after the execution of an instruction at the lower canonical boundary (0x00007FFFFFFFFFFF) in 64-bit mode, the LBR return registers will save a wrong return address with bits 63 to 48 incorrectly sign extended to all 1\u2019s. Subsequent BTS and BTM operations which report the LBR will also be incorrect.",
+        "implication": "LBR, BTS and BTM may report incorrect information in the event of an exception/ interrupt.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD002": {
+        "title": "EFLAGS Discrepancy on Page Faults and on EPT-Induced VM Exits after a Translation Change",
+        "problem": "This erratum is regarding the case where paging structures are modified to change a linear address from writable to non-writable without software performing an appropriate TLB invalidation. When a subsequent access to that address by a specific instruction (ADD, AND, BTC, BTR, BTS, CMPXCHG, DEC, INC, NEG, NOT, OR, ROL/ROR, SAL/SAR/SHL/SHR, SHLD, SHRD, SUB, XOR, and XADD) causes a page fault or an EPT- induced VM exit, the value saved for EFLAGS may incorrectly contain the arithmetic flag values that the EFLAGS register would have held had the instruction completed without fault or VM exit. For page faults, this can occur even if the fault causes a VM exit or if its delivery causes a nested fault.",
+        "implication": "None identified. Although the EFLAGS value saved by an affected event (a page fault or an EPT-induced VM exit) may contain incorrect arithmetic flag values, Intel has not identified software that is affected by this erratum. This erratum will have no further effects once the original instruction is restarted because the instruction will produce the same results as if it had initially completed without fault or VM exit.",
+        "workaround": "If the handler of the affected events inspects the arithmetic portion of the saved EFLAGS value, then system software should perform a synchronized paging structure modification and TLB invalidation.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD003": {
+        "title": "MCi_Status Overflow Bit May Be Incorrectly Set on a Single Instance of a DTLB Error",
+        "problem": "A single Data Translation Look Aside Buffer (DTLB) error can incorrectly set the Overflow (bit [62]) in the MCi_Status register. A DTLB error is indicated by MCA error code (bits [15:0]) appearing as binary value, 000x 0000 0001 0100, in the MCi_Status register.",
+        "implication": "Due to this erratum, the Overflow bit in the MCi_Status register may not be an accurate indication of multiple occurrences of DTLB errors. There is no other impact to normal processor functionality.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD004": {
+        "title": "LER MSRs May Be Unreliable",
+        "problem": "Due to certain internal processor events, updates to the LER (Last Exception Record) MSRs, MSR_LER_FROM_LIP (1DDH) and MSR_LER_TO_LIP (1DEH), may happen when no update was expected.",
+        "implication": "The values of the LER MSRs may be unreliable.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD005": {
+        "title": "MONITOR or CLFLUSH on the Local XAPIC's Address Space Results in Hang",
+        "problem": "If the target linear address range for a MONITOR or CLFLUSH is mapped to the local xAPIC's address space, the processor will hang.",
+        "implication": "When this erratum occurs, the processor will hang. The local xAPIC's address space must be uncached. The MONITOR instruction only functions correctly if the specified linear address range is of the type write-back. CLFLUSH flushes data from the cache. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "Do not execute MONITOR or CLFLUSH instructions on the local xAPIC address space.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD006": {
+        "title": "An Uncorrectable Error Logged in IA32_CR_MC2_STATUS May also Result in a System Hang",
+        "problem": "Uncorrectable errors logged in IA32_CR_MC2_STATUS MSR (409H) may also result in a system hang causing an Internal Timer Error (MCACOD = 0x0400h) to be logged in another machine check bank (IA32_MCi_STATUS).",
+        "implication": "Uncorrectable errors logged in IA32_CR_MC2_STATUS can further cause a system hang and an Internal Timer Error to be logged.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD007": {
+        "title": "#GP on Segment Selector Descriptor that Straddles Canonical Boundary May Not Provide Correct Exception Error Code",
+        "problem": "During a #GP (General Protection Exception), the processor pushes an error code on to the exception handler\u2019s stack. If the segment selector descriptor straddles the canonical boundary, the error code pushed onto the stack may be incorrect.",
+        "implication": "An incorrect error code may be pushed onto the stack. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD008": {
+        "title": "FREEZE_WHILE_SMM Does Not Prevent Event From Pending PEBS During SMM",
+        "problem": "In general, a PEBS record should be generated on the first count of the event after the counter has overflowed. However, IA32_DEBUGCTL_MSR.FREEZE_WHILE_SMM (MSR 1D9H, bit [14]) prevents performance counters from counting during SMM (System Management Mode). Due to this erratum, if: 1. A performance counter overflowed before an SMI. 2. A PEBS record has not yet been generated because another count of the event has not occurred. 3. The monitored event occurs during SMM then a PEBS record will be saved after the next RSM instruction. When FREEZE_WHILE_SMM is set, a PEBS should not be generated until the event occurs outside of SMM.",
+        "implication": "A PEBS record may be saved after an RSM instruction due to the associated performance counter detecting the monitored event during SMM; even when FREEZE_WHILE_SMM is set.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD009": {
+        "title": "APIC Error \u201cReceived Illegal Vector\u201d May be Lost",
+        "problem": "APIC (Advanced Programmable Interrupt Controller) may not update the ESR (Error Status Register) flag Received Illegal Vector bit [6] properly when an illegal vector error is received on the same internal clock that the ESR is being written (as part of the write-read ESR access flow). The corresponding error interrupt will also not be generated for this case.",
+        "implication": "Due to this erratum, an incoming illegal vector error may not be logged into ESR properly and may not generate an error interrupt.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD010": {
+        "title": "Changing the Memory Type for an In-Use Page Translation May Lead to Memory-Ordering Violations",
+        "problem": "Under complex microarchitectural conditions, if software changes the memory type for data being actively used and shared by multiple threads without the use of semaphores or barriers, software may see load operations execute out of order.",
+        "implication": "Memory ordering may be violated. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "Software should ensure pages are not being actively used before requesting their memory type be changed.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD011": {
+        "title": "Performance Monitor Precise Instruction Retired Event May Present Wrong Indications",
+        "problem": "When the PDIR (Precise Distribution for Instructions Retired) mechanism is activated (INST_RETIRED.ALL (event C0H, umask value 00H) on Counter 1 programmed in PEBS mode), the processor may return wrong PEBS/PMI interrupts and/or incorrect counter values if the counter is reset with a SAV below 100 (Sample-After-Value is the counter reset value software programs in MSR IA32_PMC1[47:0] in order to control interrupt frequency).",
+        "implication": "Due to this erratum, when using low SAV values, the program may get incorrect PEBS or PMI interrupts and/or an invalid counter state.",
+        "workaround": "The sampling driver should avoid using SAV<100.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD012": {
+        "title": "CR0.CD Is Ignored in VMX Operation",
+        "problem": "If CR0.CD=1, the MTRRs and PAT should be ignored and the UC memory type should be used for all memory accesses. Due to this erratum, a logical processor in VMX operation will operate as if CR0.CD=0 even if that bit is set to 1.",
+        "implication": "Algorithms that rely on cache disabling may not function properly in VMX operation.",
+        "workaround": "Algorithms that rely on cache disabling should not be executed in VMX root operation.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD014": {
+        "title": "Execution of VAESIMC or VAESKEYGENASSIST With An Illegal Value for VEX.vvvv May Produce a #NM Exception",
+        "problem": "The VAESIMC and VAESKEYGENASSIST instructions should produce a #UD (Invalid- Opcode) exception if the value of the vvvv field in the VEX prefix is not 1111b. Due to this erratum, if CR0.TS is \u201c1\u201d, the processor may instead produce a #NM (Device-Not- Available) exception.",
+        "implication": "Due to this erratum, some undefined instruction encodings may produce a #NM instead of a #UD exception.",
+        "workaround": "Software should always set the vvvv field of the VEX prefix to 1111b for instances of the VAESIMC and VAESKEYGENASSIST instructions.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD015": {
+        "title": "Processor May Fail to Acknowledge a TLP Request",
+        "problem": "When a PCIe root port\u2019s receiver is in Receiver L0s power state and the port initiates a Recovery event, it will issue Training Sets to the link partner. The link partner will respond by initiating an L0s exit sequence. Prior to transmitting its own Training Sets, the link partner may transmit a TLP (Transaction Layer Packet) request. Due to this erratum, the root port may not acknowledge the TLP request.",
+        "implication": "After completing the Recovery event, the PCIe link partner will replay the TLP request. The link partner may set a Correctable Error status bit, which has no functional effect.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD016": {
+        "title": "Interrupt From Local APIC Timer May Not Be Detectable While Being Delivered",
+        "problem": "If the local-APIC timer\u2019s CCR (current-count register) is 0, software should be able to determine whether a previously generated timer interrupt is being delivered by first reading the delivery-status bit in the LVT timer register and then reading the bit in the IRR (interrupt-request register) corresponding to the vector in the LVT timer register. If both values are read as 0, no timer interrupt should be in the process of being delivered. Due to this erratum, a timer interrupt may be delivered even if the CCR is 0 and the LVT and IRR bits are read as 0. This can occur only if the DCR (Divide Configuration Register) is greater than or equal to 4. The erratum does not occur if software writes zero to the Initial Count Register before reading the LVT and IRR bits.",
+        "implication": "Software that relies on reads of the LVT and IRR bits to determine whether a timer interrupt is being delivered may not operate properly.",
+        "workaround": "Software that uses the local-APIC timer must be prepared to handle the timer interrupts, even those that would not be expected based on reading CCR and the LVT and IRR bits; alternatively, software can avoid the problem by writing zero to the Initial Count Register before reading the LVT and IRR bits.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD017": {
+        "title": "PCIe* Root-port Initiated Compliance State Transmitter Equalization Settings May be Incorrect",
+        "problem": "If the processor is directed to enter PCIe Polling.Compliance at 5.0 GT/s or 8.0 GT/s transfer rates, it should use the Link Control 2 Compliance Preset/De-emphasis field (bits [15:12]) to determine the correct de-emphasis level. Due to this erratum, when the processor is directed to enter Polling.Compliance from 2.5 GT/s transfer rate, it retains 2.5 GT/s de-emphasis values.",
+        "implication": "The processor may operate in Polling.Compliance mode with an incorrect transmitter de-emphasis level.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD018": {
+        "title": "PCIe* Controller May Incorrectly Log Errors on Transition to RxL0s",
+        "problem": "Due to this erratum, if a link partner transitions to RxL0s state within 20 ns of entering L0 state, the PCIe controller may incorrectly log an error in \u201cCorrectable Error Status.Receiver Error Status\u201d field (Bus 0, Device 2, Function 0, 1, 2 and Device 6, Function 0, offset 1D0H, bit 0).",
+        "implication": "Correctable receiver errors may be incorrectly logged. Intel has not observed any functional impact due to this erratum with any commercially available add-in cards.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD019": {
+        "title": "Unused PCIe* Lanes May Report Correctable Errors",
+        "problem": "Due to this erratum, during PCIe* link down configuration, unused lanes may report a Correctable Error Detected in Bus 0, Device 1, Function 0-2, and Device 6, Function 0, Offset 158H, Bit 0.",
+        "implication": "Correctable Errors may be reported by a PCIe controller for unused lanes.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD020": {
+        "title": "Accessing Physical Memory Space 0-640K through the Graphics Aperture May Cause Unpredictable System Behavior",
+        "problem": "The physical memory space 0-640K when accessed through the graphics aperture may result in a failure for writes to complete or reads to return incorrect results.",
+        "implication": "A hang or functional failure may occur during graphics operation such as OGL or OCL conformance tests, 2D/3D games and graphics-intensive application.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD021": {
+        "title": "PCIe Root Port May Not Initiate Link Speed Change",
+        "problem": "The PCIe Base specification requires the upstream component to maintain the PCIe link at the target link speed or the highest speed supported by both components on the link, whichever is lower. PCIe root port will not initiate the link speed change without being triggered by the software when the root port maximum link speed is configured to be 5.0 GT/s. System BIOS will trigger the link speed change under normal boot scenarios. However, BIOS is not involved in some scenarios such as link disable/re- enable or secondary bus reset and therefore the speed change may not occur unless initiated by the downstream component. This erratum does not affect the ability of the downstream component to initiate a link speed change. All known 5.0Gb/s-capable PCIe downstream components have been observed to initiate the link speed change without relying on the root port to do so.",
+        "implication": "Due to this erratum, the PCIe root port may not initiate a link speed change during some hardware scenarios causing the PCIe link to operate at a lower than expected speed. Intel has not observed this erratum with any commercially available platform.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD022": {
+        "title": "Pending x87 FPU Exceptions (#MF) May be Signaled Earlier Than Expected",
+        "problem": "x87 instructions that trigger #MF normally service interrupts before the #MF. Due to this erratum, if an instruction that triggers #MF is executed while Enhanced Intel SpeedStep\u00ae Technology transitions, Intel\u00ae Turbo Boost Technology transitions, or Thermal Monitor events occur, the pending #MF may be signaled before pending interrupts are serviced.",
+        "implication": "Software may observe #MF being signaled before pending interrupts are serviced.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD023": {
+        "title": "DR6.B0-B3 May Not Report All Breakpoints Matched When a MOV/POP SS is Followed by a Store or an MMX Instruction",
+        "problem": "Normally, data breakpoints match that occur on a MOV SS, r/m or POP SS will not cause a debug exception immediately after MOV/POP SS but will be delayed until the instruction boundary following the next instruction is reached. After the debug exception occurs, DR6.B0-B3 bits will contain information about data breakpoints matched during the MOV/POP SS as well as breakpoints detected by the following instruction. Due to this erratum, DR6.B0-B3 bits may not contain information about data breakpoints matched during the MOV/POP SS when the following instruction is either an MMX instruction that uses a memory addressing mode with an index or a store instruction.",
+        "implication": "When this erratum occurs, DR6 may not contain information about all breakpoints matched. This erratum will not be observed under the recommended usage of the MOV SS,r/m or POP SS instructions (i.e., following them only with an instruction that writes (E/R)SP).",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD024": {
+        "title": "VEX.L is Not Ignored with VCVT*2SI Instructions",
+        "problem": "The VEX.L bit should be ignored for the VCVTSS2SI, VCVTSD2SI, VCVTTSS2SI, and VCVTTSD2SI instructions, however due to this erratum the VEX.L bit is not ignored and will cause a #UD.",
+        "implication": "Unexpected #UDs will be seen when the VEX.L bit is set to 1 with VCVTSS2SI, VCVTSD2SI, VCVTTSS2SI, and VCVTTSD2SI instructions.",
+        "workaround": "Software should ensure that the VEX.L bit is set to 0 for all scalar instructions.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD025": {
+        "title": "Some DRAM and L3 Cache Performance Monitoring Events May Count Incorrectly",
+        "problem": "Due to this erratum, the supplier information may become stale, and the following events may count incorrectly. MEM_LOAD_UOPS_RETIRED.L3_HIT (Event D1H Umask 04H) MEM_LOAD_UOPS_RETIRED.L3_MISS (Event D1H Umask 20H) MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_MISS (Event D2H Umask 01H) MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HIT (Event D2H Umask 02H) MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HITM (Event D2H Umask 04H) MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_NONE (Event D2H Umask 08H) MEM_LOAD_UOPS_L3_MISS_RETIRED.LOCAL_DRAM (Event D3H Umask 01H) MEM_TRANS_RETIRED.LOAD_LATENCY (Event CDH Umask 01H) PAGE_WALKER_LOADS.DTLB_L3 (Event BCH Umask 14H) PAGE_WALKER_LOADS.ITLB_L3 (Event BCH Umask 24H) PAGE_WALKER_LOADS.DTLB_Memory (Event BCH Umask 18H) PAGE_WALKER_LOADS.ITLB_Memory (Event BCH Umask 28H)",
+        "implication": "The affected events may count incorrectly, resulting in inaccurate memory profiles. For the affected events that are precise, PEBS records may be generated at incorrect points. Intel has observed incorrect counts by as much as 40%.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD026": {
+        "title": "Specific Graphics Blitter Instructions May Result in Unpredictable Graphics Controller Behavior",
+        "problem": "Specific source-copy blitter instructions in Intel\u00ae HD Graphics 4600 Processor may result in unpredictable behavior when a blit source and destination overlap.",
+        "implication": "Due to this erratum, the processor may exhibit unpredictable graphics controller behavior. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD027": {
+        "title": "Processor May Enter Shutdown Unexpectedly on a Second Uncorrectable Error",
+        "problem": "If an IA32_MCi_STATUS MSR contains an uncorrectable error with MCACOD=0x406 and a second uncorrectable error occurs after warm reset but before the first error is cleared by zeroing the IA32_MCi_STATUS MSR, a shutdown will occur.",
+        "implication": "When this erratum occurs, the processor will unexpectedly shut down instead of executing the machine check handler.",
+        "workaround": "None identified. Software should clear IA32_MCi_STATUS MSRs as early as possible to minimize the possibility of this erratum occurring.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD028": {
+        "title": "Modified Compliance Patterns for 2.5 GT/s and 5 GT/s Transfer Rates Do Not Follow PCIe* Specification",
+        "problem": "The PCIe controller does not produce the PCIe specification defined sequence for the Modified Compliance Pattern at 2.5 GT/s and 5 GT/s transfer rates. This erratum is not seen at 8 GT/s transfer rates.",
+        "implication": "Normal PCIe operation is unaffected by this erratum.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD029": {
+        "title": "Performance Monitor Counters May Produce Incorrect Results",
+        "problem": "When operating with SMT enabled, a memory at-retirement performance monitoring event (from the list below) may be dropped or may increment an enabled event on the corresponding counter with the same number on the physical core\u2019s other thread rather than the thread experiencing the event. Processors with SMT disabled in BIOS are not affected by this erratum. The list of affected memory at-retirement events is as follows: MEM_UOP_RETIRED.LOADS MEM_UOP_RETIRED.STORES MEM_UOP_RETIRED.LOCK MEM_UOP_RETIRED.SPLIT MEM_UOP_RETIRED.STLB_MISS MEM_LOAD_UOPS_RETIRED.HIT_LFB MEM_LOAD_UOPS_RETIRED.L1_HIT MEM_LOAD_UOPS_RETIRED.L2_HIT MEM_LOAD_UOPS_RETIRED.L3_HIT MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HIT MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HITM MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_MISS MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_NONE MEM_LOAD_UOPS_RETIRED.L3_MISS MEM_LOAD_UOPS_L3_MISS_RETIRED.LOCAL_DRAM MEM_LOAD_UOPS_L3_MISS_RETIRED.REMOTE_DRAM MEM_LOAD_UOPS_RETIRED.L2_MISS",
+        "implication": "Due to this erratum, certain performance monitoring event will produce unreliable results during hyper-threaded operation.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD030": {
+        "title": "Performance Monitor UOPS_EXECUTED Event May Undercount",
+        "problem": "The performance monitor event UOPS_EXECUTED (Event B1H, any Unmask) should count the number of UOPs executed each cycle. However due to this erratum, when eight UOPs execute in one cycle, these UOPs will not be counted.",
+        "implication": "The performance monitor event UOPS_EXECUTED may reflect a count lower than the actual number of events.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD031": {
+        "title": "MSR_PERF_STATUS May Report an Incorrect Core Voltage",
+        "problem": "The core operating voltage can be determined by dividing MSR_PERF_STATUS MSR (198H) bits [47:32] by 2^13. However, due to this erratum, this calculation may report half the actual core voltage.",
+        "implication": "The core operating voltage may be reported incorrectly.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD032": {
+        "title": "PCIe* Atomic Transactions From Two or More PCIe Controllers May Cause Starvation",
+        "problem": "On a Processor PCIe controller configuration in which two or more controllers receive concurrent atomic transactions, a PCIe controller may experience starvation which eventually can lead to a completion timeout.",
+        "implication": "Atomic transactions from two or more PCIe controllers may lead to a completion timeout. Atomic transactions from only one controller will not be affected by this erratum. Intel has not observed this erratum with any commercially available device.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD033": {
+        "title": "The Corrected Error Count Overflow Bit in IA32_ MC0_STATUS is Not Updated When The UC Bit is Set",
+        "problem": "After a UC (uncorrected) error is logged in the IA32_MC0_STATUS MSR (401H), corrected errors will continue to be counted in the lower 14 bits (bits 51:38) of the Corrected Error Count. Due to this erratum, the sticky count overflow bit (bit 52) of the Corrected Error Count will not get updated when the UC bit (bit 61) is set to 1.",
+        "implication": "The Corrected Error Count Overflow indication will be lost if the overflow occurs after an uncorrectable error has been logged.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD034": {
+        "title": "An AVX Gather Instruction That Causes an EPT Violation May Not Update Previous Elements",
+        "problem": "When execution of an AVX gathers instruction causes an EPT (extended page table) violation due to a specific element, all previous elements should be complete. Due to this erratum, such an execution may fail to complete previous elements. In addition, the instruction's mask operand is not updated. This erratum applies only if the EPT violation occurs while updating an accessed or dirty flag in a paging-structure entry. Instructions impacted by this erratum are: VGATHERDPS, VGATHERDPD, VGATHERQPS, VGATHERQPD, VPGATHERDD, VPGATHERDQ, VPGATHERQD, and VPGATHERQQ.",
+        "implication": "This erratum may prevent a gather instruction from making forward progress.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD035": {
+        "title": "PLATFORM_POWER_LIMIT MSR Not Visible",
+        "problem": "The PLATFORM_POWER_LIMIT MSR (615H) is used to control the PL3 (power limit 3) mechanism of the processor. Due to this erratum, this MSR is not visible to software.",
+        "implication": "Software is unable to read or write the PLATFORM_POWER_LIMIT MSR. If software attempts to access this MSR, a general protection fault will occur.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD036": {
+        "title": "LPDDR Memory May Report Incorrect Temperature",
+        "problem": "When any of the four possible LPDDR ranks are not populated, the unpopulated ranks will report a default temperature of 85C as a three-bit value of 011b. If the system has unpopulated ranks the temperature of memory will be reported as 85C in PCU_CR_DDR_DIMM_HOTTEST_ABSOLUTE (MCHBAR Bus 0; Device 0; Function 0; offset 58B8H) in bits [5:7], until any of the populated ranks report a higher temperature than this.",
+        "implication": "When the memory temperature is less than or equal to 85C it may be reported as 85C. This erratum does not affect DDR3 and DDR3L memory types.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD037": {
+        "title": "PCIe* Host Bridge DID May Be Incorrect",
+        "problem": "The PCIe Host Bridge DID register (Bus 0; Device 0; Offset 2H) contents may be incorrect after a Package C7 exit.",
+        "implication": "Software that depends on the Host Bridge DID value may not behave as expected after a Package C7 exit.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD038": {
+        "title": "TSC May be Incorrect After a Deep C-State Exit",
+        "problem": "On exiting from Package C6 or deeper, the processor may incorrectly restore the TSC (Time Stamp Counter).",
+        "implication": "Software using the TSC may produce incorrect result and/or may not behave as expected.",
+        "workaround": "It is possible for BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD039": {
+        "title": "PCIe* Controller May Initiate Speed Change While in DL_Init State Causing Certain PCIe Devices to Fail to Train",
+        "problem": "The PCIe controller supports hardware autonomous speed change capabilities. Due to this erratum, the PCIe controller may initiate speed change while in the DL_Init state which may prevent link training for certain PCIe devices.",
+        "implication": "Certain PCIe devices may fail to complete DL_Init causing the PCIe link to fail to train.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD040": {
+        "title": "Spurious VT-d Interrupts May Occur When the PFO Bit is Set",
+        "problem": "When the PFO (Primary Fault Overflow) field (bit [0] in the VT-d FSTS [Fault Status] register) is set to 1, further faults should not generate an interrupt. Due to this erratum, further interrupts may still occur.",
+        "implication": "Unexpected Invalidation Queue Error interrupts may occur. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "Software should be written to handle spurious VT-d fault interrupts.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD042": {
+        "title": "AVX Gather Instruction That Causes a Fault or VM Exit May Incorrectly Modify Its Destination Register",
+        "problem": "An execution of a 128-bit AVX gather instruction zeroes the upper 128 bits of the instruction's destination register unless access to the first unmasked element causes a fault or VM exit. Due to this erratum, these bits may be cleared even when accessing the first unmasked element causes a fault or VM exit. Instructions impacted by this erratum are: VGATHERDPS, VGATHERDPD, VGATHERQPS, VGATHERQPD, VPGATHERDD, VPGATHERDQ, VPGATHERQD, and VPGATHERQQ.",
+        "implication": "Software that depends on the destination register of a 128-bit AVX gather instruction to remain unchanged after access of the first unmasked element results in fault or VM exit may not behave as expected.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD043": {
+        "title": "Inconsistent NaN Propagation May Occur When Executing (V)DPPS Instruction",
+        "problem": "Upon completion of the (V)DPPS instruction with multiple different NaN encodings in the input elements, software may observe different NaN encodings in the destination elements.",
+        "implication": "Inconsistent NaN encodings in the destination elements for the (V) DPPS instruction may be observed.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD044": {
+        "title": "Display May Flicker When Package C-States Are Enabled",
+        "problem": "When package C-States are enabled, the display may not be refreshed at the correct rate.",
+        "implication": "When this erratum occurs, the user may observe flickering on the display.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD045": {
+        "title": "Certain Combinations of AVX Instructions May Cause Unpredictable System Behavior",
+        "problem": "Execution of certain combinations of AVX instructions may lead to unpredictable system behavior.",
+        "implication": "When this erratum occurs, unpredictable system behaviors, including system hang or incorrect results can occur.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD046": {
+        "title": "Processor May Incorrectly Estimate Peak Power Delivery Requirements",
+        "problem": "Under certain conditions, the processor may incorrectly calculate the frequency at which the cores and graphics engine can operate while still meeting voltage regulator and power supply peak power delivery capabilities. When this occurs, combined with high power workloads, system shutdown may be observed.",
+        "implication": "When this erratum occurs, system shutdown may be observed under high power workloads.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD047": {
+        "title": "IA32_PERF_CTL MSR is Incorrectly Reset",
+        "problem": "The IA32_PERF_CTL MSR (199H) is not initialized correctly after a processor reset.",
+        "implication": "If software reads the IA32_PERF_CTL MSR before writing it, software can observe an incorrect reset value. Although incorrect values are reported to software, the correct default values for this register are still used by the processor. No performance or power impact occurs due to this erratum.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD048": {
+        "title": "Processor May Hang During a Function Level Reset of the Display",
+        "problem": "When package C-States are enabled, it is possible that the processor may hang when software performs a Function Level Reset of the display via bit 1 of the Advanced Features Control Register (Bus 0; Device 2; Function 0; Offset 0A8H).",
+        "implication": "When this erratum occurs, the processor may hang.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD049": {
+        "title": "AVX Gather Instruction That Should Result in #DF May Cause Unexpected System Behavior",
+        "problem": "Due to this erratum, an execution of a 128-bit AVX gather instruction may fail to generate a #DF (double fault) when expected. Instructions impacted by this erratum are: VGATHERDPS, VGATHERDPD, VGATHERQPS, VGATHERQPD, VPGATHERDD, VPGATHERDQ, VPGATHERQD, and VPGATHERQQ.",
+        "implication": "When this erratum occurs, an operation which should cause a #DF may result in unexpected system behavior.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD050": {
+        "title": "Throttling and Refresh Rate Maybe be Incorrect After Exiting Package C-State",
+        "problem": "When the OLTM (Open Loop Thermal Management) feature is enabled, the DIMM thermal status reported in DDR_THERM_PERDIMM_STATUS (MCHBAR Offset 588CH) may be incorrect following an exit from Package C3 or deeper.",
+        "implication": "The incorrect DIMM thermal status may result in degraded performance from unneeded memory throttling and excessive DIMM refresh rates.",
+        "workaround": "It is possible for BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD051": {
+        "title": "Processor May Livelock During On Demand Clock Modulation",
+        "problem": "The processor may livelock when (1) a processor thread has enabled on demand clock modulation via bit 4 of the IA32_CLOCK_MODULATION MSR (19AH) and the clock modulation duty cycle is set to 12.5% (02H in bits 3:0 of the same MSR), and (2) the other processor thread does not have on demand clock modulation enabled and that thread is executing a stream of instructions with the lock prefix that either split a cacheline or access UC memory.",
+        "implication": "Program execution may stall on both threads of the core subject to this erratum.",
+        "workaround": "This erratum will not occur if clock modulation is enabled on all threads when using on demand clock modulation or if the duty cycle programmed in the IA32_CLOCK_MODULATION MSR is 18.75% or higher.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD052": {
+        "title": "IA32_DEBUGCTL.FREEZE_PERFMON_ON_PMI is Incorrectly Cleared by SMI",
+        "problem": "FREEZE_PERFMON_ON_PMI (bit 12) in the IA32_DEBUGCTL MSR (1D9H) is erroneously cleared during delivery of an SMI (system-management interrupt).",
+        "implication": "As a result of this erratum, the performance monitoring counters will continue to count after a PMI occurs in SMM (system-management Mode).",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD053": {
+        "title": "The From-IP for Branch Tracing May be Incorrect",
+        "problem": "BTM (Branch Trace Message) and BTS (Branch Trace Store) report the \u201cFrom-IP\u201d indicating the source address of the branch instruction. Due to this erratum, BTM and BTS may repeat the \u201cFrom-IP\u201d value previously reported. The \u201cTo-IP\u201d value is not affected.",
+        "implication": "Using BTM or BTS reports to reconstruct program execution may be unreliable.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD054": {
+        "title": "TM1 Throttling May Continue Indefinitely",
+        "problem": "TM1 (Thermal Monitor 1) throttling may continue when the processor\u2019s temperature decreases below the throttling point while the processor is in Package C3 or deeper.",
+        "implication": "The processor will continue thermal throttling but does not indicate it is hot.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD055": {
+        "title": "Internal Parity Errors May Incorrectly Report Overflow in The IA32_MC2_STATUS MSR",
+        "problem": "Due to this erratum, uncorrectable internal parity error with an IA32_MC2_STATUS.MCACOD (bits [15:0]) value of 0005H and an IA32_MC2_STATUS.MSCOD (bits [31:16]) value of 0004H may incorrectly set the IA32_MC2_STATUS.OVER flag (bit 62) indicating an overflow when a single error has been observed.",
+        "implication": "IA32_MC2_STATUS.OVER may not accurately indicate multiple occurrences of uncorrectable internal parity errors. There is no other impact to normal processor functionality.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD056": {
+        "title": "Performance Monitor Events OTHER_ASSISTS.AVX_TO_SSE And OTHER_ASSISTS.SSE_TO_AVX May Over Count",
+        "problem": "The Performance Monitor events OTHER_ASSISTS.AVX_TO_SSE (Event C1H; Umask 08H) and OTHER_ASSISTS.SSE_TO_AVX (Event C1H; Umask 10H) incorrectly increment and over count when an HLE (Hardware Lock Elision) abort occurs.",
+        "implication": "The Performance Monitor Events OTHER_ASSISTS.AVX_TO_SSE And OTHER_ASSISTS.SSE_TO_AVX may over count.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD057": {
+        "title": "Processor May Run at Incorrect P-State",
+        "problem": "The processor package may use stale software P-State (performance state) requests when one or more logical processors are idle.",
+        "implication": "The processor package may run at a higher or lower than expected P-State. This issue may persist as long as any logical processor is idle.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD058": {
+        "title": "Performance Monitor Event DSB2MITE_SWITCHES.COUNT May Over Count",
+        "problem": "The Performance Monitor Event DSB2MITE_SWITCHES.COUNT (Event ABH; Umask 01H) should count the number of DSB (Decode Stream Buffer) to MITE (Macro Instruction Translation Engine) switches. Due to this erratum, the DSB2MITE_SWITCHES.COUNT event will count speculative switches and cause the count to be higher than expected.",
+        "implication": "The Performance Monitor Event DSB2MITE_SWITCHES.COUNT may report count higher than expected.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD059": {
+        "title": "Performance Monitor Register UNC_PERF_GLOBAL_STATUS Not Restored on Package C7 Exit",
+        "problem": "MSR_UNC_PERF_GLOBAL_STATUS (392H) is a global status register which indicates the overflow of uncore performance monitor counters. The content of this register is lost in package C7 state.",
+        "implication": "If any uncore performance monitor counter has overflowed before entering the package C7 state, the MSR_UNC_PERF_GLOBAL_STATUS register will no longer reflect the overflow after exiting C7 state.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD060": {
+        "title": "Processor May Not Enter Package C6 or Deeper C-states When PCIe* Links Are Disabled",
+        "problem": "If the PCIe links are disabled via Link Disable (Bus 0, Device 1, Functions [2:1], Offset B0h, bit 4) and the PCIe controller is enabled (Bus 0, Device 0, Function 0, Offset 54h, bits [2:1] = \u201911), then the processor will be unable to enter Package C6 or deeper C- states.",
+        "implication": "Due to this erratum, the process will not enter Package C6 or deeper C-states.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD061": {
+        "title": "Performance Monitor Event For Outstanding Offcore Requests And Snoop Requests May Over Count",
+        "problem": "The performance monitor event OFFCORE_REQUESTS_OUTSTANDING (Event 60H, any Umask Value) should count the number of offcore outstanding transactions each cycle. Due to this erratum, the counts may be higher than actual number of events.",
+        "implication": "The performance monitor events OFFCORE_REQUESTS_OUTSTANDING may reflect counts higher than the actual number of events.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD062": {
+        "title": "Some Performance Monitor Event Counts May be Inaccurate During SMT Mode",
+        "problem": "The performance monitor event OFFCORE_REQUESTS_OUTSTANDING (Event 60H, any Umask Value) should count the number of occurrences that loads or stores stay in the super queue each cycle. The performance monitor event CYCLE_ACTIVITY.CYCLES_L2_PENDING (Event A3H, Umask 01H) should count the number of cycles that demand loads stay in the super queue. However, due to this erratum, these events may count inaccurately during SMT mode.",
+        "implication": "The performance monitor events OFFCORE_REQUESTS_OUTSTANDING and CYCLE_ACTIVITY.L2_ PENDING may be unreliable during SMT Mode.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD064": {
+        "title": "The Upper 32 Bits of CR3 May be Incorrectly Used With 32-Bit Paging",
+        "problem": "When 32-bit paging is in use, the processor should use a page directory located at the 32-bit physical address specified in bits 31:12 of CR3; the upper 32 bits of CR3 should be ignored. Due to this erratum, the processor will use a page directory located at the 64-bit physical address specified in bits 63:12 of CR3.",
+        "implication": "The processor may use an unexpected page directory or, if EPT (Extended Page Tables) is in use, cause an unexpected EPT violation. This erratum applies only if software enters 64-bit mode, loads CR3 with a 64-bit value, and then returns to 32-bit paging without changing CR3. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "Software that has executed in 64-bit mode should reload CR3 with a 32-bit value before returning to 32-bit paging.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD065": {
+        "title": "Performance Monitor Events HLE_RETIRED.ABORTED_MISC4 And RTM_RETIRED.ABORTED_MISC4 May Over Count",
+        "problem": "The Performance Monitor Events HLE_RETIRED.ABORTED_MISC4 (Event C8H; Umask 40H) and RTM_RETIRED.ABORTED_MISC4 (Event C9H; Umask 40H) are defined to count the number of transactional aborts due to incompatible memory types. Due to this erratum, they may count additional unrelated transactional aborts.",
+        "implication": "The Performance Monitor Events HLE_RETIRED.ABORTED_MISC4 and RTM_RETIRED.ABORTED_MISC4 counts may be greater than the number of aborts due to incompatible memory types. This can result in nonzero counts when all memory types are compatible.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD066": {
+        "title": "A PCIe* LTR Update Message May Cause The Processor to Hang",
+        "problem": "If a PCIe device sends an LTR (Latency Tolerance Report) update message while the processor is in a package C6 or deeper, the processor may hang.",
+        "implication": "Due to this Erratum the processor may hang if a PCIe LTR update message is received while in a Package C6 or deeper.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD067": {
+        "title": "GETSEC Does Not Report Support For S-CRTM",
+        "problem": "Processors with Intel\u00ae Boot Guard Technology that has GETSEC[PARAMETERS] leaf 5 EAX bit 5 set indicates support for processor rooted S-CTRM (Static Core Root of Trust for Measurement). Due to this erratum, that bit will not be set even though processor rooted S-CRTM is supported.",
+        "implication": "Software may be unaware of support for processor rooted S-CTRM.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD068": {
+        "title": "EPT Violations May Report Bits 11:0 of Guest Linear Address Incorrectly",
+        "problem": "If a memory access to a linear address requires the processor to update an accessed or dirty flag in a paging-structure entry and if that update causes an EPT violation, the processor should store the linear address into the \u201cguest linear address\u201d field in the VMCS. Due to this erratum, the processor may store an incorrect value into bits 11:0 of this field. (The processor correctly stores the guest-physical address of the paging- structure entry into the \u201cguest-physical address\u201d field in the VMCS.)",
+        "implication": "Software may not be easily able to determine the page offset of the original memory access that caused the EPT violation. Intel has not observed this erratum to impact the operation of any commercially available software.",
+        "workaround": "Software requiring the page offset of the original memory access address can derive it by simulating the effective address computation of the instruction that caused the EPT violation.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD069": {
+        "title": "APIC Timer Might Not Signal an Interrupt While in TSC-Deadline Mode",
+        "problem": "If the APIC timer is in TSC-deadline mode and is armed when a timed MWAIT instruction is executed, the timer expiration might not cause an interrupt.",
+        "implication": "Software depending on APIC timer TSC-deadline mode interrupts may not behave as expected.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD070": {
+        "title": "IA32_VMX_VMCS_ENUM MSR (48AH) Does Not Properly Report The Highest Index Value Used For VMCS Encoding",
+        "problem": "IA32_VMX_VMCS_ENUM MSR (48AH) bits 9:1 report the highest index value used for any VMCS encoding. Due to this erratum, the value 21 is returned in bits 9:1 although there is a VMCS field whose encoding uses the index value 23.",
+        "implication": "Software that uses the value reported in IA32_VMX_VMCS_ENUM[9:1] to read and write all VMCS fields may omit one field.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD071": {
+        "title": "Incorrect FROM_IP Value For an RTM Abort in BTM or BTS May be Observed",
+        "problem": "During RTM (Restricted Transactional Memory) operation when branch tracing is enabled using BTM (Branch Trace Message) or BTS (Branch Trace Store), the incorrect EIP value (From_IP pointer) may be observed for an RTM abort.",
+        "implication": "Due to this erratum, the From_IP pointer may be the same as that of the immediately preceding taken branch.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD072": {
+        "title": "VT-d Hardware May Perform STRP And SIRTP Operations on a Package C7 Exit",
+        "problem": "On a package C7 exit, VT-d hardware may spuriously perform SRTP (Set Root Table Pointer) and SIRTP (Set Interrupt Remapping Table Pointer) operations. A package C7 exit can cause the value programmed by software in the RTA_REG (IRTA_REG) to be visible to hardware before software executes a GCMD.SRTP command. This will result in hardware using the new values for the DMA and interrupt translation page-walks, possibly before they are intended to be used by software.",
+        "implication": "If software has updated the root table pointer but has not executed the SRTP command then the root table pointer update will happen unexpectedly, causing the VMM to walk incorrect or non-existent tables. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "Privileged software should not execute a MWAIT (because it can trigger a package C7 entry/exit) between writing to RTA_REG (IRTA_REG) and GCMD_REG.SRTP (GCMD_REG.SIRTP) registers.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD073": {
+        "title": "General-Purpose Performance Counters Can Unexpectedly Increment",
+        "problem": "A performance monitor event programmed in a general-purpose performance counter should count the number of occurrences of the event selected in IA32_PERFEVTSEL{0- 7} MSR (186H-18DH). If INV (invert, bit 23) is set to 1 and a non-zero CMASK (Counter Mask) bits [31:24] value is used, due to this erratum, the event may over count in the case that either of OS (Operating System mode, bit 17) or USR (User mode, bit 16) is selected. Over counting will occur for the cycles spent in the non- matching CPL.",
+        "implication": "General-purpose performance counters may reflect counts higher than the actual number of events when the INV bit is set, CMASK is a non-zero value and either the OS or USR bit is set.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD074": {
+        "title": "Performance Monitoring Events May Report Incorrect Number of Load Hits or Misses to LLC",
+        "problem": "The following performance monitor events should count the numbers of loads hitting or missing LLC. However due to this erratum, The L3_hit related events may over count and the L3_miss related events may undercount. MEM_LOAD_RETIRED.L3_HIT (Event D1H, Umask 40H) MEM_LOAD_RETIRED.L3_MISS (Event D1H, Umask 20H) MEM_LOAD_L3_HIT_RETIRED. XSNP_NONE (Event D2H, Umask 08H) MEM_LOAD_LLC_MISS_RETIRED. LOCAL_DRAM (Event D3H, Umask 01H)",
+        "implication": "The listed performance monitoring events may be inaccurate.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD076": {
+        "title": "Locked Load Performance Monitoring Events May Under Count",
+        "problem": "The performance monitoring events MEM_TRANS_RETIRED.LOAD_LATENCY (Event CDH; Umask 01H), MEM_LOAD_RETIRED.L2_HIT (Event D1H; Umask 02H), and MEM_UOPS_RETIRED.LOCKED (Event DOH; Umask 20H) should count the number of locked loads. Due to this erratum, these events may under count for locked transactions that hit the L2 cache.",
+        "implication": "The above event count will under count on locked loads hitting the L2 cache.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD077": {
+        "title": "Graphics Processor Ratio And C-State Transitions May Cause a System Hang",
+        "problem": "If ratio or C-state changes involving the processor core and processor graphics occur at the same time or while processor graphics are active, under certain internal conditions the ratio change may not complete.",
+        "implication": "The system may hang during C-state or ratio changes.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD078": {
+        "title": "Certain Performance Monitoring Events May Over Count Software Demand Loads",
+        "problem": "The following performance monitor events should count the number of software demand loads. However due to this erratum, they may also include requests from the Next Page Prefetcher and over count. OFFCORE_REQUESTS_OUTSTANDING.DEMAND_DATA (Event 60H; Umask 01H) OFFCORE_REQUESTS.DEMAND_DATA (Event B0H; Umask 01H) CYCLE_ACTIVITY.L2_Pending (Event A3H; Umask 01H) L2_HIT_MISS.LOAD (Event 24H; Umask 01H)",
+        "implication": "The listed performance monitoring events may reflect a count higher than the actual number of events.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD079": {
+        "title": "Accessing Nonexistent Uncore Performance Monitoring MSRs May Not Signal a #GP",
+        "problem": "An access to an uncore Performance Monitor MSR beyond the number reported in the MSR_UNC_CBO_CONFIG MSR (396H) bits[3:0] should signal a #GP (general- protection exception); due to this erratum, the processor may hang instead of signaling #GP.",
+        "implication": "When software accesses nonexistent uncore performance monitoring MSRs, the logical processor may hang instead of signaling a #GP.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD080": {
+        "title": "Call Stack Profiling May Produce Extra Call Records",
+        "problem": "The performance monitoring Call Stack Profiling function should not generate call records for \u201czero length calls\u201d (call instructions targeting the location following the instruction). However, due to this erratum, the processor will produce call records for zero length calls.",
+        "implication": "The performance monitoring LBR call stack MSRs are incorrect in the presence of \u201czero length calls\u201d because calls and returns do not match.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD081": {
+        "title": "Warm Reset May Fail or Lead to Incorrect Power Regulation",
+        "problem": "Due to this erratum, after a warm reset, the processor may fail to boot properly or may cause power to be regulated to an incorrect level.",
+        "implication": "The processor may not be able to control the VR (Voltage Regulator) to advertised specifications, leading to in a system hang, a machine check, or improper power regulation.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD082": {
+        "title": "PCIe* Host Bridge DID May Be Incorrect",
+        "problem": "The PCIe Host Bridge DID register (Bus 0; Device 0; Function 0; Offset 2H) contents may be incorrect.",
+        "implication": "Software that depends on the Host Bridge DID value may not behave as expected.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD083": {
+        "title": "Transactional Abort May Produce an Incorrect Branch Record",
+        "problem": "If an Intel\u00ae TSX transactional abort event occurs during a string instruction, the From- IP in the LBR (Last Branch Record) is not correctly reported.",
+        "implication": "Due to this erratum, an incorrect From-IP on the LBR stack may be observed.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD084": {
+        "title": "SMRAM State-Save Area Above the 4GB Boundary May Cause Unpredictable System Behavior",
+        "problem": "If BIOS uses the RSM instruction to load the SMBASE register with a value that would cause any part of the SMRAM state-save area to have an address above 4-GBytes, subsequent transitions into and out of SMM (system-management mode) might save and restore processor state from incorrect addresses.",
+        "implication": "This erratum may cause unpredictable system behavior. Intel has not observed this erratum with any commercially available system.",
+        "workaround": "Ensure that the SMRAM state-save area is located entirely below the 4GB address boundary.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD085": {
+        "title": "DMA Remapping Faults for the Graphics VT-d Unit May Not Properly Report Type of Faulted Request",
+        "problem": "When a fault occurs during DMA remapping of Graphics accesses at the Graphics VT-d unit, the type of faulted request (read or write) should be reported in bit 126 of the FRCD_REG register in the remapping hardware memory map register set. Due to this erratum, the request type may not be reported correctly.",
+        "implication": "Software processing the DMA remapping faults may not be able to determine the type of faulting graphics device DMA request.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD086": {
+        "title": "AVX Gather Instructions Page Faults May Report an Incorrect Faulting Address",
+        "problem": "If software modifies a paging-structure entry to relax the access rights for a linear address and does not perform a TLB invalidation, a subsequent execution of an AVX gather instruction that accesses that address may generate a page fault that loads CR2 (which should containing the faulting linear address) with an incorrect value.",
+        "implication": "Software handling an affected page fault may not operate correctly.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD088": {
+        "title": "Event Injection by VM Entry May Use an Incorrect B Flag for SS",
+        "problem": "The stack accesses made by VM-entry event injection may use an incorrect value for the B flag (default stack-pointer size and upper bound) for the stack segment (SS).",
+        "implication": "An affected stack access may use an incorrect address or an incorrect segment upper bound. This may result in unpredictable system behavior.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD089": {
+        "title": "A Fault in SMM May Result in Unpredictable System Behavior",
+        "problem": "The value of the SS register as well as the current privilege level (CPL) may be incorrect following a fault in SMM (system-management mode). The erratum can occur only if a fault occurs following an SMI (system-management interrupt) and before software has loaded the SS register (e.g., with the MOV SS instruction).",
+        "implication": "This erratum may cause unpredictable system behavior. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD090": {
+        "title": "Processor Frequency is Unexpectedly Limited Below Nominal P1 When cTDP Down is Enabled",
+        "problem": "When cTDP (Configurable Thermal Design Power) Down is enabled on a processor branded as Core\u00ae i3 or Pentium\u00ae, the processor frequency will be limited to cTDP Down P1 frequency (Max Non-Turbo Frequency) when it should be able to operate between the cTDP Down frequency P1 and the nominal P1 frequency.",
+        "implication": "When cTDP is enabled, the processor cannot achieve expected frequencies.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD091": {
+        "title": "PMI May be Signaled More Than Once For Performance Monitor Counter Overflow",
+        "problem": "Due to this erratum, PMI (Performance Monitoring Interrupt) may be repeatedly issued until the counter overflow bit is cleared in the overflowing counter.",
+        "implication": "Multiple PMIs may be received when a performance monitor counter overflows.",
+        "workaround": "None identified. If the PMI is programmed to generate an NMI, software may delay the EOI (end-of- Interrupt) register write for the interrupt until after the overflow indications have been cleared.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD092": {
+        "title": "Execution of FXSAVE or FXRSTOR With the VEX Prefix May Produce a #NM Exception",
+        "problem": "Attempt to use FXSAVE or FXRSTOR with a VEX prefix should produce a #UD (Invalid- Opcode) exception. If either the TS or EM flag bits in CR0 are set, a #NM (device-not- available) exception will be raised instead of #UD exception.",
+        "implication": "Due to this erratum a #NM exception may be signaled instead of a #UD exception on an FXSAVE or an FXRSTOR with a VEX prefix.",
+        "workaround": "Software should not use FXSAVE or FXRSTOR with the VEX prefix.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD093": {
+        "title": "RDRAND Execution in a Transactional Region May Cause a System Hang",
+        "problem": "Execution of the RDRAND (Random number generator) instruction inside an Intel\u00ae TSX transactional region may cause the logical processor to hang.",
+        "implication": "A system hang may occur as a result of this erratum.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD094": {
+        "title": "Uncore Clock Frequency Changes May Cause Audio/Video Glitches",
+        "problem": "On some processors, the time required to change the uncore clock frequency may be large enough to significantly lengthen the latency of I/O Requests to memory, possibly resulting in audio or video glitches.",
+        "implication": "Audio/Video glitches may occur during uncore ratio changes.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD095": {
+        "title": "Processor May Experience a Spurious LLC-Related Machine Check During Periods of High Activity",
+        "problem": "Due to certain internal conditions while running core and memory intensive operations, some processors may incorrectly report an LLC (last level cache) related machine check with a IA32_MCi_STATUS.MCACOD value of 110AH.",
+        "implication": "Due to this erratum, the processor may experience a machine check.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD096": {
+        "title": "The Processor May Not Enter Package C7 When Using a PSR Display",
+        "problem": "The processor datasheet specifies that entering package C7 requires enabling PSR (Panel Self Refresh) for certain display resolutions, along with other conditions. Due to this erratum, the processor may not enter package C7 when connected to a PSR- enabled display even if all of the required conditions are met.",
+        "implication": "Due to this erratum, the processor may not enter package C7.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD097": {
+        "title": "Video/Audio Distortion May Occur",
+        "problem": "Due to this erratum, internal processor operations can occasionally delay the completion of memory read requests enough to cause video or audio streaming underrun.",
+        "implication": "Visible artifacts such as flickering on a video device or glitches on audio may occur.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD098": {
+        "title": "System May Hang When Audio is Enabled During Package C3",
+        "problem": "When audio is enabled while in package C3 state or deeper, audio memory traffic continues to be generated. Due to this erratum, the processor logic required for memory traffic may be powered down.",
+        "implication": "When this erratum occurs, the processor logic required for audio memory traffic may not be operational resulting in a system hang.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD099": {
+        "title": "INVPCID May Not Cause #UD in VMX Non-Root Operation",
+        "problem": "The INVPCID instruction should cause an invalid opcode exception (#UD) in VMX non- root operation if either bit 31 of the primary processor-based VM-execution controls (activate secondary controls) or bit 12 of the secondary processor-based VM-execution controls (enable INVPCID) is 0. Due to this erratum, the INVPCID instruction will not cause #UD if \u201cactivate secondary controls\u201d is 0 and \u201cenable INVPCID\u201d is 1. Instead, the instruction will either execute normally or cause a VM exit if the \u201cINVLPG exiting\u201d VM- execution control is 1.",
+        "implication": "The processor may cause a VM exit that software does not expect. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD100": {
+        "title": "Non-Compliant PFAT Module Base Address May Cause Unpredictable System Behavior",
+        "problem": "PFAT (Platform Firmware Armoring Technology) requires the PFAT module base address be 256KB aligned and reside in the first 4GB of memory. If BIOS does not comply with these requirements when setting up the PFAT module, the processor should GP# at PFAT launch. Due to this erratum, a #GP fault may not be generated.",
+        "implication": "A PFAT module that does not follow the PFAT module base address requirements may result in unpredictable system behavior.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this issue.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD101": {
+        "title": "Incorrect LBR Source Address May be Reported For a Transactional Abort",
+        "problem": "If the fetch of an instruction in a transactional region causes a fault, a transactional abort occurs. If LBRs are enabled, the source address recorded for such a transactional abort is the address of the instruction being fetched. If that instruction was itself the target of an earlier branch instruction, this erratum may erroneously record the address of the branch instruction as the source address for the transactional abort.",
+        "implication": "Trace reconstruction software that uses LBR information may fail when this erratum occurs.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD102": {
+        "title": "Address Translation Faults for Intel\u00ae VT-d May Not be Reported for Display Engine Memory Accesses",
+        "problem": "The Intel\u00ae VT-d (Intel\u00ae Virtualization Technology for Directed I/O) hardware unit supporting the Processor Graphics device (Bus 0; Device 2; Function 0) may not report address translation faults detected on Display Engine memory accesses when the Context Cache is disabled or during time periods when Context Cache is being invalidated.",
+        "implication": "Due to this erratum, Display Engine accesses that fault are correctly aborted but may not be reported in the FSTS_REG fault reporting register (GFXVTDBAR offset 034H).",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD103": {
+        "title": "L3 Cache Corrected Error Count May be Inaccurate After Package C7 Exit",
+        "problem": "The corrected error count for L3 cache errors reported in IA32_MCi_STATUS.Corrected Error Count (bits [52:38]) with an MCACOD of 0001 0001 xxxx xxxx (x can be 0 or 1) may be incorrectly restored to a smaller value during exit from Package C7.",
+        "implication": "The corrected error count for L3 cache errors in IA32_MCi_STATUS may be inaccurate after Package C7 exit.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD104": {
+        "title": "PCIe* Device\u2019s SVID is Not Preserved Across The Package C7 C-State",
+        "problem": "Bus 0, Device 7, Function 0\u2019s SVID register (Subsystem Vendor Identification, Offset 2CH) is not preserved across package C7 C-State transitions.",
+        "implication": "This may cause the operating system to think the device has been replaced with a different device.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD105": {
+        "title": "Warm Reset Does Not Stop GT Power Draw",
+        "problem": "Due to this erratum, if GT is enabled prior to a warm reset, it will remain powered after the warm reset. The processor will make incorrect power management decisions because it assumes the GT is not drawing power after a warm reset.",
+        "implication": "The processor may draw more current than expected from an external VR (Voltage Regulator). The processor may also put the external VR into a low power state where it will be unable to supply the sufficient power resulting in unpredictable system behavior.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD106": {
+        "title": "Unused PCIe* Lanes May Remain Powered After Package C7",
+        "problem": "If a PCIe controller is enabled and either has unused lanes or no PCIe device is present, the link and/or unused lanes should enter a low power state. Due to this erratum, after exiting Package C7, the unused link and/or unused lanes may remain powered.",
+        "implication": "Power consumption may be greater than expected.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD107": {
+        "title": "BMI1 And BMI2 Instruction Groups Are Not Available",
+        "problem": "Feature flags BMI1 and BMI2 (CPUID leaf 7, sub-leaf 0, EBX bits 3 and 8) report these two groups of bit manipulation instructions are not present for Intel\u00ae Core\u2122 i3-4100M these instruction groups should be available. An attempt to execute any of these instructions will generate a #UD fault.",
+        "implication": "Software attempting to use any of instructions in the BMI1 and BMI2 groups will result in a #UD fault",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD108": {
+        "title": "Virtual-APIC Page Accesses With 32-Bit PAE Paging May Cause a System Crash",
+        "problem": "If a logical processor has EPT (Extended Page Tables) enabled, is using 32-bit PAE paging, and accesses the virtual-APIC page then a complex sequence of internal processor micro-architectural events may cause an incorrect address translation or machine check on either logical processor.",
+        "implication": "This erratum may result in unexpected faults, an uncorrectable TLB error logged in IA32_MCi_STATUS.MCACOD (bits [15:0]) with a value of 0000_0000_0001_xxxxb (where x stands for 0 or 1), a guest or hypervisor crash, or other unpredictable system behavior.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD109": {
+        "title": "Processor Energy Policy Selection May Not Work as Expected",
+        "problem": "When the IA32_ENERGY_PERF_BIAS MSR (1B0H) is set to a value of 4 or more, the processor will try to increase the energy efficiency of Turbo mode. However, this functionality is effectively disabled if the software requested P-state exceeds the maximum P-state supported by the processor. This has the effect of decreasing the energy efficiency of the processor while in Turbo mode.",
+        "implication": "When this erratum occurs, reduced battery life and reduced energy efficiency may occur.",
+        "workaround": "BIOS should set the max ACPI _PST object to the max supported turbo ratio, ensuring that the software P-state request does not exceed the maximum ratio supported by the processor. Note that this workaround will disable Core Ratio Overclocking.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD110": {
+        "title": "A PEBS Record May Contain Processor State for an Unexpected Instruction",
+        "problem": "If a performance counter has overflowed and is configured for PEBS (precise event- based sampling), the processor will arm the PEBS hardware within a bounded number of cycles called the skid (see the discussion of skid and related topics in the Precise Distribution of Instructions Retired section of the Intel\u00ae 64 and IA-32 Architectures Software Developer Manual). Once the PEBS hardware is armed, the processor should capture processor state in a PEBS record following the execution of the next instruction that causes the counter to increment (a \u201ctriggering\u201d instruction). Due to this erratum, the capture of processor state may occur at an instruction after the first triggering instruction following the skid but not beyond the second triggering instruction after the skid.",
+        "implication": "A PEBS record may contain processor state (including instruction pointer) not associated with the triggering instruction.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD111": {
+        "title": "MSR_PP1_ENERGY_STATUS Reports Incorrect Energy Data",
+        "problem": "The MSR_PP1_ENERGY_STATUS MSR (641H) bits [31:0] reports incorrect energy data.",
+        "implication": "Due to this erratum, reported Intel Integrated Graphics domain energy consumption may not be accurate.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD112": {
+        "title": "x87 FPU DP May be Incorrect After Instructions That Save FP State to Memory",
+        "problem": "Under certain conditions, the value of the x87 FPU DP (Floating Point Unit Data Pointer) saved by the FSAVE/FNSAVE, FSTENV/FNSTENV, FXSAVE, XSAVE, or XSAVEOPT instructions may be incorrect.",
+        "implication": "Due to this erratum, the x87 FPU DP may be incorrect.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD113": {
+        "title": "Processor May Hang During Package C7 Exit",
+        "problem": "Under certain internal timing conditions, the processor might not properly exit package C7 leading to a hang.",
+        "implication": "Due to this erratum, the package C7 state may not be reliable. Intel has not observed this erratum with any commercially available system.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD115": {
+        "title": "Spurious LLC Machine Check May Occur",
+        "problem": "Under certain stressful conditions while running at ring ratios higher than 30, the processor may experience a spurious LLC machine check as indicated by IA32_MCi_STATUS.MCACOD (bits [15:0]) with value 000x 0001 0000 1010 (where x is 0 or 1).",
+        "implication": "When this erratum occurs, an uncorrectable LLC error will be logged and the system may hang or restart.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD116": {
+        "title": "Page Fault May Report Incorrect Fault Information",
+        "problem": "Under the following conditions: 1. A read-modify-write instruction\u2019s memory source/destination (e.g., ADD memory, reg) crossing a cache line boundary. 2. That instruction executing without fault. 3. While the read-modify-write instruction is executing, one or more of the following page table attributes associated with its memory operand are modified: a. The D (dirty) flag was 0 when the instruction was initiated but was concurrently set to 1, and/or b. One of the relevant R/W flags was 0 when the instruction was initiated but was concurrently set to 1, and/or c.  If the read-modify-write instruction executes at CPL = 3 and one of the relevant U/S flags was 0 when the instruction was initiated but was concurrently set to 1. 4. A subsequent instruction executing within a narrow timing window that experiences a page fault. 5. There is no serializing instruction between the read-modify-write instruction and the faulting instruction. The page fault (in #4) may report an incorrect error code and faulting linear address; these would describe the read-modify-write instruction\u2019s memory access instead of that of the faulting instruction. (The address of the faulting instruction is reported correctly.)",
+        "implication": "The erratum makes it appear that the page fault resulted from an access that occurred prior to the faulting instruction. Because the earlier access completed without faulting, a page-fault handler may identify the page fault as transient (or spurious) and re- execute the faulting instruction (e.g., by executing IRET). In such cases, the erratum will not recur; the page fault on the later access will recur and will be reported correctly. If the page-fault handler does not re-execute the faulting instruction, this erratum may result in unpredictable system behavior. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD117": {
+        "title": "CATERR# Pin Assertion is Not Cleared on a Warm Reset",
+        "problem": "If the CATERR# pin is held asserted to indicate a fatal error, a subsequent warm reset event will not cause the CATERR# pin to de-assert.",
+        "implication": "When this erratum occurs, platforms that monitor the CATERR# pin may be unable to detect a fatal error after a warm reset or may incorrectly respond to a CATERR# pin assertion although an error may not have occurred subsequent to the warm reset event.",
+        "workaround": "The CATERR# pin can be de-asserted by a cold reset event.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD118": {
+        "title": "Uncorrectable Machine Check Error During Core C6 Entry May Not be Signaled",
+        "problem": "Machine Check exceptions occurring during core C6 entry may be ignored.",
+        "implication": "When this erratum occurs, incorrect state may be saved during core C6 entry and subsequently restored during core C6 exit resulting in unpredictable system behavior.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD119": {
+        "title": "The SAMPLE/PRELOAD JTAG Command Does Not Sample The Display Transmit Signals",
+        "problem": "The Display Transmit signals are not correctly sampled by the SAMPLE/PRELOAD JTAG Command, violating the Boundary Scan specification (IEEE 1149.1).",
+        "implication": "The SAMPLE/PRELOAD command cannot be used to sample Display Transmit signals.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD120": {
+        "title": "Performance Monitor Event For Outstanding Offcore Requests And Snoop Requests May be Incorrect",
+        "problem": "The performance monitor event OFFCORE_REQUESTS_OUTSTANDING (Event 60H, any Umask Value) should count the number of offcore outstanding transactions each cycle. Due to this erratum, the counts may be higher or lower than expected.",
+        "implication": "The performance monitor event OFFCORE_REQUESTS_OUTSTANDING may reflect an incorrect count.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD121": {
+        "title": "Processor Energy Policy Selection May Not Work as Expected",
+        "problem": "When the IA32_ENERGY_PERF_BIAS MSR (1B0H) is set to a value of 4 or more, the processor will try to increase the energy efficiency of Turbo mode. However, this functionality is effectively disabled if the software requested P-state exceeds the maximum P-state supported by the processer.",
+        "implication": "When this erratum occurs, the energy efficiency control may not behave as expected.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD122": {
+        "title": "PCIe Link May Incorrectly Train to 8.0 GT/s",
+        "problem": "During PCIe* 8.0 GT/s Phase 2 Equalization training, the received per-lane transmitter coefficients for physical lanes 8-15 may be incorrectly applied to the PCIe transmitters.",
+        "implication": "Due to this erratum, a PCIe link may either fail to train to the 8.0 GT/s transfer speed, experience link errors, or periodically retrain (possibly dropping to a lower link speed).",
+        "workaround": "A BIOS code change has been identified and may be implemented as a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD123": {
+        "title": "PCIe Tx Voltage Reference Cannot be Changed",
+        "problem": "PCIe* Tx Voltage Reference Select is available via the PCIE_CR_AFEBND[0:7]CFG1 (Device 1; Function 0) registers in field TxVrefSel bits [9:5]. Due to this erratum, changes to these values will have no effect.",
+        "implication": "For PCIe, setting the Tx Voltage Reference Select to non-default values will not produce the reference levels documented in the register description. Tx swing control utilizes Tx Voltage Reference; Tx swing cannot be adjusted from default.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD124": {
+        "title": "VM Exit May Set IA32_EFER.NXE When IA32_MISC_ENABLE Bit 34 is Set to 1",
+        "problem": "When \u201cXD Bit Disable\u201d in the IA32_MISC_ENABLE MSR (1A0H) bit 34 is set to 1, it should not be possible to enable the \u201cexecute disable\u201d feature by setting IA32_EFER.NXE. Due to this erratum, a VM exit that occurs with the 1-setting of the \u201cload IA32_EFER\u201d VM-exit control may set IA32_EFER.NXE even if IA32_MISC_ENABLE bit 34 is set to 1. This erratum can occur only if IA32_MISC_ENABLE bit 34 was set by guest software in VMX non-root operation.",
+        "implication": "Software in VMX root operation may execute with the \u201cexecute disable\u201d feature enabled despite the fact that the feature should be disabled by the IA32_MISC_ENABLE MSR. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "A virtual-machine monitor should not allow guest software to write to the IA32_MISC_ENABLE MSR.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD125": {
+        "title": "Re-enabling eDRAM May Log a Machine Check and Hang",
+        "problem": "If the eDRAM was disabled as a result of a package C-State entry of C2 or higher or a software request, the subsequent package C-state exit or software request to re-enable eDRAM may result in a machine check logged in IA32_MCi_STATUS.MCACOD [15:0] with of value 402H and subsequent system hang.",
+        "implication": "Due to this erratum, the system may log a machine check and hang.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD126": {
+        "title": "Warm Reset Does Not Stop EDRAM Power Draw",
+        "problem": "Due to this erratum, if EDRAM is enabled prior to a warm reset, it will remain powered after the warm reset. The processor will make incorrect power management decisions because it assumes the EDRAM is not drawing power after a warm reset.",
+        "implication": "The processor may draw more current than expected from an external VR (Voltage Regulator). The processor may also put the external VR into a low power state where it will be unable to supply the sufficient power resulting in unpredictable system behavior.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD127": {
+        "title": "Opcode Bytes F3 0F BC May Execute As TZCNT Even When TZCNT Not Enumerated by CPUID",
+        "problem": "If CPUID.(EAX=07H, ECX=0):EBX.BMI1 (bit 3) is 1 then opcode bytes F3 0F BC should be interpreted as TZCNT otherwise they will be interpreted as REP BSF. Due to this erratum, opcode bytes F3 0F BC may execute as TZCNT even if CPUID.(EAX=07H, ECX=0):EBX.BMI1 (bit 3) is 0.",
+        "implication": "Software that expects REP prefix before a BSF instruction to be ignored may not operate correctly since there are cases in which BSF and TZCNT differ with regard to the flags that are set and how the destination operand is established.",
+        "workaround": "Software should use the opcode bytes F3 0F BC only if CPUID.(EAX=07H, ECX=0):EBX.BMI1 (bit 3) is 1 and only if the functionality of TZCNT (and not BSF) is desired.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD128": {
+        "title": "Intel\u00ae S2DDT May Not Function Correctly with Certain High Resolution Displays",
+        "problem": "A limitation in Intel S2DDT (Intel\u00ae Smart 2D Display Technology), commonly known as frame buffer compression, may result in pixel data being supplied too slowly to the display.",
+        "implication": "Screen flickering or blank screen may be observed on certain high resolution displays.",
+        "workaround": "The latest version of the Intel graphics driver disables Intel S2DDT for resolutions with a pixel clock between 513 MHz and 540 MHz.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD130": {
+        "title": "VM Exit May Set IA32_EFER.NXE When IA32_MISC_ENABLE Bit 34 is Set to 1",
+        "problem": "When \u201cXD Bit Disable\u201d in the IA32_MISC_ENABLE MSR (1A0H) bit 34 is set to 1, it should not be possible to enable the \u201cexecute disable\u201d feature by setting IA32_EFER.NXE. Due to this erratum, a VM exit that occurs with the 1-setting of the \u201cload IA32_EFER\u201d VM-exit control may set IA32_EFER.NXE even if IA32_MISC_ENABLE bit 34 is set to 1. This erratum can occur only if IA32_MISC_ENABLE bit 34 was set by guest software in VMX non-root operation.",
+        "implication": "Software in VMX root operation may execute with the \u201cexecute disable\u201d feature enabled despite the fact that the feature should be disabled by the IA32_MISC_ENABLE MSR. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "A virtual-machine monitor should not allow guest software to write to the IA32_MISC_ENABLE MSR.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD131": {
+        "title": "Spurious Corrected Errors May be Reported",
+        "problem": "Due this erratum, spurious corrected errors may be logged in the IA32_MC0_STATUS register with the valid field (bit 63) set, the uncorrected error field (bit 61) not set, a Model Specific Error Code (bits [31:16]) of 0x000F, and an MCA Error Code (bits [15:0]) of 0x0005. If CMCI is enabled, these spurious corrected errors also signal interrupts.",
+        "implication": "When this erratum occurs, software may see corrected errors that are benign. These corrected errors may be safely ignored.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD132": {
+        "title": "A MOV to CR3 When EPT is Enabled May Lead to an Unexpected Page Fault or an Incorrect Page Translation",
+        "problem": "If EPT (extended page tables) is enabled, a MOV to CR3 or VMFUNC may be followed by an unexpected page fault or the use of an incorrect page translation.",
+        "implication": "Guest software may crash or experience unpredictable behavior as a result of this erratum.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD133": {
+        "title": "Package C7 Power Consumption Has Been Observed to be Higher Than Package C6",
+        "problem": "Package C7 power consumption may be higher than package C6 power consumption.",
+        "implication": "When this erratum occurs, power consumption will be higher than expected.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum which demotes package C7 to package C6 when power consumption in package C7 is likely to be higher than in package C6.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD134": {
+        "title": "A HyperThreading\u2122 Enabled Processor May Exhibit Unpredictable Behavior During Power or Thermal Management Operations",
+        "problem": "When both logical processors in a core are idled due to power or thermal management operations such as thermal events or C-state entry, under certain circumstances, instruction fetches initiated before entering the idle state may not complete correctly, resulting in unpredictable system behavior.",
+        "implication": "Due to this erratum, the processor may exhibit unpredictable system behavior. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD135": {
+        "title": "Certain Perfmon Events May be Counted Incorrectly When The Processor is Not in C0 State",
+        "problem": "Due to this erratum, the perfmon events listed below may be counted when the logical processor is not in C0 State. IDQ.EMPTY (event code 0x79 and umask 0x02) IDQ_UOPS_NOT_DELIVERED.CORE (event code 0x9c and umask 0x01) RESOURCE_STALLS.ANY (event core 0xa2 umask 0x01) CYCLE_ACTIVITY.CYCLES_LDM_PENDING (Event A3H, Umask 02H, Cmask 02H) CYCLE_ACTIVITY.CYCLES_NO_EXECUTE (Event A3H, Umask 04H, Cmask 04H) CYCLE_ACTIVITY.STALLS_LDM_PENDING (Event A3H, Umask 06H, Cmask 06H)",
+        "implication": "The count will be higher than expected.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD136": {
+        "title": "Software Using Intel\u00ae TSX May Result in Unpredictable System Behavior",
+        "problem": "Under a complex set of internal timing conditions and system events, software using the Intel TSX (Transactional Synchronization Extensions) instructions may result in unpredictable system behavior.",
+        "implication": "This erratum may result in unpredictable system behavior.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD137": {
+        "title": "A Transient High Temperature Event May Cause Persistent Frequency Restrictions",
+        "problem": "If the VR (Voltage Regulator) reports a high temperature condition, the processor will limit the ratio on all domains (Core/Graphics/Ring) to their respective maximum non- turbo ratios. When the thermal condition is no longer present, it\u2019s expected that the processor should release this constraint and allow the domains operate in their turbo region. Due to this erratum, if the thermal event ends when the processor is in Package C6 or deeper, the constraint will not be removed.",
+        "implication": "The processor will not operate at the highest available frequencies and will have a negative impact on performance. This constraint on the ratios are cleared upon a warm or cold reset.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD138": {
+        "title": "Running All Cores May Incorrectly Limit the Processor Frequency",
+        "problem": "When all IA cores in the processor are running but not executing AVX instructions and the processor is not constrained by PL1/PL2 power limits or thermal limits, the cores should be able to operate at the 4C turbo frequency. Due to this erratum, the processor may limit core frequency under these conditions as much as several bins below the 4C turbo frequency.",
+        "implication": "When this erratum occurs, the processor will not meet specified performance levels.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD139": {
+        "title": "Concurrent Core And Graphics Operation at Turbo Ratios May Lead to System Hang",
+        "problem": "Workloads that attempt concurrent operation of cores and graphics in their respective turbo ranges, under certain conditions may result in a system hang.",
+        "implication": "Concurrent core and graphics operation may hang the system",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD140": {
+        "title": "Performance Monitor Instructions Retired Event May Not Count Consistently",
+        "problem": "Performance Monitor Instructions Retired (Event C0H; Umask 00H) and the instruction retired fixed counter (IA32_FIXED_CTR0 MSR (309H)) are used to track the number of instructions retired. Due to this erratum, certain situations may cause the counter(s) to increment when no instruction has retired or to not increment when specific instructions have retired.",
+        "implication": "A performance counter counting instructions retired may over or under count. The count may not be consistent between multiple executions of the same code.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD141": {
+        "title": "Some Configurations May Violate Embedded DRAM Refresh Requirements Leading to a System Hang",
+        "problem": "Due to this erratum, embedded DRAM refresh requirements may be violated for some configurations leading to memory errors.",
+        "implication": "When this erratum occurs, the resulting memory errors may cause a system shutdown or hang.",
+        "workaround": "It is possible for BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD142": {
+        "title": "Interactions Between Multiple Unaligned Memory Accesses And Locked Instructions May Lead to a Machine Check",
+        "problem": "Under a complex set of conditions, interactions between multiple locked operations sharing certain low order address bits and data accesses that span a 4-KByte boundary may result in a processor internal timeout machine check (IA32_MCi_STATUS.MCACOD = 0x0400).",
+        "implication": "Due to this erratum, the processor may signal a machine check exception. Intel has not observed this erratum with any commercially available system.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD143": {
+        "title": "Fixed-Function Performance Counter May Over Count Instructions Retired by 32 When Intel\u00ae Hyper-Threading Technology is Enabled",
+        "problem": "If, while Intel Hyper-Threading Technology is enabled, the IA32_FIXED_CTR0 MSR (309H) is enabled by setting bits 0 and/or 1 in the IA32_PERF_FIXED_CTR_CTRL MSR (38DH) before setting bit 32 in the IA32_PERF_GLOBAL_CTRL MSR (38FH) then IA32_FIXED_CTR0 may over count by up to 32.",
+        "implication": "When this erratum occurs, the fixed-function performance counter IA32_FIXED_CTR0 may over count by up to 32.",
+        "workaround": "The following sequence avoids this erratum (steps 1 and 2 are needed if the counter was previously enabled): 1. Clear bit 32 in the IA32_PERF_GLOBAL_CTRL MSR (38FH) and clear bits 1 and 0 in the IA32_PERF_FIXED_CTR_CTRL MSR (38DH). 2.   Zero the IA32_FIXED_CTR0 MSR. 3.   Set bit 32 in the IA32_PERF_GLOBAL_CTRL MSR. 4.   Set bits 0 and/or 1 in the IA32_PERF_FIXED_CTR_CTRL MSR as desired.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD144": {
+        "title": "Performance Monitor UOPS_EXECUTED Event May Be Inaccurate When Using Intel\u00ae Hyper-Threading Technology",
+        "problem": "The performance monitor event UOPS_EXECUTED (Event B1H, Umask 01H) counts the number of uops executed each cycle. However, due to this erratum, when using Intel Hyper-Threading Technology, the uops may not be assigned to the correct logical processor.",
+        "implication": "The total number of uops executed by a core will be counted correctly but the division of uops between its logical processors may be incorrect.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD145": {
+        "title": "Operand-Size Override Prefix Causes 64-bit Operand Form of MOVBE Instruction to Cause a #UD",
+        "problem": "Execution of a 64 bit operand MOVBE instruction with an operand-size override instruction prefix (66H) may incorrectly cause an invalid-opcode exception (#UD).",
+        "implication": "A MOVBE instruction with both REX.W=1 and a 66H prefix will unexpectedly cause an invalid-opcode exception (#UD). Intel has not observed this erratum with any commercially available software",
+        "workaround": "Do not use a 66H instruction prefix with a 64-bit operand MOVBE instruction.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD146": {
+        "title": "POPCNT Instruction May Take Longer to Execute Than Expected",
+        "problem": "POPCNT instruction execution with a 32 or 64 bit operand may be delayed until previous non-dependent instructions have executed.",
+        "implication": "Software using the POPCNT instruction may experience lower performance than expected.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD147": {
+        "title": "Unpredictable Operation at Turbo Frequencies Above 4.0 GHz",
+        "problem": "Machine check errors, system hangs or other unpredictable system behavior may occur when operating at turbo frequencies above 4.0 GHz.",
+        "implication": "The processor may signal machine check errors, hang, or exhibit other unpredictable system behavior.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD148": {
+        "title": "System May Hang or Video May be Distorted After Graphics RC6 Exit",
+        "problem": "In a specific scenario, when the processor graphics exits RC6 and a processor core exits C6 at the same time, the system may become unresponsive or the video may become distorted.",
+        "implication": "The system may hang or video may be distorted.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD149": {
+        "title": "Certain eDP* Displays May Not Function as Expected",
+        "problem": "When the processor attempts to receive data on the eDP AUX bus, the impedance seen by the display\u2019s AUX bus drivers will be significantly below the VESA* eDP (Embedded DisplayPort*) specification\u2019s requirement for the Vaux(Rx) (eDP Auxiliary Channel) input impedance.",
+        "implication": "Certain eDP displays may not operate as expected.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD150": {
+        "title": "Some OFFCORE_RESPONSE Performance Monitoring Events May Undercount",
+        "problem": "The performance monitoring events OFFCORE_RESPONSE (Events B7H and BBH) should count uncore responses matching the request-response configuration specified in MSR_OFFCORE_RSPs (1A6H and 1A7H, respectively) for core-originated requests. However due to this erratum, COREWB (bit 3), PF_L3_DATA_RD (bit 7), PF_L3_RFO (bit 8), PR_L3_CODE_RD (bit 9), SPLIT_LOCK_UC_LOCK (bit 10), and STREAMING_STORES (bit 11) request types may undercount.",
+        "implication": "These performance monitoring events may not produce reliable results for the listed request types.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD151": {
+        "title": "Certain Settings of VM-Execution Controls May Result in Incorrect Linear-Address Translations",
+        "problem": "If VM exit occurs from a guest with primary processor-based VM-execution control \u201cactivate secondary controls\u201d set to 0 and the secondary processor-based VM- execution control \u201cenable VPID\u201d set to 1, then after a later VM entry with VPID fully enabled (\u201cactivate secondary controls\u201d and \u201cenable VPID\u201d set to 1), the processor may use stale linear address translations.",
+        "implication": "The processor may incorrectly translate linear addresses. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "Software should not enter a guest with \u201cenable VPID\u201d set to 1 when \u201cactivate secondary controls\u201d is set to 0.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD152": {
+        "title": "An IRET Instruction That Results in a Task Switch Does Not Serialize The Processor",
+        "problem": "An IRET instruction that results in a task switch by returning from a nested task does not serialize the processor (contrary to the Software Developer\u2019s Manual Vol. 3 section titled \u201cSerializing Instructions\u201d).",
+        "implication": "Software which depends on the serialization property of IRET during task switching may not behave as expected. Intel has not observed this erratum to impact the operation of any commercially available software.",
+        "workaround": "None identified. Software can execute an MFENCE instruction immediately prior to the IRET instruction if serialization is needed.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD153": {
+        "title": "Attempting to Disable Turbo Mode May Cause a #GP",
+        "problem": "Bit 38 of IA32_MISC_ENABLE MSR (1A0H) is Turbo Mode Disable on processors that support Intel\u00ae Dynamic Acceleration. Due to this erratum, that bit may be incorrectly treated as reserved; attempting to set Turbo Mode Disable results in a #GP (General Protection exception) even when it reads as 1.",
+        "implication": "When this erratum occurs, a WRMSR to IA32_MISC_ENABLE unexpectedly causes a #GP.",
+        "workaround": "It is possible for BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD154": {
+        "title": "Machine Check Threshold Based Error Status May be Set Incorrectly",
+        "problem": "A corrected error may be logged in IA32_MCi_STATUS with the Threshold Based Error field (bits[54:53]) indicating yellow status (10b) although the part is not above the threshold.",
+        "implication": "This erratum may be associated with a Cache Hierarchy Error reported in the Compound Error Code (bits[15:0]) of IA32_MCi_STATUS in the form 000F 0001 RRRR TTLL where LL is 11 and there are valid values for the other sub-fields (F, RRRR, and TT).",
+        "workaround": "None identified. A power-on reset of the processor will clear the yellow bit indication. If, during system operation after that reset, yellow status is signaled again then it should be treated as a valid yellow status condition.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD155": {
+        "title": "PECI Frequency Limited to 1 MHz",
+        "problem": "The PECI (Platform Environmental Control Interface) 3.1 specification\u2019s operating frequency range is 0.2 MHz to 2 MHz. Due to this erratum, PECI may be unreliable when operated above 1 MHz.",
+        "implication": "Platforms attempting to run PECI above 1 MHz may not behave as expected.",
+        "workaround": "None identified. Platforms should limit PECI operating frequency to 1 MHz.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD156": {
+        "title": "VGATHERQPS That Loads an Element From The APIC-Access Page May Load Other Elements From Incorrect Addresses",
+        "problem": "If the \u201cvirtualize APIC accesses\u201d VM-execution control is 1, a 256-bit VGATHERQPS with an element that maps to the APIC-access page may use incorrect addresses to load other elements.",
+        "implication": "Loading from an incorrect address can result in unexpected behavior with respect to data, faults or VM exits. This erratum will occur only if a guest operating system attempts to access the APIC using the VGATHERQPS instruction. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD157": {
+        "title": "MTF VM Exit on XBEGIN Instruction May Save State Incorrectly",
+        "problem": "Execution of an XBEGIN instruction while the \"monitor trap flag\" VM-execution control is 1 will be immediately followed by an MTF VM exit. If advanced debugging of RTM transactional regions has been enabled, the VM exit will erroneously save the address of the XBEGIN instruction as the instruction pointer (instead of the fallback instruction address specified by the XBEGIN instruction). In addition, it will erroneously set bit 16 of the pending-debug-exceptions field in the VMCS indicating that a debug exception or a breakpoint exception occurred.",
+        "implication": "Software using the monitor trap flag to debug or trace transactional regions may not operate properly. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "None identified",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD158": {
+        "title": "Uncore Performance Monitoring Counters May be Disabled or Cleared After Package C7",
+        "problem": "Upon exiting Package C7, the following Uncore performance monitoring MSRs may be cleared to zero: \u2022  MSR_     UNC   _PERF_GLOBAL_CTRL (391H) \u2022  MSR_     UNC   _PERF_GLOBAL_STATUS (392H) \u2022  MSR_     UNC   _PERF_FIXED_CTRL (394H) \u2022  MSR_     UNC   _PERF_FIXED_CTR (395H)",
+        "implication": "Uncore performance monitoring counters may be disabled and some counter state may be cleared after Package C7.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD159": {
+        "title": "PEBS Record May Be Generated After Being Disabled",
+        "problem": "A performance monitoring counter may generate a PEBS (Precise Event Based Sampling) record after disabling PEBS or the performance monitoring counter by clearing the corresponding enable bit in IA32_PEBS_ENABLE MSR (3F1H) or IA32_PERF_GLOBAL_CTRL MSR (38FH).",
+        "implication": "A PEBS record generated after a VMX transition will store into memory according to the post-transition DS (Debug Store) configuration. These stores may be unexpected if PEBS is not enabled following the transition.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum. A software workaround is possible through disallowing PEBS during VMX non-root operation and disabling PEBS prior to VM entry.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD160": {
+        "title": "PCIe* Port Does Not Support DLL Link Activity Reporting",
+        "problem": "The PCIe Base Specification requires every \u201cDownstream Port that supports Link speeds greater than 5.0 GT/s\" to support DLL (Data Link Layer) Link Active Reporting, However, the PCIe ports do not support DLL Link Active Reporting.",
+        "implication": "Due to this erratum, the PCIe ports do not support DLL Link Active Reporting. This may be reported by a PCIe compliance test.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD161": {
+        "title": "PCIe* Link Speed Negotiation May Fail After Link is Re-enabled",
+        "problem": "If a PCIe link is established then disabled and the link partner's advertised speeds are changed while the link is disabled, the link may fail to correctly negotiate link speed when it is re-enabled.",
+        "implication": "Due to this erratum, the PCIe link speed negotiation may fail after re-enabling a disabled port.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD162": {
+        "title": "MOVNTDQA From WC Memory May Pass Earlier Locked Instructions",
+        "problem": "An execution of (V)MOVNTDQA (streaming load instruction) that loads from WC (write combining) memory may appear to pass an earlier locked instruction that accesses a different cache line.",
+        "implication": "Software that expects a lock to fence subsequent (V)MOVNTDQA instructions may not operate properly.",
+        "workaround": "None identified. Software that relies on a locked instruction to fence subsequent executions of (V)MOVNTDQA should insert an MFENCE instruction between the locked instruction and subsequent (V)MOVNTDQA instruction.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD163": {
+        "title": "Data Breakpoint Coincident With a Machine Check Exception May be Lost",
+        "problem": "If a data breakpoint occurs coincident with a machine check exception, then the data breakpoint may be lost.",
+        "implication": "Due to this erratum, a valid data breakpoint may be lost.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD164": {
+        "title": "A Corrected Internal Parity Error May Result in a System Hang",
+        "problem": "A corrected Internal Parity Error (IA32_MC0_STATUS.MCACOD=0005H and IA32_MC0_STATUS.MSCOD=000FH, MSR 401H bits [15:0] and bits [31:16] respectively) may cause a system hang.",
+        "implication": "Due to this erratum, a corrected internal parity error may cause a system hang. Reset, SMI, or INIT will end the system hang.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD165": {
+        "title": "An APIC Timer Interrupt During Core C6 Entry May be Lost",
+        "problem": "Due to this erratum, an APIC timer interrupt coincident with the core entering C6 state may be lost rather than held for servicing later.",
+        "implication": "A lost APIC timer interrupt may lead to missed deadlines or a system hang.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD166": {
+        "title": "Internal Power State Transitions May Cause the Graphics Device to Hang",
+        "problem": "On certain processors, when the graphics device transitions among active power states in response to dynamic power demand, the graphics device may become unresponsive.",
+        "implication": "When this erratum occurs, the graphics device may hang, resulting in a frozen or blank display. The graphics driver may be able to restart the graphics device.",
+        "workaround": "It is possible for BIOS to contain processor configuration data and code changes as a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD167": {
+        "title": "PEBS EventingIP Field May Be Incorrect Under Certain Conditions",
+        "problem": "The EventingIP field in the PEBS (Processor Event-Based Sampling) record reports the address of the instruction that triggered the PEBS event. Under certain complex microarchitectural conditions, the EventingIP field may be incorrect.",
+        "implication": "When this erratum occurs, performance monitoring software may not attribute the PEBS events to the correct instruction.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD168": {
+        "title": "RF May be Incorrectly Set in The EFLAGS That is Saved on a Fault in PEBS or BTS",
+        "problem": "After a fault due to a failed PEBS (Processor Event Based Sampling) or BTS (Branch Trace Store) address translation, the RF (resume flag) may be incorrectly set in the EFLAGS image that is saved.",
+        "implication": "When this erratum occurs, a code breakpoint on the instruction following the return from handling the fault will not be detected. This erratum only happens when the user does not prevent faults on PEBS or BTS.",
+        "workaround": "Software should always prevent faults on PEBS or BTS.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD169": {
+        "title": "Some Memory Performance Monitoring Events May Produce Incorrect Results When Filtering on Either OS or USR Modes",
+        "problem": "The memory at-retirement performance monitoring events (listed below) may produce incorrect results when a performance counter is configured in OS-only or USR-only modes (bits 17 or 16 in IA32_PERFEVTSELx MSR). Counters with both OS and USR bits set are not affected by this erratum.",
+        "implication": "The listed performance monitoring events may produce incorrect results including PEBS records generated at an incorrect point. The list of affected HSW memory at-retirement events is as follows: MEM_UOPS_RETIRED.STLB_MISS_LOADS event D0H, umask 11H MEM_UOPS_RETIRED.STLB_MISS_STORES event D0H, umask 12H MEM_UOPS_RETIRED.LOCK_LOADS event D0H, umask 21H MEM_UOPS_RETIRED.SPLIT_LOADS event D0H, umask 41H MEM_UOPS_RETIRED.SPLIT_STORES event D0H, umask 42H MEM_LOAD_UOPS_RETIRED.L2_HIT event D1H, umask 02H MEM_LOAD_UOPS_RETIRED.L3_HIT event D1H, umask 04H MEM_LOAD_UOPS_RETIRED.L1_MISS event D1H, umask 08H MEM_LOAD_UOPS_RETIRED.L2_MISS event D1H, umask 10H MEM_LOAD_UOPS_RETIRED.L3_MISS event D1H, umask 20H MEM_LOAD_UOPS_RETIRED.HIT_LFB event D1H, umask 40H MEM_LOAD_L3_HIT_RETIRED.XSNP_MISS event D2H, umask 01H MEM_LOAD_L3_HIT_RETIRED.XSNP_HIT event D2H, umask 02H MEM_LOAD_L3_HIT_RETIRED.XSNP_HITM event D2H, umask 04H MEM_LOAD_L3_HIT_RETIRED.XSNP_NONE event D2H, umask 08H MEM_LOAD_UOPS_L3_MISS_RETIRED.LOCAL_DRAM event D3H, umask 01H",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD170": {
+        "title": "An x87 Store Instruction Which Pends #PE While EPT is Enabled May Lead to an Unexpected Machine Check and/or Incorrect x87 State Information",
+        "problem": "The execution of an x87 store instruction which causes a #PE (Precision Exception) to be pended and also causes a VM-exit due to an EPT violation or misconfiguration may lead the VMM logging a machine check exception with a cache hierarchy error (IA32_MCi_STATUS.MCACOD = 0150H and IA32_MCi_STATUS.MSCOD = 000FH). Additionally, FSW.PE and FSW.ES (bits 5 and 7 of the FPU Status Word) may be incorrectly set to 1, and the x87 Last Instruction Opcode (FOP) may be incorrect.",
+        "implication": "When this erratum occurs, the VMM may receive an expected machine check exception and software attempting to handle the #PE may not behave as expected.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD171": {
+        "title": "Load Latency Performance Monitoring Facility May Stop Counting",
+        "problem": "The performance monitoring events MEM_TRANS_RETIRED.LOAD_LATENCY_* (Event CDH; UMask 01H; any latency) count load instructions whose latency exceed a predefined threshold, where the loads are randomly selected using the Load Latency facility (PEBS extension). However due to this erratum, load latency facility may stop counting load instructions when Intel\u00ae HyperThreading Technology is enabled.",
+        "implication": "Counters programmed with the affected events stop incrementing and do not generate PEBS records.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD172": {
+        "title": "Writing MSR_LASTBRANCH_x_FROM_IP May #GP When Intel\u00ae TSX is Not Supported",
+        "problem": "Due to this erratum, on processors that do not support Intel TSX (Intel\u00ae Transactional Synchronization Extensions) (CPUID.07H.EBX bits 4 and 11 are both zero), writes to MSR_LASTBRANCH_x_FROM_IP (MSR 680H to 68FH)may #GP unless bits [62:61] are equal to bit [47].",
+        "implication": "The value read from MSR_LASTBRANCH_x_FROM_IPis unaffected by this erratum; bits [62:61] contain IN_TSX and TSX_ABORT information respectively. Software restoring these MSRs from saved values are subject to this erratum.",
+        "workaround": "Before writing MSR_LASTBRANCH_x_FROM_IP , ensure the value being written has bit [47] replicated in bits [62:61]. This is most easily accomplished by sign extending from bit [47] to bits [62:48].",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD173": {
+        "title": "APIC Timer Interrupt May Not be Generated at The Correct Time In TSC-Deadline Mode",
+        "problem": "After writing to the IA32_TSC_ADJUST MSR (3BH), any subsequent write to the IA32_TSC_DEADLINE MSR (6E0H) may incorrectly process the desired deadline. When this erratum occurs, the resulting timer interrupt may be generated at the incorrect time.",
+        "implication": "When the local APIC (Advanced Programmable Interrupt Controller) timer is configured for TSC-Deadline mode, a timer interrupt may be generated much earlier than expected or much later than expected. Intel has not observed this erratum with most commercially available software.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD174": {
+        "title": "System May Hang Under Complex Conditions",
+        "problem": "Under complex conditions, insufficient access control in graphics subsystem may lead to a system hang or crash upon a register read.",
+        "implication": "When this erratum occurs a system hang or crash may occur.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD175": {
+        "title": "Instruction Fetch May Cause Machine Check if Page Size Was Changed Without Invalidation",
+        "problem": "This erratum may cause a machine-check error (IA32_MCi_STATUS.MCACOD=005H with IA32_MCi_STATUS.MSCOD=00FH or IA32_MCi_STATUS.MCACOD=0150H with IA32_MCi_STATUS.MSCOD=00FH) on the fetch of an instruction. It applies only if (1) instruction bytes are fetched from a linear address translated using a 4-Kbyte page and cached in the processor; (2) the paging structures are later modified so that these bytes are translated using a large page (2-Mbyte, 4-Mbyte or 1-GByte) with a different physical address (PA), memory type (PWT, PCD and PAT bits), or User/Supervisor (U/S) bit; and (3) the same instruction is fetched after the paging structure modification but before software invalidates any TLB entries for the linear region.",
+        "implication": "Due to this erratum an unexpected machine check with error code 0150H with MSCOD 00FH may occur, possibly resulting in a shutdown. This erratum could also lead to unexpected correctable machine check (IA32_MCi_STATUS.UC=0) with error code 005H with MSCOD 00FH.",
+        "workaround": "Software should not write to a paging-structure entry in a way that would change the page size and either the physical address, memory type or User/Supervisor bit. It can instead use one of the following algorithms: first clear the P flag in the relevant paging- structure entry (e.g., PDE); then invalidate any translations for the affected linear addresses; and then modify the relevant paging-structure entry to set the P flag and establish the new page size. An alternative algorithm: first change the physical page attributes (combination of physical address, memory type and User/Supervisor bit) in all 4K pages in the affected linear addresses; then invalidate any translations for the affected linear addresses; and then modify the relevant paging-structure entry to establish the new page size.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD176": {
+        "title": "Performance Monitoring General Counter 2 May Have Invalid Value Written When TSX Is Enabled",
+        "problem": "When Transactional Synchronization Extensions (TSX) is enabled, and there are aborts (HLE or RTM) overlapping with access or manipulation of the IA32_PMC2 general- purpose performance counter (Offset: C3h) it may return invalid value.",
+        "implication": "Software may read invalid value from IA32_PMC2.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "HSD177": {
+        "title": "PMU MSR_UNC_PERF_FIXED_CTR is Cleared After Pkg C7 or Deeper",
+        "problem": "The Performance Monitoring Unit Uncore Performance Fixed Counter (MSR_UNC_PERF_FIXED_CTR (MSR 395h)) is cleared after pkg C7 or deeper.",
+        "implication": "Due to this erratum, once the system enters pkg C7 or deeper the uncore fixed counter does not reflect the actual count.",
+        "workaround": "None Identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    }
+}

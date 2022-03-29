@@ -1,0 +1,782 @@
+{
+    "AAT1": [
+        "X",
+        "X",
+        "No Fix",
+        "The Processor May Report a #TS Instead of a #GP Fault"
+    ],
+    "AAT2": [
+        "X",
+        "X",
+        "No Fix",
+        "REP MOVS/STOS Executing with Fast Strings Enabled and Crossing Page Boundaries with Inconsistent Memory Types May Use an Incorrect Data Size or Lead to Memory-Ordering Violations"
+    ],
+    "AAT3": [
+        "X",
+        "X",
+        "No Fix",
+        "Code Segment Limit/Canonical Faults on RSM May Be Serviced before Higher Priority Interrupts/Exceptions and May Push the Wrong Address onto the Stack"
+    ],
+    "AAT4": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor SSE Retired Instructions May Return Incorrect Values"
+    ],
+    "AAT5": [
+        "X",
+        "X",
+        "No Fix",
+        "Premature Execution of a Load Operation Prior to Exception Handler Invocation"
+    ],
+    "AAT6": [
+        "X",
+        "X",
+        "No Fix",
+        "MOV To/From Debug Registers Causes Debug Exception"
+    ],
+    "AAT7": [
+        "X",
+        "X",
+        "No Fix",
+        "Incorrect Address Computed for Last Byte of FXSAVE/FXRSTOR Image Leads to Partial Memory Update"
+    ],
+    "AAT8": [
+        "X",
+        "X",
+        "No Fix",
+        "Values for LBR/BTS/BTM Will Be Incorrect after an Exit from SMM"
+    ],
+    "AAT9": [
+        "X",
+        "X",
+        "No Fix",
+        "Single Step Interrupts with Floating Point Exception Pending May Be Mishandled"
+    ],
+    "AAT10": [
+        "X",
+        "X",
+        "No Fix",
+        "Fault on ENTER Instruction May Result in Unexpected Values on Stack Frame"
+    ],
+    "AAT11": [
+        "X",
+        "X",
+        "No Fix",
+        "IRET under Certain Conditions May Cause an Unexpected Alignment Check Exception"
+    ],
+    "AAT12": [
+        "X",
+        "X",
+        "No Fix",
+        "General Protection Fault (#GP) for Instructions Greater Than 15 Bytes May Be Preempted"
+    ],
+    "AAT13": [
+        "X",
+        "X",
+        "No Fix",
+        "General Protection (#GP) Fault May Not Be Signaled on Data Segment Limit Violation above 4-G Limit"
+    ],
+    "AAT14": [
+        "X",
+        "X",
+        "No Fix",
+        "LBR, BTS, BTM May Report a Wrong Address When an Exception/Interrupt Occurs in 64-bit Mode"
+    ],
+    "AAT15": [
+        "X",
+        "X",
+        "No Fix",
+        "MONITOR or CLFLUSH on the Local XAPIC's Address Space Results in Hang"
+    ],
+    "AAT16": [
+        "X",
+        "X",
+        "No Fix",
+        "Corruption of CS Segment Register during RSM While Transitioning from Real Mode to Protected Mode"
+    ],
+    "AAT17": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitoring Events for Read Miss to Level 3 Cache Fill Occupancy Counter May Be Incorrect"
+    ],
+    "AAT18": [
+        "X",
+        "X",
+        "No Fix",
+        "A VM Exit on MWAIT May Incorrectly Report the Monitoring Hardware As Armed"
+    ],
+    "AAT19": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Event SEGMENT_REG_LOADS Counts Inaccurately"
+    ],
+    "AAT20": [
+        "X",
+        "X",
+        "No Fix",
+        "#GP on Segment Selector Descriptor That Straddles Canonical Boundary May Not Provide Correct Exception Error Code"
+    ],
+    "AAT21": [
+        "X",
+        "X",
+        "No Fix",
+        "Improper Parity Error Signaled in the IQ Following Reset When a Code Breakpoint Is Set on a #GP Instruction"
+    ],
+    "AAT22": [
+        "X",
+        "X",
+        "No Fix",
+        "An Enabled Debug Breakpoint or Single Step Trap May Be Taken after MOV SS/POP SS Instruction If It Is Followed by an Instruction That Signals a Floating Point Exception"
+    ],
+    "AAT23": [
+        "X",
+        "X",
+        "No Fix",
+        "IA32_MPERF Counter Stops Counting during On-Demand TM1"
+    ],
+    "AAT25": [
+        "X",
+        "X",
+        "No Fix",
+        "Synchronous Reset of IA32_APERF/IA32_MPERF Counters on Overflow Does Not Work"
+    ],
+    "AAT26": [
+        "X",
+        "X",
+        "No Fix",
+        "Disabling Thermal Monitor While Processor Is Hot, Then Re-enabling, May Result in Stuck Core Operating Ratio"
+    ],
+    "AAT27": [
+        "X",
+        "X",
+        "No Fix",
+        "Writing the Local Vector Table (LVT) When an Interrupt Is Pending May Cause an Unexpected Interrupt"
+    ],
+    "AAT28": [
+        "X",
+        "X",
+        "No Fix",
+        "xAPIC Timer May Decrement Too Quickly Following an Automatic Reload While in Periodic Mode"
+    ],
+    "AAT29": [
+        "X",
+        "X",
+        "No Fix",
+        "Changing the Memory Type for an In-Use Page Translation May Lead to Memory-Ordering Violations"
+    ],
+    "AAT30": [
+        "X",
+        "X",
+        "No Fix",
+        "Infinite Stream of Interrupts May Occur If an ExtINT Delivery Mode Interrupt Is Received While All Cores Are in C6"
+    ],
+    "AAT31": [
+        "X",
+        "X",
+        "No Fix",
+        "Two xAPIC Timer Event Interrupts May Unexpectedly Occur"
+    ],
+    "AAT32": [
+        "X",
+        "X",
+        "No Fix",
+        "EOI Transaction May Not Be Sent If Software Enters Core C6 during an Interrupt Service Routine"
+    ],
+    "AAT33": [
+        "X",
+        "X",
+        "No Fix",
+        "FREEZE_WHILE_SMM Does Not Prevent Event from Pending PEBS during SMM"
+    ],
+    "AAT34": [
+        "X",
+        "X",
+        "No Fix",
+        "APIC Error \u201cReceived Illegal Vector\u201d May Be Lost"
+    ],
+    "AAT35": [
+        "X",
+        "X",
+        "No Fix",
+        "DR6 May Contain Incorrect Information When the First Instruction after a MOV SS,r/m or POP SS Is a Store"
+    ],
+    "AAT36": [
+        "X",
+        "X",
+        "No Fix",
+        "An Uncorrectable Error Logged in IA32_CR_MC2_STATUS May Also Result in a System Hang"
+    ],
+    "AAT37": [
+        "X",
+        "X",
+        "No Fix",
+        "IA32_PERF_GLOBAL_CTRL MSR May Be Incorrectly Initialized"
+    ],
+    "AAT38": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Counter MEM_INST_RETIRED.STORES May Count Higher Than Expected"
+    ],
+    "AAT39": [
+        "X",
+        "X",
+        "No Fix",
+        "Sleeping Cores May Not Be Woken up on Logical Cluster Mode Broadcast IPI Using Destination Field Instead of Shorthand"
+    ],
+    "AAT40": [
+        "X",
+        "X",
+        "No Fix",
+        "Faulting Executions of FXRSTOR May Update State Inconsistently"
+    ],
+    "AAT41": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Event EPT.EPDPE_MISS May Be Counted While EPT Is Disabled"
+    ],
+    "AAT42": [
+        "X",
+        "X",
+        "No Fix",
+        "Memory Aliasing of Code Pages May Cause Unpredictable System Behavior"
+    ],
+    "AAT43": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Counters May Count Incorrectly"
+    ],
+    "AAT44": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Event Offcore_response_0 (B7H) Does Not Count NT Stores to Local DRAM Correctly"
+    ],
+    "AAT45": [
+        "X",
+        "X",
+        "No Fix",
+        "EFLAGS Discrepancy on Page Faults and on EPT-Induced VM Exits after a Translation Change"
+    ],
+    "AAT46": [
+        "X",
+        "X",
+        "No Fix",
+        "Back to Back Uncorrected Machine Check Errors May Overwrite IA32_MC3_STATUS.MSCOD"
+    ],
+    "AAT47": [
+        "X",
+        "X",
+        "No Fix",
+        "Corrected Errors with a Yellow Error Indication May Be Overwritten by Other Corrected Errors"
+    ],
+    "AAT48": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Events DCACHE_CACHE_LD and DCACHE_CACHE_ST May Overcount"
+    ],
+    "AAT49": [
+        "X",
+        "X",
+        "No Fix",
+        "Rapid Core C3/C6 Transitions May Cause Unpredictable System Behavior"
+    ],
+    "AAT50": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Events INSTR_RETIRED and MEM_INST_RETIRED May Count Inaccurately"
+    ],
+    "AAT51": [
+        "X",
+        "X",
+        "No Fix",
+        "A Page Fault May Not Be Generated When the PS bit Is Set to \"1\" in a PML4E or PDPTE"
+    ],
+    "AAT52": [
+        "X",
+        "X",
+        "No Fix",
+        "BIST Results May Be Additionally Reported after a GETSEC[WAKEUP] or INIT-SIPI Sequence"
+    ],
+    "AAT53": [
+        "X",
+        "X",
+        "No Fix",
+        "Pending x87 FPU Exceptions (#MF) May Be Signaled Earlier Than Expected"
+    ],
+    "AAT54": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Exits Due to \"NMI-Window Exiting\" May Be Delayed by One Instruction"
+    ],
+    "AAT55": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Exits Due to EPT Violations Do Not Record Information about Pre-IRET NMI Blocking"
+    ],
+    "AAT56": [
+        "X",
+        "X",
+        "No Fix",
+        "Multiple Performance Monitor Interrupts Are Possible on Overflow of IA32_FIXED_CTR2"
+    ],
+    "AAT57": [
+        "X",
+        "X",
+        "No Fix",
+        "LBRs May Not Be Initialized during Power-On Reset of the Processor"
+    ],
+    "AAT58": [
+        "X",
+        "X",
+        "No Fix",
+        "LBR, BTM or BTS Records May Have Incorrect Branch from Information after an Enhanced Intel SpeedStep\u00ae Technology Transition, T-states, C1E, or Adaptive Thermal Throttling"
+    ],
+    "AAT59": [
+        "X",
+        "X",
+        "No Fix",
+        "VMX-Preemption Timer Does Not Count Down at the Rate Specified"
+    ],
+    "AAT60": [
+        "X",
+        "X",
+        "No Fix",
+        "Multiple Performance Monitor Interrupts Are Possible on Overflow of Fixed Counter 0"
+    ],
+    "AAT61": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Exits Due to LIDT/LGDT/SIDT/SGDT Do Not Report Correct Operand Size"
+    ],
+    "AAT62": [
+        "X",
+        "X",
+        "No Fix",
+        "DPRSLPVR Signal May Be Incorrectly Asserted on Transition between Low Power C-states"
+    ],
+    "AAT63": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitoring Events STORE_BLOCKS.NOT_STA and STORE_BLOCKS.STA May Not Count Events Correctly"
+    ],
+    "AAT64": [
+        "X",
+        "X",
+        "No Fix",
+        "Storage of PEBS Record Delayed Following Execution of MOV SS or STI"
+    ],
+    "AAT65": [
+        "X",
+        "X",
+        "No Fix",
+        "<Erratum Removed>."
+    ],
+    "AAT66": [
+        "X",
+        "X",
+        "No Fix",
+        "INVLPG Following INVEPT or INVVPID May Fail to Flush All Translations for a Large Page"
+    ],
+    "AAT67": [
+        "X",
+        "X",
+        "No Fix",
+        "LER MSRs May Be Unreliable"
+    ],
+    "AAT68": [
+        "X",
+        "X",
+        "No Fix",
+        "MCi_Status Overflow Bit May Be Incorrectly Set on a Single Instance of a DTLB Error"
+    ],
+    "AAT69": [
+        "X",
+        "X",
+        "No Fix",
+        "Debug Exception Flags DR6.B0-B3 Flags May Be Incorrect for Disabled Breakpoints"
+    ],
+    "AAT70": [
+        "X",
+        "X",
+        "No Fix",
+        "Erratum removed as it does not apply to the Intel\u00ae CoreTM i7-600, i5-500, i5-400 and i3-300 Mobile Processor Series"
+    ],
+    "AAT71": [
+        "X",
+        "X",
+        "Plan Fix",
+        "Delivery of Certain Events Immediately Following a VM Exit May Push a Corrupted RIP onto the Stack"
+    ],
+    "AAT72": [
+        "X",
+        "X",
+        "No Fix",
+        "A String Instruction that Re-maps a Page May Encounter an Unexpected Page Fault"
+    ],
+    "AAT73": [
+        "X",
+        "X",
+        "No Fix",
+        "Logical Processor May Use Incorrect VPID after VM Entry That Returns From SMM"
+    ],
+    "AAT74": [
+        "X",
+        "X",
+        "No Fix",
+        "MSR_TURBO_RATIO_LIMIT MSR May Return Intel\u00ae Turbo Boost Technology Core Ratio Multipliers for Non-Existent Core Configurations"
+    ],
+    "AAT75": [
+        "X",
+        "X",
+        "No Fix",
+        "PCI Express x16 Port Logs Bad TLP Correctable Error When Receiving a Duplicate TLP"
+    ],
+    "AAT76": [
+        "X",
+        "X",
+        "No Fix",
+        "PCI Express x16 Root Port Incorrectly NAK's a Nullified TLP"
+    ],
+    "AAT77": [
+        "X",
+        "X",
+        "No Fix",
+        "PCI Express Graphics x16 Receiver Error Reported When Receiver With L0s Enabled and Link Retrain Performed"
+    ],
+    "AAT78": [
+        "X",
+        "X",
+        "No Fix",
+        "Internal Parity Error May Be Incorrectly Signaled during C6 Exit"
+    ],
+    "AAT79": [
+        "X",
+        "X",
+        "No Fix",
+        "PMIs during Core C6 Transitions May Cause the System to Hang"
+    ],
+    "AAT80": [
+        "X",
+        "X",
+        "No Fix",
+        "Page Split Lock Accesses Combined with Complex Internal Events May Cause Unpredictable System Behavior"
+    ],
+    "AAT81": [
+        "X",
+        "X",
+        "No Fix",
+        "Extra APIC Timer Interrupt May Occur during a Write to the Divide Configuration Register"
+    ],
+    "AAT82": [
+        "X",
+        "X",
+        "Plan Fix",
+        "TXT.PUBLIC.KEY Is Not Reliable"
+    ],
+    "AAT83": [
+        "X",
+        "X",
+        "Plan Fix",
+        "8259 Virtual Wire B Mode Interrupt May Be Dropped When It Collides with Interrupt Acknowledge Cycle from the Preceding Interrupt"
+    ],
+    "AAT84": [
+        "X",
+        "X",
+        "No Fix",
+        "CPUID Incorrectly Reports a C-State as Available When This State Is Unsupported"
+    ],
+    "AAT85": [
+        "X",
+        "X",
+        "No Fix",
+        "The Combination of a Page-Split Lock Access and Data Accesses That Are Split across Cacheline Boundaries May Lead to Processor Livelock"
+    ],
+    "AAT86": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor Hangs on Package C6 State Exit"
+    ],
+    "AAT87": [
+        "X",
+        "X",
+        "No Fix",
+        "A Synchronous SMI May Be Delayed"
+    ],
+    "AAT88": [
+        "X",
+        "X",
+        "No Fix",
+        "FP Data Operand Pointer May Be Incorrectly Calculated after an FP Access Which Wraps a 4-Gbyte Boundary in Code That Uses 32-Bit Address Size in 64-bit Mode"
+    ],
+    "AAT89": [
+        "X",
+        "X",
+        "No Fix",
+        "PCI Express Cards May Not Train to x16 Link Width"
+    ],
+    "AAT90": [
+        "X",
+        "X",
+        "No Fix",
+        "The APIC Timer Current Count Register May Prematurely Read 0x0 While the Timer Is Still Running"
+    ],
+    "AAT91": [
+        "X",
+        "X",
+        "No Fix",
+        "IO_SMI Indication in SMRAM State Save Area May be Set Incorrectly"
+    ],
+    "AAT92": [
+        "X",
+        "X",
+        "No Fix",
+        "FSW May Be Corrupted If an x87 Store Instruction Causes a Page Fault in VMX Non-Root Operation After a PD Exit"
+    ],
+    "AAT93": [
+        "X",
+        "X",
+        "No Fix",
+        "CKE May go Low Within tRFC(min) After a PD Exit"
+    ],
+    "AAT94": [
+        "X",
+        "X",
+        "No Fix",
+        "Under Certain Low Temperature Conditions, Some Uncore Performance Monitoring Events May Report Incorrect Results"
+    ],
+    "AAT95": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Entry to 64-Bit Mode May Fail if Bits 48 And 47 of Guest RIP Are Different"
+    ],
+    "AAT96": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Entry Loading an Unusable SS Might Not Set SS.B to 1"
+    ],
+    "AAT97": [
+        "X",
+        "X",
+        "No Fix",
+        "Accesses to a VMCS May Not Operate Correctly If CR0.CD is Set on Any Logical Processor of a Core"
+    ],
+    "AAT98": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Events for Hardware Prefetches Which Miss The L1 Data Cache May be Over Counted"
+    ],
+    "AAT99": [
+        "X",
+        "",
+        "No Fix",
+        "Correctable and Uncorrectable Cache Errors May be Reported Until the First Core C6 Transition"
+    ],
+    "AAT100": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Exit May Incorrectly Clear IA32_PERF_GLOBAL_CTRL [34:32]"
+    ],
+    "AAT101": [
+        "X",
+        "X",
+        "No Fix",
+        "DTS Temperature Data May Be Incorrect On a Return From the Package C6 Low Power State"
+    ],
+    "AAT102": [
+        "X",
+        "X",
+        "No Fix",
+        "USB Devices May Not Function Properly With Integrated Graphics While Running Targeted Stress Graphics Workloads With Non-Matching Memory Configurations"
+    ],
+    "AAT103": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Entry May Omit Consistency Checks Related to Bit 14 (BS) of the Pending Debug Exception Field in Guest-State Area of the VMCS"
+    ],
+    "AAT104": [
+        "",
+        "X",
+        "No Fix",
+        "Intel Turbo Boost Technology Ratio Changes May Cause Unpredictable System Behavior"
+    ],
+    "AAT105": [
+        "\u2014",
+        "\u2014",
+        "\u2014",
+        "\u2014"
+    ],
+    "AAT106": [
+        "X",
+        "\u2014",
+        "No Fix",
+        "Execution of VMPTRLD May Corrupt Memory If Current-VMCS Pointer is Invalid"
+    ],
+    "AAT107": [
+        "X",
+        "X",
+        "No Fix",
+        "PerfMon Overflow Status Can Not be Cleared After Certain Conditions Have Occurred"
+    ],
+    "AAT108": [
+        "X",
+        "X",
+        "No Fix",
+        "An Unexpected Page Fault or EPT Violation May Occur After Another Logical Processor Creates a Valid Translation for a Page"
+    ],
+    "AAT109": [
+        "X",
+        "X",
+        "No Fix",
+        "L1 Data Cache Errors May be Logged With Level Set to 1 Instead of 00"
+    ],
+    "AAT110": [
+        "X",
+        "X",
+        "No Fix",
+        "Executing The GETSEC Instruction While Throttling May Result in a Processor Hang"
+    ],
+    "AAT111": [
+        "X",
+        "X",
+        "No Fix",
+        "PerfMon Event LOAD_HIT_PRE.SW_PREFETCH May Overcount"
+    ],
+    "AAT112": [
+        "X",
+        "X",
+        "No Fix",
+        "Successive Fixed Counter Overflows May be Discarded"
+    ],
+    "AAT113": [
+        "X",
+        "X",
+        "No Fix",
+        "#GP May be Signaled When Invalid VEX Prefix Precedes Conditional Branch Instructions"
+    ],
+    "AAT114": [
+        "X",
+        "X",
+        "No Fix",
+        "A Logical Processor May Wake From Shutdown State When Branch-Trace Messages or Branch-Trace Stores Are Enabled"
+    ],
+    "AAT115": [
+        "X",
+        "X",
+        "No Fix",
+        "Task Switch to a TSS With an Inaccessible LDTR Descriptor May Cause Unexpected Faults"
+    ],
+    "AAT116": [
+        "X",
+        "X",
+        "No Fix",
+        "MCIP Bit Not Checked on SENTER or ENTERACCS"
+    ],
+    "AAT117": [
+        "X",
+        "X",
+        "No Fix",
+        "EOI-Broadcast Suppression May Not Function Properly if Enabled or Disabled While an Interrupt is in Service"
+    ],
+    "AAT118": [
+        "X",
+        "X",
+        "No Fix",
+        "Unexpected Load May Occur on Execution of Certain Opcodes"
+    ],
+    "AAT119": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Entry Loading an Unusable SS Might Not Clear Bits 3:0 of the SS Base Address"
+    ],
+    "AAT120": [
+        "X",
+        "X",
+        "No Fix",
+        "A First Level Data Cache Parity Error May Result in Unexpected Behavior"
+    ],
+    "AAT121": [
+        "X",
+        "X",
+        "No Fix",
+        "A Page Fault May Not be Generated When the PS bit is set to \u201c1\u201d in a PML4E or PDPTE"
+    ],
+    "AAT122": [
+        "X",
+        "X",
+        "No Fix",
+        "An Unexpected Page Fault or EPT Violation May Occur After Another Logical Processor Creates a Valid Translation for a Page"
+    ],
+    "AAT123": [
+        "X",
+        "X",
+        "No Fix",
+        "Intel\u00ae Trusted Execution Technology ACM Revocation"
+    ],
+    "AAT124": [
+        "X",
+        "X",
+        "No Fix",
+        "Intel\u00ae Processor Graphics VT-d IOTLB Invalidation Operation May Fail to Complete"
+    ],
+    "AAT125": [
+        "X",
+        "X",
+        "No Fix",
+        "The Corrected Error Count Overflow Bit in IA32_ MC0_STATUS is Not Updated When the UC Bit is Set"
+    ],
+    "AAT126": [
+        "X",
+        "X",
+        "No Fix",
+        "The Upper 32 Bits of CR3 May be Incorrectly Used With 32-Bit Paging"
+    ],
+    "AAT127": [
+        "X",
+        "X",
+        "No Fix",
+        "EPT Violations May Report Bits 11:0 of Guest Linear Address Incorrectly"
+    ],
+    "AAT128": [
+        "X",
+        "X",
+        "No Fix",
+        "IA32_VMX_VMCS_ENUM MSR (48AH) Does Not Properly Report The Highest Index Value Used For VMCS Encoding"
+    ],
+    "AAT129": [
+        "X",
+        "X",
+        "No Fix",
+        "Virtual-APIC Page Accesses With 32-Bit PAE Paging May Cause a System Crash"
+    ],
+    "AAT130": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Exit May Set IA32_EFER.NXE When IA32_MISC_ENABLE Bit 34 is Set to 1"
+    ],
+    "AAT131": [
+        "X",
+        "X",
+        "No Fix",
+        "An IRET Instruction That Results in a Task Switch Does Not Serialize The Processor"
+    ]
+}

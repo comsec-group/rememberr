@@ -1,0 +1,352 @@
+{
+    "1155": {
+        "title": "DMA or Peer-to-peer Accesses Using Guest Physical Addresses (GPAs) May Cause IOMMU Target Abort",
+        "problem": "In systems where: \u2022 Virtualization is enabled, and \u2022 IOMMU is in pass-through mode DMA or peer-to-peer accesses using Guest Physical Addresses (GPAs) occurring within the regions defined below trigger a target abort. \u2022 0x00FD_0000_0000->0x00FD_F8FF_FFFF, or \u2022 0x00FD_F910_0000->0x00FD_F91F_FFFF, or \u2022 0x00FD_FB00_0000->0x00FD_FFFF_FFFF",
+        "implication": "A DMA device will receive a target abort from the IOMMU.",
+        "workaround": "System software must mark the following block of memory as reserved: \u2022 FD_0000_0000 -> FD_FFFF_FFFF",
+        "status": "No fix planned"
+    },
+    "1159": {
+        "title": "Writes to Base Frequency Register May be Ignored",
+        "problem": "If the base frequency register, (MSRC001_0064[CpuDfsId], MSRC001_0064[CpuFid]): \u2022 is programmed to a lower frequency than the default reset value, and \u2022 the default base frequency is not a multiple of 100 MHz then subsequent writes to the register that are greater than the next lower multiple of 100 MHz may be ignored.",
+        "implication": "Software may report an incorrect value of base frequency.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1160": {
+        "title": "SdpParity and XiVictimQueue Mask Bits Incorrectly Mask Additional Errors",
+        "problem": "If MCA::L3::MCA_CTL_MASK_L3[5] (SdpParity) is set then errors logged in MCA_STATUS_L3 that set MCA_STATUS_L3[ErrorCodeExt]=0x5 are correctly masked, and some system read data errors logged in MCA_STATUS_LS or MCA_STATUS_IF are masked incorrectly. If MCA::L3::MCA_CTL_MASK_L3[6] (XiVictimQueue) is set then errors logged in MCA_STATUS_L3 that set MCA_STATUS_L3[ErrorCodeExt]=0x6 are correctly masked, and some system read data errors logged in MCA_STATUS_LS are masked incorrectly.",
+        "implication": "Some system read data errors logged in MCA_STATUS_LS or MCA_STATUS_IF may fail to be detected.",
+        "workaround": "Do not program MCA::L3::MCA_CTL_MASK_L3[5] or MCA::L3::MCA_CTL_MASK_L3[6] to 1b.",
+        "status": "No fix planned"
+    },
+    "1169": {
+        "title": "PCIe\u00ae Error Masking May Fail to Mask Errors",
+        "problem": "If MCA_CTL_MASK_NBIO[PCIE_sideband] is programmed to 0b, then PCIe\u00ae error masking, including Uncorrectable Error Mask and Correctable Error Mask, will not mask errors.",
+        "implication": "Masked errors will incorrectly be reported to the system.",
+        "workaround": "Program MCA_CTL_MASK_NBIO[PCIE_sideband] to 1b. System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1193": {
+        "title": "Page Remapping Without Invalidation May Cause Missed Detection of Self-Modifying Code",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, if a page table entry that has the Accessed bit set has its Page Frame Number (Physical-Page Base Address) updated without first updating the translation to have a permission violation for instruction fetch and then invalidating the table entry (INVLPG or INVLPGB +DVMSYNC), the processor may: \u2022 Execute stale instructions in the presence of self-modifying code or cross-modifying code for an instruction using the old translation.",
+        "implication": "Processor may execute stale instructions in the presence of self-modifying code or cross-modifying code.",
+        "workaround": "When remapping a page that is used for code fetch, software should update the translation to have a permission violation and invalidate the page table entry prior to remapping.",
+        "status": "No fix planned"
+    },
+    "1197": {
+        "title": "IBS (Instruction Based Sampling) Register State May be Incorrect After Restore From CC6",
+        "problem": "If an IBS (Instruction Based Sampling) interrupt is asserted, but the processor begins entry into the CC6 state before the IBS interrupt is processed, then the IBS register state may be incorrect after the restore from CC6.",
+        "implication": "Debugger or performance monitoring software that uses IBS functionality may encounter inaccurate data.",
+        "workaround": "Software should ignore IBS samples if MSRC001_1031 == 0000_0000_0000_0000h.",
+        "status": "No fix planned"
+    },
+    "1200": {
+        "title": "xHCI Host May Hang If Full Speed or High Speed USB Hub is Connected",
+        "problem": "xHCI Host controller may hang if: \u2022 A high speed or full speed flash device is connected to the host, and \u2022 A high speed or full speed hub is connected to the host, and \u2022 An active device is connected to the hub.",
+        "implication": "xHCI Host controller may hang.",
+        "workaround": "System software may contain the workaround for this erratum. Program USB0x00C60C[12:9] to 0001b. Program USB1x00C60C[12:9] to 0001b. Program USB0x00C608[6:5] to 00b. Program USB1x00C608[6:5] to 00b.",
+        "status": "No fix planned"
+    },
+    "1211": {
+        "title": "PCIe Incorrectly Logs TLP Prefix AER (Advanced Error Reporting) Register After Egress Blocking Error",
+        "problem": "When a PCIe TLP prefix egress blocking error occurs in an ATS (Address Translation Service) invalidation message or PRG (Page Request Group) response message, a TPH (TLP Processing Hint) prefix will be incorrectly be logged in the TLP Prefix AER (Advanced Error Reporting) register instead of PASID (Process Address Space ID).",
+        "implication": "Software reading the TLP Prefix AER register may encounter incorrect information.",
+        "workaround": "Ignore Bit 24 of the TLP Prefix AER after a PCIe egress blocking error in an ATS invalidation message or PRG response message.",
+        "status": "No fix planned"
+    },
+    "1216": {
+        "title": "IOMMU May Not Re-Walk Page Tables on a Present/ Permission Fault",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, the IOMMU may not re-walk page tables on a present/permission fault.",
+        "implication": "An IO device may see an unexpected completer abort.",
+        "workaround": "System software may contain the workaround for this erratum. Program IOMMUL2B0x00000150[16] to 1b,and Program IOMMUL2B1x00000150[16] to 1b, and Program IOMMUL2B2x00000150[16] to 1b, and Program IOMMUL2B3x00000150[16] to 1b.",
+        "status": "No fix planned"
+    },
+    "1218": {
+        "title": "EXITINFO1[2] May Be Incorrectly Set When GMET (Guest Mode Execute Trap extension) is Enabled",
+        "problem": "EXITINFO1[2] (User/Supervisor bit) may incorrectly be one during a nested page fault if GMET (Guest Mode Execute Trap extension) is enabled.",
+        "implication": "Software may not be able to determine whether a fault was a GMET fault or an NX fault based on EXITINFO1.",
+        "workaround": "Software must read the relevant VMCB to determine whether a fault was a GMET fault or an NX fault.",
+        "status": "No fix planned"
+    },
+    "1225": {
+        "title": "MCA_STATUS_CS[ErrorCode] May Be Incorrect After Some Machine Check Errors",
+        "problem": "For some machine check errors, the MCA_STATUS_CS[ErrorCode] memory transaction type (RRRR) field incorrectly contains the value 0101b (Instruction Fetch) for all transaction types. This erratum affects errors logged with the following MCA_STATUS_CS[ErrorCodeExt]: \u2022 FTI_ILL_REQ \u2022 FTI_ADDR_VIOL \u2022 FTI_SEC_VIOL \u2022 FTI_ILL_RSP \u2022 FTI_RSP_NO_MTCH \u2022 SPF_PRT_ERR \u2022 SDP_RSP_NO_MTCH \u2022 SDP_UNEXP_RETRY \u2022 CNTR_OVFL \u2022 CNTR_UNFL",
+        "implication": "None expected. Software is expected to primarily rely on MCA_STATUS_CS[ErrorCodeExt] to identify errors.",
+        "workaround": "None. Software should use MCA_STATUS_CS[ErrorCodeExt] to identify errors and ignore MCA_STATUS_CS[ErrorCode] RRRR value for the error types listed above.",
+        "status": "No fix planned"
+    },
+    "1226": {
+        "title": "A Hardware Task Switch That Encounters Shadow Stack Errors May Cause a System Hang",
+        "problem": "A hardware task switch that encounters a shadow stack error condition may result in a #GP instead of a #TS. A hardware task switch that encounters a fault during shadow stack accesses may result in TR (Task Register) being incorrectly loaded.",
+        "implication": "System may hang or reset.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1227": {
+        "title": "A CPL3 to CPL3 Hardware Task Switch May Result in an Unexpected #CP",
+        "problem": "A CPL3 to CPL3 hardware task switch may result in the SSP (Shadow Stack Pointer) being corrupted.",
+        "implication": "System may encounter an unexpected #CP.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1237": {
+        "title": "MCA_STATUS_LS[ExtErrorCode] May Contain Incorrect Code After a Store Queue Address Fatal Parity Error",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, an error that should be logged with MCA_STATUS_LS[ExtErrorCode]=11 (store queue address fatal parity error) may be incorrectly logged with MCA_STATUS_LS[ExtErrorCode]=23 (other store data fatal error).",
+        "implication": "Diagnostic software may encounter incorrect information in MCA_STATUS_LS[ExtErrorCode] after a fatal error.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1238": {
+        "title": "MSRC001_1030[IbsIcMiss] May be Incorrect",
+        "problem": "The processor may set MSRC001_1030[IbsIcMiss] as an instuction cache miss when the fetch was an instuction cache hit.",
+        "implication": "MSRC001_1030[IbsIcMiss] may be incorrect.",
+        "workaround": "None. Ignore MSRC001_1030[IbsIcMiss].",
+        "status": "No fix planned"
+    },
+    "1244": {
+        "title": "EXITINFO1[2] May Be Incorrectly Set When Supervisor Shadow Stack Check is Enabled",
+        "problem": "EXITINFO1[2] (User/Supervisor bit) may incorrectly be 1b during a nested page fault if Supervisor Shadow Stack Check (Virtual Machine Control Block offset 90h bit 4) is enabled.",
+        "implication": "Software may not be able to determine whether a fault was a Supervisor Shadow Stack Check or not based on EXITINFO1[2].",
+        "workaround": "Software may examine the following to determine the type of the fault: \u2022 EXITINFO1[37] and EXITINFO1[6] \u2022 CPL (Current Privilege Level) from VMCB (Virtual Machine Control Block) \u2022 Guest instruction bytes from VMCB (WRUSS instruction is a user access regardless of CPL) \u2022 Nested page table",
+        "status": "No fix planned"
+    },
+    "1257": {
+        "title": "MCA_STATUS_LS[Overflow] May Be Spuriously Set on DC_DATA_VICTIM or DC_DATA_LOAD Error",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, MCA_STATUS_LS[Overflow] may be spuriously set when a DC_DATA_VICTIM or DC_DATA_LOAD error is logged.",
+        "implication": "None",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1260": {
+        "title": "Processor May Log an Error with Incorrect Address in MCA_ADDR_LS",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, when logging an MCA error due to poison consumption (MCA_STATUS_LS[ExtErrorCode]=DC_DATA_LOAD and MCA_STATUS_LS[Poison]=1), the processor may log an incorrect address in MCA_ADDR_LS.",
+        "implication": "System software may incorrectly identify which address contains poisoned data.",
+        "workaround": "System software should use the deferred error information associated with poison creation to identify the address containing poisoned data.",
+        "status": "No fix planned"
+    },
+    "1266": {
+        "title": "Retired MMX/FP Instruction Counter May Fail to Count MMX Stores",
+        "problem": "If PMCx0CB[MmxInstr] is programmed to 1b, the processor may experience sampling inaccuracies that cause the PMCx0CB [Retired MMX/FP Instructions] performance counter to fail to count MMX stores.",
+        "implication": "Performance monitoring software may undercount retired MMX/FP instructions.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1267": {
+        "title": "MSRC000_00E9[IRPerfCount] May Overcount",
+        "problem": "The processor may experience sampling inaccuracies that cause MSRC000_00E9[IRPerfCount] to overcount certain instruction fusion cases.",
+        "implication": "Inaccuracies in performance monitoring software may be experienced.",
+        "workaround": "If absolute accuracy is required, then use PMCx0C0 instead.",
+        "status": "No fix planned"
+    },
+    "1275": {
+        "title": "Software Using a Non-Canonicalized SSP (Shadow Stack Pointer) May Encounter a #GP Fault on a Different Instruction Than Expected",
+        "problem": "The processor may not canonicalize the SSP before saving for far transfers to an inner privilege level (specifically CPL3 to CPL2/1/0) when: \u2022 EFER.LMA=1, or \u2022 The far transfer is a SYSCALL The processor may not fault during a far transfer to an outer privilege level (specifically CPL2/1/0 to CPL3) if the target SSP is non-canonical.",
+        "implication": "None expected. Software using a non-canonicalized SSP (Shadow Stack Pointer) may encounter a #GP fault on a different instruction than expected.",
+        "workaround": "The operating system or hypervisor may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1276": {
+        "title": "IOMMU May Fail to Abort Pre-Translated Request With Bits Erroneously Set in Reserved Field",
+        "problem": "The IOMMU fails to abort pre-translated request with bits erroneously set in the reserved host PDE[60:52] (Page Directory Entry) or reserved host PTE[58:52] (Page Table Entry) fields when sATS (Secure Address Translation Service) is enabled for the device making the request.",
+        "implication": "None expected. Properly coded software will avoid programming reserved bits in the host PDE or host PTE structures.",
+        "workaround": "Do not program bits in: \u2022 the reserved host PDE[60:52] (Page Directory Entry) field, or \u2022 the reserved host PTE[58:52] (Page Table Entry) field",
+        "status": "No fix planned"
+    },
+    "1277": {
+        "title": "IOMMU May Mishandle Fault on Skipped Page Directory Entry Levels",
+        "problem": "When Guest Page Tables and Nested Page Tables are enabled, if a nested page table walk skips a PDE (Page Directory Entry) level when the virtual address bits are non-zero, the IOMMU may fail to abort the request, and fail to generate an IO page fault.",
+        "implication": "None expected. Properly coded software will program the virtual address bits associated with a skipped page level to all zero.",
+        "workaround": "Program the virtual address bits associated with a skipped page level to all zero.",
+        "status": "No fix planned"
+    },
+    "1278": {
+        "title": "Some Features Are Not Available When SNP (Secure Nested Paging) Support Is Enabled",
+        "problem": "The following features are not available when SNP support is enabled: \u2022 IOMMU Guest Paging (GTSup) Two-level Guest Address Translation \u2022 IOMMU SATS (SATSSup) Secure Address Translation Service \u2022 IOMMU AVIC (GAMSup) Guest Virtual APIC Interrupt Controller \u2022 \u2022",
+        "implication": "The features listed above are not available when SNP support is enabled.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1287": {
+        "title": "PMCx0AA[Source of Op Dispatched From Decoder] Events Will Not Be Counted",
+        "problem": "If a core performance monitor counter is programmed to select PMCx0AA[Source of Op Dispatched From Decoder], the counter will not count the selected events.",
+        "implication": "Performance monitoring software may undercount \"Source of Op Dispatched From Decoder\" events.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1288": {
+        "title": "A VDPPS Instruction May Fail to Record a Masked Exception in the MXCSR Register",
+        "problem": "A 256-bit VDPPS instruction will fail to record a masked exception in the MXCSR register when: \u2022 An unmasked exception is detected on one 128-bit section in the addition phase of the instruction, and \u2022 A masked exception is detected on the other 128-bit section in the addition phase of the instruction.",
+        "implication": "None expected.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1292": {
+        "title": "Certain Performance Counters For Retire Based Events May Overcount",
+        "problem": "The processor may experience sampling inaccuracies that cause the following performance counters to overcount retire-based events. \u2022 PMCx0C0 [Retired Instructions] \u2022 PMCx0C1 [Retired Uops] \u2022 PMCx0C2 [Retired Branch Instructions] \u2022 PMCx0C3 [Retired Branch Instructions Mispredicted] \u2022 PMCx0C4 [Retired Taken Branch Instructions] \u2022 PMCx0C5 [Retired Taken Branch Instructions Mispredicted] \u2022 PMCx0C8 [Retired Near Returns] \u2022 PMCx0C9 [Retired Near Returns Mispredicted] \u2022 PMCx0CA [Retired Indirect Branch Instructions Mispredicted] \u2022 PMCx0CC [Retired Indirect Branch Instructions] \u2022 PMCx0D1 [Retired Conditional Branch Instructions] \u2022 PMCx1C7 [Retired Mispredicted Branch Instructions due to Direction Mismatch] \u2022 PMCx1D0 [Retired Fused Branch Instructions]",
+        "implication": "Inaccuracies in performance monitoring software may be experienced.",
+        "workaround": "To count the non-FP affected PMC events correctly: \u2022 Use Core::X86::Msr::PERF_CTL2 to count the events, and \u2022 Program Core::X86::Msr::PERF_CTL2[43] to 1b, and \u2022 Program Core::X86::Msr::PERF_CTL2[20] to 0b. An alternate workaround that enables the capture of multiple affected PMC events simultaneously is to set the BIOS Setup Option \"IBS hardware workaround.\" This option is not recommended for production systems because system performance may be negatively impacted.",
+        "status": "No fix planned"
+    },
+    "1293": {
+        "title": "Data in IBS_OP_DATA2 and IBS_OP_DATA3 May be Inaccurate",
+        "problem": "If either of the following conditions are met: \u2022 Core::X86::Msr::IBS_OP_DATA3[DcMissNoMabAlloc] = 1b, or \u2022 Core::X86::Msr::IBS_OP_DATA3[IbsSwPf] = 1b Then the data in the following registers may be inaccurate: \u2022 Core::X86::Msr::IBS_OP_DATA2 \u2022 Core::X86::Msr::IBS_OP_DATA3[IbsOpDcMissOpenMemReqs] \u2022 Core::X86::Msr::IBS_OP_DATA3[IbsL2Miss]",
+        "implication": "Performance monitoring software may encounter incorrect data in IBS_OP_DATA2 or IBS_OP_DATA3.",
+        "workaround": "None. Performance monitoring software should ignore the affected registers in samples with IBS_OP_DATA3[DcMissNoMabAlloc] = 1b or IBS_OP_DATA3[IbsSwPf] = 1b.",
+        "status": "No fix planned"
+    },
+    "1294": {
+        "title": "xHCI Controller May Drop Data of an Isochronous TD (Transfer Descriptor) During Isochronous Transfer",
+        "problem": "When an Evaluate Context Command modifies the Max Exit Latency value when an Isochronous transfer is in progress, the xHCI controller may drop the data of an Isochronous TD of the endpoint associated with the Device Slot targeted by the Evaluate Context Command. This may result in the xHCI issuing an MSE (Missed Service Error).",
+        "implication": "Isochronous Audio or Video transfers may experience momentary data loss within a 750 microsecond timeout window, after which isochronous transfer will resume.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1295": {
+        "title": "Thread in Pending State From MONITOR or MONITORX May Become Unresponsive When Another Thread Invalidates the Monitored Address Using INVLPGB",
+        "problem": "The processor may fail to exit the monitor event pending state entered by a MONITOR or MONITORX instruction under the following conditions: \u2022 An MWAIT or MWAITX instruction is executed while the processor is in the event pending state. \u2022 A different processor or processor thread executes an INVLPGB instruction that invalidates the translation for the address range established by the MONITOR or MONITORX instruction, and \u2022 The processor that executed the INVLPGB then executes a TLBSYNC instruction, before the first processor exits the monitor event pending state. Under the conditions specified above, the first processor may remain in the event pending state until an unmasked interrupt is seen or a write happens to the physical address that belonged to the linear address of the MONITOR/MONITORX instruction when executed. An MWAITX instruction with a timer interval programmed would wake up at the expiration of the timer interval.",
+        "implication": "A thread may become unresponsive until the next interrupt.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1296": {
+        "title": "Processor May Fail to Generate #GP on Incorrectly Programmed Host Save Address When Executing VMRUN",
+        "problem": "The processor may fail to generate a #GP fault when: \u2022 A VMRUN instruction is executed, and \u2022 Core::X86::Msr::VM_HSAVE_PA = 8_0000_0000_0000h, and \u2022 Core::X86::Msr::SYS_CFG[SecureNestedPagingEn] = 1b",
+        "implication": "None",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1297": {
+        "title": "Processor May Fail To Take a #DB Exception on a Misaligned Store",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, the processor may fail to take a #DB exception when a store that is misaligned on a 4K address boundary matches a data breakpoint on the portion of the store that is after the 4K boundary crossing.",
+        "implication": "Missed data breakpoint.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1298": {
+        "title": "Processor May Take Spurious #PF or Record Incorrect Error After DC_TAG_LOAD or DC_TAG_STORE Error",
+        "problem": "Under a highly detailed and specific set of internal timing conditions, after the processor detects a DC_TAG_LOAD or DC_TAG_STORE error, one of the following may occur: \u2022 The processor may take a spurious #PF (Page Fault Exception) for an address that is not faulting prior to handling the MCA error. \u2022 The processor may record the wrong information in MCA_ADDR_LS and MCA_STATUS_LS[ErrorCodeExt].",
+        "implication": "Incorrect error reporting and/or spurious #PF.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1305": {
+        "title": "AHCI Controller Ignores COMINIT During HP6: HR_AwaitAlign State",
+        "problem": "In HP6: HR_AwaitAlign state, while the AHCI controller is awaiting valid ALIGN patterns from connected SATA device, it will not respond to COMINT issued by the connected SATA device.",
+        "implication": "If the attached SATA device sends COMINIT instead of valid ALIGN patterns in HP6:HR_AwaitAlign state, the AHCI controller will time out awaiting valid ALIGN patterns. Consequently the AHCI controller will re- initiate Out-of-band signaling sequence at the next highest supported speed. This may result in the attached SATA device running at the lower speed.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1307": {
+        "title": "Task Switches May Cause Unexpected #CP (Control Protection) Exception",
+        "problem": "Under a highly detailed sequence of internal timing conditions, the processor may fail to push CS (Code Segment), LIP (Linear Instruction Pointer), and SSP (Shadow Stack Pointer) onto the shadow stack when executing a CALL FAR instruction if the following conditions are also met: \u2022 Long mode is disabled (EFER.LMA = 0). \u2022 The CALL FAR instruction is executed while processor is running at CPL0. \u2022 The segment-descriptor type referenced by the CALL FAR instruction is an available TSS (task state segment). \u2022 User shadow stack is disabled and supervisor shadow stack is enabled (U_CET[SH_STK_EN] = 0 and S_CET[SH_STK_EN] = 1 ).",
+        "implication": "None expected. If task switches are used, unexpected shadow stack mismatch leading to a #CP (control protection) exception may occur.",
+        "workaround": "None. Operating systems using the shadow stack features should avoid using task switches.",
+        "status": "No fix planned"
+    },
+    "1308": {
+        "title": "Guests With AVIC (Advanced Virtual Interrupt Controller) Enabled May Not Be Able to Program Interrupt Controller",
+        "problem": "When AVIC (Advanced Virtual Interrupt Controller) is enabled, the processor may fail to redirect accesses to the AVIC backing page if the system PA (Physical Address) for APIC_BAR (Advanced Programmable Interrupt Controller Base Address Register) in the nested page table is an MMIO (Memory Mapped IO) address.",
+        "implication": "Guests with AVIC enabled may not be able to program the interrupt controller.",
+        "workaround": "Ensure that the system PA for APIC_BAR in the nested page table is not an MMIO address.",
+        "status": "No fix planned"
+    },
+    "1309": {
+        "title": "#VC (VMM Communication) Exception May Return Wrong Value in CR2",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, a #VC (VMM Communication) exception may return the wrong value in CR2 under the following conditions: \u2022 The exception is taken on an RMPADJUST instruction in a Secure Nested Paging (SNP)-active guest. \u2022 The error code is PAGE_NOT_VALIDATED. \u2022 The RMP (Reverse Map Table) entry accessed by the RMPADJUST instruction is concurrently accessed by a PVALIDATE instruction from the same guest running on a different processor thread.",
+        "implication": "The guest may incorrectly indicate an error and/or terminate.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1321": {
+        "title": "Processor May Generate Spurious #GP(0) Exception on WRMSR Instruction",
+        "problem": "The processor will generate a spurious #GP(0) exception on a WRMSR instruction if the following conditions are all met: \u2022 The target of the WRMSR is the SYSCFG register. \u2022 The write changes the value of Secure Nested Paging enable (SYSCFG.SNPEn) from 0 to 1. \u2022 One of the threads that share the physical core has a non-zero value in the VM_HSAVE_PA MSR.",
+        "implication": "Unexpected #GP(0) exception during processor boot.",
+        "workaround": "When enabling Secure Nested Paging, program VM_HSAVE_PA to 0h on both threads that share a physical core before setting SYSCFG.SNPEn.",
+        "status": "No fix planned"
+    },
+    "1322": {
+        "title": "PMCx0A9 May Undercount Op Queue Empty Events",
+        "problem": "If a core performance monitor counter is programmed to select PMCx0A9[Op Queue Empty], the processor may experience sampling inaccuracies that cause some \"Op Queue Empty\" events not to be counted.",
+        "implication": "Performance monitoring software may undercount \"Op Queue Empty\" events.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1327": {
+        "title": "Hypervisor With Encrypted SVM (Secure Virtual Machine) Related Pages May Experience Unpredictable Behavior If Guest Enables LBR (Last Branch Record)",
+        "problem": "Under the following conditions, the processor may behave incorrectly: \u2022 SME (Secure Memory Encryption) is enabled, and \u2022 Hypervisor owned pages used for SVM (Secure Virtual Machine) functionality are encrypted, and \u2022 A VMRUN instruction has been executed to enter an SEV-ES (Secure Encrypted Virtualization - Encrypted State) or SEV-SNP (Secure Encrypted Virtualization - Secure Nested Paging) guest, and \u2022 DbgCtl[LBR] (Last Branch Record) was 0 when the hypervisor started the guest with a VMRUN instruction, and \u2022 The guest value of DbgCtl[LBR] was 1 when loaded from the VMSA (Virtual Machine Save Area). The incorrect behavior may be one or more of the following: \u2022 The processor may unexpectedly cause a VMEXIT or may fail to cause a VMEXIT. \u2022 VMCB.GUEST_INSTR_BYTES may have an incorrect value on VMEXIT. \u2022 If the nested page tables are in encrypted memory, nested page table walks may result in incorrect translations. \u2022 If AVIC (Advanced Virtual Interrupt Controller) is enabled and the AVIC backing page is encrypted, AVIC functionality may be incorrect.",
+        "implication": "Unpredictable system behavior",
+        "workaround": "None. Do not encrypt hypervisor owned pages used for SVM functionality.",
+        "status": "No fix planned"
+    },
+    "1328": {
+        "title": "SEV-SNP (Secure Encrypted Virtualization - Secure Nested Paging) Guests With Last Branch Record Enabled May Experience Incorrect Alternate Injection Behavior",
+        "problem": "Under the following conditions, a SEV-SNP (Secure Encrypted Virtualization Secure Nested Paging) guest with Alternate Injection enabled may incorrectly behave as if Alternate Injection is disabled: \u2022 DbgCtl[LBR] (Last Branch Record) was 0 when the hypervisor started the guest with a VMRUN instruction, and \u2022 The guest value of DbgCtl[LBR] was 1 when loaded from the VMSA (Virtual Machine Save Area).",
+        "implication": "Incorrect interrupt behavior for guests.",
+        "workaround": "None. Do not program DbgCtl[LBR] to 1b in the guest.",
+        "status": "No fix planned"
+    },
+    "1329": {
+        "title": "Hypervisor With Encrypted SVM (Secure Virtual Machine) Related Pages May Experience Unpredictable Behavior If Guest Enables LBR (Last Branch Record)",
+        "problem": "Under the following conditions, the processor may behave incorrectly: \u2022 SME (Secure Memory Encryption) is enabled, and \u2022 Hypervisor owned pages used for SVM (Secure Virtual Machine) functionality are encrypted, and \u2022 A VMRUN instruction has been executed to enter an SEV-ES (Secure Encrypted Virtualization - Encrypted State) or SEV-SNP (Secure Encrypted Virtualization - Secure Nested Paging) guest, and \u2022 DbgCtl[LBR] (Last Branch Record) was 0 when the hypervisor started the guest with a VMRUN instruction, and \u2022 The guest value of DbgCtl[LBR] was 1 when loaded from the VMSA (Virtual Machine Save Area). The incorrect behavior may be one or more of the following: \u2022 The processor may unexpectedly cause a VMEXIT or may fail to cause a VMEXIT. \u2022 VMCB.GUEST_INSTR_BYTES may have an incorrect value on VMEXIT. \u2022 If the nested page tables are in encrypted memory, nested page table walks may result in incorrect translations. \u2022 If AVIC (Advanced Virtual Interrupt Controller) is enabled and the AVIC backing page is encrypted, AVIC functionality may be incorrect.",
+        "implication": "Unpredictable system behavior",
+        "workaround": "System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1330": {
+        "title": "SEV-SNP (Secure Encrypted Virtualization - Secure Nested Paging) Guests With Last Branch Record Enabled May Experience Incorrect Alternate Injection Behavior",
+        "problem": "Under the following conditions, a SEV-SNP (Secure Encrypted Virtualization Secure Nested Paging) guest with Alternate Injection enabled may incorrectly behave as if Alternate Injection is disabled: \u2022 DbgCtl[LBR] (Last Branch Record) was 0 when the hypervisor started the guest with a VMRUN instruction, and \u2022 The guest value of DbgCtl[LBR] was 1 when loaded from the VMSA (Virtual Machine Save Area).",
+        "implication": "Incorrect interrupt behavior for guests.",
+        "workaround": "System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1344": {
+        "title": "Processor May Fail to Take #VMEXIT(NPF) When SNP- Active (Secure Nested Paging) Guest Writes an Improperly Configured Page",
+        "problem": "The processor may fail to take a #VMEXIT(NPF) under the following conditions: \u2022 An SNP-Active guest executes an instruction that performs a memory write or a masked write (VMASKMOV), and \u2022 The page that is accessed by the memory operation is illegally configured to have VMPL (Virtual Machine Privilege Level) write permissions but not VMPL read permissions.",
+        "implication": "None expected. Properly coded software will always enable VMPL read permissions if VMPL write permissions are enabled.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1345": {
+        "title": "RMPUPDATE or PSMASH Instructions May Speculatively Access the Page After End of RMP (Reverse Map Table)",
+        "problem": "When executing the RMPUPDATE or PSMASH instructions, the processor may speculatively read from addresses that are in the next 4K page after the end of the RMP even if the memory type of that page does not allow speculative accesses.",
+        "implication": "System may hang or reset.",
+        "workaround": "Always map a 4K page that allows speculative accesses after the end of the RMP.",
+        "status": "No fix planned"
+    },
+    "1346": {
+        "title": "RMPUDATE May Incorrectly Return FAIL_OVERLAP",
+        "problem": "RMPUDATE may fail with FAIL_OVERLAP return code if multiple processors simultaneously execute RMPUPDATE to change the assignment of different pages within a 2MB region.",
+        "implication": "A hypervisor may receive an unexpected FAIL_OVERLAP return code.",
+        "workaround": "Retry the operation.",
+        "status": "No fix planned"
+    },
+    "1347": {
+        "title": "Instruction Cache L1TLB Page Size Reports Incorrectly",
+        "problem": "Core::X86::Msr::IBS_FETCH_CTL[IbsL1TlbPgSz] instruction cache L1TLB page size reports incorrectly. The processor instead reports as follows: \u2022 IbsL1TlbPgSz = 00b: 4KB \u2022 IbsL1TlbPgSz = 01b: 16KB \u2022 IbsL1TlbPgSz = 10b: 2MB \u2022 IbsL1TlbPgSz = 11b: 1GB",
+        "implication": "Performance monitoring software may produce unexpected results.",
+        "workaround": "Software reading IbsL1TlbPgSz should refer to the table in the description.",
+        "status": "No fix planned"
+    },
+    "1348": {
+        "title": "PMCx1CF May Undercount Operations Tagged by IBS (Instruction Based Sampling)",
+        "problem": "If PMCx1CF[IbsTaggedOps] is programmed to 1b, the PMCx1CF [Tagged IBS Ops] performance counter may undercount when sampling thread 1.",
+        "implication": "Inaccuracies in performance monitoring software may be experienced.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1353": {
+        "title": "Write to Shared Core::X86::Msr::CpuWdtCfg From One Thread May Incorrectly Revert to Older Value",
+        "problem": "A write to the shared Core::X86::Msr::CpuWdtCfg from one thread may incorrectly be reverted to an older value under the following conditions: \u2022 The CpuWdtCfg write happens while the other thread is in HLT, and \u2022 The CpuWdtCfg write happens between a CC6 state exit and a CC6 state entry, and \u2022 The other thread remained in HLT for the entire time, and \u2022 The next time the other thread wakes up from HLT, it wakes up after the writing thread woke up subsequent to a CC6 state exit.",
+        "implication": "Incorrect watchdog timer functionality",
+        "workaround": "Program the CpuWdtCfg on one thread while the other thread is not in HLT.",
+        "status": "No fix planned"
+    },
+    "1361": {
+        "title": "Processor May Hang When Switching Between Instruction Cache and Op Cache",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, running a program with a code footprint that exceeds 32 KB may cause the processor to hang while switching between code regions that consistently miss the instruction cache and code regions that are contained within the Op Cache.",
+        "implication": "System may hang or reset.",
+        "workaround": "System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    }
+}

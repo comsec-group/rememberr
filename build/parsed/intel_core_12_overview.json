@@ -1,0 +1,172 @@
+{
+    "ADL001": [
+        "No Fix",
+        "No Fix",
+        "X87 FDP Value May be Saved Incorrectly"
+    ],
+    "ADL002": [
+        "No Fix",
+        "No Fix",
+        "Debug Exceptions May Be Lost or Misreported When MOV SS or POP SS Instruction is Not Followed By a Write to SP"
+    ],
+    "ADL003": [
+        "No Fix",
+        "No Fix",
+        "VMREAD/VMWRITE Instructions May Not Fail When Accessing an Unsupported Field in VMCS"
+    ],
+    "ADL004": [
+        "No Fix",
+        "No Fix",
+        "BMI1, BMI2, LZCNT, ADXC, and ADOX Instructions May Not Generate an #UD"
+    ],
+    "ADL005": [
+        "No Fix",
+        "No Fix",
+        "Exit Qualification For EPT Violations on Instruction Fetches May Incorrectly Indicate That The Guest-physical Address Was Writeable"
+    ],
+    "ADL006": [
+        "No Fix",
+        "No Fix",
+        "Processor May Generate Spurious Page Faults On Shadow Stack Pages"
+    ],
+    "ADL007": [
+        "No Fix",
+        "No Fix",
+        "Processor May Hang if Warm Reset Triggers During BIOS Initialization"
+    ],
+    "ADL008": [
+        "No Fix",
+        "No Fix",
+        "System May Hang When Bus-Lock Detection Is Enabled And EPT Resides in Uncacheable Memory"
+    ],
+    "ADL009": [
+        "No Fix",
+        "No Fix",
+        "Processor May Generate Malformed TLP"
+    ],
+    "ADL010": [
+        "No Fix",
+        "No Fix",
+        "No #GP Will be Signaled When Setting MSR_MISC_PWR_MGMT.ENABLE_SDC if MSR_MISC_PWR_MGMT.LOCK is Set"
+    ],
+    "ADL011": [
+        "N/A",
+        "N/A",
+        "N/A. Erratum has been removed."
+    ],
+    "ADL012": [
+        "No Fix",
+        "No Fix",
+        "Last Branch Records May Not Survive Warm Reset"
+    ],
+    "ADL013": [
+        "No Fix",
+        "No Fix",
+        "PCIe Link May Fail to Train Upon Exit From L1.2"
+    ],
+    "ADL014": [
+        "No Fix",
+        "No Fix",
+        "Incorrectly Formed PCIe Packets May Generate Correctable Errors"
+    ],
+    "ADL015": [
+        "No Fix",
+        "No Fix",
+        "#UD May be Delivered Instead of Other Exceptions"
+    ],
+    "ADL016": [
+        "N/A",
+        "No Fix",
+        "Type-C Host Controller Does Not Support Certain Qword Accesses"
+    ],
+    "ADL017": [
+        "No Fix",
+        "No Fix",
+        "#GP May be Serviced Before an Instruction Breakpoint"
+    ],
+    "ADL018": [
+        "No Fix",
+        "No Fix",
+        "Unexpected #PF Exception Might Be Serviced Before a #GP Exception"
+    ],
+    "ADL019": [
+        "No Fix",
+        "No Fix",
+        "WRMSR to Reserved Bits of IA32_L3_QOS_Mask_15 Will Not Signal a #GP"
+    ],
+    "ADL020": [
+        "No Fix",
+        "No Fix",
+        "VMX-Preemption Timer May Not Work if Configured With a Value of 1"
+    ],
+    "ADL021": [
+        "No Fix",
+        "No Fix",
+        "Setting MISC_FEATURE_CONTROL.DISABLE_THREE_STRIKE_CNT Does Not Prevent The Three-strike Counter From Incrementing"
+    ],
+    "ADL022": [
+        "N/A",
+        "N/A",
+        "N/A. Erratum has been removed."
+    ],
+    "ADL023": [
+        "No Fix",
+        "No Fix",
+        "Unable to Transmit Modified Compliance Test Pattern at 2.5 GT/S or 5.0 GT/s Link Speeds"
+    ],
+    "ADL024": [
+        "Fixed",
+        "N/A",
+        "Single Core Configurations May Hang on S3/S4 Resume"
+    ],
+    "ADL025": [
+        "No Fix",
+        "No Fix",
+        "Single Step on Branches Might be Missed When VMM Enables Notification On VM Exit"
+    ],
+    "ADL026": [
+        "No Fix",
+        "No Fix",
+        "Reading The PPERF MSR May Not Return Correct Values"
+    ],
+    "ADL027": [
+        "No Fix",
+        "No Fix",
+        "Incorrect #CP Error Code on UIRET"
+    ],
+    "ADL028": [
+        "Planned Fix",
+        "Planned Fix",
+        "Processor May Not Wake From TPAUSE/UMWAIT in Limited Situations"
+    ],
+    "ADL029": [
+        "Fixed",
+        "Planned Fix",
+        "Platform May Not Resume From G3/S3/S4/S5"
+    ],
+    "ADL030": [
+        "No Fix",
+        "No Fix",
+        "Intel\u00ae Processor Trace PSB+ Packets May Contain Unexpected Packets"
+    ],
+    "ADL031": [
+        "No Fix",
+        "No Fix",
+        "Intel\u00ae PT Trace May Drop Second Byte of CYC Packet"
+    ],
+    "ADL032": [
+        "No Fix",
+        "No Fix",
+        "VM Entry That Clears TraceEn May Generate a FUP"
+    ],
+    "ADL033": [
+        "No Fix",
+        "No Fix",
+        "Unsynchronized Cross-Modifying Code Operations Can Cause Unexpected Instruction Execution Results"
+    ],
+    "ADL034": [
+        "N/A",
+        "No Fix",
+        "Processor May Hang When PROCHOT# is Active"
+    ]
+}

@@ -1,0 +1,627 @@
+{
+    "BDD1": [
+        "X",
+        "No Fix",
+        "LBR, BTS, BTM May Report a Wrong Address when an Exception/Interrupt Occurs in 64-bit Mode"
+    ],
+    "BDD2": [
+        "X",
+        "No Fix",
+        "EFLAGS Discrepancy on Page Faults and on EPT-Induced VM Exits after a Translation Change"
+    ],
+    "BDD3": [
+        "X",
+        "No Fix",
+        "MCi_Status Overflow Bit May Be Incorrectly Set on a Single Instance of a DTLB Error"
+    ],
+    "BDD4": [
+        "X",
+        "No Fix",
+        "LER MSRs May Be Unreliable"
+    ],
+    "BDD5": [
+        "X",
+        "No Fix",
+        "MONITOR or CLFLUSH on the Local XAPIC's Address Space Results in Hang"
+    ],
+    "BDD6": [
+        "X",
+        "No Fix",
+        "An Uncorrectable Error Logged in IA32_CR_MC2_STATUS May also Result in a System Hang"
+    ],
+    "BDD7": [
+        "X",
+        "No Fix",
+        "#GP on Segment Selector Descriptor that Straddles Canonical Boundary May Not Provide Correct Exception Error Code"
+    ],
+    "BDD8": [
+        "X",
+        "No Fix",
+        "FREEZE_WHILE_SMM Does Not Prevent Event From Pending PEBS During SMM"
+    ],
+    "BDD9": [
+        "X",
+        "No Fix",
+        "APIC Error \u201cReceived Illegal Vector\u201d May be Lost"
+    ],
+    "BDD10": [
+        "X",
+        "No Fix",
+        "Changing the Memory Type for an In-Use Page Translation May Lead to Memory-Ordering Violations"
+    ],
+    "BDD11": [
+        "X",
+        "No Fix",
+        "Performance Monitor Precise Instruction Retired Event May Present Wrong Indications"
+    ],
+    "BDD12": [
+        "X",
+        "No Fix",
+        "CR0.CD Is Ignored in VMX Operation"
+    ],
+    "BDD13": [
+        "X",
+        "No Fix",
+        "N/A. Erratum has been Removed"
+    ],
+    "BDD14": [
+        "X",
+        "No Fix",
+        "Execution of VAESIMC or VAESKEYGENASSIST With An Illegal Value for VEX.vvvv May Produce a #NM Exception"
+    ],
+    "BDD15": [
+        "X",
+        "No Fix",
+        "Processor May Fail to Acknowledge a TLP Request"
+    ],
+    "BDD16": [
+        "X",
+        "No Fix",
+        "Interrupt From Local APIC Timer May Not Be Detectable While Being Delivered"
+    ],
+    "BDD17": [
+        "X",
+        "No Fix",
+        "PCIe* Root-port Initiated Compliance State Transmitter Equalization Settings May be Incorrect"
+    ],
+    "BDD18": [
+        "X",
+        "No Fix",
+        "PCIe* Controller May Incorrectly Log Errors on Transition to RxL0s"
+    ],
+    "BDD19": [
+        "X",
+        "No Fix",
+        "Unused PCIe* Lanes May Report Correctable Errors"
+    ],
+    "BDD20": [
+        "X",
+        "No Fix",
+        "PCIe* Root Port May Not Initiate Link Speed Change"
+    ],
+    "BDD21": [
+        "X",
+        "No Fix",
+        "Pending x87 FPU Exceptions (#MF) May Be Signaled Earlier Than Expected"
+    ],
+    "BDD22": [
+        "X",
+        "No Fix",
+        "DR6.B0-B3 May Not Report All Breakpoints Matched When a MOV/POP SS is Followed by a Store or an MMX Instruction"
+    ],
+    "BDD23": [
+        "X",
+        "No Fix",
+        "VEX.L is Not Ignored with VCVT*2SI Instructions"
+    ],
+    "BDD24": [
+        "X",
+        "No Fix",
+        "PCIe* Atomic Transactions From Two or More PCIe* Controllers May Cause Starvation"
+    ],
+    "BDD25": [
+        "X",
+        "No Fix",
+        "The Corrected Error Count Overflow Bit in IA32_ MC0_STATUS is Not Updated When the UC Bit is Set"
+    ],
+    "BDD26": [
+        "X",
+        "No Fix",
+        "PCIe* Controller May Initiate Speed Change While in DL_Init State Causing Certain PCIe* Devices to Fail to Train"
+    ],
+    "BDD27": [
+        "X",
+        "No Fix",
+        "Spurious VT-d Interrupts May Occur When the PFO Bit is Set"
+    ],
+    "BDD28": [
+        "X",
+        "No Fix",
+        "Processor May Livelock During On Demand Clock Modulation"
+    ],
+    "BDD29": [
+        "X",
+        "No Fix",
+        "Internal Parity Errors May Incorrectly Report Overflow in the IA32_MC2_STATUS MSR"
+    ],
+    "BDD30": [
+        "X",
+        "No Fix",
+        "Performance Monitor Events OTHER_ASSISTS.AVX_TO_SSE And OTHER_ASSISTS.SSE_TO_AVX May Over Count"
+    ],
+    "BDD31": [
+        "X",
+        "No Fix",
+        "Performance Monitor Event DSB2MITE_SWITCHES.COUNT May Over Count"
+    ],
+    "BDD32": [
+        "X",
+        "No Fix",
+        "Timed MWAIT May Use Deadline of a Previous Execution"
+    ],
+    "BDD33": [
+        "X",
+        "No Fix",
+        "IA32_VMX_VMCS_ENUM MSR (48AH) Does Not Properly Report The Highest Index Value Used For VMCS Encoding"
+    ],
+    "BDD34": [
+        "X",
+        "No Fix",
+        "Incorrect FROM_IP Value For an RTM Abort in BTM or BTS May Be Observed"
+    ],
+    "BDD35": [
+        "X",
+        "No Fix",
+        "Locked Load Performance Monitoring Events May Under Count"
+    ],
+    "BDD36": [
+        "X",
+        "No Fix",
+        "Transactional Abort May Produce an Incorrect Branch Record"
+    ],
+    "BDD37": [
+        "X",
+        "No Fix",
+        "SMRAM State-Save Area Above the 4GB Boundary May Cause Unpredictable System Behavior"
+    ],
+    "BDD38": [
+        "X",
+        "No Fix",
+        "PMI May Be Signaled More Than Once for Performance Monitor Counter Overflow"
+    ],
+    "BDD39": [
+        "X",
+        "No Fix",
+        "Execution of FXSAVE or FXRSTOR With the VEX Prefix May Produce a #NM Exception"
+    ],
+    "BDD40": [
+        "X",
+        "No Fix",
+        "Intel\u00ae Turbo Boost Technology May be Incorrectly Reported as Supported"
+    ],
+    "BDD41": [
+        "X",
+        "No Fix",
+        "The SAMPLE/PRELOAD JTAG Command Does Not Sample The Display Transmit Signals"
+    ],
+    "BDD42": [
+        "X",
+        "No Fix",
+        "VM Exit May Set IA32_EFER.NXE When IA32_MISC_ENABLE Bit 34 is Set to 1"
+    ],
+    "BDD43": [
+        "X",
+        "No Fix",
+        "Opcode Bytes F3 0F BC May Execute As TZCNT Even When TZCNT Not Enumerated by CPUID"
+    ],
+    "BDD44": [
+        "X",
+        "No Fix",
+        "Back to Back Updates of the VT-d Root Table Pointer May Lead to an Unexpected DMA Remapping Fault"
+    ],
+    "BDD45": [
+        "X",
+        "No Fix",
+        "A MOV to CR3 When EPT is Enabled May Lead to an Unexpected Page Fault or an Incorrect Page Translation"
+    ],
+    "BDD46": [
+        "X",
+        "No Fix",
+        "Peer IO Device Writes to the GMADR May Lead to a System Hang"
+    ],
+    "BDD47": [
+        "X",
+        "No Fix",
+        "N/A. Erratum has been Removed"
+    ],
+    "BDD48": [
+        "X",
+        "No Fix",
+        "Intel\u00ae PT Packet Generation May Stop Sooner Than Expected"
+    ],
+    "BDD49": [
+        "X",
+        "No Fix",
+        "PEBS Eventing IP Field May Be Incorrect After Not-Taken Branch"
+    ],
+    "BDD50": [
+        "X",
+        "No Fix",
+        "Reading the Memory Destination of an Instruction that Begins an HLE Transaction May Return the Original Value"
+    ],
+    "BDD51": [
+        "X",
+        "Fixed",
+        "N/A. Erratum has been Removed"
+    ],
+    "BDD52": [
+        "X",
+        "No Fix",
+        "Spurious Corrected Errors May Be Reported"
+    ],
+    "BDD53": [
+        "X",
+        "No Fix",
+        "Performance Monitoring Event INSTR_RETIRED.ALL May Generate Redundant PEBS Records For an Overflow"
+    ],
+    "BDD54": [
+        "X",
+        "No Fix",
+        "Concurrent Core and Graphics Operation at Turbo Ratios May Lead to System Hang"
+    ],
+    "BDD55": [
+        "X",
+        "No Fix",
+        "The System May Hang on First Package C6 or Deeper C-State"
+    ],
+    "BDD56": [
+        "X",
+        "No Fix",
+        "Using the FIVR Spread Spectrum Control Mailbox May Not Produce the Requested Range"
+    ],
+    "BDD57": [
+        "X",
+        "No Fix",
+        "Intel\u00ae Processor Trace (Intel\u00ae PT) MODE.Exec, PIP, and CBR Packets Are Not Generated as Expected"
+    ],
+    "BDD58": [
+        "X",
+        "No Fix",
+        "Performance Monitor Instructions Retired Event May Not Count Consistently"
+    ],
+    "BDD59": [
+        "X",
+        "No Fix",
+        "General-Purpose Performance Counters May Be Inaccurate with any Thread"
+    ],
+    "BDD60": [
+        "",
+        "No Fix",
+        "An Incorrect LBR or Intel\u00ae Processor Trace Packet May Be Recorded Following a Transactional Abort"
+    ],
+    "BDD61": [
+        "X",
+        "No Fix",
+        "Executing an RSM Instruction with Intel\u00ae Processor Trace Enabled Will Signal a #GP"
+    ],
+    "BDD62": [
+        "X",
+        "Fixed",
+        "Intel\u00ae Processor Trace PIP May Be Unexpectedly Generated"
+    ],
+    "BDD63": [
+        "X",
+        "Fixed",
+        "A #VE May Not Invalidate Cached Translation Information"
+    ],
+    "BDD64": [
+        "X",
+        "Fixed",
+        "Some Performance Monitor Events May Overcount During TLB Misses"
+    ],
+    "BDD65": [
+        "X",
+        "No Fix",
+        "Intel\u00ae Processor Trace PSB+ Packets May Contain Unexpected Packets"
+    ],
+    "BDD66": [
+        "X",
+        "No Fix",
+        "Writing Non-Zero Value to IA32_RTIT_CR3_MATCH [63:48] Will Cause #GP"
+    ],
+    "BDD67": [
+        "X",
+        "Fixed",
+        "Core C6 May Cause Interrupts to be Serviced Out of Order"
+    ],
+    "BDD68": [
+        "X",
+        "Fixed",
+        "LPDDR3 Memory Training May Cause Platform Boot Failure"
+    ],
+    "BDD69": [
+        "X",
+        "No Fix",
+        "Aggressive Ramp Down of Voltage May Result in Unpredictable Behavior"
+    ],
+    "BDD70": [
+        "X",
+        "No Fix",
+        "Performance Monitor Event for Outstanding Offcore Requests And Snoop Requests May Be Incorrect"
+    ],
+    "BDD71": [
+        "X",
+        "No Fix",
+        "DR6 Register May Contain an Incorrect Value When a MOV to SS or POP SS Instruction is Followed by an XBEGIN Instruction"
+    ],
+    "BDD72": [
+        "X",
+        "No Fix",
+        "N/A. Erratum has been Removed."
+    ],
+    "BDD73": [
+        "X",
+        "No Fix",
+        "The Corrected Error Count Overflow Bit in IA32_ MC0_STATUS is Not Updated After a UC Error is Logged"
+    ],
+    "BDD74": [
+        "X",
+        "No Fix",
+        "Operand-Size Override Prefix Causes 64-bit Operand Form of MOVBE Instruction to Cause a #UD"
+    ],
+    "BDD75": [
+        "X",
+        "No Fix",
+        "Processor Operation at Turbo Frequencies Above 3.2 GHz May Cause the Processor to Hang"
+    ],
+    "BDD76": [
+        "X",
+        "No Fix",
+        "DDR-1600 With a Reference Clock of 100 MHz May Cause S3 Entry Failure"
+    ],
+    "BDD77": [
+        "X",
+        "No Fix",
+        "POPCNT Instruction May Take Longer to Execute than Expected"
+    ],
+    "BDD78": [
+        "X",
+        "No Fix",
+        "System May Hang or Video May Be Distorted After Graphics RC6 Exit"
+    ],
+    "BDD79": [
+        "X",
+        "No Fix",
+        "Certain eDP* Displays May Not Function as Expected"
+    ],
+    "BDD80": [
+        "X",
+        "No Fix",
+        "Instruction Fetch Power Saving Feature May Cause Unexpected Instruction Execution"
+    ],
+    "BDD81": [
+        "X",
+        "No Fix",
+        "IA Core Ratio Change Coincident With Outstanding Read to the DE May Cause a System Hang"
+    ],
+    "BDD82": [
+        "X",
+        "No Fix",
+        "PL3 Power Limit Control Mechanism May Not Release Frequency Restrictions"
+    ],
+    "BDD83": [
+        "X",
+        "No Fix",
+        "I/O Subsystem Clock Gating May Cause a System Hang"
+    ],
+    "BDD84": [
+        "X",
+        "No Fix",
+        "PAGE_WALKER_LOADS Performance Monitoring Event May Count Incorrectly"
+    ],
+    "BDD85": [
+        "X",
+        "No Fix",
+        "Certain Local Memory Read/Load Retired PerfMon Events May Undercount"
+    ],
+    "BDD86": [
+        "X",
+        "No Fix",
+        "The System May Hang When Executing a Complex Sequence of Locked Instructions"
+    ],
+    "BDD87": [
+        "X",
+        "No Fix",
+        "Certain Settings of VM-Execution Controls May Result in Incorrect Linear-Address Translations"
+    ],
+    "BDD88": [
+        "X",
+        "No Fix",
+        "An IRET Instruction that Results in a Task Switch Does Not Serialize the Processor"
+    ],
+    "BDD89": [
+        "X",
+        "No Fix",
+        "Re-enabling eDRAM May Log a Machine Check And Hang"
+    ],
+    "BDD90": [
+        "X",
+        "No Fix",
+        "Setting TraceEn While Clearing BranchEn in IA32_RTIT_CTL Causes a #GP"
+    ],
+    "BDD91": [
+        "X",
+        "No Fix",
+        "Processor Graphics IOMMU Unit May Not Mask DMA Remapping Faults"
+    ],
+    "BDD92": [
+        "X",
+        "No Fix",
+        "Graphics VTd Hardware May Cache Invalid Entries"
+    ],
+    "BDD93": [
+        "X",
+        "No Fix",
+        "Intel\u00ae CoreTM i5-5350H Processor Incorrectly Reports 8 Logical Processors"
+    ],
+    "BDD94": [
+        "X",
+        "No Fix",
+        "Package C3 Events Enabling EDRAM and Package C-States May Cause Display Artifacts"
+    ],
+    "BDD95": [
+        "X",
+        "No Fix",
+        "Operation at P1 Frequency May Lead to Time-out Machine Check"
+    ],
+    "BDD96": [
+        "X",
+        "No Fix",
+        "Reads or Writes to LBRs with Intel\u00ae PT Enabled Will Result in a #GP"
+    ],
+    "BDD97": [
+        "X",
+        "No Fix",
+        "MTF VM Exit on XBEGIN Instruction May Save State Incorrectly"
+    ],
+    "BDD98": [
+        "X",
+        "No Fix",
+        "Frequency Difference Between IA Core(s) and Ring Domains May Cause Unpredictable System Behavior"
+    ],
+    "BDD99": [
+        "X",
+        "No Fix",
+        "Software Using Intel\u00ae TSX May Behave Unpredictably"
+    ],
+    "BDD100": [
+        "X",
+        "No Fix",
+        "Back-to-Back Page Walks Due to Instruction Fetches May Cause a System Hang"
+    ],
+    "BDD101": [
+        "X",
+        "No Fix",
+        "Performance Monitoring Counters May Produce Incorrect Results for BR_INST_RETIRED Event on Logical Processor"
+    ],
+    "BDD102": [
+        "X",
+        "No Fix",
+        "PEBS Record May Be Generated After Being Disabled"
+    ],
+    "BDD103": [
+        "X",
+        "No Fix",
+        "PCIe* Port Does Not Support DLL Link Activity Reporting"
+    ],
+    "BDD104": [
+        "X",
+        "No Fix",
+        "PCIe* Link Speed Negotiation May Fail After Link is Re-enabled"
+    ],
+    "BDD105": [
+        "X",
+        "No Fix",
+        "Data Breakpoint Coincident With a Machine Check Exception May be Lost"
+    ],
+    "BDD106": [
+        "X",
+        "No Fix",
+        "Internal Parity Errors May Incorrectly Report Overflow in the IA32_MC0_STATUS MSR"
+    ],
+    "BDD107": [
+        "X",
+        "No Fix",
+        "Processor May Hang When Exiting Package C6"
+    ],
+    "BDD108": [
+        "X",
+        "No Fix",
+        "Attempting Concurrent Enabling of Intel\u00ae PT With LBR, BTS, or BTM Results in a #GP"
+    ],
+    "BDD109": [
+        "X",
+        "No Fix",
+        "An APIC Timer Interrupt During Core C6 Entry May be Lost"
+    ],
+    "BDD110": [
+        "X",
+        "No Fix",
+        "An Intel\u00ae Hyper-Threading Technology Enabled Processor May Exhibit Internal Parity Errors or Unpredictable System Behavior"
+    ],
+    "BDD111": [
+        "X",
+        "No Fix",
+        "PEBS EventingIP Field May Be Incorrect Under Certain Conditions"
+    ],
+    "BDD112": [
+        "X",
+        "No Fix",
+        "RF May be Incorrectly Set in The EFLAGS That is Saved on a Fault in PEBS or BTS"
+    ],
+    "BDD113": [
+        "X",
+        "No Fix",
+        "Some Memory Performance Monitoring Events May Produce Incorrect Results When Filtering on Either OS or USR Modes"
+    ],
+    "BDD114": [
+        "X",
+        "No Fix",
+        "Some DRAM And L3 Cache Performance Monitoring Events May Undercount"
+    ],
+    "BDD115": [
+        "X",
+        "No Fix",
+        "An x87 Store Instruction Which Pends #PE While EPT is Enabled May Lead to an Unexpected Machine Check and/or Incorrect x87 State Information"
+    ],
+    "BDD116": [
+        "X",
+        "No Fix",
+        "General-Purpose Performance Monitoring Counters 4-7 Do Not Count With USR Mode Only Filtering"
+    ],
+    "BDD117": [
+        "X",
+        "No Fix",
+        "Writing MSR_LASTBRANCH_x_FROM_IP and MSR_LER_FROM_LIP May #GP When Intel\u00ae TSX is Not Supported"
+    ],
+    "BDD118": [
+        "X",
+        "No Fix",
+        "APIC Timer Interrupt May Not be Generated at The Correct Time In TSC-Deadline Mode"
+    ],
+    "BDD119": [
+        "X",
+        "No Fix",
+        "N/A. Erratum has been Removed"
+    ],
+    "BDD120": [
+        "X",
+        "No Fix",
+        "Precise Performance Monitoring May Generate Redundant PEBS Records"
+    ],
+    "BDD121": [
+        "X",
+        "No Fix",
+        "System May Hang Under Complex Conditions"
+    ],
+    "BDD122": [
+        "X",
+        "No Fix",
+        "Instruction Fetch May Cause Machine Check if Page Size Was Changed Without Invalidation"
+    ],
+    "BDD123": [
+        "X",
+        "No Fix",
+        "PMU MSR_UNC_PERF_FIXED_CTR is Cleared After Pkg C7 or Deeper"
+    ],
+    "BDD124": [
+        "X",
+        "No Fix",
+        "A Pending Fixed Interrupt May Be Dispatched Before an Interrupt of The Same Priority Completes"
+    ],
+    "BDD125": [
+        "X",
+        "No Fix",
+        "X87 State May Be Incorrectly Restored After An XRSTOR/S Instruction"
+    ]
+}

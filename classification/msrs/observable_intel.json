@@ -1,0 +1,3452 @@
+{
+    "mcistatusoverflowbitmaybeincorrectlysetonasingleinstanceofadtlberror": {
+        "chosen": [],
+        "human": false
+    },
+    "debugexceptionflagsdr6b0b3flagsmaybeincorrectfordisabledbreakpoints": {
+        "chosen": [],
+        "human": false
+    },
+    "monitororclflushonthelocalxapicsaddressspaceresultsinhang": {
+        "chosen": [],
+        "human": false
+    },
+    "corruptionofcssegmentregisterduringrsmwhiletransitioningfromrealmodetoprotectedmode": {
+        "chosen": [],
+        "human": false
+    },
+    "theprocessormayreportatsinsteadofagpfault": {
+        "chosen": [],
+        "human": false
+    },
+    "repmovsstosexecutingwithfaststringsenabledandcrossingpageboundarieswithinconsistentmemorytypesmayuseanincorrectdatasizeorleadtomemoryorderingviolations": {
+        "chosen": [],
+        "human": false
+    },
+    "codesegmentlimitcanonicalfaultsonrsmmaybeservicedbeforehigherpriorityinterruptsexceptionsandmaypushthewrongaddressontothestack": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitorsseretiredinstructionsmayreturnincorrectvalues": {
+        "chosen": [],
+        "human": false
+    },
+    "prematureexecutionofaloadoperationpriortoexceptionhandlerinvocation": {
+        "chosen": [],
+        "human": false
+    },
+    "movtofromdebugregisterscausesdebugexception": {
+        "chosen": [],
+        "human": false
+    },
+    "incorrectaddresscomputedforlastbyteoffxsavefxrstorimageleadstopartialmemoryupdate": {
+        "chosen": [],
+        "human": false
+    },
+    "valuesforlbrbtsbtmwillbeincorrectafteranexitfromsmm": {
+        "chosen": [],
+        "human": false
+    },
+    "singlestepinterruptswithfloatingpointexceptionpendingmaybemishandled": {
+        "chosen": [],
+        "human": false
+    },
+    "faultonenterinstructionmayresultinunexpectedvaluesonstackframe": {
+        "chosen": [],
+        "human": false
+    },
+    "iretundercertainconditionsmaycauseanunexpectedalignmentcheckexception": {
+        "chosen": [],
+        "human": false
+    },
+    "generalprotectionfaultgpforinstructionsgreaterthan15bytesmaybepreempted": {
+        "chosen": [],
+        "human": false
+    },
+    "generalprotectiongpfaultmaynotbesignaledondatasegmentlimitviolationabove4glimit": {
+        "chosen": [],
+        "human": false
+    },
+    "lbrbtsbtmmayreportawrongaddresswhenanexceptioninterruptoccursin64bitmode": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitoringeventsforreadmisstolevel3cachefilloccupancycountermaybeincorrect": {
+        "chosen": [],
+        "human": false
+    },
+    "avmexitonmwaitmayincorrectlyreportthemonitoringhardwareasarmed": {
+        "chosen": [],
+        "human": false
+    },
+    "memoryaliasingofcodepagesmaycauseunpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "deliverystatusofthelint0registerofthelocalvectortablemaybelost": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitoreventsegmentregloadscountsinaccurately": {
+        "chosen": [],
+        "human": false
+    },
+    "gponsegmentselectordescriptorthatstraddlescanonicalboundarymaynotprovidecorrectexceptionerrorcode": {
+        "chosen": [],
+        "human": false
+    },
+    "improperparityerrorsignaledintheiqfollowingresetwhenacodebreakpointissetonagpinstruction": {
+        "chosen": [],
+        "human": false
+    },
+    "anenableddebugbreakpointorsinglesteptrapmaybetakenaftermovsspopssinstructionifitisfollowedbyaninstructionthatsignalsafloatingpointexception": {
+        "chosen": [],
+        "human": false
+    },
+    "ia32mperfcounterstopscountingduringondemandtm1": {
+        "chosen": [
+            "(?:IA32_)?APERF"
+        ],
+        "human": true
+    },
+    "intelquickpathmemorycontrollertthrotopreftimingsmaybeviolatedduringselfrefreshentry": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayovercountcorrectablecachemesistateerrors": {
+        "chosen": [],
+        "human": false
+    },
+    "synchronousresetofia32aperfia32mperfcountersonoverflowdoesnotwork": {
+        "chosen": [
+            "(?:IA32_)?MPERF"
+        ],
+        "human": true
+    },
+    "disablingthermalmonitorwhileprocessorishotthenreenablingmayresultinstuckcoreoperatingratio": {
+        "chosen": [],
+        "human": true
+    },
+    "thepecithrottlingcountermaynotbeaccurate": {
+        "chosen": [],
+        "human": false
+    },
+    "pecidoesnotsupportpciconfigurationreadswritestomisalignedaddresses": {
+        "chosen": [],
+        "human": false
+    },
+    "overbitforia32mcistatusregistermaygetsetonspecificlnternalerror": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "writingthelocalvectortablelvtwhenaninterruptispendingmaycauseanunexpectedinterrupt": {
+        "chosen": [],
+        "human": false
+    },
+    "aprocessorcoremaynotwakeupfroms1state": {
+        "chosen": [],
+        "human": false
+    },
+    "readingreservedapicregistersmaynotsignalanapicerror": {
+        "chosen": [],
+        "human": false
+    },
+    "alogicalprocessorreceivingasipiafteravmentryintowfsstatemaybecomeunresponsive": {
+        "chosen": [],
+        "human": false
+    },
+    "memorycontrollermaydeliverincorrectdatawhenmemoryranksareinpowerdown": {
+        "chosen": [],
+        "human": false
+    },
+    "faultingmmxinstructionmayincorrectlyupdatex87fputagword": {
+        "chosen": [],
+        "human": false
+    },
+    "afloatingpointstoreinstructionmaycauseanunexpectedx87fpufloatingpointerrormf": {
+        "chosen": [],
+        "human": false
+    },
+    "incorrecttlbtranslationmayoccurafterexitfromc6": {
+        "chosen": [],
+        "human": false
+    },
+    "usb11isochaudioglitcheswithintelquickpathinterconnectlocksanddeepcstates": {
+        "chosen": [],
+        "human": false
+    },
+    "stackpointermaybecomeincorrectinloopswithunbalancedpushandpopoperations": {
+        "chosen": [],
+        "human": false
+    },
+    "apstatechangewhileanothercoreisinc6maypreventfurthercstateandpstatetransitions": {
+        "chosen": [],
+        "human": false
+    },
+    "certainstoreparityerrorsmaynotlogcorrectaddressinia32mciaddr": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_ADDR"
+        ],
+        "human": true
+    },
+    "xapictimermaydecrementtooquicklyfollowinganautomaticreloadwhileinperiodicmode": {
+        "chosen": [],
+        "human": false
+    },
+    "certainundefinedopcodescrossingasegmentlimitmayresultinudinsteadofgpexception": {
+        "chosen": [],
+        "human": false
+    },
+    "indicationofa20msupportisinverted": {
+        "chosen": [],
+        "human": true
+    },
+    "reportedmemorytypemaynotbeusedtoaccessthevmcsandreferenceddatastructures": {
+        "chosen": [],
+        "human": false
+    },
+    "aftervmentryinstructionsmayincorrectlyoperateasifcsd0": {
+        "chosen": [],
+        "human": false
+    },
+    "spuriousmachinecheckerrormayoccurwhenlogicalprocessoriswokenup": {
+        "chosen": [],
+        "human": false
+    },
+    "b0b3bitsindr6fornonenabledbreakpointsmaybeincorrectlyset": {
+        "chosen": [],
+        "human": false
+    },
+    "corec6mayclearpreviouslyloggedtlberrors": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "processormayhangwhentwologicalprocessorsareinspecificlowpowerstates": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "movntdqafromwcmemorymaypassearlierlockedinstructions": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitoreventmisalignmemrefmayovercount": {
+        "chosen": [],
+        "human": false
+    },
+    "changingthememorytypeforaninusepagetranslationmayleadtomemoryorderingviolations": {
+        "chosen": [],
+        "human": false
+    },
+    "thevirtualizeapicaccessesvmexecutioncontrolmaybeignored": {
+        "chosen": [],
+        "human": false
+    },
+    "c6transitionsmaycausespuriousupdatestothexapicerrorstatusregister": {
+        "chosen": [],
+        "human": false
+    },
+    "criticalisochtrafficmaycauseunpredictablesystembehaviorwhenwritemajormodeenabled": {
+        "chosen": [],
+        "human": false
+    },
+    "runningwithwritemajormodedisabledmayleadtoasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "memorycontrolleraddressparityerrorinjectiondoesnotworkcorrectly": {
+        "chosen": [],
+        "human": false
+    },
+    "memorycontrolleropportunisticrefreshesmightbemissed": {
+        "chosen": [],
+        "human": false
+    },
+    "deliveryofcertaineventsimmediatelyfollowingavmexitmaypushacorruptedripontothestack": {
+        "chosen": [],
+        "human": false
+    },
+    "thecombinationofabuslockandadataaccessthatissplitacrosspageboundariesmayleadtoprocessorlivelock": {
+        "chosen": [],
+        "human": false
+    },
+    "cpuidinstructionreturnsincorrectbrandstring": {
+        "chosen": [],
+        "human": false
+    },
+    "anunexpectedpagefaultmayoccurfollowingtheunmappingandremappingofapage": {
+        "chosen": [],
+        "human": false
+    },
+    "infinitestreamofinterruptsmayoccurifanextintdeliverymodeinterruptisreceivedwhileallcoresinc6": {
+        "chosen": [],
+        "human": false
+    },
+    "twoxapictimereventinterruptsmayunexpectedlyoccur": {
+        "chosen": [],
+        "human": false
+    },
+    "eoitransactionmaynotbesentifsoftwareenterscorec6duringaninterruptserviceroutine": {
+        "chosen": [],
+        "human": false
+    },
+    "pebsrecordsforloadlatencymonitoringmaycontainanincorrectlinearaddress": {
+        "chosen": [],
+        "human": false
+    },
+    "pebsfielddatalinearaddressisnotsignextendedto64bits": {
+        "chosen": [],
+        "human": false
+    },
+    "corec6maynotoperatecorrectlyinthepresenceofbuslocks": {
+        "chosen": [],
+        "human": false
+    },
+    "intelturboboosttechnologymaybelimitedimmediatelyafterpackagecstateexitwithintelqpil1modedisabled": {
+        "chosen": [],
+        "human": false
+    },
+    "apicerrorreceivedillegalvectormaybelost": {
+        "chosen": [],
+        "human": false
+    },
+    "cpuidincorrectlyindicatestheunhaltedreferencecyclearchitecturaleventissupported": {
+        "chosen": [],
+        "human": false
+    },
+    "architecturalperformancemonitoreventbranchmissesretirediscountedincorrectly": {
+        "chosen": [],
+        "human": false
+    },
+    "dr6b0b3maynotreportallbreakpointsmatchedwhenamovpopssisfollowedbyastoreinstruction": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitorinterruptsgeneratedfromuncorefixedcounters394hmaybeignored": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitorcountermeminstretiredstoresmaycounthigherthanexpected": {
+        "chosen": [],
+        "human": false
+    },
+    "sleepingcoresmaynotbewokenuponlogicalclustermodebroadcastipiusingdestinationfieldinsteadofshorthand": {
+        "chosen": [],
+        "human": false
+    },
+    "faultingexecutionsoffxrstormayupdatestateinconsistently": {
+        "chosen": [],
+        "human": false
+    },
+    "unexpectedintelqpilinkbehaviormayoccurwhenacrcerrorhappensduringl0s": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitoreventeptepdpemissmaybecountedwhileeptisdisabled": {
+        "chosen": [],
+        "human": false
+    },
+    "processorforwardprogressmechanisminteractingwithcertainmsrcsrwritesmaycauseunpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "usb11isochmemorylatenciesmayincreaseduringpackagec3c6transitions": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayincorrectlydemoteprocessorc6statetoac3state": {
+        "chosen": [],
+        "human": false
+    },
+    "writestoia32crpatoria32efermsrmaycauseanincorrectitlbtranslation": {
+        "chosen": [],
+        "human": true
+    },
+    "freezewhilesmmdoesnotpreventeventfrompendingpebsduringsmm": {
+        "chosen": [],
+        "human": true
+    },
+    "anuncorrectableerrorloggedinia32crmc2statusmayalsoresultinasystemhang": {
+        "chosen": [],
+        "human": true
+    },
+    "ia32perfglobalctrlmsrmaybeincorrectlyinitialized": {
+        "chosen": [
+            "(?:IA32_)?PERF_GLOBAL_CTRL"
+        ],
+        "human": true
+    },
+    "processorswithsmtmayhangonpstatetransitionoracpiclockmodulationthrottling": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "performancemonitorcountersmaycountincorrectly": {
+        "chosen": [
+            "(?:IA32_)?PMC\\d+"
+        ],
+        "human": true
+    },
+    "performancemonitoreventoffcoreresponse0b7hdoesnotcountntstorestolocaldramcorrectly": {
+        "chosen": [
+            "OFFCORE_RSP_0"
+        ],
+        "human": true
+    },
+    "eflagsdiscrepancyonpagefaultsandoneptinducedvmexitsafteratranslationchange": {
+        "chosen": [],
+        "human": false
+    },
+    "systemmayhangifmcchannel012mcdimminitcmddozqclcommandsarenotissuedinincreasingpopulatedddr3rankorder": {
+        "chosen": [],
+        "human": false
+    },
+    "lerandlbrmsrsmaybeincorrectlyupdatedduringataskswitch": {
+        "chosen": [
+            "MSR_LASTBRANCH",
+            "MSR_LER_FROM_LIP",
+            "MSR_LER_TO_LIP"
+        ],
+        "human": true
+    },
+    "virtualizedwrmsrtotheia32extxapictprmsrusesincorrectvaluefortprthreshold": {
+        "chosen": [
+            "(?:IA32_)?EXT_XAPIC_TPR"
+        ],
+        "human": true
+    },
+    "backtobackuncorrectedmachinecheckerrorsmayoverwriteia32mc3statusmscod": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "memoryintensiveworkloadswithcorec6transitionsmaycausesystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "correctederrorswithayellowerrorindicationmaybeoverwrittenbyothercorrectederrors": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "psisignalmayincorrectlybeleftasserted": {
+        "chosen": [],
+        "human": false
+    },
+    "astringinstructionthatremapsapagemayencounteranunexpectedpagefault": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitoreventsdcachecacheldanddcachecachestmayovercount": {
+        "chosen": [],
+        "human": false
+    },
+    "rapidcorec3c6transitionmaycauseunpredictablesystembehavior": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "performancemonitoreventsinstrretiredandmeminstretiredmaycountinaccurately": {
+        "chosen": [],
+        "human": false
+    },
+    "apagefaultmaynotbegeneratedwhenthepsbitissetto1inapml4eorpdpte": {
+        "chosen": [],
+        "human": false
+    },
+    "trptimingviolationsmaybeobservednearaselfrefreshentry": {
+        "chosen": [],
+        "human": false
+    },
+    "concurrentupdatestoasegmentdescriptormaybelost": {
+        "chosen": [],
+        "human": false
+    },
+    "memorycontrollerclockcircuitsmayshowatemperaturesensitivedependenceonpoweronconditions": {
+        "chosen": [],
+        "human": false
+    },
+    "pmismaybelostduringcorec6transitions": {
+        "chosen": [],
+        "human": false
+    },
+    "uncacheableaccesstoamonitoredaddressrangemaypreventfuturetriggeringofthemonitorhardware": {
+        "chosen": [],
+        "human": false
+    },
+    "bistresultsmaybeadditionallyreportedafteragetsecwakeuporinitsipisequence": {
+        "chosen": [],
+        "human": false
+    },
+    "pendingx87fpuexceptionsmfmaybesignaledearlierthanexpected": {
+        "chosen": [],
+        "human": false
+    },
+    "vmexitsduetonmiwindowexitingmaybedelayedbyoneinstruction": {
+        "chosen": [],
+        "human": false
+    },
+    "vmexitsduetoeptviolationsdonotrecordinformationaboutpreiretnmiblocking": {
+        "chosen": [],
+        "human": false
+    },
+    "multipleperformancemonitorinterruptsarepossibleonoverflowofia32fixedctr2": {
+        "chosen": [
+            "(?:IA32_)?FIXED_CTR2"
+        ],
+        "human": true
+    },
+    "lbrsmaynotbeinitializedduringpoweronresetoftheprocessor": {
+        "chosen": [],
+        "human": false
+    },
+    "unexpectedinterruptsmayoccuronc6exitifusingapictimertogenerateinterrupts": {
+        "chosen": [],
+        "human": false
+    },
+    "lbrbtmorbtsrecordsmayhaveincorrectbranchfrominformationafteranenhancedintelspeedsteptechnologytransitiontstatesc1eoradaptivethermalthrottling": {
+        "chosen": [],
+        "human": false
+    },
+    "redirectiontoprobemodemaybedelayedbeyondintendedinstruction": {
+        "chosen": [],
+        "human": false
+    },
+    "vmxpreemptiontimerdoesnotcountdownattheratespecified": {
+        "chosen": [],
+        "human": false
+    },
+    "multipleperformancemonitorinterruptsarepossibleonoverflowoffixedcounter0": {
+        "chosen": [
+            "(?:IA32_)?DEBUGCTL",
+            "(?:IA32_)?FIXED_CTR0",
+            "(?:IA32_)?FIXED_CTR_CTRL"
+        ],
+        "human": true
+    },
+    "vmexitsduetolidtlgdtsidtsgdtdonotreportcorrectoperandsize": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitoringeventsstoreblocksnotstaandstoreblocksstamaynotcounteventscorrectly": {
+        "chosen": [],
+        "human": false
+    },
+    "storageofpebsrecorddelayedfollowingexecutionofmovssorsti": {
+        "chosen": [],
+        "human": false
+    },
+    "invlpgfollowinginveptorinvvpidmayfailtoflushalltranslationsforalargepage": {
+        "chosen": [],
+        "human": false
+    },
+    "thepecibusmaybetristatedaftersystemreset": {
+        "chosen": [],
+        "human": false
+    },
+    "lermsrsmaybeunreliable": {
+        "chosen": [
+            "MSR_LER_FROM_LIP",
+            "MSR_LER_TO_LIP"
+        ],
+        "human": true
+    },
+    "anexitfromthecorec6statemayresultinthedroppingofaninterrupt": {
+        "chosen": [],
+        "human": false
+    },
+    "pmisduringcorec6transitionsmaycausethesystemtohang": {
+        "chosen": [],
+        "human": false
+    },
+    "pagesplitlockaccessescombinedwithcomplexinternaleventsmaycauseunpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "ia32mc8ctl2msrisnotclearedonprocessorwarmreset": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_CTL\\d+"
+        ],
+        "human": true
+    },
+    "thecombinationofapagesplitlockaccessanddataaccessesthataresplitacrosscachelineboundariesmayleadtoprocessorlivelock": {
+        "chosen": [],
+        "human": false
+    },
+    "fpdataoperandpointermaybeincorrectlycalculatedafteranfpaccesswhichwrapsa4gbyteboundaryincodethatuses32bitaddresssizein64bitmode": {
+        "chosen": [],
+        "human": false
+    },
+    "iosmiindicationinsmramstatesaveareamaybelost": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitoreventsforhardwareprefetcheswhichmissthel1datacachemaybeovercounted": {
+        "chosen": [],
+        "human": false
+    },
+    "vmexitmayincorrectlyclearia32perfglobalctrl3432": {
+        "chosen": [
+            "(?:IA32_)?PERF_GLOBAL_CTRL"
+        ],
+        "human": true
+    },
+    "intelqpilanemaybedroppedduringfullfrequencydeskewphaseoftraining": {
+        "chosen": [],
+        "human": false
+    },
+    "perfmonoverflowstatuscannotbeclearedaftercertainconditionshaveoccurred": {
+        "chosen": [
+            "(?:IA32_)?PERF_GLOBAL_CTRL"
+        ],
+        "human": true
+    },
+    "anunexpectedpagefaultoreptviolationmayoccurafteranotherlogicalprocessorcreatesavalidtranslationforapage": {
+        "chosen": [],
+        "human": false
+    },
+    "l1datacacheerrorsmaybeloggedwithlevelsetto1insteadof0": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "stackpushesmaynotoccurproperlyforeventsdeliveredimmediatelyaftervmentryto16bitsoftware": {
+        "chosen": [
+            "(?:IA32_)?EFER"
+        ],
+        "human": true
+    },
+    "perfmoneventloadhitpreswprefetchmayovercount": {
+        "chosen": [],
+        "human": false
+    },
+    "successivefixedcounteroverflowsmaybediscarded": {
+        "chosen": [
+            "(?:IA32_)?DEBUGCTL",
+            "(?:IA32_)?PERF_GLOBAL_STATUS"
+        ],
+        "human": true
+    },
+    "gpmaybesignaledwheninvalidvexprefixprecedesconditionalbranchinstructions": {
+        "chosen": [],
+        "human": false
+    },
+    "alogicalprocessormaywakefromshutdownstatewhenbranchtracemessagesorbranchtracestoresareenabled": {
+        "chosen": [],
+        "human": false
+    },
+    "taskswitchtoatsswithaninaccessibleldtrdescriptormaycauseunexpectedfaults": {
+        "chosen": [],
+        "human": false
+    },
+    "changestoreservedbitsofsomenonarchitecturalmsrsmaycauseunpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "vmentriesthatreturnfromsmmusingvmlaunchmaynotupdatethelaunchstateofthevmcs": {
+        "chosen": [],
+        "human": false
+    },
+    "vmentrymayclearbytes81h83honvirtualapicpagewhenusetprshadowis0": {
+        "chosen": [],
+        "human": false
+    },
+    "afirstleveldatacacheparityerrormayresultinunexpectedbehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "aneventmayintervenebeforeasystemmanagementinterruptthatresultsfrominorins": {
+        "chosen": [],
+        "human": false
+    },
+    "vmexitsduetonmiwindowexitingmaynotoccurfollowingavmentrytotheshutdownstate": {
+        "chosen": [],
+        "human": false
+    },
+    "executionofinvvpidoutside64bitmodecannotinvalidatetranslationsfor64bitlinearaddresses": {
+        "chosen": [],
+        "human": false
+    },
+    "acombinationofdataaccessesthataresplitacrosscachelineboundariesmayleadtoaprocessorhang": {
+        "chosen": [],
+        "human": false
+    },
+    "amachinecheckoccurringduringvmentrymaycauseunpredictablebehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "mciaddrmaybeincorrectforcacheparityerrors": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_ADDR"
+        ],
+        "human": true
+    },
+    "thecorrectederrorcountoverflowbitinia32mc0statusisnotupdatedwhentheucbitisset": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "theupper32bitsofcr3maybeincorrectlyusedwith32bitpaging": {
+        "chosen": [],
+        "human": false
+    },
+    "eptviolationsmayreportbits110ofguestlinearaddressincorrectly": {
+        "chosen": [],
+        "human": false
+    },
+    "smramstatesaveareaabovethe4gbboundarymaycauseunpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "virtualapicpageaccesseswith32bitpaepagingmaycauseasystemcrash": {
+        "chosen": [],
+        "human": false
+    },
+    "interruptremappingmayleadtoasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "thememorycontrollertthrotopreftimingsmaybeviolatedduringselfrefreshentry": {
+        "chosen": [],
+        "human": false
+    },
+    "infinitestreamofinterruptsmayoccurifanextintdeliverymodeinterruptisreceivedwhileallcoresareinc6": {
+        "chosen": [],
+        "human": false
+    },
+    "dr6maycontainincorrectinformationwhenthefirstinstructionafteramovssrmorpopssisastore": {
+        "chosen": [],
+        "human": false
+    },
+    "rapidcorec3c6transitionsmaycauseunpredictablesystembehavior": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "dprslpvrsignalmaybeincorrectlyassertedontransitionbetweenlowpowercstates": {
+        "chosen": [],
+        "human": false
+    },
+    "logicalprocessormayuseincorrectvpidaftervmentrythatreturnsfromsmm": {
+        "chosen": [],
+        "human": false
+    },
+    "msrturboratiolimitmsrmayreturnintelturboboosttechnologycoreratiomultipliersfornonexistentcoreconfigurations": {
+        "chosen": [
+            "MSR_TURBO_RATIO_LIMIT"
+        ],
+        "human": true
+    },
+    "pciexpressx16portlogsbadtlpcorrectableerrorwhenreceivingaduplicatetlp": {
+        "chosen": [],
+        "human": false
+    },
+    "pciexpressx16rootportincorrectlynaksanullifiedtlp": {
+        "chosen": [],
+        "human": false
+    },
+    "pciexpressgraphicsx16receivererrorreportedwhenreceiverwithl0senabledandlinkretrainperformed": {
+        "chosen": [],
+        "human": false
+    },
+    "internalparityerrormaybeincorrectlysignaledduringc6exit": {
+        "chosen": [],
+        "human": false
+    },
+    "2mbpagesplitlockaccessescombinedwithcomplexinternaleventsmaycauseunpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "extraapictimerinterruptmayoccurduringawritetothedivideconfigurationregister": {
+        "chosen": [],
+        "human": false
+    },
+    "txtpublickeyisnotreliable": {
+        "chosen": [],
+        "human": false
+    },
+    "8259virtualwirebmodeinterruptmaybedroppedwhenitcollideswithinterruptacknowledgecyclefromtheprecedinginterrupt": {
+        "chosen": [],
+        "human": false
+    },
+    "cpuidincorrectlyreportsacstateasavailablewhenthisstateisunsupported": {
+        "chosen": [],
+        "human": false
+    },
+    "processorhangsonpackagec6stateexit": {
+        "chosen": [],
+        "human": false
+    },
+    "asynchronoussmimaybedelayed": {
+        "chosen": [],
+        "human": false
+    },
+    "pciexpresscardsmaynottraintox16linkwidth": {
+        "chosen": [],
+        "human": false
+    },
+    "theapictimercurrentcountregistermayprematurelyread0x0whilethetimerisstillrunning": {
+        "chosen": [],
+        "human": false
+    },
+    "fswmaybecorruptedifanx87storeinstructioncausesapagefaultinvmxnonrootoperationafterapdexit": {
+        "chosen": [],
+        "human": false
+    },
+    "ckemaygolowwithintrfcminafterapdexit": {
+        "chosen": [],
+        "human": false
+    },
+    "undercertainlowtemperatureconditionssomeuncoreperformancemonitoringeventsmayreportincorrectresults": {
+        "chosen": [],
+        "human": false
+    },
+    "vmentryto64bitmodemayfailifbits48and47ofguestriparedifferent": {
+        "chosen": [],
+        "human": false
+    },
+    "vmentryloadinganunusablessmightnotsetssbto1": {
+        "chosen": [],
+        "human": false
+    },
+    "accessestoavmcsmaynotoperatecorrectlyifcr0cdissetonanylogicalprocessorofacore": {
+        "chosen": [],
+        "human": false
+    },
+    "correctableanduncorrectablecacheerrorsmaybereporteduntilthefirstcorec6transition": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "dtstemperaturedatamaybeincorrectonareturnfromthepackagec6lowpowerstate": {
+        "chosen": [],
+        "human": false
+    },
+    "usbdevicesmaynotfunctionproperlywithintegratedgraphicswhilerunningtargetedstressgraphicsworkloadswithnonmatchingmemoryconfigurations": {
+        "chosen": [],
+        "human": false
+    },
+    "vmentrymayomitconsistencychecksrelatedtobit14bsofthependingdebugexceptionfieldingueststateareaofthevmcs": {
+        "chosen": [],
+        "human": false
+    },
+    "intelturboboosttechnologyratiochangesmaycauseunpredictablesystembehavior": {
+        "chosen": [
+            "(?:IA32_)?MISC_ENABLE"
+        ],
+        "human": true
+    },
+    "executionofvmptrldmaycorruptmemoryifcurrentvmcspointerisinvalid": {
+        "chosen": [],
+        "human": false
+    },
+    "executingthegetsecinstructionwhilethrottlingmayresultinaprocessorhang": {
+        "chosen": [],
+        "human": false
+    },
+    "mcipbitnotcheckedonsenterorenteraccs": {
+        "chosen": [
+            "(?:IA32_)?MCG_STATUS"
+        ],
+        "human": true
+    },
+    "eoibroadcastsuppressionmaynotfunctionproperlyifenabledordisabledwhileaninterruptisinservice": {
+        "chosen": [],
+        "human": false
+    },
+    "unexpectedloadmayoccuronexecutionofcertainopcodes": {
+        "chosen": [],
+        "human": false
+    },
+    "vmentryloadinganunusablessmightnotclearbits30ofthessbaseaddress": {
+        "chosen": [],
+        "human": false
+    },
+    "anunexpectedpagefaultoreptviolationmayoccurafteranotherlogicalprocessorcreatesavalidtranslationforapageanunexpectedpagefaultpforeptviolationmayoccurforapageunderthefollowingconditionsthepagingstructuresinitiallyspecifynovalidtranslationforthepagesoftwareononelogicalprocessormodifiesthepagingstructuressothatthereisavalidtranslationforthepageegbysettingto1thepresentbitinoneofthepagingstructureentriesusedtotranslatethepagesoftwareonanotherlogicalprocessorobservesthismodificationegbyaccessingalinearaddressonthepageorbyreadingthemodifiedpagingstructureentryandseeingvalue1forthepresentbitshortlythereaftersoftwareonthatotherlogicalprocessorperformsastoretoalinearaddressonthepageinthiscasethestoremaycauseapagefaultoreptviolationthatindicatesthatthereisnotranslationforthepageegwithbit0clearinthepagefaulterrorcodeindicatingthatthefaultwascausedbyanotpresentpageintelhasnotobservedthiserratumwithanycommerciallyavailablesoftware": {
+        "chosen": [],
+        "human": false
+    },
+    "inteltrustedexecutiontechnologyacmrevocation": {
+        "chosen": [],
+        "human": false
+    },
+    "intelprocessorgraphicsvtdiotlbinvalidationoperationmayfailtocomplete": {
+        "chosen": [],
+        "human": false
+    },
+    "ia32vmxvmcsenummsr48ahdoesnotproperlyreportthehighestindexvalueusedforvmcsencoding": {
+        "chosen": [
+            "(?:IA32_)?VMX_VMCS_ENUM"
+        ],
+        "human": true
+    },
+    "vmexitmaysetia32efernxewhenia32miscenablebit34issetto1": {
+        "chosen": [
+            "(?:IA32_)?EFER",
+            "(?:IA32_)?MISC_ENABLE"
+        ],
+        "human": true
+    },
+    "aniretinstructionthatresultsinataskswitchdoesnotserializetheprocessor": {
+        "chosen": [],
+        "human": false
+    },
+    "dr6b0b3maynotreportallbreakpointsmatchedwhenamovpopssisfollowedbyastoreoranmmxinstruction": {
+        "chosen": [],
+        "human": false
+    },
+    "iosmiindicationinsmramstatesaveareamaybesetincorrectly": {
+        "chosen": [],
+        "human": false
+    },
+    "pebsrecordnotupdatedwheninprobemode": {
+        "chosen": [],
+        "human": false
+    },
+    "unsupportedpcieupstreamaccessmaycompletewithanincorrectbytecount": {
+        "chosen": [],
+        "human": false
+    },
+    "malformedpcietransactionsmaybetreatedasunsupportedrequestsinsteadofascriticalerrors": {
+        "chosen": [],
+        "human": false
+    },
+    "pcierootportmaynotinitiatelinkspeedchange": {
+        "chosen": [],
+        "human": false
+    },
+    "incorrectaddresscomputedforlastbyteoffxsavefxrstororxsavexrstorimageleadstopartialmemoryupdate": {
+        "chosen": [],
+        "human": false
+    },
+    "fpdataoperandpointermaybeincorrectlycalculatedafteranfpaccesswhichwrapsa64kbyteboundaryin16bitcode": {
+        "chosen": [],
+        "human": false
+    },
+    "spuriousinterruptsmaybegeneratedfromtheintelvtdremapengine": {
+        "chosen": [],
+        "human": false
+    },
+    "faultnotreportedwhensettingreservedbitsofintelvtdqueuedinvalidationdescriptors": {
+        "chosen": [],
+        "human": false
+    },
+    "vphminposuwinstructioninvexformatdoesnotsignaludwhenvexvvvv1111b": {
+        "chosen": [],
+        "human": false
+    },
+    "lbrbtmorbtsrecordsmayhaveincorrectbranchfrominformationafteraneisttstatesstatec1etransitionoradaptivethermalthrottling": {
+        "chosen": [],
+        "human": false
+    },
+    "vmreadvmwriteinstructionmaynotfailwhenaccessinganunsupportedfieldinvmcs": {
+        "chosen": [],
+        "human": false
+    },
+    "clockmodulationdutycyclecannotbeprogrammedto625": {
+        "chosen": [
+            "(?:IA32_)?CLOCK_MODULATION"
+        ],
+        "human": true
+    },
+    "executionofvaesimcorvaeskeygenassistwithanillegalvalueforvexvvvvmayproduceanmexception": {
+        "chosen": [],
+        "human": false
+    },
+    "pciexpressgraphicsreceivererrorreportedwhenreceiverwithl0senabledandlinkretrainperformed": {
+        "chosen": [],
+        "human": false
+    },
+    "unexpectedudonvzeroallvzeroupper": {
+        "chosen": [],
+        "human": false
+    },
+    "perfmoneventldblocksstoreforwardmayovercount": {
+        "chosen": [],
+        "human": false
+    },
+    "conflictbetweenprocessorgraphicsinternalmessagecyclesandgraphicsreadsfromcertainphysicalmemoryrangesmaycauseasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "executionofopcode9bhwiththevexopcodeextensionmayproduceanmexception": {
+        "chosen": [],
+        "human": false
+    },
+    "awritetotheia32fixedctr1msrmayresultinincorrectvalueincertainconditions": {
+        "chosen": [
+            "(?:IA32_)?FIXED_CTR1"
+        ],
+        "human": true
+    },
+    "instructionfetchmaycausemachinecheckifpagesizeandmemorytypewaschangedwithoutinvalidation": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "receptionofcertainmalformedtransactionsmaycausepcieporttohangratherthanreportinganerror": {
+        "chosen": [],
+        "human": false
+    },
+    "pcieltrincorrectlyreportedasbeingsupported": {
+        "chosen": [],
+        "human": false
+    },
+    "performancecounteroverflowindicationmaycauseundesiredbehavior": {
+        "chosen": [
+            "(?:IA32_)?DEBUGCTL",
+            "(?:IA32_)?FIXED_CTR_CTRL",
+            "(?:IA32_)?PERF_GLOBAL_CTRL"
+        ],
+        "human": true
+    },
+    "xsaveexecutedduringpagingstructuremodificationmaycauseunexpectedprocessorbehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "cstateexitlatenciesmaybehigherthanexpected": {
+        "chosen": [],
+        "human": false
+    },
+    "msrtemperaturetargetmayhaveanincorrectvalueinthetemperaturecontroloffsetfield": {
+        "chosen": [],
+        "human": false
+    },
+    "intelvtdinterruptremappingwillnotreportafaultifinterruptindexexceedsffffh": {
+        "chosen": [],
+        "human": false
+    },
+    "pcielinkspeedmaynotchangefrom50gtsto25gts": {
+        "chosen": [],
+        "human": false
+    },
+    "tscdeadlinenotarmedwhileinapiclegacymode": {
+        "chosen": [
+            "(?:IA32_)?TSC_DEADLINE"
+        ],
+        "human": true
+    },
+    "pcieupstreamtcfgwrmaycauseunpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayfailtoacknowledgeatlprequest": {
+        "chosen": [],
+        "human": false
+    },
+    "executionoffxsaveorfxrstorwiththevexprefixmayproduceanmexception": {
+        "chosen": [],
+        "human": false
+    },
+    "unexpectedudonvpextrdvpinsrd": {
+        "chosen": [],
+        "human": false
+    },
+    "areadfromtheapictimerccrmaydisarmthetscdeadlinecounter": {
+        "chosen": [
+            "(?:IA32_)?TSC_DEADLINE"
+        ],
+        "human": true
+    },
+    "anunexpectedpmimayoccurafterwritingalargevaluetoia32fixedctr2": {
+        "chosen": [
+            "(?:IA32_)?FIXED_CTR2"
+        ],
+        "human": true
+    },
+    "rdmsrfromtheapictimerccrmaydisarmtheapictimerintscdeadlinemode": {
+        "chosen": [
+            "(?:IA32_)?TSC_DEADLINE"
+        ],
+        "human": true
+    },
+    "rc6entrycanbeblockedbyasynchronousintelvtdflows": {
+        "chosen": [],
+        "human": false
+    },
+    "repeatedpcieandordmil1transitionsduringpackagepowerstatesmaycauseasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "executionofbistduringcoldresetwillresultinamachinecheckshutdown": {
+        "chosen": [],
+        "human": false
+    },
+    "pciexpressdifferentialpeakpeaktxvoltageswingmayviolatethespecification": {
+        "chosen": [],
+        "human": false
+    },
+    "pciepresencedetectstatemaynotbeaccurateafterawarmreset": {
+        "chosen": [],
+        "human": false
+    },
+    "displaycorruptionmaybeseenaftergraphicsvoltagerailvccaxgpowerup": {
+        "chosen": [],
+        "human": false
+    },
+    "pcmpestripcmpestrmvpcmpestriandvpcmpestrmalwaysoperatewith32bitlengthregisters": {
+        "chosen": [],
+        "human": false
+    },
+    "interruptfromlocalapictimermaynotbedetectablewhilebeingdelivered": {
+        "chosen": [],
+        "human": false
+    },
+    "apciedevicethatinitiallytransmitsminimalposteddatacreditsmaycauseasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "somemodelspecificbrancheventsmayovercount": {
+        "chosen": [
+            "BR_INST_RETIRED"
+        ],
+        "human": true
+    },
+    "someperformancemonitoringeventsinanythreadmodemaygetincorrectcount": {
+        "chosen": [
+            "BR_INST_RETIRED"
+        ],
+        "human": true
+    },
+    "pdirmaynotfunctionproperlywithfreezeperfmononpmi": {
+        "chosen": [
+            "(?:IA32_)?DEBUGCTL"
+        ],
+        "human": true
+    },
+    "forasinglelogicalprocessorpackagehttmaybesettozeroeventhoughthepackagereservesmorethanoneapicid": {
+        "chosen": [],
+        "human": false
+    },
+    "lbrmaycontainincorrectinformationwhenusingfreezelbrsonpmi": {
+        "chosen": [
+            "(?:IA32_)?DEBUGCTL"
+        ],
+        "human": true
+    },
+    "programmingpdirandanadditionalpreciseperfmoneventmaycauseunexpectedpmiorpebsevents": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitoringmayovercountsomeeventsduringdebugging": {
+        "chosen": [
+            "BR_INST_RETIRED",
+            "(?:IA32_)?PERF_GLOBAL_CTRL"
+        ],
+        "human": true
+    },
+    "ltrmessageisnottreatedasanunsupportedrequest": {
+        "chosen": [],
+        "human": false
+    },
+    "useofvmaskmovtoaccessmemorymappediooruncachedmemorymaycausethelogicalprocessortohang": {
+        "chosen": [],
+        "human": false
+    },
+    "pebsmayunexpectedlysignalapmiafterthepebsbufferisfull": {
+        "chosen": [],
+        "human": false
+    },
+    "xsaveoptmayfailtosavesomestateaftertransitionsintooroutofstm": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitorpreciseinstructionretiredeventmaypresentwrongindications": {
+        "chosen": [
+            "(?:IA32_)?PMC\\d+"
+        ],
+        "human": true
+    },
+    "thevalueinia32mc3addrmsrmaynotbeaccuratewhenmcacod0119hisreportedinia32mc3status": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS",
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_ADDR"
+        ],
+        "human": true
+    },
+    "msrpkgcxresidencymsrsmaynotbeaccurate": {
+        "chosen": [],
+        "human": false
+    },
+    "enablingdisablingpebsmayresultinunpredictablesystembehavior": {
+        "chosen": [
+            "(?:IA32_)?PEBS_ENABLE"
+        ],
+        "human": true
+    },
+    "vexlisnotignoredwithvcvt2siinstructions": {
+        "chosen": [],
+        "human": false
+    },
+    "instructionfetchespagetablewalksmaybemadespeculativelytouncacheablememory": {
+        "chosen": [],
+        "human": false
+    },
+    "reportedmaximummemoryfrequencycapabilitymaybehigherthanexpected": {
+        "chosen": [],
+        "human": false
+    },
+    "theprocessormaynotproperlyexecutecodemodifiedusingafloatingpointstore": {
+        "chosen": [],
+        "human": false
+    },
+    "executionofgetsecsexitmaycauseadebugexceptiontobelost": {
+        "chosen": [],
+        "human": false
+    },
+    "vmexitsduetogetsecmaysaveanincorrectvalueforblockingbystiinthecontextofprobemoderedirection": {
+        "chosen": [],
+        "human": false
+    },
+    "specificgraphicsblitterinstructionsmayresultinunpredictablegraphicscontrollerbehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "ia32mc5ctl2isnotclearedbyawarmreset": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_CTL\\d+"
+        ],
+        "human": true
+    },
+    "performancemonitorcountersmayproduceincorrectresults": {
+        "chosen": [],
+        "human": false
+    },
+    "spuriousintelvtdinterruptsmayoccurwhenthepfobitisset": {
+        "chosen": [],
+        "human": false
+    },
+    "processormaylivelockduringondemandclockmodulation": {
+        "chosen": [
+            "(?:IA32_)?CLOCK_MODULATION"
+        ],
+        "human": true
+    },
+    "dmaremappingfaultsforthegraphicsvtdunitmaynotproperlyreporttypeoffaultedrequest": {
+        "chosen": [],
+        "human": false
+    },
+    "inteltrustedexecutiontechnologyacmauthenticationfailure": {
+        "chosen": [],
+        "human": false
+    },
+    "addresstranslationfaultsforintelvtdmaynotbereportedfordisplayenginememoryaccesses": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitorinstructionsretiredeventmaynotcountconsistently": {
+        "chosen": [
+            "(?:IA32_)?FIXED_CTR0"
+        ],
+        "human": true
+    },
+    "aniretinstructionthatresultsinataskswitchdoesnotserializebk1": {
+        "chosen": [],
+        "human": false
+    },
+    "incorrectaddresscomputedforlastbyteoffxsavefxstororxsavexrstorimageleadstopartialmemoryupdate": {
+        "chosen": [],
+        "human": false
+    },
+    "executionofbistduringcoldresetmayresultinamachinecheckshutdown": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitoringeventfpmmxtranstommxmaynotcountsometransitions": {
+        "chosen": [],
+        "human": false
+    },
+    "ia32featurecontrolmsrmaybeuninitializedonacoldreset": {
+        "chosen": [],
+        "human": false
+    },
+    "dr6b0b3maynotreportallbreakpointsmatchedwhenamovpopssisfollowedbyarepmovsborstosb": {
+        "chosen": [],
+        "human": false
+    },
+    "settinghardwareautonomousspeeddisableconfigurationbitwillblockinitialspeedupgrade": {
+        "chosen": [],
+        "human": false
+    },
+    "64bitrepmovsbstosbmaycleartheupper32bitsofrcxrdiandrsibeforeanydataistransferred": {
+        "chosen": [],
+        "human": false
+    },
+    "aninterruptrecognizedpriortofirstiterationofrepmovsbstosbmayresulteflagsrfbeingincorrectlyset": {
+        "chosen": [],
+        "human": false
+    },
+    "accessingphysicalmemoryspace0640kthroughthegraphicsaperturemaycauseunpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "instructionsretiredeventmayovercountexecutionofiretinstructions": {
+        "chosen": [],
+        "human": false
+    },
+    "pcielinkmayunexpectedlyexitloopbackstate": {
+        "chosen": [],
+        "human": false
+    },
+    "therdrandinstructionwillnotexecuteasexpected": {
+        "chosen": [],
+        "human": false
+    },
+    "pciexpressgen3receiverreturnlossmayexceedspecifications": {
+        "chosen": [],
+        "human": false
+    },
+    "directaccessviavtdtotheprocessorgraphicsdevicemayleadtoasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "pciemayassociatelanesthatarenotpartofinitiallinktrainingtol0duringupconfiguration": {
+        "chosen": [],
+        "human": false
+    },
+    "theprocessormaynotcomplywithpcieequalizationpresetreflectionrequirementsfor8gtsmodeofoperation": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayissuepcieeieosatincorrectrate": {
+        "chosen": [],
+        "human": false
+    },
+    "reducedswingoutputmodeneedszerodeemphasistobesupportedinpcie5gtsspeed": {
+        "chosen": [],
+        "human": false
+    },
+    "pcierootportinitiatedcompliancestatetransmitterequalizationsettingsmaybeincorrect": {
+        "chosen": [],
+        "human": false
+    },
+    "pciecontrollermayincorrectlylogerrorsontransitiontorxl0s": {
+        "chosen": [],
+        "human": false
+    },
+    "pcielinkwidthmaydegradeafterawarmreset": {
+        "chosen": [],
+        "human": false
+    },
+    "pcielinkmaynotenterloopbackactivewhendirected": {
+        "chosen": [],
+        "human": false
+    },
+    "pciecontrollermaynotproperlyindicatelinkelectricalidlecondition": {
+        "chosen": [],
+        "human": false
+    },
+    "pciecontrollermaynotenterloopback": {
+        "chosen": [],
+        "human": false
+    },
+    "linkmargincharacterizationmayhanglink": {
+        "chosen": [],
+        "human": false
+    },
+    "unusedpcielanesmayreportcorrectableerrors": {
+        "chosen": [],
+        "human": false
+    },
+    "rdmsrofia32perfevtsel47mayreturnerroneousinformation": {
+        "chosen": [],
+        "human": false
+    },
+    "pcielinkmayfaillinkwidthupconfiguration": {
+        "chosen": [],
+        "human": false
+    },
+    "graphicsl3cacheparityerrorsmaynotbedetected": {
+        "chosen": [],
+        "human": false
+    },
+    "apcielinkthatisinlinkdisablestatemaypreventddriobuffersfromenteringapowergatedstate": {
+        "chosen": [],
+        "human": false
+    },
+    "repmovsbmayincorrectlyupdateecxesiandedi": {
+        "chosen": [],
+        "human": false
+    },
+    "rdmsrofia32perfevtsel47mayreturnanincorrectresult": {
+        "chosen": [],
+        "human": false
+    },
+    "concurrentlychangingthememorytypeandpagesizemayleadtoasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "duringpackagepowerstatesrepeatedpcieandordmil1transitionsmaycauseasystem": {
+        "chosen": [],
+        "human": false
+    },
+    "cpuidinstructionmaynotreporttheprocessornumberinthebrandstringforintelcorei33227uandi53337uprocessors": {
+        "chosen": [],
+        "human": false
+    },
+    "spuriousvtdinterruptsmayoccurwhenthepfobitisset": {
+        "chosen": [],
+        "human": false
+    },
+    "amovtocr3wheneptisenabledmayleadtoanunexpectedpagefaultoranincorrectpagetranslation": {
+        "chosen": [],
+        "human": false
+    },
+    "highfrequencynoiseonddrsmbussignalsmaypreventproperdetectionofmemory": {
+        "chosen": [],
+        "human": false
+    },
+    "pcieportsdonotsupportdlllinkactivereporting": {
+        "chosen": [],
+        "human": false
+    },
+    "executionofpackagec7mayresultinahang": {
+        "chosen": [],
+        "human": false
+    },
+    "graphicsl3cacheredundancymaynotbehaveasexpected": {
+        "chosen": [],
+        "human": false
+    },
+    "intelturboboosttechnologymaybeincorrectlyreportedassupportedonintelcorei33217u": {
+        "chosen": [],
+        "human": false
+    },
+    "duringpackagepowerstatesrepeatedpcieandordmil1transitionsmaycauseasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "cr0cdisignoredinvmxoperation": {
+        "chosen": [],
+        "human": false
+    },
+    "somedramandl3cacheperformancemonitoringeventsmaycountincorrectly": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayentershutdownunexpectedlyonaseconduncorrectableerror": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "modifiedcompliancepatternsfor25gtsand5gtstransferratesdonotfollowpciespecification": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitoruopsexecutedeventmayundercount": {
+        "chosen": [],
+        "human": false
+    },
+    "msrperfstatusmayreportanincorrectcorevoltage": {
+        "chosen": [
+            "MSR_PERF_STATUS"
+        ],
+        "human": true
+    },
+    "pcieatomictransactionsfromtwoormorepciecontrollersmaycausestarvation": {
+        "chosen": [],
+        "human": false
+    },
+    "anavxgatherinstructionthatcausesaneptviolationmaynotupdatepreviouselements": {
+        "chosen": [],
+        "human": false
+    },
+    "platformpowerlimitmsrnotvisible": {
+        "chosen": [
+            "PLATFORM_POWER_LIMIT"
+        ],
+        "human": true
+    },
+    "lpddrmemorymayreportincorrecttemperature": {
+        "chosen": [],
+        "human": false
+    },
+    "pciehostbridgedidmaybeincorrect": {
+        "chosen": [],
+        "human": false
+    },
+    "tscmaybeincorrectafteradeepcstateexit": {
+        "chosen": [],
+        "human": false
+    },
+    "pciecontrollermayinitiatespeedchangewhileindlinitstatecausingcertainpciedevicestofailtotrain": {
+        "chosen": [],
+        "human": false
+    },
+    "avxgatherinstructionthatcausesafaultorvmexitmayincorrectlymodifyitsdestinationregister": {
+        "chosen": [],
+        "human": false
+    },
+    "inconsistentnanpropagationmayoccurwhenexecutingvdppsinstruction": {
+        "chosen": [],
+        "human": false
+    },
+    "displaymayflickerwhenpackagecstatesareenabled": {
+        "chosen": [],
+        "human": false
+    },
+    "certaincombinationsofavxinstructionsmaycauseunpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayincorrectlyestimatepeakpowerdeliveryrequirements": {
+        "chosen": [],
+        "human": false
+    },
+    "ia32perfctlmsrisincorrectlyreset": {
+        "chosen": [
+            "(?:IA32_)?PERF_CTL"
+        ],
+        "human": true
+    },
+    "processormayhangduringafunctionlevelresetofthedisplay": {
+        "chosen": [],
+        "human": false
+    },
+    "avxgatherinstructionthatshouldresultindfmaycauseunexpectedsystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "throttlingandrefreshratemaybebeincorrectafterexitingpackagecstate": {
+        "chosen": [],
+        "human": false
+    },
+    "ia32debugctlfreezeperfmononpmiisincorrectlyclearedbysmi": {
+        "chosen": [
+            "(?:IA32_)?DEBUGCTL"
+        ],
+        "human": true
+    },
+    "thefromipforbranchtracingmaybeincorrect": {
+        "chosen": [],
+        "human": false
+    },
+    "tm1throttlingmaycontinueindefinitely": {
+        "chosen": [],
+        "human": false
+    },
+    "internalparityerrorsmayincorrectlyreportoverflowintheia32mc2statusmsr": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "performancemonitoreventsotherassistsavxtosseandotherassistsssetoavxmayovercount": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayrunatincorrectpstate": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitoreventdsb2miteswitchescountmayovercount": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitorregisteruncperfglobalstatusnotrestoredonpackagec7exit": {
+        "chosen": [
+            "(?:IA32_)?PERF_GLOBAL_STATUS"
+        ],
+        "human": true
+    },
+    "processormaynotenterpackagec6ordeepercstateswhenpcielinksaredisabled": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitoreventforoutstandingoffcorerequestsandsnooprequestsmayovercount": {
+        "chosen": [],
+        "human": false
+    },
+    "someperformancemonitoreventcountsmaybeinaccurateduringsmtmode": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitoreventshleretiredabortedmisc4andrtmretiredabortedmisc4mayovercount": {
+        "chosen": [],
+        "human": false
+    },
+    "apcieltrupdatemessagemaycausetheprocessortohang": {
+        "chosen": [],
+        "human": false
+    },
+    "getsecdoesnotreportsupportforscrtm": {
+        "chosen": [],
+        "human": false
+    },
+    "apictimermightnotsignalaninterruptwhileintscdeadlinemode": {
+        "chosen": [],
+        "human": false
+    },
+    "incorrectfromipvalueforanrtmabortinbtmorbtsmaybeobserved": {
+        "chosen": [],
+        "human": false
+    },
+    "vtdhardwaremayperformstrpandsirtpoperationsonapackagec7exit": {
+        "chosen": [],
+        "human": false
+    },
+    "generalpurposeperformancecounterscanunexpectedlyincrement": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitoringeventsmayreportincorrectnumberofloadhitsormissestollc": {
+        "chosen": [],
+        "human": false
+    },
+    "lockedloadperformancemonitoringeventsmayundercount": {
+        "chosen": [],
+        "human": false
+    },
+    "graphicsprocessorratioandcstatetransitionsmaycauseasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "certainperformancemonitoringeventsmayovercountsoftwaredemandloads": {
+        "chosen": [],
+        "human": false
+    },
+    "accessingnonexistentuncoreperformancemonitoringmsrsmaynotsignalagp": {
+        "chosen": [
+            "MSR_UNC_CBO_CONFIG"
+        ],
+        "human": true
+    },
+    "callstackprofilingmayproduceextracallrecords": {
+        "chosen": [],
+        "human": false
+    },
+    "warmresetmayfailorleadtoincorrectpowerregulation": {
+        "chosen": [],
+        "human": false
+    },
+    "transactionalabortmayproduceanincorrectbranchrecord": {
+        "chosen": [],
+        "human": false
+    },
+    "avxgatherinstructionspagefaultsmayreportanincorrectfaultingaddress": {
+        "chosen": [],
+        "human": false
+    },
+    "eventinjectionbyvmentrymayuseanincorrectbflagforss": {
+        "chosen": [],
+        "human": false
+    },
+    "afaultinsmmmayresultinunpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "processorfrequencyisunexpectedlylimitedbelownominalp1whenctdpdownisenabled": {
+        "chosen": [],
+        "human": false
+    },
+    "pmimaybesignaledmorethanonceforperformancemonitorcounteroverflow": {
+        "chosen": [],
+        "human": false
+    },
+    "rdrandexecutioninatransactionalregionmaycauseasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "uncoreclockfrequencychangesmaycauseaudiovideoglitches": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayexperienceaspuriousllcrelatedmachinecheckduringperiodsofhighactivity": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "theprocessormaynotenterpackagec7whenusingapsrdisplay": {
+        "chosen": [],
+        "human": false
+    },
+    "videoaudiodistortionmayoccur": {
+        "chosen": [],
+        "human": false
+    },
+    "systemmayhangwhenaudioisenabledduringpackagec3": {
+        "chosen": [],
+        "human": false
+    },
+    "invpcidmaynotcauseudinvmxnonrootoperation": {
+        "chosen": [],
+        "human": false
+    },
+    "noncompliantpfatmodulebaseaddressmaycauseunpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "incorrectlbrsourceaddressmaybereportedforatransactionalabort": {
+        "chosen": [],
+        "human": false
+    },
+    "l3cachecorrectederrorcountmaybeinaccurateafterpackagec7exit": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "pciedevicessvidisnotpreservedacrossthepackagec7cstate": {
+        "chosen": [],
+        "human": false
+    },
+    "warmresetdoesnotstopgtpowerdraw": {
+        "chosen": [],
+        "human": false
+    },
+    "unusedpcielanesmayremainpoweredafterpackagec7": {
+        "chosen": [],
+        "human": false
+    },
+    "bmi1andbmi2instructiongroupsarenotavailable": {
+        "chosen": [],
+        "human": false
+    },
+    "processorenergypolicyselectionmaynotworkasexpected": {
+        "chosen": [
+            "(?:IA32_)?ENERGY_PERF_BIAS"
+        ],
+        "human": true
+    },
+    "apebsrecordmaycontainprocessorstateforanunexpectedinstruction": {
+        "chosen": [],
+        "human": false
+    },
+    "msrpp1energystatusreportsincorrectenergydata": {
+        "chosen": [
+            "MSR_PP1_ENERGY_STATUS"
+        ],
+        "human": true
+    },
+    "x87fpudpmaybeincorrectafterinstructionsthatsavefpstatetomemory": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayhangduringpackagec7exit": {
+        "chosen": [],
+        "human": false
+    },
+    "spuriousllcmachinecheckmayoccur": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "pagefaultmayreportincorrectfaultinformation": {
+        "chosen": [],
+        "human": false
+    },
+    "caterrpinassertionisnotclearedonawarmreset": {
+        "chosen": [],
+        "human": false
+    },
+    "uncorrectablemachinecheckerrorduringcorec6entrymaynotbesignaled": {
+        "chosen": [],
+        "human": false
+    },
+    "thesamplepreloadjtagcommanddoesnotsamplethedisplaytransmitsignals": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitoreventforoutstandingoffcorerequestsandsnooprequestsmaybeincorrect": {
+        "chosen": [],
+        "human": false
+    },
+    "pcielinkmayincorrectlytrainto80gts": {
+        "chosen": [],
+        "human": false
+    },
+    "pcietxvoltagereferencecannotbechanged": {
+        "chosen": [],
+        "human": false
+    },
+    "reenablingedrammaylogamachinecheckandhang": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "warmresetdoesnotstopedrampowerdraw": {
+        "chosen": [],
+        "human": false
+    },
+    "opcodebytesf30fbcmayexecuteastzcntevenwhentzcntnotenumeratedbycpuid": {
+        "chosen": [],
+        "human": false
+    },
+    "intels2ddtmaynotfunctioncorrectlywithcertainhighresolutiondisplays": {
+        "chosen": [],
+        "human": false
+    },
+    "spuriouscorrectederrorsmaybereported": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "packagec7powerconsumptionhasbeenobservedtobehigherthanpackagec6": {
+        "chosen": [],
+        "human": false
+    },
+    "ahyperthreadingenabledprocessormayexhibitunpredictablebehaviorduringpowerorthermalmanagementoperations": {
+        "chosen": [],
+        "human": false
+    },
+    "certainperfmoneventsmaybecountedincorrectlywhentheprocessorisnotinc0state": {
+        "chosen": [],
+        "human": false
+    },
+    "softwareusinginteltsxmayresultinunpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "atransienthightemperatureeventmaycausepersistentfrequencyrestrictions": {
+        "chosen": [],
+        "human": false
+    },
+    "runningallcoresmayincorrectlylimittheprocessorfrequency": {
+        "chosen": [],
+        "human": false
+    },
+    "concurrentcoreandgraphicsoperationatturboratiosmayleadtosystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "someconfigurationsmayviolateembeddeddramrefreshrequirementsleadingtoasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "interactionsbetweenmultipleunalignedmemoryaccessesandlockedinstructionsmayleadtoamachinecheck": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "fixedfunctionperformancecountermayovercountinstructionsretiredby32whenintelhyperthreadingtechnologyisenabled": {
+        "chosen": [
+            "(?:IA32_)?FIXED_CTR0",
+            "(?:IA32_)?FIXED_CTR_CTRL",
+            "(?:IA32_)?PERF_GLOBAL_CTRL"
+        ],
+        "human": true
+    },
+    "performancemonitoruopsexecutedeventmaybeinaccuratewhenusingintelhyperthreadingtechnology": {
+        "chosen": [],
+        "human": false
+    },
+    "operandsizeoverrideprefixcauses64bitoperandformofmovbeinstructiontocauseaud": {
+        "chosen": [],
+        "human": false
+    },
+    "popcntinstructionmaytakelongertoexecutethanexpected": {
+        "chosen": [],
+        "human": false
+    },
+    "unpredictableoperationatturbofrequenciesabove40ghz": {
+        "chosen": [],
+        "human": false
+    },
+    "systemmayhangorvideomaybedistortedaftergraphicsrc6exit": {
+        "chosen": [],
+        "human": false
+    },
+    "certainedpdisplaysmaynotfunctionasexpected": {
+        "chosen": [],
+        "human": false
+    },
+    "someoffcoreresponseperformancemonitoringeventsmayundercount": {
+        "chosen": [],
+        "human": false
+    },
+    "certainsettingsofvmexecutioncontrolsmayresultinincorrectlinearaddresstranslations": {
+        "chosen": [],
+        "human": false
+    },
+    "attemptingtodisableturbomodemaycauseagp": {
+        "chosen": [
+            "(?:IA32_)?MISC_ENABLE"
+        ],
+        "human": true
+    },
+    "machinecheckthresholdbasederrorstatusmaybesetincorrectly": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "pecifrequencylimitedto1mhz": {
+        "chosen": [],
+        "human": false
+    },
+    "vgatherqpsthatloadsanelementfromtheapicaccesspagemayloadotherelementsfromincorrectaddresses": {
+        "chosen": [],
+        "human": false
+    },
+    "mtfvmexitonxbegininstructionmaysavestateincorrectly": {
+        "chosen": [],
+        "human": false
+    },
+    "uncoreperformancemonitoringcountersmaybedisabledorclearedafterpackagec7": {
+        "chosen": [
+            "(?:IA32_)?PERF_GLOBAL_CTRL",
+            "(?:IA32_)?PERF_GLOBAL_STATUS"
+        ],
+        "human": true
+    },
+    "pebsrecordmaybegeneratedafterbeingdisabled": {
+        "chosen": [
+            "(?:IA32_)?PEBS_ENABLE",
+            "(?:IA32_)?PERF_GLOBAL_CTRL"
+        ],
+        "human": true
+    },
+    "pcielinkspeednegotiationmayfailafterlinkisreenabled": {
+        "chosen": [],
+        "human": false
+    },
+    "databreakpointcoincidentwithamachinecheckexceptionmaybelost": {
+        "chosen": [],
+        "human": false
+    },
+    "acorrectedinternalparityerrormayresultinasystemhang": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "anapictimerinterruptduringcorec6entrymaybelost": {
+        "chosen": [],
+        "human": false
+    },
+    "internalpowerstatetransitionsmaycausethegraphicsdevicetohang": {
+        "chosen": [],
+        "human": false
+    },
+    "pebseventingipfieldmaybeincorrectundercertainconditions": {
+        "chosen": [],
+        "human": false
+    },
+    "rfmaybeincorrectlysetintheeflagsthatissavedonafaultinpebsorbts": {
+        "chosen": [],
+        "human": false
+    },
+    "somememoryperformancemonitoringeventsmayproduceincorrectresultswhenfilteringoneitherosorusrmodes": {
+        "chosen": [],
+        "human": false
+    },
+    "anx87storeinstructionwhichpendspewhileeptisenabledmayleadtoanunexpectedmachinecheckandorincorrectx87stateinformation": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "loadlatencyperformancemonitoringfacilitymaystopcounting": {
+        "chosen": [],
+        "human": false
+    },
+    "writingmsrlastbranchxfromipmaygpwheninteltsxisnotsupported": {
+        "chosen": [
+            "MSR_LASTBRANCH_?(?:\\d+|\\{[\\d -]+\\}|[a-z])?_FROM_IP"
+        ],
+        "human": true
+    },
+    "apictimerinterruptmaynotbegeneratedatthecorrecttimeintscdeadlinemode": {
+        "chosen": [
+            "(?:IA32_)?TSC_ADJUST",
+            "(?:IA32_)?TSC_DEADLINE"
+        ],
+        "human": true
+    },
+    "systemmayhangundercomplexconditions": {
+        "chosen": [],
+        "human": false
+    },
+    "instructionfetchmaycausemachinecheckifpagesizewaschangedwithoutinvalidation": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "performancemonitoringgeneralcounter2mayhaveinvalidvaluewrittenwhentsxisenabled": {
+        "chosen": [
+            "(?:IA32_)?PMC\\d+"
+        ],
+        "human": true
+    },
+    "pmumsruncperffixedctrisclearedafterpkgc7ordeeper": {
+        "chosen": [
+            "MSR_UNC_PERF_FIXED_CTR"
+        ],
+        "human": true
+    },
+    "processormayshutdownduringboundaryscantesting": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayhanguponentrancetopackagec6orc7": {
+        "chosen": [],
+        "human": false
+    },
+    "powerandperformanceregulationmayvarywhenusingrapl": {
+        "chosen": [],
+        "human": false
+    },
+    "tm1throttlingviaia32clockmodulationmsrmayhang": {
+        "chosen": [
+            "(?:IA32_)?CLOCK_MODULATION"
+        ],
+        "human": true
+    },
+    "exitingdeeppackagecstatemayresultinasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "lpddr3zqcalibrationfollowingdeeppackagecstateexitmayleadtounpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "intelturboboosttechnologymaybeincorrectlyreportedassupportedonintelcorei3useriesyseriesandselectpentiumprocessors": {
+        "chosen": [],
+        "human": false
+    },
+    "hdaudiodeviceplaybackmaybeinterruptediftheprocessorentersadeeppackagecstate": {
+        "chosen": [],
+        "human": false
+    },
+    "processormaynotbeabletoreducethegraphicsengineseffectivefrequency": {
+        "chosen": [],
+        "human": false
+    },
+    "certainprocessorsmayexperiencetransientllceccerrors": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "chapcountervaluesmaybeclearedafterpackagec7ordeepercstate": {
+        "chosen": [],
+        "human": false
+    },
+    "systemhangmayoccurduringexitfrompackagec7duetovccstsensitivity": {
+        "chosen": [],
+        "human": false
+    },
+    "cr0cdignoredinvmxoperation": {
+        "chosen": [],
+        "human": false
+    },
+    "timedmwaitmayusedeadlineofapreviousexecution": {
+        "chosen": [],
+        "human": false
+    },
+    "intelturboboosttechnologymaybeincorrectlyreportedassupportedon5thgenerationintelcorei3useriesandselectmobileintelpentiumprocessorsandmobileintelceleronprocessors": {
+        "chosen": [],
+        "human": false
+    },
+    "backtobackupdatesofthevtdroottablepointermayleadtoanunexpecteddmaremappingfault": {
+        "chosen": [],
+        "human": false
+    },
+    "peeriodevicewritestothegmadrmayleadtoasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "intelptpacketgenerationmaystopsoonerthanexpected": {
+        "chosen": [
+            "(?:IA32_)?RTIT_STATUS"
+        ],
+        "human": true
+    },
+    "pebseventingipfieldmaybeincorrectafternottakenbranch": {
+        "chosen": [],
+        "human": false
+    },
+    "readingthememorydestinationofaninstructionthatbeginsanhletransactionmayreturntheoriginalvalue": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitoringeventinstrretiredallmaygenerateredundantpebsrecordsforanoverflow": {
+        "chosen": [],
+        "human": false
+    },
+    "thesystemmayhangonfirstpackagec6ordeepercstate": {
+        "chosen": [],
+        "human": false
+    },
+    "usingthefivrspreadspectrumcontrolmailboxmaynotproducetherequestedrange": {
+        "chosen": [],
+        "human": false
+    },
+    "intelprocessortraceintelptmodeexecpipandcbrpacketsarenotgeneratedasexpected": {
+        "chosen": [],
+        "human": false
+    },
+    "generalpurposeperformancecountersmaybeinaccuratewithanythread": {
+        "chosen": [],
+        "human": false
+    },
+    "anincorrectlbrorintelprocessortracepacketmayberecordedfollowingatransactionalabort": {
+        "chosen": [],
+        "human": false
+    },
+    "executinganrsminstructionwithintelprocessortraceenabledwillsignalagp": {
+        "chosen": [
+            "(?:IA32_)?RTIT_CTL"
+        ],
+        "human": true
+    },
+    "intelprocessortracepipmaybeunexpectedlygenerated": {
+        "chosen": [
+            "(?:IA32_)?RTIT_CTL"
+        ],
+        "human": true
+    },
+    "avemaynotinvalidatecachedtranslationinformation": {
+        "chosen": [],
+        "human": false
+    },
+    "someperformancemonitoreventsmayovercountduringtlbmisses": {
+        "chosen": [],
+        "human": false
+    },
+    "intelprocessortracepsbpacketsmaycontainunexpectedpackets": {
+        "chosen": [],
+        "human": false
+    },
+    "writingnonzerovaluetoia32rtitcr3match6348willcausegp": {
+        "chosen": [
+            "(?:IA32_)?RTIT_CR3_MATCH"
+        ],
+        "human": true
+    },
+    "corec6maycauseinterruptstobeservicedoutoforder": {
+        "chosen": [],
+        "human": false
+    },
+    "lpddr3memorytrainingmaycauseplatformbootfailure": {
+        "chosen": [],
+        "human": false
+    },
+    "aggressiverampdownofvoltagemayresultinunpredictablebehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "dr6registermaycontainanincorrectvaluewhenamovtossorpopssinstructionisfollowedbyanxbegininstruction": {
+        "chosen": [],
+        "human": false
+    },
+    "thecorrectederrorcountoverflowbitinia32mc0statusisnotupdatedafteraucerrorislogged": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "processoroperationatturbofrequenciesabove32ghzmaycausetheprocessortohang": {
+        "chosen": [],
+        "human": false
+    },
+    "ddr1600withareferenceclockof100mhzmaycauses3entryfailure": {
+        "chosen": [],
+        "human": false
+    },
+    "instructionfetchpowersavingfeaturemaycauseunexpectedinstructionexecution": {
+        "chosen": [],
+        "human": false
+    },
+    "iacoreratiochangecoincidentwithoutstandingreadtothedemaycauseasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "pl3powerlimitcontrolmechanismmaynotreleasefrequencyrestrictions": {
+        "chosen": [],
+        "human": false
+    },
+    "iosubsystemclockgatingmaycauseasystemhang": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "pagewalkerloadsperformancemonitoringeventmaycountincorrectly": {
+        "chosen": [],
+        "human": false
+    },
+    "certainlocalmemoryreadloadretiredperfmoneventsmayundercount": {
+        "chosen": [],
+        "human": false
+    },
+    "thesystemmayhangwhenexecutingacomplexsequenceoflockedinstructions": {
+        "chosen": [],
+        "human": false
+    },
+    "reenablingedrammaylogamachinecheckthenhang": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "settingtraceenwhileclearingbrancheninia32rtitctlcausesagp": {
+        "chosen": [
+            "(?:IA32_)?RTIT_CTL"
+        ],
+        "human": true
+    },
+    "processorgraphicsiommuunitmaynotmaskdmaremappingfaults": {
+        "chosen": [],
+        "human": false
+    },
+    "graphicsvtdhardwaremaycacheinvalidentries": {
+        "chosen": [],
+        "human": false
+    },
+    "intelcorei55350hprocessorincorrectlyreports8logicalprocessors": {
+        "chosen": [],
+        "human": false
+    },
+    "packagec3eventsenablingedramandpackagecstatesmaycausedisplayartifacts": {
+        "chosen": [],
+        "human": false
+    },
+    "operationatp1frequencymayleadtotimeoutmachinecheck": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "readsorwritestolbrswithintelptenabledwillresultinagp": {
+        "chosen": [
+            "(?:IA32_)?RTIT_CTL"
+        ],
+        "human": true
+    },
+    "frequencydifferencebetweeniacoresandringdomainsmaycauseunpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "softwareusinginteltsxmaybehaveunpredictably": {
+        "chosen": [],
+        "human": false
+    },
+    "backtobackpagewalksduetoinstructionfetchesmaycauseasystemhang": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "performancemonitoringcountersmayproduceincorrectresultsforbrinstretiredeventonlogicalprocessor": {
+        "chosen": [
+            "BR_INST_RETIRED"
+        ],
+        "human": true
+    },
+    "internalparityerrorsmayincorrectlyreportoverflowintheia32mc0statusmsr": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "processormayhangwhenexitingpackagec6": {
+        "chosen": [],
+        "human": false
+    },
+    "attemptingconcurrentenablingofintelptwithlbrbtsorbtmresultsinagp": {
+        "chosen": [
+            "(?:IA32_)?DEBUGCTL",
+            "(?:IA32_)?RTIT_CTL"
+        ],
+        "human": true
+    },
+    "anintelhyperthreadingtechnologyenabledprocessormayexhibitinternalparityerrorsorunpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "somedramandl3cacheperformancemonitoringeventsmayundercount": {
+        "chosen": [],
+        "human": false
+    },
+    "generalpurposeperformancemonitoringcounters47donotcountwithusrmodeonlyfiltering": {
+        "chosen": [
+            "(?:IA32_)?PMC\\d+"
+        ],
+        "human": true
+    },
+    "writingmsrlastbranchxfromipandmsrlerfromlipmaygpwheninteltsxisnotsupported": {
+        "chosen": [
+            "MSR_LASTBRANCH_?(?:\\d+|\\{[\\d -]+\\}|[a-z])?_FROM_IP",
+            "MSR_LER_FROM_LIP"
+        ],
+        "human": true
+    },
+    "preciseperformancemonitoringmaygenerateredundantpebsrecords": {
+        "chosen": [],
+        "human": false
+    },
+    "apendingfixedinterruptmaybedispatchedbeforeaninterruptofthesameprioritycompletes": {
+        "chosen": [],
+        "human": false
+    },
+    "x87statemaybeincorrectlyrestoredafteranxrstorsinstruction": {
+        "chosen": [],
+        "human": false
+    },
+    "packagec7entrymaycausedisplayartifact": {
+        "chosen": [],
+        "human": false
+    },
+    "inteltsxinstructionsnotavailable": {
+        "chosen": [],
+        "human": false
+    },
+    "svmdoorbellsarenotcorrectlypreservedacrosspackagecstates": {
+        "chosen": [],
+        "human": false
+    },
+    "glitchesoninternalvoltageplanesduringpackagec9c10exitmaycauseasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "frequententriesintopackagec8c9orc10maycauseahang": {
+        "chosen": [],
+        "human": false
+    },
+    "thedisplaymaynotresumecorrectlyafterpackagec8c10exit": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayincorrectlyenterintopackagecstatesc8c9orc10": {
+        "chosen": [],
+        "human": false
+    },
+    "certainllcfrequencychangesmayresultinunpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "c8ordeepersleepstateexitmayresultinanincorrecthdcpkey": {
+        "chosen": [],
+        "human": false
+    },
+    "ddr1600clockingmarginalitymayleadtounpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "packagec9c10exitmaycauseasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "inteltrustedexecutiontechnologyusesincorrecttpm20nvspaceindexhandles": {
+        "chosen": [],
+        "human": false
+    },
+    "transitionsthroughpackagec7ordeepermayresultinasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "thesystemmayhangwhenexitingfromdeeppackagecstates": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayhangwhenpackagecstatesareenabled": {
+        "chosen": [],
+        "human": false
+    },
+    "graphicsconfigurationmaynotbecorrectlyrestoredafterapackagec7exit": {
+        "chosen": [],
+        "human": false
+    },
+    "someoffcoreresponseperformancemonitoringeventsrelatedtorforequesttypesmaycountincorrectly": {
+        "chosen": [
+            "MSR_OFFCORE_RSP_0",
+            "MSR_OFFCORE_RSP_1"
+        ],
+        "human": true
+    },
+    "performancemonitoringcountersmayundercountwhenusingcplfiltering": {
+        "chosen": [],
+        "human": false
+    },
+    "readsfrommsrlertolipmaynotreturnacanonicaladdress": {
+        "chosen": [
+            "MSR_LER_TO_LIP"
+        ],
+        "human": true
+    },
+    "inemca2modewhentheretirementwatchdogtimeoutoccurscaterrmaybeasserted": {
+        "chosen": [],
+        "human": false
+    },
+    "vcvtps2phtomemorymayupdatemxcsrinthecaseofafaultonthestore": {
+        "chosen": [],
+        "human": false
+    },
+    "usinginteltsxinstructionsmayleadtounpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "x87fpuexceptionmfmaybesignaledearlierthanexpected": {
+        "chosen": [],
+        "human": false
+    },
+    "thesmswinstructionmayexecutewithinanenclave": {
+        "chosen": [],
+        "human": false
+    },
+    "pebsrecordafterawrmsrtoia32biosupdttrigmaybeincorrect": {
+        "chosen": [
+            "(?:IA32_)?BIOS_UPDT_TRIG"
+        ],
+        "human": true
+    },
+    "intelpttippgdmaynothavetargetippayload": {
+        "chosen": [
+            "(?:IA32_)?RTIT_STATUS"
+        ],
+        "human": true
+    },
+    "wrmsrmaynotclearthestickycountoverflowbitintheia32mcistatusmsrscorrectederrorcountfield": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "debugexceptionsmaybelostormisreportedfollowingwrmsrtoia32biosupdttrig": {
+        "chosen": [
+            "(?:IA32_)?BIOS_UPDT_TRIG"
+        ],
+        "human": true
+    },
+    "attemptstoretrainapcielinkmaybeignored": {
+        "chosen": [],
+        "human": false
+    },
+    "vmentrythatclearstraceenmaygenerateafup": {
+        "chosen": [
+            "(?:IA32_)?RTIT_CTL"
+        ],
+        "human": true
+    },
+    "edramcorrectederroreventsmaynotbeproperlyloggedafterawarmreset": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "performancemonitoreventforoutstandingoffcorerequestsmaybeincorrect": {
+        "chosen": [],
+        "human": false
+    },
+    "processorinstabilitymayoccurwhenusingthepecirdiamsrcommand": {
+        "chosen": [],
+        "human": false
+    },
+    "encluegetkeyignoreskeyrequestmiscmask": {
+        "chosen": [],
+        "human": false
+    },
+    "encluereportmaycauseagpwhentargetinfomiscselectisnonzero": {
+        "chosen": [],
+        "human": false
+    },
+    "avmxtransitionattemptingtoloadanonexistentmsrmayresultinashutdown": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "transitionsoutof64bitmodemayleadtoanincorrectfdpandfip": {
+        "chosen": [],
+        "human": false
+    },
+    "intelptfupmaybedroppedafterovf": {
+        "chosen": [],
+        "human": false
+    },
+    "enclsecreatecausesgpifenclavebaseaddressisnotcanonical": {
+        "chosen": [],
+        "human": false
+    },
+    "databreakpointmaynotbedetectedonarepmovs": {
+        "chosen": [],
+        "human": false
+    },
+    "pcieanddmilinkswithlanepolarityinversionmayresultinlinkfailure": {
+        "chosen": [],
+        "human": false
+    },
+    "pcieexpansionrombaseaddressregistermaybeincorrect": {
+        "chosen": [],
+        "human": false
+    },
+    "pcieperformequalizationmayleadtolinkfailure": {
+        "chosen": [],
+        "human": false
+    },
+    "twodimmsperchannel2133mhzddr4sodimmdaisychainsystemswithdifferentvendorsmayhang": {
+        "chosen": [],
+        "human": false
+    },
+    "enclseinitinstructionmayunexpectedlygp": {
+        "chosen": [],
+        "human": false
+    },
+    "intelptovfpacketmaybelostifimmediatelyprecedingatracestop": {
+        "chosen": [],
+        "human": false
+    },
+    "detectinganintelptstoppedorerrorconditionwithinaninteltsxregionmayresultinasystemhang": {
+        "chosen": [
+            "(?:IA32_)?RTIT_STATUS"
+        ],
+        "human": true
+    },
+    "wrmsrtoia32biosupdttrigmaybecountedasmultipleinstructions": {
+        "chosen": [
+            "(?:IA32_)?BIOS_UPDT_TRIG"
+        ],
+        "human": true
+    },
+    "thex87fipmaybeincorrect": {
+        "chosen": [],
+        "human": false
+    },
+    "branchinstructionsmayinitializempxboundregistersincorrectly": {
+        "chosen": [],
+        "human": false
+    },
+    "writinganoncanonicalvaluetoanlbrmsrdoesnotsignalagpwhenintelptisenabled": {
+        "chosen": [
+            "MSR_LASTBRANCH_?(?:\\d+|\\{[\\d -]+\\}|[a-z])?_FROM_IP",
+            "MSR_LASTBRANCH_?(?:\\d+|\\{[\\d -]+\\}|[a-z])?_TO_IP",
+            "MSR_LASTBRANCH",
+            "MSR_LASTINT_FROM_IP",
+            "MSR_LASTINT_TO_IP"
+        ],
+        "human": true
+    },
+    "processormayrunintelavxcodemuchslowerthanexpected": {
+        "chosen": [],
+        "human": false
+    },
+    "intelptbufferoverflowmayresultinincorrectpackets": {
+        "chosen": [],
+        "human": false
+    },
+    "intelptpsbpacketsmaybeomittedonac6transition": {
+        "chosen": [
+            "(?:IA32_)?RTIT_STATUS"
+        ],
+        "human": true
+    },
+    "ia32perfglobalstatustracetopapmibitcannotbesetbysoftware": {
+        "chosen": [
+            "(?:IA32_)?PERF_GLOBAL_STATUS"
+        ],
+        "human": true
+    },
+    "cpuidincorrectlyreportsbitmanipulationinstructionssupport": {
+        "chosen": [],
+        "human": false
+    },
+    "intelturboboosttechnologymaybeincorrectlyreportedassupportedonintelcorei3uhsselectintelmobilepentiumintelmobileceleronselectintelpentiumg4xxxandintelcelerong3xxxprocessors": {
+        "chosen": [],
+        "human": false
+    },
+    "useofprefetchinstructionsmayleadtoaviolationofmemoryordering": {
+        "chosen": [],
+        "human": false
+    },
+    "cslimitviolationmaynotbedetected": {
+        "chosen": [],
+        "human": false
+    },
+    "lastlevelcacheperformancemonitoringeventsmaybeinaccurate": {
+        "chosen": [
+            "(?:IA32_)?EFER"
+        ],
+        "human": true
+    },
+    "gpoccursratherthandboncodepagesplitinsideanintelsgxenclave": {
+        "chosen": [],
+        "human": false
+    },
+    "executionofvaesenclastinstructionmayproduceanmexceptioninsteadofaudexception": {
+        "chosen": [],
+        "human": false
+    },
+    "intelsgxenclaveaccessestotheapicaccesspagemaycauseapicaccessvmexits": {
+        "chosen": [],
+        "human": false
+    },
+    "cr3filteringdoesnotcomparebits115ofcr3andia32rtitcr3matchinpaepagingmode": {
+        "chosen": [
+            "(?:IA32_)?RTIT_CR3_MATCH",
+            "(?:IA32_)?RTIT_CTL"
+        ],
+        "human": true
+    },
+    "intelptpacketenchangeoncstatewakemaynotgenerateatippacket": {
+        "chosen": [
+            "(?:IA32_)?RTIT_STATUS"
+        ],
+        "human": true
+    },
+    "graphicsconfigurationmaynotbecorrectlyrestoredafterapackagec8exit": {
+        "chosen": [],
+        "human": false
+    },
+    "x87fdpvaluemaybesavedincorrectly": {
+        "chosen": [],
+        "human": false
+    },
+    "processorwithintelsgxsupportmayhangdurings3wakeorpoweronreset": {
+        "chosen": [],
+        "human": false
+    },
+    "audioglitchesmayoccurafterresetors3s4exit": {
+        "chosen": [],
+        "human": false
+    },
+    "intelptcycthreshvalueof13isnotsupported": {
+        "chosen": [
+            "(?:IA32_)?RTIT_CTL"
+        ],
+        "human": true
+    },
+    "exxintelptmaydropsometimingpacketsafterenteringthread": {
+        "chosen": [],
+        "human": false
+    },
+    "underflowanddenormalconditionsduringavdppsinstructionwithymmoperandsmaynotproducetheexpectedresults": {
+        "chosen": [],
+        "human": false
+    },
+    "enablingvmxpreemptiontimerblockshdcoperation": {
+        "chosen": [],
+        "human": false
+    },
+    "certainprocessorsmaybeconfiguredwithanincorrecttdp": {
+        "chosen": [],
+        "human": false
+    },
+    "displayflickermayoccurwhenbothvtdandfbcareenabled": {
+        "chosen": [],
+        "human": false
+    },
+    "systemmayhangwhenusinginteltxtandmemorythatsupportsaddressmirroring": {
+        "chosen": [],
+        "human": false
+    },
+    "systemmayhangorresetduringprocessorpackagec9exit": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "integratedaudiocodecmaynotbedetected": {
+        "chosen": [],
+        "human": false
+    },
+    "movntdqafromwcmemorymaypassearliermfenceinstructions": {
+        "chosen": [],
+        "human": false
+    },
+    "apictimerinterruptortimedmwaitwakemayoccurearly": {
+        "chosen": [
+            "(?:IA32_)?TSC_DEADLINE"
+        ],
+        "human": true
+    },
+    "processorsthatsupportedrammaynotinitializeproperly": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayhangorcauseunpredictablesystembehavior": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "theprocessormayfailtoproperlyexitpackagec6ordeeper": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "certainprocessorsmayreportincorrectdid2": {
+        "chosen": [],
+        "human": false
+    },
+    "systemmayhangwhenenterings3s4s5state": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "displayflickeringmaybeobservedwithspecificedppanels": {
+        "chosen": [],
+        "human": false
+    },
+    "x87fpudatapointerupdatedonlyforinstructionsthatincurunmaskedexceptions": {
+        "chosen": [],
+        "human": false
+    },
+    "incorrectbranchpredictedbitinbtsbtmbranchrecords": {
+        "chosen": [],
+        "human": false
+    },
+    "machineclearsmemoryorderingperformancemonitoringeventmayundercount": {
+        "chosen": [],
+        "human": false
+    },
+    "ctrfrzmaynotfreezesomecounters": {
+        "chosen": [
+            "(?:IA32_)?DEBUGCTL",
+            "(?:IA32_)?PERF_GLOBAL_STATUS",
+            "(?:IA32_)?PMC\\d+"
+        ],
+        "human": true
+    },
+    "instructionsandbranchesretiredperformancemonitoringeventsmayovercount": {
+        "chosen": [
+            "BR_INST_RETIRED",
+            "(?:IA32_)?MISC_ENABLE"
+        ],
+        "human": true
+    },
+    "repmovsmaynotoperatecorrectlywitheptenabled": {
+        "chosen": [],
+        "human": false
+    },
+    "ringfrequencychangesmaycauseamachinecheckandsystemhang": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "someoffcoreresponseperformancemonitoringeventsmayovercount": {
+        "chosen": [
+            "MSR_OFFCORE_RSP_0",
+            "MSR_OFFCORE_RSP_1"
+        ],
+        "human": true
+    },
+    "usingbiostodisablecoresmayleadtoasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "instructionsfetchgpafterrsmduringinterptmaypushincorrectrflagsvalueonstack": {
+        "chosen": [],
+        "human": false
+    },
+    "accesstosgxepcpageinblockedstateisnotreportedasansgxinducedpagefault": {
+        "chosen": [],
+        "human": false
+    },
+    "pcieatomicoperationsmayleadtounpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "instructionsthatcausenmmayleadtohang": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "enablings3onprocessorswithedrammaycauseunpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "packagec6exitlatencymaybehigherthanexpectedleadingtodisplayflicker": {
+        "chosen": [],
+        "human": false
+    },
+    "edrammaycauseunpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "pcieportdoesnotsupportdlllinkactivityreporting": {
+        "chosen": [],
+        "human": false
+    },
+    "enablingpackagec8stateordeepermayleadtodisplayflickerorasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "systemmayhangwhenedramisenabledandddrisoperatingat1600mhz": {
+        "chosen": [],
+        "human": false
+    },
+    "packagec3exitlatencymaybelongerthanexpectedleadingtodisplayflicker": {
+        "chosen": [],
+        "human": false
+    },
+    "processorddrvrefsignalsmaybrieflyexceedjedecspecwhenenterings3state": {
+        "chosen": [],
+        "human": false
+    },
+    "complexinteractionswithinternalgraphicsmayimpactprocessorresponsiveness": {
+        "chosen": [],
+        "human": false
+    },
+    "afterapackagec10sleepstateexitasubsequentc8c9exitmaycausesystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "memorycontrollerckesignalmaynotbeexpectedvaluewhenexecutingboundaryscanextestcommand": {
+        "chosen": [],
+        "human": false
+    },
+    "certainnoncanonicalia32bndcfgsvalueswillnotcausevmentryfailures": {
+        "chosen": [],
+        "human": false
+    },
+    "executinga256bitavxinstructionmaycauseunpredictablebehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "hwpsguaranteedperformanceupdatedonlyonconfigurabletdpchanges": {
+        "chosen": [
+            "(?:IA32_)?HWP_CAPABILITIES"
+        ],
+        "human": true
+    },
+    "coreandorringfrequencymaybebrieflylowerthanexpectedafterbioscompletes": {
+        "chosen": [],
+        "human": false
+    },
+    "intelpttopapmidoesnotfreezeperformancemonitoringcounters": {
+        "chosen": [
+            "(?:IA32_)?DEBUGCTL"
+        ],
+        "human": true
+    },
+    "hwpsmaximumperformancevalueisresetto0xff": {
+        "chosen": [
+            "(?:IA32_)?HWP_CAPABILITIES"
+        ],
+        "human": true
+    },
+    "hwpsguaranteedperformanceandrelevantstatusinterruptmaybeupdatedmorethanoncepersecond": {
+        "chosen": [
+            "(?:IA32_)?HWP_CAPABILITIES",
+            "(?:IA32_)?HWP_STATUS"
+        ],
+        "human": true
+    },
+    "hwpmaygeneratethermalinterruptwhilenotenabled": {
+        "chosen": [],
+        "human": false
+    },
+    "cameradevicedoesnotissueanmsiwhenintxisenabled": {
+        "chosen": [],
+        "human": false
+    },
+    "anx87storeinstructionwhichpendspemayleadtounexpectedbehaviorwheneptadisenabled": {
+        "chosen": [],
+        "human": false
+    },
+    "systemhangormachinecheckmayoccurwhenedramenabled": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "ringperflimitreasonsmaybeincorrect": {
+        "chosen": [
+            "RING_PERF_LIMIT_REASONS"
+        ],
+        "human": true
+    },
+    "bndldxandbndstxmaynotsignalgponnoncanonicalbounddirectoryaccess": {
+        "chosen": [],
+        "human": false
+    },
+    "dtstemperaturereadingmaybeinaccurateonddr4systems": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitoringloadlatencyeventsmaybeinaccurateforgatherinstructions": {
+        "chosen": [],
+        "human": false
+    },
+    "somebitsinmsrmiscpwrmgmtmaybeupdatedonwritingillegalvaluestothismsr": {
+        "chosen": [],
+        "human": false
+    },
+    "violationsofintelsoftwareguardextensionsintelsgxaccesscontrolrequirementsproducegpinsteadofpf": {
+        "chosen": [],
+        "human": false
+    },
+    "ia32rtitcr3matchmsrbits115aretreatedasreserved": {
+        "chosen": [
+            "(?:IA32_)?RTIT_CR3_MATCH"
+        ],
+        "human": true
+    },
+    "unpredictablesystembehaviormayoccurwhensystemagentenhancedintelspeedstepisenabled": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayhangundercomplexscenarios": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "theintelptcr3filterisnotreevaluatedonvmentry": {
+        "chosen": [
+            "(?:IA32_)?RTIT_CR3_MATCH",
+            "(?:IA32_)?RTIT_CTL"
+        ],
+        "human": true
+    },
+    "displayslownessmaybeobservedundercertaindisplaycommandsscenario": {
+        "chosen": [],
+        "human": false
+    },
+    "cpuidtlbassociativityinformationisinaccurate": {
+        "chosen": [],
+        "human": false
+    },
+    "processorgraphicsmayrenderincorrectlyormayhangfollowingwarmresetwithpackagec8disabled": {
+        "chosen": [],
+        "human": false
+    },
+    "shortloopswhichuseahbhchdhregistersmaycauseunpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "unpredictablesystembehaviormayoccurinddr4multiranksystem": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayhangoncomplexsequenceofconditions": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "intelsgxvulnerabilitymayimpactenclavesecurity": {
+        "chosen": [],
+        "human": false
+    },
+    "maskedbytesinavectormaskedstoreinstructionsmaycausewritebackofacacheline": {
+        "chosen": [],
+        "human": false
+    },
+    "wrmsrtoia32biosupdttrigconcurrentwithansmxsentersexitmayresultinasystemhang": {
+        "chosen": [
+            "(?:IA32_)?BIOS_UPDT_TRIG"
+        ],
+        "human": true
+    },
+    "useofvmaskmovtostorewhenusingeptmayfail": {
+        "chosen": [],
+        "human": false
+    },
+    "writingnonzerovaluestoreadonlyfieldsinia32thermstatusmsrmaygp": {
+        "chosen": [
+            "(?:IA32_)?THERM_STATUS"
+        ],
+        "human": true
+    },
+    "sgxenclseinitmaynotsignalanerrorforanincorrectlyformattedsigstructinput": {
+        "chosen": [],
+        "human": false
+    },
+    "branchinstructionaddressmaybeincorrectlyreportedontsxabortwhenusingmpx": {
+        "chosen": [],
+        "human": false
+    },
+    "settingperformancemonitoringia32perfglobalstatussetmsrbit63maynotgp": {
+        "chosen": [
+            "(?:IA32_)?PERF_GLOBAL_STATUS"
+        ],
+        "human": true
+    },
+    "hittingacodebreakpointinsideasgxdebugenclavemaycausetheprocessortohang": {
+        "chosen": [],
+        "human": false
+    },
+    "performancemonitoringascistatusbitmaybeinaccurate": {
+        "chosen": [
+            "(?:IA32_)?FIXED_CTR0",
+            "(?:IA32_)?PERF_GLOBAL_STATUS"
+        ],
+        "human": true
+    },
+    "processormayhangwhenexecutingcodeinanhletransaction": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "intelptcycpacketscanbedroppedwhenimmediatelyprecedingpsb": {
+        "chosen": [],
+        "human": false
+    },
+    "intelptvmentryindicationdependsontheincorrectvmcscontrolfield": {
+        "chosen": [
+            "(?:IA32_)?VMX_ENTRY_CTLS",
+            "(?:IA32_)?VMX_PROCBASED_CTLS2"
+        ],
+        "human": true
+    },
+    "intelptmaydropallpacketsafteraninternalbufferoverflow": {
+        "chosen": [],
+        "human": false
+    },
+    "intelpttopatablesreadfromnoncacheablememoryduringaninteltsxtransactionmayleadtoprocessorhang": {
+        "chosen": [],
+        "human": false
+    },
+    "performinganxacquiretoanintelpttopatablemayleadtoprocessorhang": {
+        "chosen": [],
+        "human": false
+    },
+    "zmmymmregistersmaycontainincorrectvalues": {
+        "chosen": [],
+        "human": false
+    },
+    "intelptcycpacketcanbedroppedwhenimmediatelyprecedingpsb": {
+        "chosen": [],
+        "human": false
+    },
+    "whenvirtualizationexceptionsareenabledeptviolationsmaygenerateerroneousvirtualizationexceptions": {
+        "chosen": [],
+        "human": false
+    },
+    "systemmayhangwithmultiplependingpostedwriteswhenusingdirectmmiowriteaccessmodel": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "performancemonitoringgeneralpurposecounter3maycontainunexpectedvalues": {
+        "chosen": [
+            "(?:IA32_)?A_PMC(?:\\d+|\\{[\\d -]+\\}|[a-z])?",
+            "(?:IA32_)?PERF_GLOBAL_CTRL",
+            "(?:IA32_)?PMC\\d+",
+            "(?:IA32_)?PREFEVTSEL\\d+",
+            "TSX_FORCE_ABORT"
+        ],
+        "human": true
+    },
+    "unexpecteduncorrectedmachinecheckerrorsmaybereported": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "intelpttracemaydropsecondbyteofcycpacket": {
+        "chosen": [],
+        "human": false
+    },
+    "executingsomeinstructionsmaycauseunpredictablebehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "incorrectexecutionofinternalbranchinstructionsmayleadtounpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "processormaybehaveunpredictablyoncomplexsequenceofconditionswhichinvolvebranchesthatcross64byteboundaries": {
+        "chosen": [],
+        "human": false
+    },
+    "apmithatfreezeslbrscancauseaduplicateentryintos": {
+        "chosen": [
+            "(?:IA32_)?DEBUGCTL"
+        ],
+        "human": true
+    },
+    "sgxkeyconfidentialitymaybecompromised": {
+        "chosen": [],
+        "human": false
+    },
+    "unexpectedpagefaultsinguestvirtualizationenvironment": {
+        "chosen": [],
+        "human": false
+    },
+    "pegpcielinkmayfailtolinkwhenresumingfrompkgc8": {
+        "chosen": [],
+        "human": false
+    },
+    "incorrecteccerrorsreportingfollowingentrytopkgc7": {
+        "chosen": [],
+        "human": false
+    },
+    "displayvtdtlbinvalidationduringdisablingofvtdtranslationsmaycausedisplaycorruptionorflickering": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayhangifwarmresettriggersduringbiosinitialization": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "mdclearoperationsmaynotproperlyoverwriteallbuffers": {
+        "chosen": [],
+        "human": false
+    },
+    "writinganoncanonicalvaluetoanlbrmsrdoesnotsignalagpwhenintelptisenabledifintelptintelprocessortraceisenabledwrmsrwillnotcauseageneralprotectionexceptiongponanattempttowriteanoncanonicalvaluetoanyofthefollowingmsrsmsrlastbranch031fromip680h69fhmsrlastbranch031toip6c0h6dfh": {
+        "chosen": [
+            "MSR_LASTBRANCH_?(?:\\d+|\\{[\\d -]+\\}|[a-z])?_FROM_IP",
+            "MSR_LASTBRANCH_?(?:\\d+|\\{[\\d -]+\\}|[a-z])?_TO_IP",
+            "MSR_LASTINT_FROM_IP",
+            "MSR_LASTINT_TO_IP"
+        ],
+        "human": true
+    },
+    "instructionsandbranchesretiredperformancemonitoringeventsmayovercounttheperformancemonitoringeventsinstretiredeventc0hanyumaskvalueandbrinstretiredeventc4hanyumaskvaluecountinstructionsretiredandbranchesretiredrespectivelyhoweverduetothiserratumtheseeventsmayovercountincertainconditionswhen": {
+        "chosen": [
+            "BR_INST_RETIRED",
+            "(?:IA32_)?MISC_ENABLE"
+        ],
+        "human": true
+    },
+    "intelturboboosttechnologymaybeincorrectlyreportedassupportedonintelcorei3uhsselectintelmobilepentiumintelmobileceleronintelpentiumandintelceleronprocessors": {
+        "chosen": [],
+        "human": false
+    },
+    "systemmayhangduringdisplaypowercycles": {
+        "chosen": [],
+        "human": false
+    },
+    "somememoryperformancemonitoringeventsmayproduceincorrectresultswhenfilteringoneitherosorusrmodesthememoryatretirementperformancemonitoringeventslistedbelowmayproduceincorrectresultswhenaperformancecounterisconfiguredinosonlyorusronlymodesbits17or16inia32perfevtselxmsrcounterswithbothosandusrbitssetarenotaffectedbythiserratumthelistofaffectedmemoryatretirementeventsisasfollowsmeminstretiredstlbmissloadseventd0humask11hmeminstretiredstlbmissstoreseventd0humask12hmeminstretiredlockloadseventd0humask21hmeminstretiredsplitloadseventd0humask41hmeminstretiredsplitstoreseventd0humask42h": {
+        "chosen": [],
+        "human": false
+    },
+    "pecimaynotbefunctionalafterpackagec10resume": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayexceedvcccoreiccmaxduringmulticoreturbo": {
+        "chosen": [],
+        "human": false
+    },
+    "usingdifferentvendorsfor2400mhzddr4udimmsmaycausecorrectableerrorsorasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "processorgraphicsmaydisplayincorrectlywhenedramisenabled": {
+        "chosen": [],
+        "human": false
+    },
+    "potentialpartialtracedatalossininteltracehubodlawhenstoringtomemory": {
+        "chosen": [],
+        "human": false
+    },
+    "displayartifactsmaybeseenwithhighbandwidthmultipledisplayconfigurations": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayincorrectlyassertprochotduringpkgc10": {
+        "chosen": [],
+        "human": false
+    },
+    "edp14portswithlinkrate216or432ghzmaynotresumefromlowpowergraphicsorsystemstates": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayhangwhenexecutingcodeinanhletransactionregion": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "incorrecteccreportingfollowingentrytopkgc7": {
+        "chosen": [],
+        "human": false
+    },
+    "overflowflaginia32mc0statusmsrmaybeincorrectlyset": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "rareinternaltimingconditionsmayleadtosporadichangsduringgraphicsvtdflows": {
+        "chosen": [],
+        "human": false
+    },
+    "verrinstructioninsidevmentrymaycausedr6tocontainincorrectvalues": {
+        "chosen": [],
+        "human": false
+    },
+    "usingdifferentvendorsfor2666mhzddr4udimmsmaycausecorrectableerrorsorasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "readsfromia32sgxlepubkeyhashmsrsreturnvaluesinincorrectorder": {
+        "chosen": [],
+        "human": false
+    },
+    "theprocessormayfailtobootduringddr4memorytraining": {
+        "chosen": [],
+        "human": false
+    },
+    "edrammaygenerateerrorsorotherunexpectedsystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "certainddr4memoryconfigurationsmaycauseunpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "lastlevelcacheringmaximumfrequencymaybereportedincorrectly": {
+        "chosen": [],
+        "human": false
+    },
+    "theprocessormayhangorexhibitdisplayflickering": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayhangduringpkgc8c9c10exit": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayhangathightemperaturewithahighthroughputgraphicsworkload": {
+        "chosen": [],
+        "human": false
+    },
+    "queuedinvalidationispreventedwhenvtdisdisabled": {
+        "chosen": [],
+        "human": false
+    },
+    "processorddrvrefsignalsmaybrieflyexceedjedecspecificationswhenenterings3state": {
+        "chosen": [],
+        "human": false
+    },
+    "writinganoncanonicalvaluetoanlbrmsrdoesnotsignalagpwhenintelptisenabledifintelprocessortraceintelptisenabledwrmsrdonotcauseageneralprotectionexceptiongponanattempttowriteanoncanonicalvaluetoanyofthefollowingmsrsmsrlastbranch031fromip680h69fhmsrlastbranch031toip6c0h6dfh": {
+        "chosen": [
+            "MSR_LASTBRANCH_?(?:\\d+|\\{[\\d -]+\\}|[a-z])?_FROM_IP",
+            "MSR_LASTBRANCH_?(?:\\d+|\\{[\\d -]+\\}|[a-z])?_TO_IP",
+            "MSR_LASTINT_FROM_IP",
+            "MSR_LASTINT_TO_IP"
+        ],
+        "human": true
+    },
+    "instructionsfetchgpafterrsmduringintelptmaypushincorrectrflagsvalueonstack": {
+        "chosen": [],
+        "human": false
+    },
+    "usingdifferentvendorsforddr4udimms2400mhzorabovemaycausecorrectableerrorsorasystemhang": {
+        "chosen": [],
+        "human": false
+    },
+    "incorrectcpuidreportingforintelturboboostmaxtechnology30capability": {
+        "chosen": [],
+        "human": false
+    },
+    "vtddmaremappingdisableingfxiommumaycausedisplayartifactsorflickering": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayreturnanincorrectbrandstringvalue": {
+        "chosen": [],
+        "human": false
+    },
+    "placingpagetableinformationintheapicaccesspagemayleadtounexpectedpagefaultswhileperformingenclaveaccesses": {
+        "chosen": [],
+        "human": false
+    },
+    "repmovsbinstructiontoorfromanonflatsegmentmaycauseunpredictablesystembehavior": {
+        "chosen": [],
+        "human": false
+    },
+    "usageofbit55ofia32tscdeadlinemsrmaycausespurioustimerinterrupt": {
+        "chosen": [],
+        "human": false
+    },
+    "wrongpageaccesssemanticsmaybereportedwhenintelsgxencluemodpeinstructiongeneratespagefaultpfexception": {
+        "chosen": [],
+        "human": false
+    },
+    "ia32rtitstatusfilterenbitmightreflectapreviousvalue": {
+        "chosen": [
+            "(?:IA32_)?RTIT_STATUS"
+        ],
+        "human": true
+    },
+    "timestampcountersmaycontainashiftedtimevalue": {
+        "chosen": [],
+        "human": false
+    },
+    "unabletotransmitmodifiedcompliancetestpatternat25gtsor50gtslinkspeeds": {
+        "chosen": [],
+        "human": false
+    },
+    "pcierootportsmayfailtxdifferentialreturnlosscompliancetest": {
+        "chosen": [],
+        "human": false
+    },
+    "peg10pcierootportmayreportincorrectmaximumlinkwidth": {
+        "chosen": [],
+        "human": false
+    },
+    "dmilinkfailureduringl1exit": {
+        "chosen": [],
+        "human": false
+    },
+    "processorpegports1011or12pcielinkmayhangdurings0ixs3s4s5cycles": {
+        "chosen": [],
+        "human": false
+    },
+    "pcierootportsmayfailtxdifferentialreturnloss": {
+        "chosen": [],
+        "human": false
+    },
+    "systemmayhangifbootedwithtxtdisabled": {
+        "chosen": [],
+        "human": false
+    },
+    "singlecoreconfigurationsmayhangons3s4resume": {
+        "chosen": [],
+        "human": false
+    },
+    "dmilinkmayhangduringpackagecstateexits": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "systemmayhangwhenbootinginsinglecoreconfiguration": {
+        "chosen": [],
+        "human": false
+    },
+    "processormaygeneratemalformedtlp": {
+        "chosen": [],
+        "human": false
+    },
+    "pcielinkmayfailtotrainuponexitfroml12": {
+        "chosen": [],
+        "human": false
+    },
+    "settingmiscfeaturecontroldisablethreestrikecntdoesnotpreventthethreestrikecounterfromincrementing": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayexceedthermallimits": {
+        "chosen": [],
+        "human": false
+    },
+    "writingnonzerovaluestoreadonlyfieldsinia32thermstatusmsrmaycauseagp": {
+        "chosen": [
+            "(?:IA32_)?THERM_STATUS"
+        ],
+        "human": true
+    },
+    "platformmaynotresumefromg3s3s4s5": {
+        "chosen": [],
+        "human": false
+    },
+    "debugexceptionsmaybelostormisreportedwhenmovssorpopssinstructionisnotfollowedbyawritetosp": {
+        "chosen": [],
+        "human": false
+    },
+    "vmreadvmwriteinstructionsmaynotfailwhenaccessinganunsupportedfieldinvmcs": {
+        "chosen": [],
+        "human": false
+    },
+    "bmi1bmi2lzcntadxcandadoxinstructionsmaynotgenerateanud": {
+        "chosen": [],
+        "human": false
+    },
+    "exitqualificationforeptviolationsoninstructionfetchesmayincorrectlyindicatethattheguestphysicaladdresswaswriteable": {
+        "chosen": [],
+        "human": false
+    },
+    "processormaygeneratespuriouspagefaultsonshadowstackpages": {
+        "chosen": [],
+        "human": false
+    },
+    "systemmayhangwhenbuslockdetectionisenabledandeptresidesinuncacheablememory": {
+        "chosen": [
+            "(?:IA32_)?DEBUGCTL"
+        ],
+        "human": true
+    },
+    "nogpwillbesignaledwhensettingmsrmiscpwrmgmtenablesdcifmsrmiscpwrmgmtlockisset": {
+        "chosen": [],
+        "human": false
+    },
+    "lastbranchrecordsmaynotsurvivewarmreset": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    },
+    "incorrectlyformedpciepacketsmaygeneratecorrectableerrors": {
+        "chosen": [],
+        "human": false
+    },
+    "udmaybedeliveredinsteadofotherexceptions": {
+        "chosen": [],
+        "human": false
+    },
+    "typechostcontrollerdoesnotsupportcertainqwordaccesses": {
+        "chosen": [],
+        "human": false
+    },
+    "gpmaybeservicedbeforeaninstructionbreakpoint": {
+        "chosen": [],
+        "human": false
+    },
+    "unexpectedpfexceptionmightbeservicedbeforeagpexception": {
+        "chosen": [],
+        "human": false
+    },
+    "wrmsrtoreservedbitsofia32l3qosmask15willnotsignalagp": {
+        "chosen": [],
+        "human": false
+    },
+    "vmxpreemptiontimermaynotworkifconfiguredwithavalueof1": {
+        "chosen": [],
+        "human": false
+    },
+    "singlesteponbranchesmightbemissedwhenvmmenablesnotificationonvmexit": {
+        "chosen": [
+            "(?:IA32_)?DEBUGCTL",
+            "(?:IA32_)?VMX_PROCBASED_CTLS2"
+        ],
+        "human": true
+    },
+    "readingthepperfmsrmaynotreturncorrectvalues": {
+        "chosen": [],
+        "human": false
+    },
+    "incorrectcperrorcodeonuiret": {
+        "chosen": [],
+        "human": false
+    },
+    "processormaynotwakefromtpauseumwaitinlimitedsituations": {
+        "chosen": [],
+        "human": false
+    },
+    "unsynchronizedcrossmodifyingcodeoperationscancauseunexpectedinstructionexecutionresults": {
+        "chosen": [],
+        "human": false
+    },
+    "processormayhangwhenprochotisactive": {
+        "chosen": [
+            "(?:IA32_)?MC(?:\\d+|\\{[\\d -]+\\}|[a-z])?_STATUS"
+        ],
+        "human": true
+    }
+}

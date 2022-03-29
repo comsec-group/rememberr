@@ -1,0 +1,1124 @@
+{
+    "HSM1": [
+        "X",
+        "X",
+        "No Fix",
+        "LBR, BTS, BTM May Report a Wrong Address when an Exception/Interrupt Occurs in 64-bit Mode"
+    ],
+    "HSM2": [
+        "X",
+        "X",
+        "No Fix",
+        "EFLAGS Discrepancy on Page Faults and on EPT-Induced VM Exits after a Translation Change"
+    ],
+    "HSM3": [
+        "X",
+        "X",
+        "No Fix",
+        "MCi_Status Overflow Bit May Be Incorrectly Set on a Single Instance of a DTLB Error"
+    ],
+    "HSM4": [
+        "X",
+        "X",
+        "No Fix",
+        "LER MSRs May Be Unreliable"
+    ],
+    "HSM5": [
+        "X",
+        "X",
+        "No Fix",
+        "MONITOR or CLFLUSH on the Local XAPIC's Address Space Results in Hang"
+    ],
+    "HSM6": [
+        "X",
+        "X",
+        "No Fix",
+        "An Uncorrectable Error Logged in IA32_CR_MC2_STATUS May also Result in a System Hang"
+    ],
+    "HSM7": [
+        "X",
+        "X",
+        "No Fix",
+        "#GP on Segment Selector Descriptor that Straddles Canonical Boundary May Not Provide Correct Exception Error Code"
+    ],
+    "HSM8": [
+        "X",
+        "X",
+        "No Fix",
+        "FREEZE_WHILE_SMM Does Not Prevent Event From Pending PEBS During SMM"
+    ],
+    "HSM9": [
+        "X",
+        "X",
+        "No Fix",
+        "APIC Error \u201cReceived Illegal Vector\u201d May be Lost"
+    ],
+    "HSM10": [
+        "X",
+        "X",
+        "No Fix",
+        "Changing the Memory Type for an In-Use Page Translation May Lead to Memory-Ordering Violations"
+    ],
+    "HSM11": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Precise Instruction Retired Event May Present Wrong Indications"
+    ],
+    "HSM12": [
+        "X",
+        "X",
+        "No Fix",
+        "CR0.CD Is Ignored in VMX Operation"
+    ],
+    "HSM13": [
+        "X",
+        "X",
+        "No Fix",
+        "N/A. Erratum has been removed"
+    ],
+    "HSM14": [
+        "X",
+        "X",
+        "No Fix",
+        "Execution of VAESIMC or VAESKEYGENASSIST With An Illegal Value for VEX.vvvv May Produce a #NM Exception"
+    ],
+    "HSM15": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor May Fail to Acknowledge a TLP Request"
+    ],
+    "HSM16": [
+        "X",
+        "X",
+        "No Fix",
+        "Interrupt From Local APIC Timer May Not Be Detectable While Being Delivered"
+    ],
+    "HSM17": [
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Root-port Initiated Compliance State Transmitter Equalization Settings May be Incorrect"
+    ],
+    "HSM18": [
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Controller May Incorrectly Log Errors on Transition to RxL0s"
+    ],
+    "HSM19": [
+        "X",
+        "X",
+        "No Fix",
+        "Unused PCIe* Lanes May Report Correctable Errors"
+    ],
+    "HSM20": [
+        "X",
+        "X",
+        "No Fix",
+        "Accessing Physical Memory Space 0-640K through the Graphics Aperture May Cause Unpredictable System Behavior"
+    ],
+    "HSM21": [
+        "X",
+        "X",
+        "No Fix",
+        "PCIe Root Port May Not Initiate Link Speed Change"
+    ],
+    "HSM22": [
+        "X",
+        "X",
+        "No Fix",
+        "Pending x87 FPU Exceptions (#MF) May be Signaled Earlier Than Expected"
+    ],
+    "HSM23": [
+        "X",
+        "X",
+        "No Fix",
+        "DR6.B0-B3 May Not Report All Breakpoints Matched When a MOV/POP SS is Followed by a Store or an MMX Instruction"
+    ],
+    "HSM24": [
+        "X",
+        "X",
+        "No Fix",
+        "VEX.L is Not Ignored with VCVT*2SI Instructions"
+    ],
+    "HSM25 1": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor May Shut Down During Boundary Scan Testing"
+    ],
+    "HSM26": [
+        "X",
+        "X",
+        "No Fix",
+        "Some DRAM and L3 Cache Performance Monitoring Events May Count Incorrectly"
+    ],
+    "HSM27": [
+        "X",
+        "X",
+        "No Fix",
+        "Specific Graphics Blitter Instructions May Result in Unpredictable Graphics Controller Behavior"
+    ],
+    "HSM28": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor May Enter Shutdown Unexpectedly on a Second Uncorrectable Error"
+    ],
+    "HSM29 2": [
+        "X",
+        "X",
+        "No Fix",
+        "Modified Compliance Patterns for 2.5 GT/s and 5 GT/s Transfer Rates Do Not Follow PCIe* Specification"
+    ],
+    "HSM30": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Counters May Produce Incorrect Results"
+    ],
+    "HSM31": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor UOPS_EXECUTED Event May Undercount"
+    ],
+    "HSM32": [
+        "X",
+        "X",
+        "No Fix",
+        "MSR_PERF_STATUS May Report an Incorrect Core Voltage"
+    ],
+    "HSM33 2": [
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Atomic Transactions From Two or More PCIe Controllers May Cause Starvation"
+    ],
+    "HSM34": [
+        "X",
+        "X",
+        "No Fix",
+        "The Corrected Error Count Overflow Bit in IA32_ MC0_STATUS is Not Updated When The UC Bit is Set"
+    ],
+    "HSM35": [
+        "X",
+        "X",
+        "No Fix",
+        "An AVX Gather Instruction That Causes an EPT Violation May Not Update Previous Elements"
+    ],
+    "HSM36": [
+        "X",
+        "X",
+        "No Fix",
+        "PLATFORM_POWER_LIMIT MSR Not Visible"
+    ],
+    "HSM37": [
+        "X",
+        "X",
+        "No Fix",
+        "LPDDR Memory May Report Incorrect Temperature"
+    ],
+    "HSM38": [
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Host Bridge DID May Be Incorrect"
+    ],
+    "HSM39": [
+        "X",
+        "X",
+        "No Fix",
+        "TSC May be Incorrect After a Deep C-State Exit"
+    ],
+    "HSM40 2": [
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Controller May Initiate Speed Change While in DL_Init State Causing Certain PCIe Devices to Fail to Train"
+    ],
+    "HSM41": [
+        "X",
+        "X",
+        "No Fix",
+        "Spurious VT-d Interrupts May Occur When the PFO Bit is Set"
+    ],
+    "HSM42": [
+        "X",
+        "X",
+        "No Fix",
+        "N/A. Erratum has been removed"
+    ],
+    "HSM43": [
+        "X",
+        "X",
+        "No Fix",
+        "AVX Gather Instruction That Causes a Fault or VM Exit May Incorrectly Modify Its Destination Register"
+    ],
+    "HSM44": [
+        "X",
+        "X",
+        "No Fix",
+        "Inconsistent NaN Propagation May Occur When Executing (V)DPPS Instruction"
+    ],
+    "HSM45": [
+        "X",
+        "X",
+        "No Fix",
+        "Display May Flicker When Package C-States Are Enabled"
+    ],
+    "HSM46": [
+        "X",
+        "X",
+        "No Fix",
+        "Certain Combinations of AVX Instructions May Cause Unpredictable System Behavior"
+    ],
+    "HSM47": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor May Incorrectly Estimate Peak Power Delivery Requirements"
+    ],
+    "HSM48": [
+        "X",
+        "X",
+        "No Fix",
+        "IA32_PERF_CTL MSR is Incorrectly Reset"
+    ],
+    "HSM49": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor May Hang During a Function Level Reset of the Display"
+    ],
+    "HSM50": [
+        "X",
+        "X",
+        "No Fix",
+        "AVX Gather Instruction That Should Result in #DF May Cause Unexpected System Behavior"
+    ],
+    "HSM51": [
+        "X",
+        "X",
+        "No Fix",
+        "Throttling and Refresh Rate Maybe be Incorrect After Exiting Package C-State"
+    ],
+    "HSM52": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor May Livelock During On Demand Clock Modulation"
+    ],
+    "HSM53": [
+        "X",
+        "X",
+        "No Fix",
+        "IA32_DEBUGCTL.FREEZE_PERFMON_ON_PMI is Incorrectly Cleared by SMI"
+    ],
+    "HSM54": [
+        "X",
+        "X",
+        "No Fix",
+        "The From-IP for Branch Tracing May be Incorrect"
+    ],
+    "HSM55": [
+        "X",
+        "X",
+        "No Fix",
+        "TM1 Throttling May Continue indefinitely"
+    ],
+    "HSM56": [
+        "X",
+        "X",
+        "No Fix",
+        "Internal Parity Errors May Incorrectly Report Overflow in The IA32_MC2_STATUS MSR"
+    ],
+    "HSM57": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Events OTHER_ASSISTS.AVX_TO_SSE And OTHER_ASSISTS.SSE_TO_AVX May Over Count"
+    ],
+    "HSM58": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor May Run at Incorrect P-State"
+    ],
+    "HSM59": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Event DSB2MITE_SWITCHES.COUNT May Over Count"
+    ],
+    "HSM60": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Register UNC_PERF_GLOBAL_STATUS Not Restored on Package C7 Exit"
+    ],
+    "HSM61": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor May Not Enter Package C6 or Deeper C-states When PCIe* Links Are Disabled"
+    ],
+    "HSM62": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Event For Outstanding Offcore Requests And Snoop Requests May Over Count"
+    ],
+    "HSM63": [
+        "X",
+        "X",
+        "No Fix",
+        "Some Performance Monitor Event Counts May be Inaccurate During SMT Mode"
+    ],
+    "HSM64": [
+        "X",
+        "X",
+        "No Fix",
+        "N/A. Errata has been Removed"
+    ],
+    "HSM65": [
+        "X",
+        "X",
+        "No Fix",
+        "The Upper 32 Bits of CR3 May be Incorrectly Used With 32-Bit Paging"
+    ],
+    "HSM66": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Events HLE_RETIRED.ABORTED_MISC4 And RTM_RETIRED.ABORTED_MISC4 May Over Count"
+    ],
+    "HSM67 2": [
+        "X",
+        "X",
+        "No Fix",
+        "A PCIe* LTR Update Message May Cause The Processor to Hang"
+    ],
+    "HSM68": [
+        "X",
+        "X",
+        "No Fix",
+        "GETSEC Does Not Report Support For S-CRTM"
+    ],
+    "HSM69": [
+        "X",
+        "X",
+        "No Fix",
+        "EPT Violations May Report Bits 11:0 of Guest Linear Address Incorrectly"
+    ],
+    "HSM70": [
+        "X",
+        "X",
+        "No Fix",
+        "APIC Timer Might Not Signal an Interrupt While in TSC-Deadline Mode"
+    ],
+    "HSM71": [
+        "X",
+        "X",
+        "No Fix",
+        "IA32_VMX_VMCS_ENUM MSR (48AH) Does Not Properly Report The Highest Index Value Used For VMCS Encoding"
+    ],
+    "HSM72": [
+        "X",
+        "X",
+        "No Fix",
+        "Incorrect FROM_IP Value For an RTM Abort in BTM or BTS May be Observed"
+    ],
+    "HSM73": [
+        "X",
+        "X",
+        "No Fix",
+        "VT-d Hardware May Perform STRP And SIRTP Operations on a Package C7 Exit"
+    ],
+    "HSM74": [
+        "X",
+        "X",
+        "No Fix",
+        "General-Purpose Performance Counters Can Unexpectedly Increment"
+    ],
+    "HSM75": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitoring Events May Report Incorrect Number of Load Hits or Misses to LLC"
+    ],
+    "HSM76": [
+        "X",
+        "X",
+        "No Fix",
+        "N/A. Erratum has been removed"
+    ],
+    "HSM77": [
+        "X",
+        "X",
+        "No Fix",
+        "Locked Load Performance Monitoring Events May Under Count"
+    ],
+    "HSM78 1": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor May Hang Upon Entrance to Package C6 or C7"
+    ],
+    "HSM79": [
+        "X",
+        "X",
+        "No Fix",
+        "Graphics Processor Ratio And C-State Transitions May Cause a System Hang"
+    ],
+    "HSM80": [
+        "X",
+        "X",
+        "No Fix",
+        "Certain Performance Monitoring Events May Over Count Software Demand Loads"
+    ],
+    "HSM81": [
+        "X",
+        "X",
+        "No Fix",
+        "Accessing Nonexistent Uncore Performance Monitoring MSRs May Not Signal a #GP"
+    ],
+    "HSM82 1": [
+        "X",
+        "X",
+        "No Fix",
+        "Power and Performance Regulation May Vary When Using RAPL"
+    ],
+    "HSM83": [
+        "X",
+        "X",
+        "No Fix",
+        "Call Stack Profiling May Produce Extra Call Records"
+    ],
+    "HSM84 2": [
+        "X",
+        "X",
+        "No Fix",
+        "Warm Reset May Fail or Lead to Incorrect Power Regulation"
+    ],
+    "HSM85": [
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Host Bridge DID May Be Incorrect"
+    ],
+    "HSM86 2": [
+        "X",
+        "X",
+        "No Fix",
+        "Transactional Abort May Produce an Incorrect Branch Record"
+    ],
+    "HSM87": [
+        "X",
+        "X",
+        "No Fix",
+        "SMRAM State-Save Area Above the 4GB Boundary May Cause Unpredictable System Behavior"
+    ],
+    "HSM88 1": [
+        "X",
+        "X",
+        "No Fix",
+        "TM1 Throttling Via IA32_CLOCK_MODULATION MSR May Hang"
+    ],
+    "HSM89": [
+        "X",
+        "X",
+        "No Fix",
+        "DMA Remapping Faults for the Graphics VT-d Unit May Not Properly Report Type of Faulted Request"
+    ],
+    "HSM90 1": [
+        "X",
+        "X",
+        "No Fix",
+        "Exiting Deep Package C-State May Result in a System Hang"
+    ],
+    "HSM91": [
+        "X",
+        "X",
+        "No Fix",
+        "AVX Gather Instructions Page Faults May Report an Incorrect Faulting Address"
+    ],
+    "HSM92": [
+        "X",
+        "X",
+        "No Fix",
+        "N/A. Erratum has been removed"
+    ],
+    "HSM93": [
+        "X",
+        "X",
+        "No Fix",
+        "Event Injection by VM Entry May Use an Incorrect B Flag for SS"
+    ],
+    "HSM94 1": [
+        "X",
+        "X",
+        "No Fix",
+        "LPDDR3 ZQ Calibration Following Deep Package C-state Exit May Lead to Unpredictable System Behavior"
+    ],
+    "HSM95": [
+        "X",
+        "X",
+        "No Fix",
+        "A Fault in SMM May Result in Unpredictable System Behavior"
+    ],
+    "HSM96": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor Frequency is Unexpectedly Limited Below Nominal P1 When cTDP Down is Enabled"
+    ],
+    "HSM97": [
+        "X",
+        "X",
+        "No Fix",
+        "PMI May be Signaled More Than Once For Performance Monitor Counter Overflow"
+    ],
+    "HSM98": [
+        "X",
+        "X",
+        "No Fix",
+        "Execution of FXSAVE or FXRSTOR With the VEX Prefix May Produce a #NM Exception"
+    ],
+    "HSM99": [
+        "X",
+        "X",
+        "No Fix",
+        "RDRAND Execution in a Transactional Region May Cause a System Hang"
+    ],
+    "HSM100 1": [
+        "X",
+        "X",
+        "No Fix",
+        "Intel\u00ae Turbo Boost Technology May be Incorrectly Reported as Supported"
+    ],
+    "HSM101": [
+        "X",
+        "X",
+        "No Fix",
+        "Uncore Clock Frequency Changes May Cause Audio/Video Glitches"
+    ],
+    "HSM102 2": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor May Experience a Spurious LLC-Related Machine Check During Periods of High Activity"
+    ],
+    "HSM103": [
+        "X",
+        "X",
+        "No Fix",
+        "The Processor May Not Enter Package C7 When Using a PSR Display"
+    ],
+    "HSM104": [
+        "X",
+        "X",
+        "No Fix",
+        "Video/Audio Distortion May Occur"
+    ],
+    "HSM105": [
+        "X",
+        "X",
+        "No Fix",
+        "System May Hang When Audio is Enabled During Package C3"
+    ],
+    "HSM106": [
+        "X",
+        "X",
+        "No Fix",
+        "INVPCID May Not Cause #UD in VMX Non-Root Operation"
+    ],
+    "HSM107": [
+        "X",
+        "X",
+        "No Fix",
+        "Non-Compliant PFAT Module Base Address May Cause Unpredictable System Behavior"
+    ],
+    "HSM108": [
+        "X",
+        "X",
+        "No Fix",
+        "Incorrect LBR Source Address May be Reported For a Transactional Abort"
+    ],
+    "HSM109": [
+        "X",
+        "X",
+        "No Fix",
+        "Address Translation Faults for Intel\u00ae VT-d May Not be Reported for Display Engine Memory Accesses"
+    ],
+    "HSM110": [
+        "X",
+        "X",
+        "No Fix",
+        "L3 Cache Corrected Error Count May be Inaccurate After Package C7 Exit"
+    ],
+    "HSM111": [
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Device\u2019s SVID is Not Preserved Across The Package C7 C-State"
+    ],
+    "HSM112 2": [
+        "X",
+        "X",
+        "No Fix",
+        "Warm Reset Does Not Stop GT Power Draw"
+    ],
+    "HSM113 2": [
+        "X",
+        "X",
+        "No Fix",
+        "Unused PCIe* Lanes May Remain Powered After Package C7"
+    ],
+    "HSM114 2": [
+        "X",
+        "X",
+        "No Fix",
+        "BMI1 And BMI2 Instruction Groups Are Not Available"
+    ],
+    "HSM115 1": [
+        "X",
+        "X",
+        "No Fix",
+        "HD Audio Device Playback May Be Interrupted if The Processor Enters a Deep Package C-State"
+    ],
+    "HSM116": [
+        "X",
+        "X",
+        "No Fix",
+        "Virtual-APIC Page Accesses With 32-Bit PAE Paging May Cause a System Crash"
+    ],
+    "HSM117": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor Energy Policy Selection May Not Work as Expected"
+    ],
+    "HSM118": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor May Not be Able to Reduce The Graphics Engine\u2019s Effective Frequency"
+    ],
+    "HSM119": [
+        "X",
+        "X",
+        "No Fix",
+        "A PEBS Record May Contain Processor State for an Unexpected Instruction"
+    ],
+    "HSM120": [
+        "X",
+        "X",
+        "No Fix",
+        "MSR_PP1_ENERGY_STATUS Reports Incorrect Energy Data"
+    ],
+    "HSM121": [
+        "X",
+        "X",
+        "No Fix",
+        "x87 FPU DP May be Incorrect After Instructions That Save FP State to Memory"
+    ],
+    "HSM122": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor May Hang During Package C7 Exit"
+    ],
+    "HSM123 1": [
+        "X",
+        "X",
+        "No Fix",
+        "Certain Processors May Experience Transient LLC ECC Errors"
+    ],
+    "HSM124": [
+        "X",
+        "X",
+        "No Fix",
+        "N/A. Erratum has been removed"
+    ],
+    "HSM125": [
+        "X",
+        "X",
+        "No Fix",
+        "Spurious LLC Machine Check May Occur"
+    ],
+    "HSM126": [
+        "X",
+        "X",
+        "No Fix",
+        "Page Fault May Report Incorrect Fault Information"
+    ],
+    "HSM127": [
+        "X",
+        "X",
+        "No Fix",
+        "CATERR# Pin Assertion is Not Cleared on a Warm Reset"
+    ],
+    "HSM128": [
+        "X",
+        "X",
+        "No Fix",
+        "Uncorrectable Machine Check Error During Core C6 Entry May Not be Signaled"
+    ],
+    "HSM129": [
+        "X",
+        "X",
+        "No Fix",
+        "The SAMPLE/PRELOAD JTAG Command Does Not Sample The Display Transmit Signals"
+    ],
+    "HSM130": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Event For Outstanding Offcore Requests And Snoop Requests May be Incorrect"
+    ],
+    "HSM131 2": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor Energy Policy Selection May Not Work as Expected"
+    ],
+    "HSM132 2": [
+        "X",
+        "X",
+        "No Fix",
+        "PCIe Link May Incorrectly Train to 8.0 GT/s"
+    ],
+    "HSM133 2": [
+        "X",
+        "X",
+        "No Fix",
+        "PCIe Tx Voltage Reference Cannot be Changed"
+    ],
+    "HSM134": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Exit May Set IA32_EFER.NXE When IA32_MISC_ENABLE Bit 34 is Set to 1"
+    ],
+    "HSM135 3": [
+        "X",
+        "X",
+        "No Fix",
+        "Re-enabling eDRAM May Log a Machine Check and Hang"
+    ],
+    "HSM136 3": [
+        "X",
+        "X",
+        "No Fix",
+        "Warm Reset Does Not Stop EDRAM Power Draw"
+    ],
+    "HSM137": [
+        "X",
+        "X",
+        "No Fix",
+        "CHAP Counter Values May be Cleared After Package C7 or Deeper C-State"
+    ],
+    "HSM138": [
+        "X",
+        "X",
+        "No Fix",
+        "Opcode Bytes F3 0F BC May Execute As TZCNT Even When TZCNT Not Enumerated by CPUID"
+    ],
+    "HSM139": [
+        "X",
+        "X",
+        "No Fix",
+        "Intel\u00ae S2DDT May Not Function Correctly with Certain High Resolution Displays"
+    ],
+    "HSM140": [
+        "X",
+        "X",
+        "No Fix",
+        "N/A. Errata has been Removed"
+    ],
+    "HSM141": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Exit May Set IA32_EFER.NXE When IA32_MISC_ENABLE Bit 34 is Set to 1"
+    ],
+    "HSM142": [
+        "X",
+        "X",
+        "No Fix",
+        "Spurious Corrected Errors May be Reported"
+    ],
+    "HSM143": [
+        "X",
+        "X",
+        "No Fix",
+        "A MOV to CR3 When EPT is Enabled May Lead to an Unexpected Page Fault or an Incorrect Page Translation"
+    ],
+    "HSM144": [
+        "X",
+        "X",
+        "No Fix",
+        "Package C7 Power Consumption Has Been Observed to be Higher Than Package C6"
+    ],
+    "HSM145": [
+        "X",
+        "X",
+        "No Fix",
+        "A HyperThreading Enabled Processor May Exhibit Unpredictable Behavior During Power or Thermal Management Operations"
+    ],
+    "HSM146": [
+        "X",
+        "X",
+        "No Fix",
+        "Certain Perfmon Events May be Counted Incorrectly When The Processor is Not in C0 State"
+    ],
+    "HSM147 1": [
+        "X",
+        "X",
+        "No Fix",
+        "System Hang May Occur During Exit From Package C7 Due to VccST sensitivity"
+    ],
+    "HSM148": [
+        "X",
+        "X",
+        "No Fix",
+        "Software Using Intel\u00ae TSX May Result in Unpredictable System Behavior"
+    ],
+    "HSM149": [
+        "X",
+        "X",
+        "No Fix",
+        "Running All Cores May Incorrectly Limit the Processor Frequency"
+    ],
+    "HSM150": [
+        "X",
+        "X",
+        "No Fix",
+        "Concurrent Core And Graphics Operation at Turbo Ratios May Lead to System Hang"
+    ],
+    "HSM151": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Instructions Retired Event May Not Count Consistently"
+    ],
+    "HSM152 3": [
+        "X",
+        "X",
+        "No Fix",
+        "Some Configurations May Violate Embedded DRAM Refresh Requirements Leading to a System Hang"
+    ],
+    "HSM153": [
+        "X",
+        "X",
+        "No Fix",
+        "Interactions Between Multiple Unaligned Memory Accesses And Locked Instructions May Lead to a Machine Check"
+    ],
+    "HSM154": [
+        "X",
+        "X",
+        "No Fix",
+        "Fixed-Function Performance Counter May Over Count Instructions Retired by 32 When Intel\u00ae Hyper-Threading Technology is Enabled"
+    ],
+    "HSM155": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor UOPS_EXECUTED Event May Be Inaccurate When Using Intel\u00ae Hyper-Threading Technology"
+    ],
+    "HSM156": [
+        "X",
+        "X",
+        "No Fix",
+        "Operand-Size Override Prefix Causes 64-bit Operand Form of MOVBE Instruction to Cause a #UD"
+    ],
+    "HSM157": [
+        "X",
+        "X",
+        "No Fix",
+        "POPCNT Instruction May Take Longer to Execute Than Expected"
+    ],
+    "HSM158": [
+        "X",
+        "X",
+        "No Fix",
+        "System May Hang or Video May be Distorted After Graphics RC6 Exit"
+    ],
+    "HSM159": [
+        "X",
+        "X",
+        "No Fix",
+        "Certain eDP* Displays May Not Function as Expected"
+    ],
+    "HSM160": [
+        "X",
+        "X",
+        "No Fix",
+        "Some OFFCORE_RESPONSE Performance Monitoring Events May Undercount"
+    ],
+    "HSM161": [
+        "X",
+        "X",
+        "No Fix",
+        "Certain Settings of VM-Execution Controls May Result in Incorrect Linear-Address Translations"
+    ],
+    "HSM162": [
+        "X",
+        "X",
+        "No Fix",
+        "An IRET Instruction That Results in a Task Switch Does Not Serialize The Processor"
+    ],
+    "HSM163": [
+        "X",
+        "X",
+        "No Fix",
+        "Attempting to Disable Turbo Mode May Cause a #GP"
+    ],
+    "HSM164 3": [
+        "X",
+        "X",
+        "No Fix",
+        "Machine Check Threshold Based Error Status May be Set Incorrectly"
+    ],
+    "HSM165": [
+        "X",
+        "X",
+        "No Fix",
+        "PECI Frequency Limited to 1 MHz"
+    ],
+    "HSM166": [
+        "X",
+        "X",
+        "No Fix",
+        "VGATHERQPS That Loads an Element From The APIC-Access Page May Load Other Elements From Incorrect Addresses"
+    ],
+    "HSM167": [
+        "X",
+        "X",
+        "No Fix",
+        "MTF VM Exit on XBEGIN Instruction May Save State Incorrectly"
+    ],
+    "HSM168": [
+        "X",
+        "X",
+        "No Fix",
+        "Uncore Performance Monitoring Counters May be Disabled or Cleared After Package C7"
+    ],
+    "HSM169": [
+        "X",
+        "X",
+        "No Fix",
+        "PEBS Record May Be Generated After Being Disabled"
+    ],
+    "HSM170": [
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Port Does Not Support DLL Link Activity Reporting"
+    ],
+    "HSM171": [
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Link Speed Negotiation May Fail After Link is Re-enabled"
+    ],
+    "HSM172": [
+        "X",
+        "X",
+        "No Fix",
+        "MOVNTDQA From WC Memory May Pass Earlier Locked Instructions"
+    ],
+    "HSM173": [
+        "X",
+        "X",
+        "No Fix",
+        "Data Breakpoint Coincident With a Machine Check Exception May be Lost"
+    ],
+    "HSM174": [
+        "X",
+        "X",
+        "No Fix",
+        "A Corrected Internal Parity Error May Result in a System Hang"
+    ],
+    "HSM175": [
+        "X",
+        "X",
+        "No Fix",
+        "An APIC Timer Interrupt During Core C6 Entry May Be Lost"
+    ],
+    "HSM176": [
+        "X",
+        "X",
+        "No Fix",
+        "Internal Power State Transitions May Cause the Graphics Device to Hang"
+    ],
+    "HSM177": [
+        "X",
+        "X",
+        "No Fix",
+        "PEBS EventingIP Field May Be Incorrect Under Certain Conditions"
+    ],
+    "HSM178": [
+        "X",
+        "X",
+        "No Fix",
+        "RF May be Incorrectly Set in The EFLAGS That is Saved on a Fault in PEBS or BTS"
+    ],
+    "HSM179": [
+        "X",
+        "X",
+        "No Fix",
+        "Some Memory Performance Monitoring Events May Produce Incorrect Results When Filtering on Either OS or USR Modes"
+    ],
+    "HSM180": [
+        "X",
+        "X",
+        "No Fix",
+        "An x87 Store Instruction Which Pends #PE While EPT is Enabled May Lead to an Unexpected Machine Check and/or Incorrect x87 State Information"
+    ],
+    "HSM181": [
+        "X",
+        "X",
+        "No Fix",
+        "Load Latency Performance Monitoring Facility May Stop Counting"
+    ],
+    "HSM182": [
+        "X",
+        "X",
+        "No Fix",
+        "Writing MSR_LASTBRANCH_x_FROM_IP May #GP When Intel\u00ae TSX is Not Supported"
+    ],
+    "HSM183": [
+        "X",
+        "X",
+        "No Fix",
+        "APIC Timer Interrupt May Not be Generated at The Correct Time In TSC-Deadline Mode"
+    ],
+    "HSM184": [
+        "X",
+        "X",
+        "No Fix",
+        "System May Hang Under Complex Conditions"
+    ],
+    "HSM185": [
+        "X",
+        "X",
+        "No Fix",
+        "Instruction Fetch May Cause Machine Check if Page Size Was Changed Without Invalidation"
+    ],
+    "HSM186": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitoring General Counter 2 May Have Invalid Value Written When TSX Is Enabled"
+    ],
+    "HSM187": [
+        "X",
+        "X",
+        "No Fix",
+        "PMU MSR_UNC_PERF_FIXED_CTR is Cleared After Pkg C7 or Deeper"
+    ]
+}

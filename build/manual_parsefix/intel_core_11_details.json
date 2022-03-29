@@ -1,0 +1,219 @@
+{
+    "RKL001": {
+        "title": "Placing Page Table Information in the APIC-Access Page May Lead to \nUnexpected Page Faults While Performing Enclave Accesses",
+        "problem": "Guest-physical access using a guest-physical address that translates to an address \non the APIC-access page (as identified by the APIC-access address field in the \nVMCS) should cause an APIC-access VM exit. This includes page table information \naccesses done as part of page translation (page walks). Due to this erratum placing \npage table information in the APIC-access page may result in a page fault instead of \nVM exit when the page translation is done as part of an enclave access.",
+        "implication": "Software that places page table information in the APIC access page may get page \nfaults on executing enclave accesses, instead of exiting to the VMM (Virtual-Machine \nMonitor). Intel has not observed this erratum with any commercially available \nsoftware.",
+        "workaround": "Software should not place page table information in the APIC access page.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL002": {
+        "title": "REP MOVSB Instruction To or From a Non-flat Segment May Cause \nUnpredictable System Behavior",
+        "problem": "Under complex microarchitectural conditions, using a REP MOVSB instruction in \nwhich at least one of the operands (destination or source) of the instruction is in a \nnon-flat segment mode, might cause unpredictable system behavior.",
+        "implication": "Due to this erratum, unpredictable system behavior may occur. Intel has not \nobserved this erratum with any commercially available software.",
+        "workaround": "It is possible for BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL003": {
+        "title": "Usage of Bit 55 of IA32_TSC_DEADLINE MSR May Cause Spurious Timer \nInterrupt",
+        "problem": "When using the APIC timer in Time Stamp Counter Deadline (TSC-deadline) mode, if \nthe most significant set bit in the written value to the TSC-Deadline MSR is bit 55, \nthe processor may generate a spurious timer interrupt.",
+        "implication": "When this erratum occurs, a spurious timer interrupt may occur causing \nunpredictable system behavior. Intel has not observed this erratum with any \ncommercially available software.",
+        "workaround": "It is possible for BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL004": {
+        "title": "Overflow Flag in IA32_MC0_STATUS MSR May be Incorrectly Set",
+        "problem": "Under complex microarchitectural conditions, a single internal parity error seen \nin IA32_MC0_STATUS MSR (401h) with MCACOD (bits 15:0) value of 5h and MSCOD \n(bits 31:16) value of 7h, may set the overflow flag (bit 62) in the same MSR.",
+        "implication": "Due to this erratum,the IA32_MC0_STATUS overflow flag may be set after a single \nparity error. Intel has not observed this erratum with any commercially available \nsoftware.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL005": {
+        "title": "Wrong Page Access Semantics May be Reported When \nIntel\u00ae SGX ENCLU[EMODPE] Instruction Generates Page Fault (#PF) \nException",
+        "problem": "When Intel\u00ae SGX extends an Enclave Page Cache (EPC) via the page \npermissions instruction (ENCLU[EMODPE]) and generates a Page Fault (#PF), even \nthough the page permissions instruction access is a read access to the target page, \nthe Page Fault Error Code (#PF's PFEC) will indicate that the fault occurred on a \nwrite (PFEC.W bit will be set) instead.",
+        "implication": "This erratum may impact debugging Intel\u00ae SGX enclaves software. Intel has not \nobserved this erratum with any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL006": {
+        "title": "VERR Instruction Inside VM-entry May Cause DR6 to Contain Incorrect \nValues",
+        "problem": "Under complex microarchitectural conditions, a VERR instruction that follows a VM-\nentry with a guest-state area indicating MOV SS blocking (bit 1 in the Interruptibility \nstate) and at least one of B3-B0 bits set (bits 3:0 in the pending debug \nexception) may lead to incorrect values in DR6.",
+        "implication": "Due to this erratum, DR6 may contain incorrect values. Intel has not observed this \nerratum with any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL007": {
+        "title": "Processor May Hang if Warm Reset Triggers During BIOS Initialization",
+        "problem": "Under complex micro-architectural conditions, when the processor receives a warm \nreset during BIOS initialization, the processor may hang with a machine check error \nreported in IA32_MCi_STATUS, with MCACOD (bits [15:0]) value of 0400H, and \nMSCOD (bits [31:16]) value of 0080H.",
+        "implication": "Due to this erratum, the processor may hang. Intel has only observed this erratum \nin a synthetic test environment.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL008": {
+        "title": "IA32_RTIT_STATUS.FilterEn Bit Might Reflect a Previous Value",
+        "problem": "Under complex microarchitectural conditions, reading the \nIA32_RTIT_STATUS.FilterEn bit (bit 0 in MSR 571h) after entering or exiting an RTIT \nregion might reflect a previous value instead of the current one.",
+        "implication": "Due to this erratum, IA32_RTIT_STATUS.FilterEn bit might reflect a previous value. \nThis erratum has not been seen in any commercially available software.",
+        "workaround": "Software should perform an LFENCE instruction prior to reading the \nIA32_RTIT_STATUS MSR to avoid this issue.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL009": {
+        "title": "Time Stamp Counters May Contain a Shifted Time Value",
+        "problem": "Under complex microarchitectural conditions, the processor's RDTSC and RDTSCP \ninstructions may report a shifted value. In these cases, the shift value will be larger \nthan a minute.",
+        "implication": "Software may experience a non-monotonic time stamp counter, misalignment across \nthreads, or a spurious timer interrupt.",
+        "workaround": "It is possible for BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL010": {
+        "title": "Incorrect ECC Errors Reporting Following Entry to PKG-C7",
+        "problem": "The Correctable and Uncorrectable ECC error address reported in ECCERRLOG0/1 \n(MCHBAR Offset 4048h/404Ch) may be overwritten after a PKG-C7 event.",
+        "implication": "DDR Correctable and Uncorrectable ECC errors reported in ECCERRLOG0/1 \n(MCHBAR Offset 4048h/404Ch) may report an incorrect error address after resuming \nfrom PKG-C7.",
+        "workaround": "None Identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL011": {
+        "title": "PMU MSR_UNC_PERF_FIXED_CTR is Cleared After Pkg C7 or Deeper",
+        "problem": "The Performance Monitoring Unit Uncore Performance Fixed Counter \n(MSR_UNC_PERF_FIXED_CTR (MSR 395h)) is cleared after pkg C7 or deeper.",
+        "implication": "Due to this erratum, once the system enters pkg C7 or deeper the uncore fixed \ncounter does not reflect the actual count.",
+        "workaround": "None Identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL012": {
+        "title": "Unable to Transmit Modified Compliance Test Pattern at 2.5 GT/S or 5.0 \nGT/s Link Speeds",
+        "problem": "The processor's PCIe port (Bus 0, Device 1, Function 0/1/2 or Bus 0, Device 6, \nFunction 0) does not transmit the Modified Compliance Test Pattern when in either \n2.5 GT/S or 5.0 GT/s link speeds.",
+        "implication": "Due to this erratum, PCIe compliance testing may fail at 2.5 GT/S or 5.0 GT/s link \nspeeds when enabling the Modified Compliance Test Pattern.",
+        "workaround": "None Identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL013": {
+        "title": "PCIe Root Ports May Fail Tx Differential Return Loss Compliance Test",
+        "problem": "The processor\u2019s PCIe root ports may fail to meet the Tx Differential Return Loss \nCompliance Test\u2019s requirements as defined in PCIe Base Specification, version 4.0, \nsection 9.3.6.",
+        "implication": "The processor may fail the Differential Return Loss compliance test. Intel has not \nobserved this erratum to cause any functional failures.",
+        "workaround": "None identified",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL014": {
+        "title": "PEG10 PCIe Root Port May Report Incorrect Maximum Link Width",
+        "problem": "When the PEG10 root port (Bus 0, Device 1, Function 0) is bifurcated, the port will \nincorrectly report Maximum Link Width (MLW) in the Link Capabilities register (Bus \n0, Device 1, Function 0, Offset 0Ch). The processor will always indicate the MLW of \nx16, rather than x8.",
+        "implication": "Due to this erratum, software may expect the link to support x16 link widths, which \nthe port cannot do while bifurcated.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL015": {
+        "title": "DMI Link Failure During L1 Exit",
+        "problem": "During S3/S4/S5 and/or S0ix cycles, DMI may fail to exit L1 in the time required.",
+        "implication": "The system may hang with a machine check exception (MCACOD=2AH).",
+        "workaround": "It is possible for a BIOS code change to workaround this erratum.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL016": {
+        "title": "Processor Peg Ports 10,11, or 12 PCIe Link May Hang During \nS0ix/S3/S4/S5 Cycles",
+        "problem": "During S0ix and/or S3/S4/S5 when processor exits a Package C-state, the PCIe link \nmay hang for Peg ports 10, 11, or 12.",
+        "implication": "Due to this erratum, the PCIe link may hang with a machine check error \n(MCACOD=34H).",
+        "workaround": "It is possible for a BIOS code change to contain a workaround for this erratum.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL017": {
+        "title": "PCIe Root Ports May Fail Tx Differential Return Loss Compliance Test",
+        "problem": "The processor\u2019s PCIe root ports may not meet the Tx Differential Return Loss \nspecification as defined in PCIe Base Specification, version 4.0, section 8.3.7 Tx and \nRx Return Loss.",
+        "implication": "The processor may fail the Tx Differential Return Loss specification. Intel has not \nobserved any functional failures due to this erratum.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL018": {
+        "title": "System May Hang if Booted with TXT Disabled",
+        "problem": "A system with TXT disabled may experience a hang during the boot process.",
+        "implication": "Due to this erratum, the system may hang during boot.",
+        "workaround": "It is possible for a BIOS code change to workaround this erratum.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL019": {
+        "title": "Single Core Configurations May Hang on S3/S4 Resume",
+        "problem": "When booting in a single core configuration, the system may hang when resuming \nfrom a S3/S4 or a warm reset.",
+        "implication": "Due to this erratum, the system may hang.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL020": {
+        "title": "DMI Link May Hang During Package C State Exits",
+        "problem": "When the processor exits Package C States, the DMI link may fail, showing \nRecoverySpeedReady (0x6C) in the DMI link status register (Base address \n0xFEDA0000 Offset : 0x2328, bits [31:24] will be 0x6C), leading to an Internal \nTimer Error Machine Check (IA32_MCi_STATUS.MCACOD=400H; bits 15:0).",
+        "implication": "Due to this erratum, the DMI link may hang with a machine check error \n(MCACOD=400H).",
+        "workaround": "It may be possible for a BIOS code change to contain a workaround for this erratum.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL021": {
+        "title": "System May Hang When Booting in Single Core Configuration",
+        "problem": "When configured in single-core mode, the processor may issue non-posted \ntransactions during BIOS boot that may not complete.",
+        "implication": "Due to this erratum, in single-core mode, the processor may hang during boot.",
+        "workaround": "None identified. Platforms can use multi-core configurations to work around this \nerratum.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL022": {
+        "title": "Processor May Generate Malformed TLP",
+        "problem": "If the processor root port receives an FetchAdd, Swap, or CAS TLP (an atomic \noperation) that is erroneous, it should generate a UR completion to the downstream \nrequestor. If the TLP has an operand size greater than 4 bytes, the generated UR \ncompletion will report an operand size of 4 bytes, which will be interpreted as a \nmalformed transaction.",
+        "implication": "When this erratum occurs, the processor may respond with a malformed transaction.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL023": {
+        "title": "PCIe Link May Fail to Train Upon Exit From L1.2",
+        "problem": "When the PCIe Link exits the L1.2 low-power link state, the link may fail to correctly \ntrain to L0.",
+        "implication": "Due to this erratum, a PCIe link may incur unexpected link recovery events or it may \nenter a Link_Down state.",
+        "workaround": "It may be possible for a BIOS code change to workaround this erratum.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL024": {
+        "title": "Setting MISC_FEATURE_CONTROL.DISABLE_THREE_STRIKE_CNT Does Not \nPrevent The Three-strike Counter From Incrementing",
+        "problem": "Setting MISC_FEATURE_CONTROL.DISABLE_THREE_STRIKE_CNT (bit 11 in MSR \n1A4h) does not prevent the three-strike counter from incrementing as documented; \ninstead, it only prevents the signaling of the three-strike event once the counter has \nexpired.",
+        "implication": "Due to this erratum, software may be able to see the three-strike logged in the \nMC3_STATUS (MSR 40Dh, MCACOD = 400h [bits 15:0]) even when \nMISC_FEATURE_CONTROL.DISABLE_THREE_STRIKE_CNT is set.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL025": {
+        "title": "Processor May Exceed Thermal Limits",
+        "problem": "Under heavy workloads, the processor may not thermally throttle correctly due to \ntemperature gradients between the thermal sensor and other circuits.",
+        "implication": "Due to this erratum, the system may hang or unpredictable system behavior may \noccur.",
+        "workaround": "It may be possible for BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL026": {
+        "title": "Writing Non-Zero Values to Read Only Fields in IA32_THERM_STATUS MSR \nMay Cause a #GP",
+        "problem": "IA32_THERM_STATUS MSR (19CH) includes read-only (RO) fields as well as writable \nfields. Writing a non-zero value to any of the read-only fields may cause a #GP.",
+        "implication": "Due to this erratum, software that reads the IA32_THERM_STATUS MSR, modifies \nsome of the writable fields, and attempts to write the MSR back may cause a #GP.",
+        "workaround": "Software should clear all read-only fields before writing to this MSR.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL027": {
+        "title": "Intel\u00ae PT TIP.PGD May Not Have Target IP Payload",
+        "problem": "When Intel\u00ae PT (Intel\u00ae Processor Trace) is enabled and a direct unconditional branch \nclears IA32_RTIT_STATUS.FilterEn (MSR 571H, bit 0), due to this erratum, the \nresulting TIP.PGD (Target IP Packet, Packet Generation Disable) may not have an IP \npayload with the target IP.",
+        "implication": "It may not be possible to tell which instruction in the flow caused the TIP.PGD using \nonly the information in trace packets when this erratum occurs.",
+        "workaround": "The Intel\u00ae PT trace decoder can compare direct unconditional branch targets in the \nsource with the FilterEn address range(s) to determine which branch cleared \nFilterEn.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL028": {
+        "title": "Intel\u00ae Processor Trace PSB+ Packets May Contain Unexpected Packets",
+        "problem": "Some Intel\u00ae Processor Trace packets should be issued only between TIP.PGE (Target \nIP Packet.Packet Generation Enable) and TIP.PGD (Target IP Packet.Packet \nGeneration Disable) packets. Due to this erratum, when a TIP.PGE packet is \ngenerated it may be preceded by a PSB+ (Packet Stream Boundary) that incorrectly \nincludes FUP (Flow Update Packet) and MODE.Exec packets.",
+        "implication": "Due to this erratum, FUP and MODE.Exec may be generated unexpectedly.",
+        "workaround": "Decoders should ignore FUP and MODE.Exec packets that are not between TIP.PGE \nand TIP.PGD packets.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL029": {
+        "title": "Intel\u00ae PT Trace May Drop Second Byte of CYC Packet",
+        "problem": "Due to a rare microarchitectural condition, the second byte of a 2-byte CYC (Cycle \nCount) packet may be dropped without an OVF (Overflow) packet.",
+        "implication": "A trace decoder may signal a decode error due to the lost trace byte.",
+        "workaround": "None identified. A mitigation is available for this erratum. If a decoder encounters a \nmulti-byte CYC packet where the second byte has bit 0 (Ext) set to 1, it should \nassume that 4095 cycles have passed since the prior CYC packet, and it should \nignore the first byte of the CYC and treat the second byte as the start of a new \npacket.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL030": {
+        "title": "VM Entry That Clears TraceEn May Generate a FUP",
+        "problem": "If VM entry clears Intel\u00ae PT (Intel\u00ae Processor Trace) IA32_RTIT_CTL.TraceEn (MSR \n570H, bit 0) while PacketEn is 1 then a FUP (Flow Update Packet) will precede the \nTIP.PGD (Target IP Packet, Packet Generation Disable). VM entry can clear TraceEn \nif the VM-entry MSR-load area includes an entry for the IA32_RTIT_CTL MSR.",
+        "implication": "When this erratum occurs, an unexpected FUP may be generated that creates the \nappearance of an asynchronous event taking place immediately before or during the \nVM entry.",
+        "workaround": "The Intel PT trace decoder may opt to ignore any FUP whose IP matches that of a \nVM entry instruction.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "RKL031": {
+        "title": "Platform May Not Resume From G3/S3/S4/S5",
+        "problem": "Transient noise on the CPU crystal clock differential signals (CPU_NSSC_DP and \nCPU_NSSC_ DN) when resuming from G3/S3/S4/S5 may prevent the platform from \nbooting.",
+        "implication": "Due to this erratum, the platform may fail boot when resuming from G3/S3/S4/S5.",
+        "workaround": "It may be possible for BIOS code changes to workaround this erratum.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    }
+}

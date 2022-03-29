@@ -1,0 +1,226 @@
+{
+    "ADL001": {
+        "title": "X87 FDP Value May be Saved Incorrectly",
+        "problem": "Execution of the FSAVE, FNSAVE, FSTENV, or FNSTENV instructions in real-address \nmode or virtual-8086 mode may save an incorrect value for the x87 FDP (FPU data \npointer). This erratum does not apply if the last non-control x87 instruction had an \nunmasked exception.",
+        "implication": "Software operating in real-address mode or virtual-8086 mode that depends on the \nFDP value for non-control x87 instructions without unmasked exceptions may not \noperate properly. Intel has not observed this erratum in any commercially available \nsoftware.",
+        "workaround": "None identified. Software should use the FDP value saved by the listed instructions \nonly when the most recent non-control x87 instruction incurred an unmasked \nexception.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL002": {
+        "title": "Debug Exceptions May be Lost or Misreported When MOV SS or POP SS \nInstruction is Not Followed By a Write to SP",
+        "problem": "If a MOV SS or POP SS instruction generated a debug exception, and is not followed \nby an explicit write to the Stack Pointer (SP), the processor may fail to deliver the \ndebug exception or, if it does, the DR6 register contents may not correctly reflect \nthe causes of the debug exception.",
+        "implication": "Debugging software may fail to operate properly if a debug exception is lost or does \nnot report complete information. Intel has not observed this erratum with any \ncommercially available software.",
+        "workaround": "Software should explicitly write to the stack pointer immediately after executing \nMOV SS or POP SS.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL003": {
+        "title": "VMREAD/VMWRITE Instructions May Not Fail When Accessing an \nUnsupported Field in VMCS",
+        "problem": "The execution of VMREAD or VMWRITE instructions should fail if the value of the \ninstruction\u2019s register source operand corresponds to an unsupported field in the \nVMCS (Virtual Machine Control Structure). The correct operation is that the logical \nprocessor will set the ZF (Zero Flag), write 0CH into the VM-instruction error field \nand for VMREAD leave the instruction\u2019s destination unmodified. Due to this erratum, \nthe instruction may instead clear the ZF, leave the VM-instruction error field \nunmodified and for VMREAD modify the contents of its destination.",
+        "implication": "Accessing an unsupported field in VMCS may fail to properly report an error. In \naddition, a VMREAD from an unsupported VMCS field may unexpectedly change its \ndestination. Intel has not observed this erratum with any commercially available \nsoftware.",
+        "workaround": "Software should avoid accessing unsupported fields in a VMCS.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL004": {
+        "title": "BMI1, BMI2, LZCNT, ADXC, And ADOX Instructions May Not Generate an \n#UD",
+        "problem": "BMI1, BMI2, LZCNT, ADXC, and ADOX instructions will not generate an #UD fault, \neven though the respective CPUID feature flags do not enumerate them as \nsupported instructions.",
+        "implication": "Software that relies on BMI1, BMI2, LZCNT, ADXC, and ADOX instructions to \ngenerate an #UD fault, may not work correctly.",
+        "workaround": "None identified. Software should check CPUID reported instructions availability and \nnot rely on the #UD fault behavior.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL005": {
+        "title": "Exit Qualification For EPT Violations on Instruction Fetches May Incorrectly \nIndicate That The Guest-physical Address Was Writeable",
+        "problem": "On EPT violations, bit 4 of the Exit Qualification indicates whether the guest-physical \naddress was writeable. When EPT is configured as supervisory shadow-stack (both \nbit 60 in EPT paging-structure leaf entry and bit 0 in EPT paging-structure entries \nare set), non-executable (bit 2 in EPT paging-structure entries is cleared), and non-\nwriteable (bit 1 in EPT paging-structure entries is cleared) a VMExit due to a guest \ninstruction fetch to a supervisory page will incorrectly set bit 4 of the Exit \nQualification. Bits 3, 5, and 6 of the Exit Qualification are not impacted by this \nerratum.",
+        "implication": "Due to this erratum, bit 4 of the Exit Qualification may be incorrectly set. Intel has \nnot observed this erratum on any commercially available software.",
+        "workaround": "EPT handlers processing an EPT violation due to an instruction fetch access on a \npresent page should ignore the value of bit 4 of the Exit Qualification.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL006": {
+        "title": "Processor May Generate Spurious Page Faults On Shadow Stack Pages",
+        "problem": "When operating in a virtualized environment, if shadow stack pages are mapped \nover an APIC page, the processor will generate spurious page faults on that shadow \nstack page whenever its linear to physical address translation is cached in the \nTranslation Look-aside Buffer.",
+        "implication": "When this erratum occurs, the processor will generate a spurious page fault. Intel is \nnot aware of any software that maps shadow stack pages over an APIC page.",
+        "workaround": "Software should avoid mapping shadow stack pages over the APIC page.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL007": {
+        "title": "Processor May Hang if Warm Reset Triggers During BIOS Initialization",
+        "problem": "Under complex micro-architectural conditions, when the processor receives a warm \nreset during BIOS initialization, the processor may hang with a machine check error \nreported in IA32_MCi_STATUS, with MCACOD (bits [15:0]) value of 0400H, and \nMSCOD (bits [31:16]) value of 0080H.",
+        "implication": "Due to this erratum, the processor may hang. Intel has only observed this erratum \nin a synthetic test environment.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL008": {
+        "title": "System May Hang When Bus-Lock Detection Is Enabled And EPT Resides in \nUncacheable Memory",
+        "problem": "On processors that support bus-lock detection (CPUID.(EAX=7, ECX=0).ECX[24]) \nand have it enabled (bit 2 in the IA32_DEBUGCTL MSR (1D9h)), and employ an \nExtended Page Table (EPT) that is mapped to an uncacheable area (UC), and the \nEPT_AD is enabled (bit 6 of the EPT Pointer is set), if the VMM performs an EPT \nmodification on a predefined valid page while a virtual machine is running, the \nprocessor may hang.",
+        "implication": "Due to this erratum, the system may hang when bus-lock detection is enabled. Intel \nhas not observed this erratum in any commercially available software.",
+        "workaround": "VMM should not map EPT tables to Uncacheable memory while using EPT_AD.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL009": {
+        "title": "Processor May Generate Malformed TLP",
+        "problem": "If the processor root port receives an FetchAdd, Swap, or CAS TLP (an atomic \noperation) that is erroneous, it should generate a UR completion to the downstream \nrequestor. If the TLP has an operand size greater than 4 bytes, the generated UR \ncompletion will report an operand size of 4 bytes, which will be interpreted as a \nmalformed transaction.",
+        "implication": "When this erratum occurs, the processor may respond with a malformed transaction.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL010": {
+        "title": "No #GP Will be Signaled When Setting \nMSR_MISC_PWR_MGMT.ENABLE_SDC if MSR_MISC_PWR_MGMT.LOCK is \nSet",
+        "problem": "If the MSR_MISC_PWR_MGMT.LOCK (MSR 1AAh, bit13 ) is set, a General Protection \nException (#GP) will not be signaled when MSR_MISC_PWR_MGMT.ENABLE_SDC \n(MSR 1AAh, bit 10) is cleared while IA32_XSS.HDC (MSR DA0h, bit 13) is set and if \nIA32_PKG_HDC_CTL.HDC_PKG_Enable (MSR DB0h, bit 0) was set at least once \nbefore.",
+        "implication": "Due to this erratum, MSR_MISC_PWR_MGMT.ENABLE_SDC will be cleared even \nthough a #GP was not signaled.",
+        "workaround": "None identified. Software should not attempt to clear \nMSR_MISC_PWR_MGMT.ENABLE_SDC if the above #GP conditions are met.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL012": {
+        "title": "Last Branch Records May Not Survive Warm Reset",
+        "problem": "Last Branch Records (LBRs) are expected to survive warm reset according to Intel\u00ae \narchitectures (SDM Vol3 Table 9-2). LBRs may be incorrectly cleared following warm \nreset if a valid machine check error was logged in one of the IA32_MCi_STATUS \nMSRs (401h, 405h, 409h, 40Dh).",
+        "implication": "Reading LBRs following warm reset may show zero value even though LBRs were \nenabled (IA32_LBR_CTL.LBREn[0]=1) before the warm reset.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL013": {
+        "title": "PCIe Link May Fail to Train Upon Exit From L1.2",
+        "problem": "When the PCIe Link exits the L1.2 low-power link state, the link may fail to correctly \ntrain to L0.",
+        "implication": "Due to this erratum, a PCIe link may incur unexpected link recovery events or it may \nenter a Link_Down state.",
+        "workaround": "It may be possible for a BIOS code change to workaround this erratum.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL014": {
+        "title": "Incorrectly Formed PCIe Packets May Generate Correctable Errors",
+        "problem": "Under complex microarchitectural conditions, the PCIe controller may transmit an \nincorrectly formed Transaction Layer Packet (TLP), which will fail CRC checks.",
+        "implication": "When this erratum occurs, the PCIe end point may record correctable errors \nresulting in either a NAK or link recovery. Intel has not observed any functional \nimpact due to this erratum.",
+        "workaround": "None Identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL015": {
+        "title": "#UD May be Delivered Instead of Other Exceptions",
+        "problem": "An invalid instruction opcode that runs into another exception before fetching all \ninstruction bytes (e.g. A #GP due to the instruction being longer than 15 bytes or a \nCS limit violation) may signal a #UD despite not fetching all instruction bytes under \nsome microarchitectural conditions.",
+        "implication": "Due to this erratum, a #UD exception may be serviced before other exceptions. This \ndoes not occur for valid instructions. Intel has only observed this erratum in a \nsynthetic test environment.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL016": {
+        "title": "Type-C Host Controller Does Not Support Certain Qword Accesses",
+        "problem": "The Type-C controller does not properly support Qword accesses to its MSI-X \ninterrupt table which may lead to unexpected behavior.",
+        "implication": "When this erratum occurs, Qword reads do not return Unsupported Request and \nmay not return correct data and Qword writes may lead to unexpected behavior. \nIntel has not observed this erratum to affect any commercially available software.",
+        "workaround": "Software should not utilize Qword access for the Type-C MSI-X table.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL017": {
+        "title": "#GP May be Serviced Before an Instruction Breakpoint",
+        "problem": "An instruction breakpoint should have the highest priority and needs to be serviced \nbefore any other exception. In case an instruction breakpoint is marked on an illegal \ninstruction longer than 15 bytes that starts in bytes 0-16 of a 32B-aligned chunk, \nand that instruction does not complete within the same 32B-aligned chunk, a \nGeneral Protection Exception (#GP) on the same instruction will be serviced before \nthe breakpoint exception.",
+        "implication": "Due to this erratum, an illegal instruction #GP exception may be serviced before an \ninstruction breakpoint.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL018": {
+        "title": "Unexpected #PF Exception Might Be Serviced Before a #GP Exception",
+        "problem": "Instructions longer than 15 bytes should assert a General Protection Exception \n(#GP). For instructions longer than 15 bytes, a Page Fault Exception (#PF) from the \nsubsequent page might be issued before the #GP exception in the following cases: \nThe GP instruction starts at byte 1 \u2013 16 of the last 32B-aligned chunk of a page \n1. \n(starting the count at byte 0), and it is not a target of taken jump, and it does \nnot complete within the same 32B-aligned chunk it started in. \nThe GP instruction starts at byte 17 of the last 32B-aligned chunk of a page. \n2.",
+        "implication": "Due to this erratum, an unexpected #PF exception might be serviced before a #GP \nexception.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL019": {
+        "title": "WRMSR to Reserved Bits of IA32_L3_QOS_Mask_15 Will Not Signal a #GP",
+        "problem": "A General Protection Exception (#GP) will not be signaled when writing non-zero \nvalues to the upper 32 bits of IA32_L3_QOS_Mask_15 MSR (Offset C9FH) even \nthough they are defined as reserved bits.",
+        "implication": "Due to this erratum, a #GP will not be signaled when the upper bits of \nIA32_L3_QOS_Mask_15 are written with a non-zero value.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL020": {
+        "title": "VMX-Preemption Timer May Not Work if Configured With a Value of 1",
+        "problem": "Under complex micro-architectural conditions, the VMX-preemption timer may not \ngenerate a VM Exit if the VMX-preemption timer value is set to 1.",
+        "implication": "Due to this erratum, if the value configured to a value of 1, a VM exit may not occur.",
+        "workaround": "None identified. Software should avoid programming the VMX-preemption timer with \na value of 1.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL021": {
+        "title": "Setting MISC_FEATURE_CONTROL.DISABLE_THREE_STRIKE_CNT Does Not \nPrevent The Three-strike Counter From Incrementing",
+        "problem": "Setting MISC_FEATURE_CONTROL.DISABLE_THREE_STRIKE_CNT (bit 11 in MSR \n1A4h) does not prevent the three-strike counter from incrementing as documented; \ninstead, it only prevents the signaling of the three-strike event once the counter has \nexpired.",
+        "implication": "Due to this erratum, software may be able to see the three-strike logged in the \nMC3_STATUS (MSR 40Dh, MCACOD = 400h [bits 15:0]) even when \nMISC_FEATURE_CONTROL.DISABLE_THREE_STRIKE_CNT is set.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL023": {
+        "title": "Unable to Transmit Modified Compliance Test Pattern at 2.5 GT/S or 5.0 \nGT/s Link Speeds",
+        "problem": "The processor's PCIe port (Bus 0, Device 1, Function 0/1/2 or Bus 0, Device 6, \nFunction 0) does not transmit the Modified Compliance Test Pattern when in either \n2.5 GT/S or 5.0 GT/s link speeds.",
+        "implication": "Due to this erratum, PCIe compliance testing may fail at 2.5 GT/S or 5.0 GT/s link \nspeeds when enabling the Modified Compliance Test Pattern.",
+        "workaround": "None Identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL024": {
+        "title": "Single Core Configurations May Hang on S3/S4 Resume",
+        "problem": "When booting in a single core configuration, the system may hang when resuming \nfrom a S3/S4 or a warm reset.",
+        "implication": "Due to this erratum, the system may hang.",
+        "workaround": "It is possible for BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL025": {
+        "title": "Single Step on Branches Might be Missed When VMM Enables Notification \nOn VM Exit",
+        "problem": "Under complex micro-architectural conditions, single step on branches \n(IA32_DEBUGCTLMSR (Offset 1D9h, bit [1]) and also TF flag in EFLAGS register is \nset) in guest might be missed when VMM enables notification on VM Exit \n(IA32_VMX_PROCBASED_CTLS2 MSR, Offset 48Bh, bit [31]) while the dirty access \nbit is not set for the code page (bit [6] in paging-structure entry).",
+        "implication": "When single step is enabled under the above condition, some single step branches \nwill be missed. Intel has only observed this erratum in a synthetic test environment.",
+        "workaround": "When enabling single step on branches for debugging, software should first set the \ndirty bit of the code page.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL026": {
+        "title": "Reading The PPERF MSR May Not Return Correct Values",
+        "problem": "Under complex micro-architectural conditions, RDMSR instruction to Productive \nPerformance (MSR_PPERF) MSR (Offset 64eh) may not return correct values in the \nupper 32 bits (EDX register) if Core C6 is enabled.",
+        "implication": "Software may experience a non-monotonic value when reading the MSR_PPERF \nmultiple times.",
+        "workaround": "None identified. Software should not rely on the upper bits of the MSR_PPERF when \ncore C6 is enabled.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL027": {
+        "title": "Incorrect #CP Error Code on UIRET",
+        "problem": "If a #CP exception is triggered during a UIRET instruction execution, the error code \non the stack will report NEAR-RET instruction (code 1) instead of FAR-RET \ninstruction (code 2).",
+        "implication": "Due to this erratum, an incorrect #CP error code is logged when #CP is triggered \nduring UIRET instruction.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL028": {
+        "title": "Processor May Not Wake From TPAUSE/UMWAIT in Limited Situations",
+        "problem": "External interrupts should cause the processor to exit the implementation-dependent \noptimized state reached by the TPAUSE and UMWAIT instructions regardless of the \nvalue of RFLAGS.IF. Due to this erratum, an interrupt may not wake the processor \nfrom such a state when RFLAGS.IF is 0. Additionally, the processor may not exit \nfrom UMWAIT/TPAUSE sleep state if the virtualization execution control of Interrupt-\nWindow Exiting is active (bit[2] of Primary Processor Based VM Execution Control is \nset to 1) or if Virtual-interrupt Delivery is active (bit[9] of Secondary Processor \nBased VM Execution Control is 1 & bit[31] of Primary Processor Based VM Execution \nControl is 1). Note that the only method to reach UMWAIT/TPAUSE sleep state with \ninterrupt-window exiting pending is if the previous instruction is a STI, MOV SS, POP \nSS, or VM-entry which sets MOV/POP SS blocking or STI blocking.",
+        "implication": "If interrupts are masked because RFLAGS.IF = 0, arrival of an interrupt (or virtual \ninterrupt) will not wake the processor from TPAUSE/UWMAIT. For operating systems \nthat ensure that RFLAGS.IF = 1 whenever CPL > 0, this erratum applies only if \nTPAUSE or UMWAIT is used with interrupts disabled by RFLAGS.IF while CPL = 0. \nIntel is not aware of production software affected by this erratum.",
+        "workaround": "It may be possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL029": {
+        "title": "Platform May Not Resume From G3/S3/S4/S5",
+        "problem": "Transient noise on the CPU crystal clock differential signals (CPU_NSSC_DP and \nCPU_NSSC_ DN) when resuming from G3/S3/S4/S5 may prevent the platform from \nbooting.",
+        "implication": "Due to this erratum, the platform may fail boot when resuming from G3/S3/S4/S5.",
+        "workaround": "It may be possible for BIOS code changes to workaround this erratum.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL030": {
+        "title": "Intel\u00ae Processor Trace PSB+ Packets May Contain Unexpected Packets",
+        "problem": "Some Intel Processor Trace packets should be issued only between TIP.PGE (Target \nIP Packet.Packet Generation Enable) and TIP.PGD (Target IP Packet.Packet \nGeneration Disable) packets. Due to this erratum, when a TIP.PGE packet is \ngenerated it may be preceded by a PSB+ (Packet Stream Boundary) that incorrectly \nincludes FUP (Flow Update Packet) and MODE.Exec packets.",
+        "implication": "Due to this erratum, FUP and MODE.Exec may be generated unexpectedly.",
+        "workaround": "Decoders should ignore FUP and MODE.Exec packets that are not between TIP.PGE \nand TIP.PGD packets.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL031": {
+        "title": "Intel\u00ae PT Trace May Drop Second Byte of CYC Packet",
+        "problem": "Due to a rare microarchitectural condition, the second byte of a 2-byte CYC (Cycle \nCount) packet may be dropped without an OVF (Overflow) packet.",
+        "implication": "A trace decoder may signal a decode error due to the lost trace byte.",
+        "workaround": "None identified. A mitigation is available for this erratum. If a decoder encounters a \nmulti-byte CYC packet where the second byte has bit 0 (Ext) set to 1, it should \nassume that 4095 cycles have passed since the prior CYC packet, and it should \nignore the first byte of the CYC and treat the second byte as the start of a new \npacket.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL032": {
+        "title": "VM Entry That Clears TraceEn May Generate a FUP",
+        "problem": "If VM entry clears Intel\u00ae PT (Intel\u00ae Processor Trace) IA32_RTIT_CTL.TraceEn (MSR \n570H, bit 0) while PacketEn is 1 then a FUP (Flow Update Packet) will precede the \nTIP.PGD (Target IP Packet, Packet Generation Disable). VM entry can clear TraceEn \nif the VM-entry MSR-load area includes an entry for the IA32_RTIT_CTL MSR.",
+        "implication": "When this erratum occurs, an unexpected FUP may be generated that creates the \nappearance of an asynchronous event taking place immediately before or during the \nVM entry.",
+        "workaround": "The Intel\u00ae PT trace decoder may opt to ignore any FUP whose IP matches that of a \nVM entry instruction.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL033": {
+        "title": "Unsynchronized Cross-Modifying Code Operations Can Cause Unexpected \nInstruction Execution Results",
+        "problem": "The act of one processor or system bus master writing data into a currently \nexecuting code segment of a second processor with the intent of having the second \nprocessor execute that data as code is called cross-modifying code (XMC). XMC that \ndoes not force the second processor to execute a synchronizing instruction prior to \nexecution of the new code is called unsynchronized XMC. \nSoftware using unsynchronized XMC to modify the instruction byte stream of a \nprocessor can see unexpected or unpredictable execution behavior from the \nprocessor that is executing the modified code.",
+        "implication": "In this case the phrase \"unexpected or unpredictable execution behavior\" \nencompasses the generation of most of the exceptions listed in the Intel Architecture \nSoftware Developer's Manual Volume 3: System Programming Guide including a \nGeneral Protection Fault (GPF) or other unexpected behaviors. In the event that \nunpredictable execution causes a GPF the application executing the unsynchronized \nXMC operation would be terminated by the operating system.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    },
+    "ADL034": {
+        "title": "Processor May Hang When PROCHOT# is Active",
+        "problem": "When PROCHOT# is activated during BIOS initialization, the processor may hang \nwith a machine check error reported in IA32_MCi_STATUS, with MCACOD (bits \n[15:0]) value of 0402H, and MSCOD (bits [31:16]) value of 0409H.",
+        "implication": "Due to this erratum, the processor may hang.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer to the Summary Table of Changes."
+    }
+}

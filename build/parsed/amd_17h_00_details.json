@@ -1,0 +1,324 @@
+{
+    "911": {
+        "title": "IOMMU Unnecessarily Updates Dirty Bit (D-bit) While Handling Non-supervisor DMA Write Request To Writable Supervisor-only Page",
+        "problem": "IOMMU incorrectly sets the D-bit in the guest page table when it encounters a DMA write request without supervisor privilege to a writable supervisor-only page.",
+        "implication": "No functional issue is expected; the non-permitted DMA write request is aborted without any memory content modification. However, the affected pages may be unnecessarily written out to the pagefile by software.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "913": {
+        "title": "IOMMU Incorrectly Issues Guest Page Table Walk Request as Non-coherent Request",
+        "problem": "When software issues a guest table walk request with DTE.SD=1, IOMMU will issue the table walk request as a non-coherent request just based on the DTE.SD value. It ignores the intermediate guest page PTE.FC value to properly determine if the guest page table walk request should be a coherent request.",
+        "implication": "A guest page table walk request is issued as non-coherent instead of coherent even when host PTE.FC (Force Coherent) is set.",
+        "workaround": "Software should program DTE.SD=0.",
+        "status": "No fix planned"
+    },
+    "919": {
+        "title": "USB tPortConfiguration Timer Incorrectly Resets During Recovery Before LMP (Link Management Packet) Exchange",
+        "problem": "If the USB link transitions through Recovery before the LMPs are exchanged successfully in U0 state, the tportConfiguration timer erroneously resets during Recovery and restarts once the link enters U0.",
+        "implication": "None. There is no interoperability or compliance issue because the controller is able to exchange the Port Capability and Port Configuration LMPs after transiting to U0.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "923": {
+        "title": "IOMMU Event Not Logged When Software Programs DTE.HAD Bits Incorrectly",
+        "problem": "IOMMU fails to log an ILLEGAL_DEV_TABLE_ENTRY event when it encounters software setting of DTE.HAD (Host Access and Dirty Update) bits that is inconsistent with what EFR (Extended Feature Register) specifies. The following are the invalid programming scenarios: \u2022 HASup == 0 & DTE.HAD != 00b. \u2022 HASup == 1 & HDSup == 0 & DTE.HAD == 1xb. \u2022 HASup == 1 & HDSup == 1 & DTE.HAD == 10b.",
+        "implication": "Unpredictable system behavior when software does not program DTE.HAD correctly.",
+        "workaround": "Software should program DTE.HAD bits according to the AMD I/O Virtualization Technology (IOMMU) Specification, order# 48882, revision 2.63 or later.",
+        "status": "No fix planned"
+    },
+    "931": {
+        "title": "MCA_MISC0[BlkPtr] May Contain Incorrect Value",
+        "problem": "If CPUID_Fn80000007_EBX[ScalableMca] == 1b, the MCA_MISC0[BlkPtr] field is used to indicate the presence of the additional MISC registers. This field is set to 1 regardless of whether additional MISC registers are present.",
+        "implication": "None expected.",
+        "workaround": "System software must program the MCA_MISC0[BlkPtr] field to 00h in each MCA_MISC0 register except MCA_MISC0_UMC. System software must program the MCA_MISC0[BlkPtr] to 01h in MCA_MISC0_UMC. System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "937": {
+        "title": "Unpredictable IOMMU IO_PAGE_FAULT Event Logging For PCIe\u00ae Atomic Requests To Protected Pages",
+        "problem": "IOMMU has unpredictable IO_PAGE_FAULT event logging when it encounters a PCIe\u00ae atomic request accessing protected pages. The following might occur when IOMMU encounters PCIe atomic requests accessing protected pages; \u2022 when DTE.SA = 1, IO_PAGE_FAULT might be logged when it should be suppressed, \u2022 when DTE.SA = 0, IO_PAGE_FAULT might be suppressed incorrectly.",
+        "implication": "Unpredictable event logging behavior. PCIe atomic requests to protected pages are aborted as expected.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "954": {
+        "title": "Processor Will Shut Down If It Issues a Load That Consumes Poison Data When Error Reporting is Disabled",
+        "problem": "If MCA_CTL_LS[DcDataErr1]==0 and MCG_CTL[LS]==1, the processor will shut down if it issues a load that consumes poison data. This configuration is unsupported except for platform firmware during the boot phase.",
+        "implication": "System shutdown during boot if an uncorrectable error occurs.",
+        "workaround": "If platform firmware wishes to enable error logging in the MCA, it should program the following registers: \u2022 MCA_CONFIG_LS[McaxEn] to 1b \u2022 MCA_CTL_LS[63:0] to FFFF_FFFF_FFFF_FFFFh \u2022 MCG_CTL[0] to 1b \u2022 CR4.MCE to 1b These settings will cause a machine check exception to be generated on an error, which platform firmware must handle. Once handled, the platform firmware can continue operation. Alternatively, if platform firmware does not wish to enable exceptions, platform firmware should program the following register: \u2022 MCG_CTL[0] to 0b This setting will cause the processor to ignore errors in the load-store unit and will allow the machine to survive poison data consumption. Platform firmware may poll other MCA banks to look for errors that occur during boot (e.g., platform firmware may poll the MCA banks associated with the memory controller to look for DRAM ECC errors). Before passing control to the operating system, platform firmware should restore the previous state of these registers.",
+        "status": "No fix planned"
+    },
+    "955": {
+        "title": "Processor May Stall If Error Reporting is Disabled and a Cacheable Lock or Table-Walk Load Encounters a Master Abort, Target Abort, or Protection Violation",
+        "problem": "If MCG_CTL[LS]==1, and MCA_CTL_LS[SystemReadDataErrorT0]==0 or MCA_CTL_LS[SystemReadDataErrorT1]==0, the processor may stall if it issues a cacheable lock or table-walk load that encounters a master abort, target abort, or protection violation. The error may also not be logged. This configuration is unsupported except for platform firmware during the boot phase. Because cacheable locks and table-walk loads must be issued to DRAM, these aborts and violations are not expected to occur.",
+        "implication": "The system may hang or reset.",
+        "workaround": "If platform firmware wishes to enable error logging in the MCA, it should program the following registers: \u2022 MCA_CONFIG_LS[McaxEn] to 1b \u2022 MCA_CTL_LS[63:0] to FFFF_FFFF_FFFF_FFFFh \u2022 MCG_CTL[0] to 1b \u2022 CR4.MCE to 1b These settings will cause a machine check exception to be generated on an error, which platform firmware must handle. Once handled, the platform firmware can continue operation. Before passing control to the operating system, platform firmware should restore the previous state of these registers.",
+        "status": "No fix planned"
+    },
+    "965": {
+        "title": "Incorrect IOMMU IO_PAGE_FAULT Event Logging For Reserved Message Type Interrupt Requests With DTE.IG = 1",
+        "problem": "IOMMU will log an IO_PAGE_FAULT event when it encounters any reserved message type interrupt request regardless of DTE.IG setting. Even when DTE.IG = 1, IO_PAGE_FAULT event is logged when it should be suppressed.",
+        "implication": "Software may encounter unexpected IO_PAGE_FAULT event logging. Reserved message type interrupt requests are aborted as expected.",
+        "workaround": "Software may ignore IO_PAGE_FAULT event log entries for reserved message type interrupt requests from devices with DTE.IG = 1.",
+        "status": "No fix planned"
+    },
+    "990": {
+        "title": "Certain Performance Counters For Retire Based Events May Overcount",
+        "problem": "The processor may experience sampling inaccuracies that may cause the following performance counters to overcount retire-based events when PMCx022[4] is not equal to zero: \u2022 PMCx002 [Retired x87 Floating Point Operations] \u2022 PMCx003 [Retired SSE/AVX Operations] \u2022 PMCx005 [Retired Serializing Ops] \u2022 PMCx0CB [Retired MMX/FP Instructions]",
+        "implication": "Inaccuracies in performance monitoring software may be experienced.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1017": {
+        "title": "FERR (Legacy Floating Point Error) for Thread 0 May be Incorrectly Cleared When Thread 1 Clears Its FERR",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, if thread 0 enters HALT or MWAIT with a pending FERR, then if thread 1 clears its FERR, the FERR for thread 0 may also incorrectly be cleared.",
+        "implication": "Unpredictable system behavior.",
+        "workaround": "None",
+        "status": "Yes"
+    },
+    "1021": {
+        "title": "Load Operation May Receive Stale Data From Older Store Operation",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, a load operation may incorrectly receive stale data from an older store operation.",
+        "implication": "Data corruption.",
+        "workaround": "Program MSRC001_1029[13] to 1b. System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1023": {
+        "title": "Performance Monitor Counter Overflow Interrupts May Fail To Be Delivered When Two or More Counters Are Enabled",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, when two or more performance monitor counters on the same thread are enabled to generate an interrupt on a counter overflow, they may stop generating interrupts after the first performance monitor counter interrupt event.",
+        "implication": "Inaccuracies in performance monitoring software may be experienced.",
+        "workaround": "None. Performance monitor counter overflow interrupts will be delivered correctly if only a single performance monitor counter is enabled per thread.",
+        "status": "Yes"
+    },
+    "1024": {
+        "title": "Cacheable Load Following Misaligned Cacheable Store Does Not Complete",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, if a misaligned cacheable store is followed by a cacheable load to a cache line with overlapping address bits [11:0], the load does not complete.",
+        "implication": "The system may hang or reset.",
+        "workaround": "System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1033": {
+        "title": "A Lock Operation May Cause the System to Hang",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, a Lock operation may cause the system to hang.",
+        "implication": "The system may hang or reset.",
+        "workaround": "Program MSRC001_1020[4] to 1b. System software may contain the workaround for this erratum.",
+        "status": "Yes"
+    },
+    "1034": {
+        "title": "Processor May Return Incorrect Faulting Linear Address For a Cacheline-Misaligned Store",
+        "problem": "The processor may return incorrect value when reporting the faulting linear address for a cacheline-misaligned store that is not page-misaligned. \u2022 For a non-nested page fault, CR2[11:0] may be incorrect. \u2022 For a nested page fault, EXITINFO2[11:0] of VMCB (Virtual Machine Control Block) may be incorrect.",
+        "implication": "None, as long as software does not depend on the byte address of faulting cacheline-misaligned store.",
+        "workaround": "If software requires bits [11:0] of the faulting address, then software may decode this information from the faulting X86 instruction and ignore information from EXITINFO2[11:0] or CR2[11:0]. \u2022 For non-nested page faults the faulting rIP can be used to read the instruction bytes. \u2022 For nested page faults the Guest Instruction Bytes field in the VMCB provides the instruction to be decoded.",
+        "status": "Yes"
+    },
+    "1036": {
+        "title": "When IOMMU Interrupt Remapping Is Enabled the Remapped TM (Trigger Mode) Bit Is Incorrectly Ignored",
+        "problem": "When IOMMU interrupt remapping is enabled the remapped TM (trigger mode) bit in the IOMMU interrupt remapping table entry is incorrectly ignored, and as a result all remapped interrupts will have TM=0 indicating edge-triggered mode.",
+        "implication": "Remapped interrupts with TM=1 indicating level-triggered mode will result in IO devices not receiving EOI (end of interrupt).",
+        "workaround": "No workaround. Only use devices with edge-triggered interrupts.",
+        "status": "Yes"
+    },
+    "1037": {
+        "title": "USB 2.0 Device May Immediately Reconnect After Windows\u00ae \"Safely Remove Hardware\" Procedure",
+        "problem": "If Selected Suspend is enabled, a USB 2.0 device may immediately be reconnected after the Windows\u00ae \"Safely Remove Hardware\" procedure completes.",
+        "implication": "A USB 2.0 device may remain attached to the system after undergoing the Windows\u00ae \"Safely Remove Hardware\" procedure.",
+        "workaround": "To avoid this issue the USB driver should not program the xHCI controller in D3 state when the last connected USB 2.0 device is disabled as a result of the Windows\u00ae \"Safely Remove Hardware\" procedure.",
+        "status": "No fix planned"
+    },
+    "1038": {
+        "title": "xHCI Controller May Incorrectly Drop USB 3.0 ISOC Audio Packets",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, the xHCI controller may incorrectly drop USB 3.0 ISOC audio packets.",
+        "implication": "Audio stuttering during video playback.",
+        "workaround": "To avoid this issue the USB driver should disable U1 and U2 states for the AMD USB device with vendor ID 0x1022 (USB:ROOT_HUB\\VID_1022) and PCI\u00ae device ID 0x145C (USB:ROOT_HUB\\PID_145C).",
+        "status": "Yes"
+    },
+    "1039": {
+        "title": "Non-Cacheable Coherent Store May Not Complete If it Follows a Cacheable Access to the Same Cache Line",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, a non-cacheable coherent store may not complete if it follows a cacheable access to the same cache line.",
+        "implication": "The system may hang or reset.",
+        "workaround": "System software may contain the workaround for this erratum.",
+        "status": "Yes"
+    },
+    "1042": {
+        "title": "Processor May Fail To Boot On Systems With Both SPI (Serial Peripheral Interface) and Discrete TPM (Trusted Platform Module) Enabled",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, processor may hang while booting on a system when the following conditions occur: \u2022 both SPI (Serial Peripheral Interface) and discrete TPM (Trusted Platform Module) modules enabled, and \u2022 SPI ROM read prefetching is enabled.",
+        "implication": "System hang while booting.",
+        "workaround": "System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1043": {
+        "title": "IOMMU May Fail to Deliver an Interrupt or Incorrectly Send an Interrupt to the Host OS",
+        "problem": "IOMMU may fail to deliver an interrupt or incorrectly send an interrupt to the host OS under the following conditions: \u2022 The vAPIC (Virtual Advanced Programmable Interrupt Controller) backing page is programmed in IRTE (Interrupt Remapping Table Entry), and \u2022 GA (Guest Virtual APIC) mode is enabled.",
+        "implication": "Unpredictable system behavior.",
+        "workaround": "System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1044": {
+        "title": "PCIe\u00ae Controller May Hang on Entry Into Either L1.1 or L1.2 Power Management Substate",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, the PCIe\u00ae controller may hang on entry into either L1.1 or L1.2 power management substate. This failure occurs when L1 power management substate exit is triggered by a link partner asserting CLKREQ# prior to the completion of the L1 power management stubstates entry protocol.",
+        "implication": "The system may hang or reset.",
+        "workaround": "Disable L1.1 and L1.2 power management substates. System software may contain the workaround for this erratum.",
+        "status": "Yes"
+    },
+    "1047": {
+        "title": "Miss Address Buffer Performance Counter May Be Inaccurate",
+        "problem": "The processor may experience sampling inaccuracies in the the following performance counter: \u2022 MSRC001_1037[DcMissNoMabAlloc] may not be set.",
+        "implication": "Performance monitoring software may experience inaccuracies.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1048": {
+        "title": "Three-Source Operand Floating Point Instructions May Block Another Thread on the Same Core",
+        "problem": "An uninterrupted stream of three-source operand floating point instructions (e.g. FMA3) on one thread may block floating point instructions from completing on the other thread of the same core. A cache miss or a TLB miss or a branch misprediction would be sufficient to interrupt the stream of three-source operand floating point instructions and prevent the problem.",
+        "implication": "Unpredictable system behavior.",
+        "workaround": "System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1049": {
+        "title": "FCMOV Instruction May Not Execute Correctly",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, an FCMOV instruction may yield incorrect data if the following sequence of events occurs: \u2022 An FCOMI instruction \u2022 A non-FP instruction that modifies RFLAGS \u2022 An FCMOV instruction",
+        "implication": "Incorrect results from FCMOV instruction.",
+        "workaround": "Program MSRC001_1028[4] to 1b. System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1053": {
+        "title": "When SMAP is Enabled and EFLAGS.AC is Set, the Processor Will Fail to Page Fault on an Implicit Supervisor Access to a User Page",
+        "problem": "When SMAP (Supervisor Mode Access Protection) is enabled and EFLAGS.AC is set to 1b, the processor will fail to page fault on an implicit supervisor access to GDT (Global Descriptor Table), LDT (Local Descriptor Table), IDT (Interrupt Descriptor Table), or TSS (Task State Segment) when they are located in a user page.",
+        "implication": "If the system data structures GDT, LDT, IDT, or TSS are located in a user page, then an implicit supervisor access may incorrectly gain access to that user page.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1054": {
+        "title": "Instructions Retired Performance Counter May Be Inaccurate",
+        "problem": "The processor may experience sampling inaccuracies that may cause the MSRC000_00E9 Read-Only Instructions Retired performance counter to count inaccurately after the processor exits the Core C6 (CC6) state.",
+        "implication": "Inaccuracies in performance monitoring software may be experienced.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1057": {
+        "title": "MWAIT or MWAITX Instructions May Fail to Correctly Exit From the Monitor Event Pending State",
+        "problem": "In the event that the following sequence occurs, a store from another core that matches the MONITOR or MONITORX address range will not cause an exit from the monitor event pending state: \u2022 A thread executes a MONITOR or MONITORX instruction. \u2022 The other thread on the same core changes CR0.CD to 1b. This asserts cache disable for both threads. \u2022 The first thread reads memory to check for desired value. \u2022 The first thread executes an MWAIT or MWAITX instruction.",
+        "implication": "Unpredictable system behavior.",
+        "workaround": "System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1058": {
+        "title": "Executing Code in the Page Adjacent to a Canonical Address Boundary May Cause Unpredictable Results",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, executing code in the page adjacent to a canonical address boundary may cause unpredictable results.",
+        "implication": "Unpredictable system behavior.",
+        "workaround": "Supervisor level software (operating systems and hypervisors) should create a guard page between the end of the user-mode accessible virtual address space and the beginning of the non-canonical area to prevent this issue.",
+        "status": "No fix planned"
+    },
+    "1059": {
+        "title": "In Real Mode or Virtual-8086 Mode MWAIT or MWAITX Instructions May Fail to Correctly Exit From the Monitor Event Pending State",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, if a thread executes a MONITOR or MONITORX instruction in real mode or virtual-8086 mode, a store from another core that matches the MONITOR or MONITORX address range may not cause an exit from the monitor event pending state.",
+        "implication": "Unpredictable system behavior.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1063": {
+        "title": "PCIe\u00ae Controller Will Generate MSI (Message Signaled Interrupt) With Incorrect Requestor ID",
+        "problem": "The PCIe\u00ae controller will generate MSIs with an incorrect Requestor ID of 0x0 on internal interrupt events including: \u2022 Hot-plug \u2022 PME (Power Management Event) \u2022 AER (Advanced Error Reporting) \u2022 DPC (Dynamic Power Control) \u2022 Link Equalization \u2022 Link Bandwidth Notification",
+        "implication": "Interrupts generated with an invalid Requestor ID may be blocked by the IOMMU if interrupt remapping is enabled; an error log may be generated. Hot-plugged PCIe\u00ae devices will not be configured.",
+        "workaround": "System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1067": {
+        "title": "L3 Performance Event Counter May Be Inaccurate",
+        "problem": "The processor may experience sampling inaccuracies that may cause the L3 Performance Event counter MSRC001_0231 to count inaccurately if \u2022 MSRC001_0230[EventSel] = 0x6, and \u2022 MSRC001_0230[8] (UnitMask[0]) = 1b.",
+        "implication": "Inaccuracies in performance monitoring software may be experienced.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1070": {
+        "title": "16-bit Real Mode Applications May Fail When Virtual Mode Extensions (VME) Are Enabled",
+        "problem": "A 16-bit real mode application may become unresponsive on a system running 32-bit operating system with Virtual Mode Extensions (VME) enabled.",
+        "implication": "Unpredictable behavior of 16-bit applications on systems running 32-bit operating systems.",
+        "workaround": "System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1071": {
+        "title": "Spurious Level 2 Branch Target Buffer (L2 BTB) Multi- Match Error May Occur",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, the processor may incorrectly log a Level 2 Branch Target Buffer Multi-Match error in MCA_STATUS_IF with extended error code 0xB.",
+        "implication": "Spurious L2 BTB Multi-Match error may be logged. If MCA error thresholding is enabled by programming MCA_MISC0_IF[CntEn]=1, the error counter may exceed its threshold and cause the processor to generate threshold overflow interrupts.",
+        "workaround": "System software may contain the workaround for this erratum. Software should not enable MCA error thresholding in MCA_MISC0_IF[CntEn] to avoid spurious threshold overflow interrupts.",
+        "status": "No fix planned"
+    },
+    "1076": {
+        "title": "CPUID Fn8000_0007_EDX[CPB] Incorrectly Returns 0",
+        "problem": "CPUID Fn8000_0007_EDX[CPB] incorrectly returns 0, indicating the processor does not support Core Performance Boost (CPB). However, the processor does support CPB.",
+        "implication": "Software may fail to use Core Performance Boost.",
+        "workaround": "Software may ignore CPUID Fn8000_0007_EDX[CPB] and use the Core Performance Boost feature.",
+        "status": "Yes"
+    },
+    "1080": {
+        "title": "PCIe\u00ae Link Exit to L0 in Gen1 Mode May Incorrectly Trigger NAKs",
+        "problem": "When the PCIe\u00ae link is operating in Gen1 mode and enters electrical idle, the EDB (EnD Bad symbol which marks the end of a nullified Transaction Layer Packet) token is mistakenly forwarded upstream. This unexpected EDB token may incorrectly trigger NAKs (Negative Acknowledgements) when the link exits to L0.",
+        "implication": "Unexpected NAKs may cause a device operating in PCIe\u00ae Gen1 mode to report correctable errors.",
+        "workaround": "If AER (Advanced Error Reporting) is not enabled, no workaround is required. If AER (Advanced Error Reporting) is enabled, system software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1081": {
+        "title": "Programming MSRC001_0015 [Hardware Configuration] (HWCR)[CpbDis] Does Not Affect All Threads In The Socket",
+        "problem": "The effect of programming MSRC001_0015 [Hardware Configuration] (HWCR)[CpbDis] is only local to the thread performing the write. The effect is not applied to the other threads in the socket.",
+        "implication": "Software that assumes MSRC001_0015 [Hardware Configuration] (HWCR)[CpbDis] to have global effect may not have the desired results.",
+        "workaround": "System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1083": {
+        "title": "PCIe\u00ae Link in Gen3 Mode May Incorrectly Observe EDB Error and Enter Recovery",
+        "problem": "In Gen 3 mode, the PCIe\u00ae Root Port receiver may miss the TLP (Transaction Layer Packet) after a SKP if no IDL is sent before the SKP, causing the port to log a correctable error before the TLP is recovered. This scenario can only happen if the SKP Ordered Set contains 0xC0, causing spurious EDB (EnD Bad symbol) error.",
+        "implication": "An error-free TLP may be observed as a Bad TLP (correctable error) and cause the link to enter recovery.",
+        "workaround": "System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1084": {
+        "title": "xHCI Host May Fail To Respond to Resume Request From Downstream USB Device Within 1 ms",
+        "problem": "xHCI host may fail to rebroadcast the resume signaling within 1 ms upon receiving resume signal from a downstream hub or device.",
+        "implication": "Downstream USB hubs or devices requiring a resume signaling response within 1 ms from the xHCI host may malfunction.",
+        "workaround": "For USB hubs or devices that have this requirement in a Microsoft\u00ae operating system based system, apply the Microsoft approved \"ResetOnResume\" USB device registry entry which forces the USB driver stack to reset a device on port resume. The full description of the registry entry can be found in the Microsoft article at https://msdn.microsoft.com/en- us/library/windows/hardware/jj649944(v=vs.85).aspx. For example, if the affected USB device has a DeviceInstance value of xxxxyyyyzzzz where \u2022 xxxx is a 4-digit hexadecimal number that identifies the vendor, \u2022 yyyy is a 4-digit hexadecimal number that identifies the product and \u2022 zzzz is a 4-digit hexadecimal number that contains the revision number of the device, then the registry key for the affected device is as follows: \u2022 [HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\usbflags\\xxxxyyyyzzzz] \u2022 \"osvc\"=hex:00,00 \u2022 \"ResetOnResume\"=hex:00,01 For USB hubs or devices that have this requirement in a Linux\u00ae operating system based system, apply the workaround described in the article at https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/ drivers/usb/core?h=v4.13-rc5&id=e788787ef4f9c24aafefc480a8da5f92b914e5e6. Customers should contact their Operating System Vendor for availability of this workaround.",
+        "status": "No fix planned"
+    },
+    "1091": {
+        "title": "4K Address Boundary Crossing Load Operation May Receive Stale Data",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, a load operation may incorrectly receive stale data when the following conditions are met: \u2022 there is a preceding store operation to the same address as the load operation, and \u2022 the load operation crosses a 4K address boundary.",
+        "implication": "In the unlikely event that the condition described above occurs, a load operation would receive stale data that was not updated by the most current write from another logical processor.",
+        "workaround": "Program MSRC001_102D[34] to 1b. System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1092": {
+        "title": "USB Device May Not be Enumerated After Device Reset",
+        "problem": "The xHCI controller will ignore the ERDY response from a USB device and timeout incorrectly when the following conditions occur: \u2022 Two or more USB devices are attached either directly to the processor or indirectly via USB hub, \u2022 Reset Device Command is received by any of the USB devices other than the last connected one, causing the USB device to reset and to assume default state with device address 0, \u2022 Software then schedules a new control transfer (e.g. Get_Descriptor command) other than the Set_Address command to the USB device, resulting in a ERDY response from the USB device with address 0. As a result, the USB device is not enumerated correctly after device reset.",
+        "implication": "USB device that is not enumerated will not function properly.",
+        "workaround": "Software should always perform Set_Address Command before any other control transfer after Device Reset Command.",
+        "status": "No fix planned"
+    },
+    "1095": {
+        "title": "Potential Violation of Read Ordering In Lock Operation In SMT (Simultaneous Multithreading) Mode",
+        "problem": "Under a highly detailed and specific set of internal timing conditions, a lock operation may not fence a younger load operation correctly when the following conditions are met: \u2022 SMT (Simultaneous Multithreading) is enabled, and \u2022 a lock operation on memory location A, followed by a load operation on memory location B are executing on one thread while \u2022 a lock operation on memory location B, followed by a load operation on memory location A are executing on the second thread on the same core. This may result in the load operations on both threads incorrectly receiving pre-lock data.",
+        "implication": "In the unlikely event that the condition described above occurs, a load operation would receive stale data that was not updated by the most current write from another logical processor.",
+        "workaround": "Program MSRC001_1020[57] to 1b. System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1096": {
+        "title": "The GuestInstrBytes Field of the VMCB on a VMEXIT May Incorrectly Return 0h",
+        "problem": "On a nested data page fault when CR4.SMAP = 1 and the guest data read generates a SMAP violation, the GuestInstrBytes field of the VMCB on a VMEXIT will incorrectly return 0h instead the correct guest instruction bytes.",
+        "implication": "A hypervisor will not be able use the GuestInstrBytes field of the VMCB on a VMEXIT to determine what instruction the guest operating system was executing.",
+        "workaround": "To determine what instruction the guest was executing the hypervisor will have to decode the instruction at the instruction pointer.",
+        "status": "No fix planned"
+    },
+    "1108": {
+        "title": "MCA Error May Incorrectly Report Overflow Condition",
+        "problem": "The MSR0000_0001[62] (MCA_STATUS_LS[Overflow]) may be incorrectly set when an MCA error is logged and MSR0000_0001[21:16] (MCA_STATUS_LS[ErrorCodeExt]) is 0x9 (SystemReadDataErrorT0) or 0xa (SystemReadDataErrorT1).",
+        "implication": "None",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1109": {
+        "title": "MWAIT Instruction May Hang a Thread",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, the MWAIT instruction may cause a thread to hang in SMT (Simultaneous Multithreading) Mode.",
+        "implication": "The system may hang or reset.",
+        "workaround": "System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    }
+}

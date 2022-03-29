@@ -1,0 +1,219 @@
+{
+    "1140": {
+        "title": "Response Transaction May be Lost on Data Fabric",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, the CAKE (Data Fabric Coherent AMD socKet Extender) may lose a response transaction.",
+        "implication": "System may hang or reset",
+        "workaround": "Program \u2022 D18F3x2A4[28:25] to 4h, and \u2022 D18F3x2A4[11:8] to 4h System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1146": {
+        "title": "PCIe\u00ae DPC (Downstream Port Containment) RP PIO (Root Port Programmed I/O) Error Reporting May Not Function Correctly",
+        "problem": "The system resets to a state where an unmasked RP PIO error may produce unpredictable system behavior. The DPC Extended Capability RP PIO SysError (PCIERCCFG::PCIE_RP_PIO_SYSERROR) register incorrectly inverts the sense of its enable bits, so that a bit value of 0b enables the function and a bit value of 1b disables the function. In addition, when enabled an RP PIO System Error may not be handled correctly by the processor resulting in unpredictable system behavior. The reset value of PCIERCCFG::PCIE_RP_PIO_SYSERROR is 0000_0000h which, due to the inversion of the bits, enables RP PIO errors to be reported as a System Error. While the value of PCIERCCFG::PCIE_RP_PIO_SYSERROR is 0000_0000h, clearing any of the mask bits in PCIERCCFG::PCIE_RP_PIO_MASK will allow the corresponding error to be reported as a System Error.",
+        "implication": "Unpredictable system behavior.",
+        "workaround": "Program PCIERCCFG::PCIE_RP_PIO_SYSERROR[18:0] to 7_0707h. This disables the DPC RP PIO System Error feature. System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1150": {
+        "title": "PCIe\u00ae Incorrectly Updates Some AER (Advanced Error Reporting) Registers After Egress Blocking Error",
+        "problem": "When a PCIe egress blocking error occurs, PCIe will incorrectly update the following AER registers: \u2022 Header Log Register \u2022 TLP Prefix Log Register \u2022 Root Error Status register, Multiple ERR_FATAL/NONFATAL Received bit.",
+        "implication": "After a PCIe egress blocking error, the system will not have access to accurate diagnostic information contained in the affected registers.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1154": {
+        "title": "MOV SS Instructions May Take Multiple Breakpoints",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, the MOV SS instruction may prematurely clear the RFLAGS RF bit if: \u2022 RFLAGS TF bit is asserted, and \u2022 the instruction hits a debug breakpoint, and \u2022 an interrupt is taken by the affected instruction before it completes.",
+        "implication": "The affected instruction may take multiple instruction breakpoints.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1155": {
+        "title": "DMA or Peer-to-peer Accesses Using Guest Physical Addresses (GPAs) May Cause IOMMU Target Abort",
+        "problem": "In systems where: \u2022 Virtualization is enabled, and \u2022 IOMMU is in pass-through mode DMA or peer-to-peer accesses using Guest Physical Addresses (GPAs) occurring within the regions defined below trigger a target abort. \u2022 0x00FD_0000_0000->0x00FD_F8FF_FFFF, or \u2022 0x00FD_F910_0000->0x00FD_F91F_FFFF, or \u2022 0x00FD_FB00_0000->0x00FD_FFFF_FFFF",
+        "implication": "A DMA device will receive a target abort from the IOMMU.",
+        "workaround": "System software must mark the following block of memory as reserved: \u2022 FD_0000_0000 -> FD_FFFF_FFFF",
+        "status": "No fix planned"
+    },
+    "1157": {
+        "title": "PCIe\u00ae Link Status May be Incorrect When Root Port Autonomously Changes to Gen4 Speed",
+        "problem": "When the PCIe\u00ae root port autonomously changes to Gen4 speed, the following will occur: \u2022 Link Status Register (Offset 12h) [15] Link Autonomous Bandwidth Status will incorrectly not be asserted. If Link Status Control (Offset 10h) [15] Link Autonomous Bandwidth Interrupt Enable is asserted, an interrupt may fail to occur. \u2022 Link Status Register (Offset 12h) [14] Link Bandwidth Management Status will be incorrectly asserted. If Link Status Control (Offset 10h) [14] Link Bandwidth Management Interrupt Enable is asserted, a spurious interrupt will occur.",
+        "implication": "Software may incorrectly handle an autonomous change to PCIe Gen4 Speed.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1159": {
+        "title": "Writes to Base Frequency Register May be Ignored",
+        "problem": "If the base frequency register, (MSRC001_0064[CpuDfsId], MSRC001_0064[CpuFid]): \u2022 is programmed to a lower frequency than the default reset value, and \u2022 the default base frequency is not a multiple of 100 MHz then subsequent writes to the register that are greater than the next lower multiple of 100 MHz may be ignored.",
+        "implication": "Software may report an incorrect value of base frequency.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1160": {
+        "title": "SdpParity and XiVictimQueue Mask Bits Incorrectly Mask Additional Errors",
+        "problem": "If MCA::L3::MCA_CTL_MASK_L3[5] (SdpParity) is set then errors logged in MCA_STATUS_L3 that set MCA_STATUS_L3[ErrorCodeExt]=0x5 are correctly masked, and some system read data errors logged in MCA_STATUS_LS or MCA_STATUS_IF are masked incorrectly. If MCA::L3::MCA_CTL_MASK_L3[6] (XiVictimQueue) is set then errors logged in MCA_STATUS_L3 that set MCA_STATUS_L3[ErrorCodeExt]=0x6 are correctly masked, and some system read data errors logged in MCA_STATUS_LS are masked incorrectly.",
+        "implication": "Some system read data errors logged in MCA_STATUS_LS or MCA_STATUS_IF may fail to be detected.",
+        "workaround": "Do not program MCA::L3::MCA_CTL_MASK_L3[5] or MCA::L3::MCA_CTL_MASK_L3[6] to 1b.",
+        "status": "No fix planned"
+    },
+    "1163": {
+        "title": "Some MCA_MISC0 Bits May Fail to Persist Through Warm Reset",
+        "problem": "The following warm-reset persistent bits may incorrectly be cleared during a warm reset: \u2022 MCA_MISC0_DE[43:32], ErrCnt \u2022 MCA_MISC0_DE[48], Ovrflw \u2022 MCA_MISC0_DE[50:49], ThresholdIntType \u2022 MCA_MISC0_EX[43:32], ErrCnt \u2022 MCA_MISC0_EX[48], Ovrflw \u2022 MCA_MISC0_EX[50:49], ThresholdIntType \u2022 MCA_MISC0_IF[43:32], ErrCnt \u2022 MCA_MISC0_IF[48], Ovrflw \u2022 MCA_MISC0_IF[50:49], ThresholdIntType",
+        "implication": "A corrected error count in some MCA banks will be lost over a warm reset.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1165": {
+        "title": "The PCIe\u00ae Link May Accumulate Correctable Errors in Some Gen3 Mode Configurations",
+        "problem": "The PCIe\u00ae link may accumulate correctable receiver errors due to spurious entries into recovery or accumulate correctable errors due to NAKs (Negative Acknowledgements) in the following configurations: \u2022 Gen3 mode, Link width x1 \u2022 Gen3 mode, Link width x4 A link that degrades to one of the affected modes from a different mode will accumulate correctable errors as if it was originally configured to operate in the affected mode.",
+        "implication": "Unexpected NAKs may occur, and the processor root complex may report correctable errors.",
+        "workaround": "System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1166": {
+        "title": "The PCIe\u00ae Link May Accumulate Correctable Errors in Gen4 Link Width x2 Mode",
+        "problem": "The PCIe\u00ae link may accumulate correctable receiver errors due to spurious entries into recovery or accumulate correctable errors due to NAKs (Negative Acknowledgements) in Gen4 Link width x2 mode. A link that degrades to the affected mode from a different mode will accumulate correctable errors as if it was originally configured to operate in the affected mode.",
+        "implication": "Unexpected NAKs may occur, and the processor root complex may report correctable errors.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1169": {
+        "title": "PCIe\u00ae Error Masking May Fail to Mask Errors",
+        "problem": "If MCA_CTL_MASK_NBIO[PCIE_sideband] is programmed to 0b, then PCIe\u00ae error masking, including Uncorrectable Error Mask and Correctable Error Mask, will not mask errors.",
+        "implication": "Masked errors will incorrectly be reported to the system.",
+        "workaround": "Program MCA_CTL_MASK_NBIO[PCIE_sideband] to 1b. System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1171": {
+        "title": "Requester ID May Be Set Incorrectly on Outbound PCIe\u00ae VDMs (Vendor Defined Messages)",
+        "problem": "The Requester ID may be set incorrectly on Outbound PCIe\u00ae VDMs (Vendor Defined Messages) if the Type field indicates: \u2022 Broadcast from the Root Complex, \u2022 Routed to the Root Complex, or \u2022 Routed by ID. VDMs will be transmitted correctly within PCIe devices attached to the following groups of processor pins, but not between the groups. \u2022 Group 0: P0_*, G0_*, WAFL_* \u2022 Group 1: P1_*, G1_* \u2022 Group 2: P2_*, G2_* \u2022 Group 3: P3_*, G3_* MCTP (Management Component Transport Protocol) is the only defined and validated usage of PCIe VDMs on AMD platforms.",
+        "implication": "System may be unable to route responses of VDM protocols. The receiving device may be unable to determine the source of the request.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1183": {
+        "title": "The Processor May Hang If it Receives INIT# While Already In the INIT# State",
+        "problem": "The processor may hang if it receives INIT# while already in the INIT# state.",
+        "implication": "System may hang or reset.",
+        "workaround": "System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1185": {
+        "title": "PCIe\u00ae Receive Buffer Location May Be Incorrectly Overwritten",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, a PCIe\u00ae receive buffer SRAM location in the host controller may be incorrectly overwritten.",
+        "implication": "None with BIOS incorporating AGESA RomePI-SP3_1.0.0.3 or later. Running software prior to AGESA RomePI-SP3_1.0.0.3 may result in unpredictable system behavior and possible logging of uncorrectable parity error(s) in MCA_STATUS_NBIO due to incorrect data in PCIe buffer.",
+        "workaround": "BIOS incorporating AGESA RomePI-SP3_1.0.0.3 or later contains a workaround for this erratum.",
+        "status": "No fix planned"
+    },
+    "1200": {
+        "title": "xHCI Host May Hang If Full Speed or High Speed USB Hub is Connected",
+        "problem": "xHCI Host controller may hang if: \u2022 A high speed or full speed flash device is connected to the host, and \u2022 A high speed or full speed hub is connected to the host, and \u2022 An active device is connected to the hub.",
+        "implication": "xHCI Host controller may hang.",
+        "workaround": "System software may contain the workaround for this erratum. Program USB0x00C60C[12:9] to 0001b. Program USB1x00C60C[12:9] to 0001b. Program USB0x00C608[6:5] to 00b. Program USB1x00C608[6:5] to 00b.",
+        "status": "No fix planned"
+    },
+    "1212": {
+        "title": "IBS (Instruction Based Sampling) Micro-Op Retire Counters May Be Inaccurate",
+        "problem": "Under a highly specific and detailed set of internal timing conditions the processor may experience sampling inaccuracies in the following IBS (Instruction Based Sampling) counters: \u2022 MSRC001_1035[IbsTagToRetCtr] (micro-op tag to retire count) \u2022 MSRC001_1035[IbsCompToRetCtr] (micro-op completion to retire count)",
+        "implication": "Software reading the IBS OP Data register may experience inaccuracies.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1215": {
+        "title": "IBS (Instruction Based Sampling) Counter Valid Value May be Incorrect After Exit From Core C6 (CC6) State",
+        "problem": "If a core's IBS feature is enabled and configured to generate an interrupt, including NMI (Non-Maskable Interrupt), and the IBS counter overflows during the entry into the Core C6 (CC6) state, the interrupt may be issued, but an invalid value of the valid bit may be restored when the core exits CC6.",
+        "implication": "The operating system may receive interrupts due to an IBS counter event, including NMI, and not observe an valid IBS register. Console messages indicating \"NMI received for unknown reason\" have been observed on Linux systems.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1216": {
+        "title": "IOMMU May Not Re-Walk Page Tables on a Present/ Permission Fault",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, the IOMMU may not re-walk page tables on a present/permission fault.",
+        "implication": "An IO device may see an unexpected completer abort.",
+        "workaround": "System software may contain the workaround for this erratum. Program IOMMUL2B0x00000150[16] to 1b,and Program IOMMUL2B1x00000150[16] to 1b, and Program IOMMUL2B2x00000150[16] to 1b, and Program IOMMUL2B3x00000150[16] to 1b.",
+        "status": "No fix planned"
+    },
+    "1218": {
+        "title": "EXITINFO1[2] May Be Incorrectly Set When GMET (Guest Mode Execute Trap extension) is Enabled",
+        "problem": "EXITINFO1[2] (User/Supervisor bit) may incorrectly be one during a nested page fault if GMET (Guest Mode Execute Trap extension) is enabled.",
+        "implication": "Software may not be able to determine whether a fault was a GMET fault or an NX fault based on EXITINFO1.",
+        "workaround": "Software must read the relevant VMCB to determine whether a fault was a GMET fault or an NX fault.",
+        "status": "No fix planned"
+    },
+    "1225": {
+        "title": "MCA_STATUS_CS[ErrorCode] May Be Incorrect After Some Machine Check Errors",
+        "problem": "For some machine check errors, the MCA_STATUS_CS[ErrorCode] memory transaction type (RRRR) field incorrectly contains the value 0101b (Instruction Fetch) for all transaction types. This erratum affects errors logged with the following MCA_STATUS_CS[ErrorCodeExt]: \u2022 FTI_ILL_REQ \u2022 FTI_ADDR_VIOL \u2022 FTI_SEC_VIOL \u2022 FTI_ILL_RSP \u2022 FTI_RSP_NO_MTCH \u2022 SPF_PRT_ERR \u2022 SDP_RSP_NO_MTCH \u2022 SDP_UNEXP_RETRY \u2022 CNTR_OVFL \u2022 CNTR_UNFL",
+        "implication": "None expected. Software is expected to primarily rely on MCA_STATUS_CS[ErrorCodeExt] to identify errors.",
+        "workaround": "None. Software should use MCA_STATUS_CS[ErrorCodeExt] to identify errors and ignore MCA_STATUS_CS[ErrorCode] RRRR value for the error types listed above.",
+        "status": "No fix planned"
+    },
+    "1235": {
+        "title": "Guest With AVIC (Advanced Virtual Interrupt Controller) Enabled May Fail to Process IPI (Inter-Processor Interrupt) Until Guest Is Re-Scheduled",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, if a guest with AVIC enabled is about to be de-scheduled by the hypervisor, it may fail to process an IPI until after the guest is re-scheduled.",
+        "implication": "A guest may not process an IPI until the guest is re-scheduled.",
+        "workaround": "None. Do not enable AVIC.",
+        "status": "No fix planned"
+    },
+    "1277": {
+        "title": "IOMMU May Mishandle Fault on Skipped Page Directory Entry Levels",
+        "problem": "When Guest Page Tables and Nested Page Tables are enabled, if a nested page table walk skips a PDE (Page Directory Entry) level when the virtual address bits are non-zero, the IOMMU may fail to abort the request, and fail to generate an IO page fault.",
+        "implication": "None expected. Properly coded software will program the virtual address bits associated with a skipped page level to all zero.",
+        "workaround": "Program the virtual address bits associated with a skipped page level to all zero.",
+        "status": "No fix planned"
+    },
+    "1286": {
+        "title": "Spurious #GP May Occur When Hypervisor Running on Another Hypervisor",
+        "problem": "The processor may incorrectly generate a #GP fault if a hypervisor running on a hypervisor attempts to access the following secure memory areas: \u2022 The reserved memory address region starting at FFFD_0000_0000h and extending up to FFFF_FFFF_FFFFh. \u2022 ASEG and TSEG memory regions for SMM (System Management Mode) \u2022 MMIO APIC Space",
+        "implication": "Software running a hypervisor on a hypervisor may encounter an unexpected #GP fault.",
+        "workaround": "If CPUID bit fn8000_000A EDX[28] = 0b, then: \u2022 Hypervisor software can trap #GP faults that potentially have this issue and ignore #GP faults that were erroneously generated. If CPUID bit fn8000_000A EDX[28] = 1b, then the issue has been fixed and no workaround is necessary.",
+        "status": "No fix planned"
+    },
+    "1288": {
+        "title": "A VDPPS Instruction May Fail to Record a Masked Exception in the MXCSR Register",
+        "problem": "A 256-bit VDPPS instruction will fail to record a masked exception in the MXCSR register when: \u2022 An unmasked exception is detected on one 128-bit section in the addition phase of the instruction, and \u2022 A masked exception is detected on the other 128-bit section in the addition phase of the instruction.",
+        "implication": "None expected.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1290": {
+        "title": "GMI (Global Memory Interface) Link May Hang Due to Failure To Retrain After Encountering CRC Errors",
+        "problem": "GMI Link may hang due to failure to retrain after encountering correctable CRC errors. As a result, the following system errors may be observed: \u2022 EX Watchdog Timeout (MCA::EX::MCA_STATUS_EX[ErrorCodeExt] = 0h) on one or more cores \u2022 PCIe Completion Timeout (PCIe Uncorrectable Error Status register bit 14 = 1b) \u2022 DF HW_ASSERT error (MCA::PIE::MCA_STATUS_PIE[ErrorCodeExt] = 0h) Any of the above errors may be preceded by one or more occurrences of the following error: \u2022 GMI correctable CRC errors (MCA::PIE::MCA_STATUS_PIE[ErrorCodeExt] = 2h, MCA::PIE::MCA_SYND_PIE[17] = 1b)",
+        "implication": "System may hang or reset.",
+        "workaround": "System software may contain a workaround for this issue.",
+        "status": "No fix planned"
+    },
+    "1291": {
+        "title": "Certain Performance Counters For Retire Based Events May Overcount",
+        "problem": "The processor may experience sampling inaccuracies that cause the following performance counters to overcount retire-based events. \u2022 PMCx0C0 [Retired Instructions] \u2022 PMCx0C1 [Retired Uops] \u2022 PMCx0C2 [Retired Branch Instructions] \u2022 PMCx0C3 [Retired Branch Instructions Mispredicted] \u2022 PMCx0C4 [Retired Taken Branch Instructions] \u2022 PMCx0C5 [Retired Taken Branch Instructions Mispredicted] \u2022 PMCx0C8 [Retired Near Returns] \u2022 PMCx0C9 [Retired Near Returns Mispredicted] \u2022 PMCx0CA [Retired Indirect Branch Instructions Mispredicted] \u2022 PMCx0D1 [Retired Conditional Branch Instructions] \u2022 PMCx1C7 [Retired Mispredicted Branch Instructions due to Direction Mismatch] \u2022 PMCx1D0 [Retired Fused Branch Instructions]",
+        "implication": "Inaccuracies in performance monitoring software may be experienced.",
+        "workaround": "None Software may enable another counter by setting PMC0x22[4] with a value of 1b. After reading the initial counter, if the second counter (with PMC0x22[4] set to 1b) is read and the count is zero, then the overcounting did not occur.",
+        "status": "No fix planned"
+    },
+    "1294": {
+        "title": "xHCI Controller May Drop Data of an Isochronous TD (Transfer Descriptor) During Isochronous Transfer",
+        "problem": "When an Evaluate Context Command modifies the Max Exit Latency value when an Isochronous transfer is in progress, the xHCI controller may drop the data of an Isochronous TD of the endpoint associated with the Device Slot targeted by the Evaluate Context Command. This may result in the xHCI issuing an MSE (Missed Service Error).",
+        "implication": "Isochronous Audio or Video transfers may experience momentary data loss within a 750 microsecond timeout window, after which isochronous transfer will resume.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1305": {
+        "title": "AHCI Controller Ignores COMINIT During HP6: HR_AwaitAlign State",
+        "problem": "In HP6: HR_AwaitAlign state, while the AHCI controller is awaiting valid ALIGN patterns from connected SATA device, it will not respond to COMINT issued by the connected SATA device.",
+        "implication": "If the attached SATA device sends COMINIT instead of valid ALIGN patterns in HP6:HR_AwaitAlign state, the AHCI controller will time out awaiting valid ALIGN patterns. Consequently the AHCI controller will re- initiate Out-of-band signaling sequence at the next highest supported speed. This may result in the attached SATA device running at the lower speed.",
+        "workaround": "None",
+        "status": "No fix planned"
+    },
+    "1308": {
+        "title": "Guests With AVIC (Advanced Virtual Interrupt Controller) Enabled May Not Be Able to Program Interrupt Controller",
+        "problem": "When AVIC (Advanced Virtual Interrupt Controller) is enabled, the processor may fail to redirect accesses to the AVIC backing page if the system PA (Physical Address) for APIC_BAR (Advanced Programmable Interrupt Controller Base Address Register) in the nested page table is an MMIO (Memory Mapped IO) address.",
+        "implication": "Guests with AVIC enabled may not be able to program the interrupt controller.",
+        "workaround": "Ensure that the system PA for APIC_BAR in the nested page table is not an MMIO address.",
+        "status": "No fix planned"
+    },
+    "1315": {
+        "title": "Two Processor System Configured With 3-link xGMI and Preferred IO Mode May Hang or Reset",
+        "problem": "A two processor system configured with 3-link xGMI and preferred IO mode may hang or reset.",
+        "implication": "System may hang or reset.",
+        "workaround": "System software may contain the workaround for this erratum.",
+        "status": "No fix planned"
+    }
+}

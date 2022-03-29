@@ -1,0 +1,1280 @@
+{
+    "CML001": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Reported Memory Type May Not Be Used to Access the VMCS and Referenced Data Structures"
+    ],
+    "CML002": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Instruction Fetch May Cause Machine Check if Page Size and Memory Type Was Changed Without Invalidation"
+    ],
+    "CML003": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Execution of VAESIMC or VAESKEYGENASSIST With An Illegal Value for VEX.vvvv May Produce a #NM Exception"
+    ],
+    "CML004": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "The Corrected Error Count Overflow Bit in IA32_ MC0_STATUS is Not Updated When The UC Bit is Set"
+    ],
+    "CML005": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "VM Exit May Set IA32_EFER.NXE When IA32_MISC_ENABLE Bit 34 is Set to 1"
+    ],
+    "CML006": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "SMRAM State-Save Area Above the 4 GB Boundary May Cause Unpredictable System Behavior"
+    ],
+    "CML007": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Pending x87 FPU Exceptions (#MF) May be Signaled Earlier Than Expected"
+    ],
+    "CML008": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Incorrect FROM_IP Value For an RTM Abort in BTM or BTS May be Observed"
+    ],
+    "CML009": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "DR6 Register May Contain an Incorrect Value When a MOV to SS or POP SS Instruction is Followed by an XBEGIN Instruction"
+    ],
+    "CML010": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Opcode Bytes F3 0F BC May Execute As TZCNT Even When TZCNT Not Enumerated by CPUID"
+    ],
+    "CML011": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "#GP on Segment Selector Descriptor that Straddles Canonical Boundary May Not Provide Correct Exception Error Code"
+    ],
+    "CML012": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "The SMSW Instruction May Execute Within an Enclave"
+    ],
+    "CML013": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "WRMSR to IA32_BIOS_UPDT_TRIG Concurrent With an SMX SENTER/SEXIT May Result in a System Hang"
+    ],
+    "CML014": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Intel\u00ae PT TIP.PGD May Not Have Target IP Payload"
+    ],
+    "CML015": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Operand-Size Override Prefix Causes 64-bit Operand Form of MOVBE Instruction to Cause a #UD"
+    ],
+    "CML016": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Execution of FXSAVE or FXRSTOR With the VEX Prefix May Produce a #NM Exception"
+    ],
+    "CML017": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "WRMSR May Not Clear The Sticky Count Overflow Bit in The IA32_MCi_STATUS MSRs\u2019 Corrected Error Count Field"
+    ],
+    "CML018": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "PEBS Eventing IP Field May be Incorrect After Not-Taken Branch"
+    ],
+    "CML019": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Debug Exceptions May Be Lost or Misreported Following WRMSR to IA32_BIOS_UPDT_TRIG"
+    ],
+    "CML020": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Complex Interactions With Internal Graphics May Impact Processor Responsiveness"
+    ],
+    "CML021": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Intel\u00ae Processor Trace PSB+ Packets May Contain Unexpected Packets"
+    ],
+    "CML022": [
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "Replaced by 2 Errata: CFL107 and CFL108"
+    ],
+    "CML023": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "VM Entry That Clears TraceEn May Generate a FUP"
+    ],
+    "CML024": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Performance Monitor Event For Outstanding Offcore Requests And Snoop Requests May be Incorrect"
+    ],
+    "CML025": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "ENCLU[EGETKEY] Ignores KEYREQUEST.MISCMASK"
+    ],
+    "CML026": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "POPCNT Instruction May Take Longer to Execute Than Expected"
+    ],
+    "CML027": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "ENCLU[EREPORT] May Cause a #GP When TARGETINFO.MISCSELECT is Non-Zero"
+    ],
+    "CML028": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "A VMX Transition Attempting to Load a Non-Existent MSR May Result in a Shutdown"
+    ],
+    "CML029": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Transitions Out of 64-bit Mode May Lead to an Incorrect FDP And FIP"
+    ],
+    "CML030": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Intel\u00ae PT FUP May be Dropped After OVF"
+    ],
+    "CML031": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "ENCLS[ECREATE] Causes #GP if Enclave Base Address is Not Canonical"
+    ],
+    "CML032": [
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "Replaced by Erratum:  118"
+    ],
+    "CML033": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Processor DDR VREF Signals May Briefly Exceed JEDEC Specification When Entering S3 State"
+    ],
+    "CML034": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "DR6.B0-B3 May Not Report All Breakpoints Matched When a MOV/POP SS is Followed by a Store or an MMX Instruction"
+    ],
+    "CML035": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "ENCLS[EINIT] Instruction May Unexpectedly #GP"
+    ],
+    "CML036": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Intel\u00ae PT OVF Packet May be Lost if Immediately Preceding a TraceStop"
+    ],
+    "CML037": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "WRMSR to IA32_BIOS_UPDT_TRIG May be Counted as Multiple Instructions"
+    ],
+    "CML038": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Branch Instructions May Initialize MPX Bound Registers Incorrectly"
+    ],
+    "CML039": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Writing a Non-Canonical Value to an LBR MSR Does Not Signal a #GP When Intel\u00ae PT is Enabled"
+    ],
+    "CML040": [
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A. Erratum has been removed"
+    ],
+    "CML041": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Intel\u00ae PT Buffer Overflow May Result in Incorrect Packets"
+    ],
+    "CML042": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Last Level Cache Performance Monitoring Events May Be Inaccurate"
+    ],
+    "CML043": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "#GP Occurs Rather Than #DB on Code Page Split Inside an Intel\u00ae SGX Enclave"
+    ],
+    "CML044": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Execution of VAESENCLAST Instruction May Produce a #NM Exception Instead of a #UD Exception"
+    ],
+    "CML045": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Intel\u00ae SGX Enclave Accesses to the APIC-Access Page May Cause APIC-Access VM Exits"
+    ],
+    "CML046": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "CR3 Filtering Does Not Compare Bits [11:5] of CR3 and IA32_RTIT_CR3_MATCH in PAE Paging Mode"
+    ],
+    "CML047": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "x87 FDP Value May be Saved Incorrectly"
+    ],
+    "CML048": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "PECI Frequency Limited to 1 MHz"
+    ],
+    "CML049": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Processor Graphics IOMMU Unit May Not Mask DMA Remapping Faults"
+    ],
+    "CML050": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Intel\u00ae PT CYCThresh Value of 13 is Not Supported"
+    ],
+    "CML051": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Enabling VMX-Preemption Timer Blocks HDC Operation"
+    ],
+    "CML052": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Integrated Audio Codec May Not be Detected"
+    ],
+    "CML053": [
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A. Erratum has been removed"
+    ],
+    "CML054": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Incorrect Branch Predicted Bit in BTS/BTM Branch Records"
+    ],
+    "CML055": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "MACHINE_CLEARS.MEMORY ORDERING Performance Monitoring Event May Undercount"
+    ],
+    "CML056": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "CTR_FRZ May Not Freeze Some Counters"
+    ],
+    "CML057": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Instructions And Branches Retired Performance Monitoring Events May Overcount"
+    ],
+    "CML058": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Some OFFCORE_RESPONSE Performance Monitoring Events May Overcount"
+    ],
+    "CML059": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Instructions Fetch #GP After RSM During Intel\u00ae PT May Push Incorrect RFLAGS Value on Stack"
+    ],
+    "CML060": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Access to SGX EPC Page in BLOCKED State is Not  062Reported as an SGX-Induced Page Fault"
+    ],
+    "CML061": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "MTF VM Exit on XBEGIN Instruction May Save State Incorrectly"
+    ],
+    "CML062": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Performance Monitoring Counters May Undercount When Using CPL Filtering"
+    ],
+    "CML063": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Certain Non-Canonical IA32_BNDCFGS Values Will Not Cause VM-Entry Failures"
+    ],
+    "CML064": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "PEBS Eventing IP Field May Be Incorrect Under Certain Conditions"
+    ],
+    "CML065": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "HWP\u2019s Guaranteed_Performance Updated Only on Configurable TDP Changes"
+    ],
+    "CML066": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "RF May be Incorrectly Set in The EFLAGS That is Saved on a Fault in PEBS or BTS"
+    ],
+    "CML067": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Intel\u00ae PT ToPA PMI Does Not Freeze Performance Monitoring Counters"
+    ],
+    "CML068": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "HWP\u2019s Maximum_Performance Value is Reset to 0xFF"
+    ],
+    "CML069": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "HWP\u2019s Guaranteed_Performance and Relevant Status/Interrupt May be Updated More Than Once Per Second"
+    ],
+    "CML070": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Some Memory Performance Monitoring Events May Produce Incorrect Results When Filtering on Either OS or USR Modes"
+    ],
+    "CML071": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "HWP May Generate Thermal Interrupt While Not Enabled"
+    ],
+    "CML072": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Camera Device Does Not Issue an MSI When INTx is Enabled"
+    ],
+    "CML073": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "BNDLDX And BNDSTX May Not Signal #GP on Non-Canonical Bound Directory Access"
+    ],
+    "CML074": [
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A. Erratum has been removed"
+    ],
+    "CML075": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Performance Monitoring Load Latency Events May Be Inaccurate For Gather Instructions"
+    ],
+    "CML076": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Some Bits in MSR_MISC_PWR_MGMT May be Updated on Writing Illegal Values to This MSR"
+    ],
+    "CML077": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Violations of Intel\u00ae Software Guard Extensions (Intel\u00ae SGX) Access-Control Requirements Produce #GP Instead of #PF"
+    ],
+    "CML078": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "IA32_RTIT_CR3_MATCH MSR Bits[11:5] Are Treated As Reserved"
+    ],
+    "CML079": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "The Intel\u00ae PT CR3 Filter is Not Re-evaluated on VM Entry"
+    ],
+    "CML080": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Display Slowness May be Observed Under Certain Display Commands Scenario"
+    ],
+    "CML081": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "CPUID TLB Associativity Information is Inaccurate"
+    ],
+    "CML082": [
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A. Erratum has been removed"
+    ],
+    "CML083": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Processor May Hang on Complex Sequence of Conditions"
+    ],
+    "CML084": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Potential Partial Trace Data Loss in Intel\u00ae Trace Hub ODLA When Storing to Memory."
+    ],
+    "CML085": [
+        "Fixed",
+        "Fixed",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "Display Artifacts May be Seen With High Bandwidth, Multiple Display Configurations"
+    ],
+    "CML086": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Spurious Corrected Errors May be Reported"
+    ],
+    "CML087": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Masked Bytes in a Vector Masked Store Instructions May Cause Write Back of a Cache Line"
+    ],
+    "CML088": [
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A. Erratum has been removed"
+    ],
+    "CML089": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "MOVNTDQA From WC Memory May Pass Earlier Locked Instructions"
+    ],
+    "CML090": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "PEBS Record After a WRMSR to IA32_BIOS_UPDT_TRIG May be Incorrect"
+    ],
+    "CML091": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Processor May Incorrectly Assert PROCHOT During PkgC10"
+    ],
+    "CML092": [
+        "Fixed",
+        "Fixed",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "eDP 1.4 Ports With Link Rate 2.16 or 4.32 GHz May Not Resume From Low Power Graphics or System States"
+    ],
+    "CML093": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Writing Non-Zero Values to Read Only Fields in IA32_THERM_STATUS MSR May Cause #GP"
+    ],
+    "CML094": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Precise Performance Monitoring May Generate Redundant PEBS Records"
+    ],
+    "CML095": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Load Latency Performance Monitoring Facility May Stop Counting"
+    ],
+    "CML096": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "SGX ENCLS[EINIT] May Not Signal an Error For an Incorrectly Formatted SIGSTRUCT Input"
+    ],
+    "CML097": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Branch Instruction Address May be Incorrectly Reported on TSX Abort When Using MPX"
+    ],
+    "CML098": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Setting Performance Monitoring IA32_PERF_GLOBAL_STATUS_SET MSR Bit 63 May Not #GP"
+    ],
+    "CML099": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Hitting a Code Breakpoint Inside a SGX Debug Enclave May Cause The Processor to Hang"
+    ],
+    "CML100": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Performance Monitoring ASCI Status Bit May be Inaccurate"
+    ],
+    "CML101": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Processor May Hang When Executing Code In an HLE Transaction Region"
+    ],
+    "CML102": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Intel\u00ae PT CYC Packets Can be Dropped When Immediately Preceding PSB"
+    ],
+    "CML103": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Intel\u00ae PT VM-entry Indication Depends on The Incorrect VMCS Control Field"
+    ],
+    "CML104": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Performance Monitor Event For Outstanding Offcore Requests May be Incorrect"
+    ],
+    "CML105": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "VCVTPS2PH To Memory May Update MXCSR in The Case of a Fault on The Store"
+    ],
+    "CML106": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Intel\u00ae PT May Drop All Packets After an Internal Buffer Overflow"
+    ],
+    "CML107": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Intel\u00ae PT ToPA Tables Read From Non-Cacheable Memory During an Intel\u00ae TSX Transaction May Lead to Processor Hang"
+    ],
+    "CML108": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Performing an XACQUIRE to an Intel\u00ae PT ToPA Table May Lead to Processor Hang"
+    ],
+    "CML109": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Data Breakpoint May Not be Detected on a REP MOVS"
+    ],
+    "CML110": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Intel\u00ae PT CYC Packets Can be Dropped When Immediately Preceding PSB"
+    ],
+    "CML111": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "When Virtualization Exceptions are Enabled, EPT Violations May Generate Erroneous Virtualization Exceptions"
+    ],
+    "CML112": [
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A. Erratum has been removed"
+    ],
+    "CML113": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Intel\u00ae PT Trace May Drop Second Byte of CYC Packet"
+    ],
+    "CML114": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Unexpected Uncorrected Machine Check Errors May Be Reported"
+    ],
+    "CML115": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Intel\u00ae PT PSB+ Packets May be Omitted on a C6 Transition"
+    ],
+    "CML116": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Intel\u00ae PT PacketEn Change on C-state Wake May Not Generate a TIP Packet"
+    ],
+    "CML117": [
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A. Erratum has been removed"
+    ],
+    "CML118": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Graphics VTd Hardware May Cache Invalid Entries"
+    ],
+    "CML119": [
+        "Fixed",
+        "Fixed",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "Executing Some Instructions May Cause Unpredictable Behavior"
+    ],
+    "CML120": [
+        "Fixed",
+        "Fixed",
+        "N/A",
+        "Fixed",
+        "N/A",
+        "Fixed",
+        "Processor May Behave Unpredictably on Complex Sequence of Conditions Which Involve Branches That Cross 64 Byte Boundaries"
+    ],
+    "CML121": [
+        "No Fix",
+        "No Fix",
+        "Fixed",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "A PMI That Freezes LBRs Can Cause a Duplicate Entry in TOS"
+    ],
+    "CML122": [
+        "Fixed",
+        "Fixed",
+        "N/A",
+        "Fixed",
+        "N/A",
+        "Fixed",
+        "Unexpected Page Faults in Guest Virtualization Environment"
+    ],
+    "CML123": [
+        "Fixed",
+        "Fixed",
+        "N/A",
+        "Fixed",
+        "N/A",
+        "Fixed",
+        "SGX Key Confidentiality May be Compromised"
+    ],
+    "CML124": [
+        "Fixed",
+        "Fixed",
+        "Fixed",
+        "Fixed",
+        "Fixed",
+        "Fixed",
+        "System May Hang Under Complex Conditions"
+    ],
+    "CML125": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Instruction Fetch May Cause Machine Check if Page Size Was Changed Without Invalidation"
+    ],
+    "CML126": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Incorrect ECC Errors Reporting Following Entry to PKG-C7"
+    ],
+    "CML127": [
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A. Erratum has been removed"
+    ],
+    "CML128": [
+        "N/A",
+        "N/A",
+        "N/A",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "PCIe* Port Does Not Support DLL Link Activity Reporting"
+    ],
+    "CML129": [
+        "N/A",
+        "N/A",
+        "N/A",
+        "No Fix",
+        "No Fix",
+        "N/A",
+        "Using Different Vendors For DDR4 UDIMMs 2400 MHz or Above May Cause Correctable Errors or a System Hang"
+    ],
+    "CML130": [
+        "N/A",
+        "N/A",
+        "N/A",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Two DIMMs Per Channel 2133MHz DDR4 SODIMM Daisy-Chain Systems With Different Vendors May Hang"
+    ],
+    "CML131": [
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A",
+        "N/A. Erratum had been removed"
+    ],
+    "CML132": [
+        "N/A",
+        "N/A",
+        "N/A",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Incorrect CPUID Reporting For Intel\u00ae Turbo Boost Max Technology 3.0 Capability"
+    ],
+    "CML133": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "PMU MSR_UNC_PERF_FIXED_CTR is Cleared After Pkg C7 or Deeper"
+    ],
+    "CML134": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Performance Monitoring General Counter 2 May Have Invalid Value Written When TSX Is Enabled"
+    ],
+    "CML135": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "A Pending Fixed Interrupt May Be Dispatched Before an Interrupt of The Same Priority Completes"
+    ],
+    "CML136": [
+        "Fixed",
+        "Fixed",
+        "Fixed",
+        "Fixed",
+        "Fixed",
+        "Fixed",
+        "VTd DMA Remapping Disable in Gfx IOMMU May Cause Display Artifacts or Flickering"
+    ],
+    "CML137": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Overflow Flag in IA32_MC0_STATUS MSR May be Incorrectly Set"
+    ],
+    "CML138": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Rare Internal Timing Conditions May Lead to Sporadic Hangs During Graphics VTd Flows"
+    ],
+    "CML139": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "VERR Instruction Inside VM-entry May Cause DR6 to Contain Incorrect Values"
+    ],
+    "CML140": [
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "No Fix",
+        "Processor May Hang if Warm Reset Triggers During BIOS Initialization"
+    ],
+    "CML141": [
+        "Fixed",
+        "Fixed",
+        "Fixed",
+        "Fixed",
+        "Fixed",
+        "Fixed",
+        "MD_CLEAR Operations May Not Properly Overwrite All Buffers"
+    ],
+    "CML142": [
+        "Fixed",
+        "Fixed",
+        "Fixed",
+        "Fixed",
+        "Fixed",
+        "Fixed",
+        "Processor May Return an Incorrect Brand String Value"
+    ]
+}

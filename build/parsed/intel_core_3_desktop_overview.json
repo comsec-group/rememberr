@@ -1,0 +1,814 @@
+{
+    "BV1": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "The Processor May Report a #TS Instead of a #GP Fault"
+    ],
+    "BV2": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "REP MOVS/STOS Executing with Fast Strings Enabled and Crossing Page Boundaries with Inconsistent Memory Types may use an Incorrect Data Size or Lead to Memory-Ordering Violations."
+    ],
+    "BV3": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "IO_SMI Indication in SMRAM State Save Area May be Set Incorrectly"
+    ],
+    "BV4": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor SSE Retired Instructions May Return Incorrect Values"
+    ],
+    "BV5": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "IRET under Certain Conditions May Cause an Unexpected Alignment Check Exception"
+    ],
+    "BV6": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitoring Event FP_MMX_TRANS_TO_MMX May Not Count Some Transitions"
+    ],
+    "BV7": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "General Protection Fault (#GP) for Instructions Greater than 15 Bytes May be Preempted"
+    ],
+    "BV8": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "LBR, BTS, BTM May Report a Wrong Address when an Exception/Interrupt Occurs in 64-bit Mode"
+    ],
+    "BV9": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Incorrect Address Computed For Last Byte of FXSAVE/FXRSTOR or XSAVE/XRSTOR Image Leads to Partial Memory Update"
+    ],
+    "BV10": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Values for LBR/BTS/BTM Will be Incorrect after an Exit from SMM"
+    ],
+    "BV11": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "EFLAGS Discrepancy on Page Faults and on EPT-Induced VM Exits after a Translation Change"
+    ],
+    "BV12": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "B0-B3 Bits in DR6 For Non-Enabled Breakpoints May be Incorrectly Set"
+    ],
+    "BV13": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "MCi_Status Overflow Bit May Be Incorrectly Set on a Single Instance of a DTLB Error"
+    ],
+    "BV14": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Debug Exception Flags DR6.B0-B3 Flags May be Incorrect for Disabled Breakpoints"
+    ],
+    "BV15": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "LER MSRs May Be Unreliable"
+    ],
+    "BV16": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Storage of PEBS Record Delayed Following Execution of MOV SS or STI"
+    ],
+    "BV17": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "PEBS Record not Updated when in Probe Mode"
+    ],
+    "BV18": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "MONITOR or CLFLUSH on the Local XAPIC's Address Space Results in Hang"
+    ],
+    "BV19": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Faulting MMX Instruction May Incorrectly Update x87 FPU Tag Word"
+    ],
+    "BV20": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "An Uncorrectable Error Logged in IA32_CR_MC2_STATUS May also Result in a System Hang"
+    ],
+    "BV21": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "#GP on Segment Selector Descriptor that Straddles Canonical Boundary May Not Provide Correct Exception Error Code"
+    ],
+    "BV22": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "DR6.B0-B3 May Not Report All Breakpoints Matched When a MOV/POP SS is Followed by a Store or an MMX Instruction"
+    ],
+    "BV23": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "APIC Error \u201cReceived Illegal Vector\u201d May be Lost"
+    ],
+    "BV24": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Changing the Memory Type for an In-Use Page Translation May Lead to Memory-Ordering Violations"
+    ],
+    "BV25": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Reported Memory Type May Not Be Used to Access the VMCS and Referenced Data Structures"
+    ],
+    "BV26": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "LBR, BTM or BTS Records May have Incorrect Branch From Information After an EIST/T-state/S-state/C1E Transition or Adaptive Thermal Throttling"
+    ],
+    "BV27": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Fault Not Reported When Setting Reserved Bits of Intel\u00ae VT-d Queued Invalidation Descriptors"
+    ],
+    "BV28": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "FP Data Operand Pointer May Be Incorrectly Calculated After an FP Access Which Wraps a 4-Gbyte Boundary in Code That Uses 32-Bit Address Size in 64-bit Mode"
+    ],
+    "BV29": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "VMREAD/VMWRITE Instructions May Not Fail When Accessing an Unsupported Field in VMCS"
+    ],
+    "BV30": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Spurious Interrupts May be Generated From the Intel\u00ae VT-d Remap Engine"
+    ],
+    "BV31": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Malformed PCIe Transactions May be Treated as Unsupported Requests Instead of as Critical Errors"
+    ],
+    "BV32": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Reception of Certain Malformed Transactions May Cause PCIe Port to Hang Rather Than Reporting an Error"
+    ],
+    "BV33": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Clock Modulation Duty Cycle Cannot be Programmed to 6.25%"
+    ],
+    "BV34": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Processor May Fail to Acknowledge a TLP Request"
+    ],
+    "BV35": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "An Unexpected PMI May Occur After Writing a Large Value to IA32_FIXED_CTR2"
+    ],
+    "BV36": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "A Write to the IA32_FIXED_CTR1 MSR May Result in Incorrect Value in Certain Conditions"
+    ],
+    "BV37": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* LTR Incorrectly Reported as Being Supported"
+    ],
+    "BV38": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "PerfMon Overflow Status Can Not be Cleared After Certain Conditions Have Occurred"
+    ],
+    "BV39": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "#GP May be Signaled When Invalid VEX Prefix Precedes Conditional Branch Instructions"
+    ],
+    "BV40": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Interrupt From Local APIC Timer May Not Be Detectable While Being Delivered"
+    ],
+    "BV41": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "PCI Express* Differential Peak-Peak Tx Voltage Swing May Violate the Specification"
+    ],
+    "BV42": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "PCMPESTRI, PCMPESTRM, VPCMPESTRI and VPCMPESTRM Always Operate with 32-bit Length Registers"
+    ],
+    "BV43": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Multiple Performance Monitor Interrupts are Possible on Overflow of Fixed Counter 0"
+    ],
+    "BV44": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "IA32_FEATURE_CONTROL MSR May be Uninitialized on a Cold Reset"
+    ],
+    "BV45": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "DR6.B0-B3 May Not Report All Breakpoints Matched When a MOV/POP SS is Followed by a REP MOVSB or STOSB"
+    ],
+    "BV46": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Setting Hardware Autonomous Speed Disable Configuration Bit Will Block Initial Speed Upgrade"
+    ],
+    "BV47": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "LTR Message is Not Treated as an Unsupported Request"
+    ],
+    "BV48": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "64-bit REP MOVSB/STOSB May Clear The Upper 32-bits of RCX, RDI And RSI Before Any Data is Transferred"
+    ],
+    "BV49": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "An Interrupt Recognized Prior to First Iteration of REP MOVSB/STOSB May Result EFLAGS.RF Being Incorrectly Set"
+    ],
+    "BV50": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Accessing Physical Memory Space 0-640K through the Graphics Aperture May Cause Unpredictable System Behavior"
+    ],
+    "BV51": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "PEBS May Unexpectedly Signal a PMI After The PEBS Buffer is Full"
+    ],
+    "BV52": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Instructions Retired Event May Over Count Execution of IRET Instructions"
+    ],
+    "BV53": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Link May Unexpectedly Exit Loopback State"
+    ],
+    "BV54": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "The RDRAND Instruction Will Not Execute as Expected"
+    ],
+    "BV55": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "A PCIe* Device That Initially Transmits Minimal Posted Data Credits May Cause a System Hang"
+    ],
+    "BV56": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "PCI Express* Gen3 Receiver Return Loss May Exceed Specifications"
+    ],
+    "BV57": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Direct Access Via VT-d to The Processor Graphics Device May Lead to a System Hang"
+    ],
+    "BV58": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "An Event May Intervene Before a System Management Interrupt That Results from IN or INS"
+    ],
+    "BV59": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* May Associate Lanes That Are Not Part of Initial Link Training to L0 During Upconfiguration"
+    ],
+    "BV60": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "The Processor May Not Comply With PCIe* Equalization Preset Reflection Requirements for 8 GT/s Mode of Operation"
+    ],
+    "BV61": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Processor May Issue PCIe* EIEOS at Incorrect Rate"
+    ],
+    "BV62": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Reduced Swing Output Mode Needs Zero De-emphasis to be Supported in PCIe* 5GT/s Speed"
+    ],
+    "BV63": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Root-port Initiated Compliance State Transmitter Equalization Settings May be Incorrect"
+    ],
+    "BV64": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Controller May Incorrectly Log Errors on Transition to RxL0s"
+    ],
+    "BV65": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Reception of Certain Malformed Transactions May Cause PCIe* Port to Hang Rather Than Reporting an Error"
+    ],
+    "BV66": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Link Width May Degrade After a Warm Reset"
+    ],
+    "BV67": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "MSR_PKG_Cx_RESIDENCY MSRs May Not be Accurate"
+    ],
+    "BV68": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Link May Not Enter Loopback.Active When Directed"
+    ],
+    "BV69": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Execution of VAESIMC or VAESKEYGENASSIST With An Illegal Value for VEX.vvvv May Produce a #NM Exception"
+    ],
+    "BV70": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Unexpected #UD on VZEROALL/VZEROUPPER"
+    ],
+    "BV71": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Root Port May Not Initiate Link Speed Change"
+    ],
+    "BV72": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Successive Fixed Counter Overflows May be Discarded"
+    ],
+    "BV73": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Execution of FXSAVE or FXRSTOR With the VEX Prefix May Produce a #NM Exception"
+    ],
+    "BV74": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "VM Exits Due to \u201cNMI-Window Exiting\u201d May Not Occur Following a VM Entry to the Shutdown State"
+    ],
+    "BV75": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Execution of INVVPID Outside 64-Bit Mode Cannot Invalidate Translations For 64-Bit Linear Addresses"
+    ],
+    "BV76": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Controller May Not Properly Indicate Link Electrical Idle Condition"
+    ],
+    "BV77": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Controller May Not Enter Loopback"
+    ],
+    "BV78": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Link Margin Characterization May Hang Link"
+    ],
+    "BV79": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Unused PCIe* Lanes May Report Correctable Errors"
+    ],
+    "BV80": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "RDMSR of IA32_PERFEVTSEL{4-7} May Return Erroneous Information"
+    ],
+    "BV81": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Link May Fail Link Width Upconfiguration"
+    ],
+    "BV82": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Graphics L3 Cache Parity Errors May Not be Detected"
+    ],
+    "BV83": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "A PCIe* Link That is in Link Disable State May Prevent DDR I/O Buffers From Entering a Power Gated State"
+    ],
+    "BV84": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "REP MOVSB May Incorrectly Update ECX, ESI, and EDI"
+    ],
+    "BV85": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Performance-Counter Overflow Indication May Cause Undesired Behavior"
+    ],
+    "BV86": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "RDMSR of IA32_PERFEVTSEL4-7 May Return an Incorrect Result"
+    ],
+    "BV87": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "VEX.L is Not Ignored with VCVT*2SI Instructions"
+    ],
+    "BV88": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Concurrently Changing the Memory Type and Page Size May Lead to a System Hang"
+    ],
+    "BV89": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "MCI_ADDR May be Incorrect For Cache Parity Errors"
+    ],
+    "BV90": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "During Package Power States Repeated PCIe* and/or DMI L1 Transitions May Cause a System Hang"
+    ],
+    "BV91": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Instruction Fetches Page-Table Walks May be Made Speculatively to Uncacheable Memory"
+    ],
+    "BV92": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "The Processor May Not Properly Execute Code Modified Using A Floating-Point Store"
+    ],
+    "BV93": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Execution of GETSEC[SEXIT] May Cause a Debug Exception to be Lost"
+    ],
+    "BV94": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "VM Exits Due to GETSEC May Save an Incorrect Value for \u201cBlocking by STI\u201d in the Context of Probe-Mode Redirection"
+    ],
+    "BV95": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Specific Graphics Blitter Instructions May Result in Unpredictable Graphics Controller Behavior"
+    ],
+    "BV96": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "IA32_MC5_CTL2 is Not Cleared by a Warm Reset"
+    ],
+    "BV97": [
+        "X",
+        "X",
+        "X",
+        "NO Fix",
+        "CPUID Instruction May Not Report the Processor Number in the Brand String for Intel\u00ae CoreTM i3-3227U and i5-3337U Processors."
+    ],
+    "BV98": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Counters May Produce Incorrect Results"
+    ],
+    "BV99": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "The Corrected Error Count Overflow Bit in IA32_ MC0_STATUS is Not Updated When The UC Bit is Set"
+    ],
+    "BV100": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Spurious VT-d Interrupts May Occur When the PFO Bit is Set"
+    ],
+    "BV101": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Processor May Livelock During On Demand Clock Modulation"
+    ],
+    "BV102": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "IA32_VMX_VMCS_ENUM MSR (48AH) Does Not Properly Report The Highest Index Value Used For VMCS Encoding"
+    ],
+    "BV103": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "The Upper 32 Bits of CR3 May be Incorrectly Used With 32-Bit Paging"
+    ],
+    "BV104": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "EPT Violations May Report Bits 11:0 of Guest Linear Address Incorrectly"
+    ],
+    "BV105": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "This repeated erratum has been removed"
+    ],
+    "BV106": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "DMA Remapping Faults for the Graphics VT-d Unit May Not Properly Report Type of Faulted Request"
+    ],
+    "BV107": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Intel\u00ae Trusted Execution Technology ACM Authentication Failure"
+    ],
+    "BV108": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Virtual-APIC Page Accesses With 32-Bit PAE Paging May Cause a System Crash"
+    ],
+    "BV109": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Address Translation Faults for Intel\u00ae VT-d May Not be Reported for Display Engine Memory Accesses"
+    ],
+    "BV110": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "VM Exit May Set IA32_EFER.NXE When IA32_MISC_ENABLE Bit 34 is Set to 1"
+    ],
+    "BV111": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "A MOV to CR3 When EPT is Enabled May Lead to an Unexpected Page Fault or an Incorrect Page Translation"
+    ],
+    "BV112": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Instructions Retired Event May Not Count Consistently"
+    ],
+    "BV113": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "Instruction Fetch May Cause Machine Check if Page Size and Memory Type Was Changed Without Invalidation"
+    ],
+    "BV114": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "High Frequency Noise on DDR SMBus Signals May Prevent Proper Detection of Memory"
+    ],
+    "BV115": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "PCIe* Port Does Not Support DLL Link Activity Reporting"
+    ],
+    "BV116": [
+        "X",
+        "X",
+        "X",
+        "No Fix",
+        "MOVNTDQA From WC Memory May Pass Earlier Locked Instructions"
+    ]
+}

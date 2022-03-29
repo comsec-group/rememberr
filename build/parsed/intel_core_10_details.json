@@ -1,0 +1,919 @@
+{
+    "CML001": {
+        "title": " Reported Memory Type May Not Be Used to Access the VMCS and Referenced Data Structures",
+        "problem": "Bits 53:50 of the IA32_VMX_BASIC MSR report the memory type that the processor uses to access the VMCS and data structures referenced by pointers in the VMCS. Due to this erratum, a VMX access to the VMCS or referenced data structures will instead use the memory type that the memory-type range registers (MTRRs) specify for the physical address of the access.",
+        "implication": "Bits 53:50 of the IA32_VMX_BASIC MSR report that the write-back (WB) memory type is used but the processor may use a different memory type.",
+        "workaround": "Software should ensure that the VMCS and referenced data structures are located at physical addresses that are mapped to WB memory type by the MTRRs.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML002": {
+        "title": " Instruction Fetch May Cause Machine Check if Page Size and Memory Type Was Changed Without Invalidation",
+        "problem": "This erratum may cause a machine-check error (IA32_MCi_STATUS.MCACOD=0150H) on the fetch of an instruction that crosses a 4-KByte address boundary. It applies only if (1) the 4- KByte linear region on which the instruction begins is originally translated using a 4-KByte page with the WB memory type; (2) the paging structures are later modified so that linear region is translated using a large page (2-MByte, 4-MByte, or 1-GByte) with the UC memory type; and (3) the instruction fetch occurs after the paging-structure modification but before software invalidates any TLB entries for the linear region.",
+        "implication": "Due to this erratum an unexpected machine check with error code 0150H may occur, possibly resulting in a shutdown. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "Software should not write to a paging-structure entry in a way that would change, for any linear address, both the page size and the memory type. It can instead use the following algorithm: first clear the P flag in the relevant paging-structure entry (Example: PDE); then invalidate any translations for the affected linear addresses; and then modify the relevant paging-structure entry to set the P flag and establish the new page size and memory type.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML003": {
+        "title": "Execution of VAESIMC or VAESKEYGENASSIST With An Illegal Value for VEX.vvvv May Produce a #NM Exception",
+        "problem": "The VAESIMC and VAESKEYGENASSIST instructions should produce a #UD (Invalid-Opcode) exception if the value of the vvvv field in the VEX prefix is not 1111b. Due to this erratum, if CR0.TS is \u201c1\u201d, the processor may instead produce a #NM (Device-Not-Available) exception.",
+        "implication": "Due to this erratum, some undefined instruction encodings may produce a #NM instead of a #UD exception.",
+        "workaround": "Software should always set the vvvv field of the VEX prefix to 1111b for instances of the VAESIMC and VAESKEYGENASSIST instructions.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML004": {
+        "title": "The Corrected Error Count Overflow Bit in IA32_ MC0_STATUS is Not Updated, When The UC Bit is Set",
+        "problem": "After a uncorrected (UC) error is logged in the IA32_MC0_STATUS MSR (401H), corrected errors continues to be counted in the lower 14 bits (bits 51:38) of the Corrected Error Count. Due to this erratum, the sticky count overflow bit (bit 52) of the Corrected Error Count will not get updated, when the UC bit (bit 61) is set to 1.",
+        "implication": "The Corrected Error Count Overflow indication is lost if the overflow occurs after an uncorrectable error has been logged.",
+        "workaround": "None identified",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML005": {
+        "title": "VM Exit May Set IA32_EFER.NXE when IA32_MISC_ENABLE Bit 34 is Set to 1",
+        "problem": "When \u201cXD Bit Disable\u201d in the IA32_MISC_ENABLE MSR (1A0H) bit 34 is set to 1, it should not be possible to enable the \u201cexecute disable\u201d feature by setting IA32_EFER.NXE. Due to this erratum, a VM exit that occurs with the 1-setting of the \u201cload IA32_EFER\u201d VM-exit control may set IA32_EFER.NXE, even if IA32_MISC_ENABLE bit 34 is set to 1. This erratum can occur only if IA32_MISC_ENABLE bit 34 was set by guest software in VMX non-root operation.",
+        "implication": "Software in VMX root operation may execute with the \u201cexecute disable\u201d feature enabled despite the fact that the feature should be disabled by the IA32_MISC_ENABLE MSR. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "A virtual-machine monitor should not allow guest software to write to the IA32_MISC_ENABLE MSR",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML006": {
+        "title": "SMRAM State-Save Area Above the 4 GB Boundary May Cause Unpredictable System Behavior",
+        "problem": "If BIOS uses the RSM instruction to load the SMBASE register with a value that would cause any part of the SMRAM state-save area to have an address above 4-GBytes, subsequent transitions into and out of system-management mode (SMM) might save and restore processor state from incorrect addresses.",
+        "implication": "This erratum may cause unpredictable system behavior. Intel has not observed this erratum with any commercially available system.",
+        "workaround": "Ensure that the SMRAM state-save area is located entirely below the 4 GB address boundary.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML007": {
+        "title": "Pending x87 FPU Exceptions (#MF) May be Signaled Earlier Than Expected",
+        "problem": "x87 instructions that trigger #MF normally service interrupts before the #MF. Due to this erratum, if an instruction that triggers #MF is executing when an Enhanced Intel SpeedStep \u00ae Technology transitions, an Intel \u00ae Turbo Boost Technology transitions, or a Thermal Monitor events occurs, the #MF may be taken before pending interrupts are serviced.",
+        "implication": "Software may observe #MF being signaled before pending interrupts are serviced.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML008": {
+        "title": "Incorrect FROM_IP Value For an RTM Abort in BTM or BTS May be Observed",
+        "problem": "During Restricted Transactional Memory (RTM) operation when branch tracing is enabled using Branch Trace Message (BTM) or Branch Trace Store (BTS), the incorrect EIP value (From_IP pointer) may be observed for an RTM abort.",
+        "implication": "Due to this erratum, the From_IP pointer may be the same as that of the immediately preceding taken branch.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML009": {
+        "title": "DR6 Register May Contain an Incorrect Value When a MOV to SS or POP SS Instruction is Followed by an XBEGIN Instruction",
+        "problem": "If XBEGIN is executed immediately after an execution of MOV to SS or POP SS, a transactional abort occurs and the logical processor restarts execution from the fallback instruction address. If execution of the instruction at that address causes a debug exception, bits [3:0] of the DR6 register may contain an incorrect value.",
+        "implication": "When the instruction at the fallback instruction address causes a debug exception, DR6 may report a breakpoint that was not triggered by that instruction, or it may fail to report a breakpoint that was triggered by the instruction.",
+        "workaround": "Avoid following a MOV SS or POP SS instruction immediately with an XBEGIN instruction.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML010": {
+        "title": "Opcode Bytes F3 0F BC May Execute As TZCNT Even When TZCNT Not Enumerated by CPUID",
+        "problem": "If CPUID.(EAX=07H, ECX=0):EBX.BMI1 (bit 3) is 1 then opcode bytes F3 0F BC should be interpreted as TZCNT otherwise they are interpreted as REP BSF. Due to this erratum, opcode bytes F3 0F BC may execute as TZCNT even if CPUID.(EAX=07H, ECX=0):EBX.BMI1 (bit 3) is 0.",
+        "implication": "Software that expects REP prefix before a BSF instruction to be ignored may not operate correctly since there are cases in which BSF and TZCNT differ with regard to the flags that are set and how the destination operand is established.",
+        "workaround": "Software should use the opcode bytes F3 0F BC only if CPUID.(EAX=07H, ECX=0):EBX.BMI1 (bit 3) is 1 and only if the functionality of TZCNT (and not BSF) is desired.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML011": {
+        "title": "#GP on Segment Selector Descriptor that Straddles Canonical Boundary May Not Provide Correct Exception Error Code",
+        "problem": "During a # General Protection Exception (GPE), the processor pushes an error code on to the exception handler\u2019s stack. If the segment selector descriptor straddles the canonical boundary, the error code pushed onto the stack may be incorrect.",
+        "implication": "An incorrect error code may be pushed onto the stack. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML012": {
+        "title": "The SMSW Instruction May Execute Within an Enclave",
+        "problem": "The SMSW instruction is illegal within a Intel \u00ae Software Guard Extensions (Intel \u00ae SGX) enclave, and an attempt to execute it within an enclave should result in a #UD (invalid- opcode exception). Due to this erratum, the instruction executes normally within an enclave and does not cause a #UD.",
+        "implication": "The SMSW instruction provides access to CR0 bits 15:0 and provides that information inside an enclave. These bits include NE, ET, TS, EM, MP and PE.",
+        "workaround": "None identified. If SMSW execution inside an enclave is unacceptable, system software should not enable SGX.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML013": {
+        "title": "WRMSR to IA32_BIOS_UPDT_TRIG Concurrent With an SMX SENTER/SEXIT May Result in a System Hang",
+        "problem": "Performing WRMSR to IA32_BIOS_UPDT_TRIG (MSR 79H) on a logical processor while another logical processor is executing an Safer Mode Extensions (SMX) SENTER/SEXIT operation (GETSEC[SENTER] or GETSEC[SEXIT] instruction) may cause the processor to hang.",
+        "implication": "When this erratum occurs, the system hangs. Intel has not observed this erratum with any commercially available system.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML014": {
+        "title": "Intel \u00ae PT TIP.PGD May Not Have Target IP Payload",
+        "problem": "When Intel \u00ae Processor Trace (Intel \u00ae PT) is enabled and a direct unconditional branch clears IA32_RTIT_STATUS.FilterEn (MSR 571H, bit 0), due to this erratum, the resulting Target IP Packet, Packet Generation Disable (TIP.PGD) may not have an IP payload with the target IP.",
+        "implication": "It may not be possible to tell which instruction in the flow caused the TIP.PGD using only the information in trace packets when this erratum occurs.",
+        "workaround": "The Intel \u00ae PT trace decoder can compare direct unconditional branch targets in the source with the FilterEn address range(s) to determine which branch cleared FilterEn.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML015": {
+        "title": "Operand-Size Override Prefix Causes 64-bit Operand Form of MOVBE Instruction to Cause a #UD",
+        "problem": "Execution of a 64-bit operand MOVBE instruction with an operand-size override instruction prefix (66H) may incorrectly cause an invalid-opcode exception (#UD).",
+        "implication": "A MOVBE instruction with both REX.W=1 and a 66H prefix will unexpectedly cause an #UD (invalid-opcode exception). Intel has not observed this erratum with any commercially available software.",
+        "workaround": "Do not use a 66H instruction prefix with a 64-bit operand MOVBE instruction.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML016": {
+        "title": "Execution of FXSAVE or FXRSTOR With the VEX Prefix May Produce a #NM Exception",
+        "problem": "Attempt to use FXSAVE or FXRSTOR with a VEX prefix should produce a #UD (Invalid- Opcode) exception. If either the TS or EM flag bits in CR0 are set, a #NM (device-not- available) exception is raised instead of #UD exception.",
+        "implication": "Due to this erratum a #NM exception may be signaled instead of a #UD exception on an FXSAVE or an FXRSTOR with a VEX prefix.",
+        "workaround": "Software should not use FXSAVE or FXRSTOR with the VEX prefix.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML017": {
+        "title": "WRMSR May Not Clear The Sticky Count Overflow Bit in The IA32_MCi_STATUS MSRs Corrected Error Count Field",
+        "problem": "The sticky count overflow bit is the most significant bit (bit 52) of the Corrected Error Count Field (bits[52:38]) in IA32_MCi_STATUS MSRs. Once set, the sticky count overflow bit may not be cleared by a WRMSR instruction. When this occurs, that bit can only be cleared by power-on reset.",
+        "implication": "Software that uses the Corrected Error Count field and expects to be able to clear the sticky count overflow bit may misinterpret the number of corrected errors when the sticky count overflow bit is set. This erratum does not affect threshold-based Corrected Machine Check Error Interrupt (CMCI) signaling.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML018": {
+        "title": "PEBS Eventing IP Field May be Incorrect After Not-Taken Branch",
+        "problem": "When a Precise-Event-Based-Sampling (PEBS) record is logged immediately after a not-taken conditional branch (Jcc instruction), the Eventing IP field should contain the address of the first byte of the Jcc instruction. Due to this erratum, it may instead contain the address of the instruction preceding the Jcc instruction.",
+        "implication": "Performance monitoring software using PEBS may incorrectly attribute PEBS events that occur on a Jcc to the preceding instruction.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML019": {
+        "title": "Debug Exceptions May Be Lost or Misreported Following WRMSR to IA32_BIOS_UPDT_TRIG",
+        "problem": "If the WRMSR instruction writes to the IA32_BIOS_UPDT_TRIG MSR (79H) immediately after an execution of MOV SS or POP SS that generated a debug exception, the processor may fail to deliver the debug exception or, if it does, the DR6 register contents may not correctly reflect the causes of the debug exception.",
+        "implication": "Debugging software may fail to operate properly, if a debug exception is lost or does not report complete information.",
+        "workaround": "Software should avoid using WRMSR instruction immediately after executing MOV SS or POP SS",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML020": {
+        "title": "Complex Interactions With Internal Graphics May Impact Processor Responsiveness",
+        "problem": "Under complex conditions associated with the use of internal graphics, the processor may exceed the MAX_LAT CSR values (PCI configuration space, offset 03FH, bits[7:0]).",
+        "implication": "When this erratum occurs, the processor responsiveness is affected. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML021": {
+        "title": "Intel \u00ae Processor Trace PSB+ Packets May Contain Unexpected Packets",
+        "problem": "Some Intel \u00ae Processor Trace packets should be issued only between Target IP Packet.Packet Generation Enable (TIP.PGE) and Target IP Packet. Generation Disable (TIP.PGD) packets. Due to this erratum, when a TIP.PGE packet is generated it may be preceded by a Packet Stream Boundary (PSB) that incorrectly includes Flow Update Packet (FUP) and MODE.Exec packets.",
+        "implication": "Due to this erratum, FUP and MODE.Exec may be generated unexpectedly.",
+        "workaround": "Decoders should ignore FUP and MODE.Exec packets that are not between TIP.PGE and TIP.PGD packets.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML023": {
+        "title": "VM Entry That Clears TraceEn May Generate a FUP",
+        "problem": "If VM entry clears Intel \u00ae Processor Trace (Intel \u00ae PT) IA32_RTIT_CTL.TraceEn (MSR 570H, bit 0) while PacketEn is 1 then a Flow Update Packet (FUP) precedes the Target IP Packet, Packet Generation Disable (TIP.PGD). VM entry can clear TraceEn if the VM-entry MSR-load area includes an entry for the IA32_RTIT_CTL MSR.",
+        "implication": "When this erratum occurs, an unexpected FUP may be generated that creates the appearance of an asynchronous event take place immediately before or during the VM entry.",
+        "workaround": "The Intel \u00ae PT trace decoder may opt to ignore any FUP whose IP matches that of a VM entry instruction.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML024": {
+        "title": "Performance Monitor Event For Outstanding Offcore Requests And Snoop Requests May be Incorrect",
+        "problem": "The performance monitor event OFFCORE_REQUESTS_OUTSTANDING (Event 60 H, any Umask Value) should count the number of offcore outstanding transactions each cycle. Due to this erratum, the counts may be higher or lower than expected.",
+        "implication": "The performance monitor event OFFCORE_REQUESTS_OUTSTANDING may reflect an incorrect count.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML025": {
+        "title": "ENCLU[EGETKEY] Ignores KEYREQUEST.MISCMASK",
+        "problem": "The Software Guard Extensions (Intel \u00ae SGX) ENCLU[EGETKEY] instruction ignores the MISCMASK field in KEYREQUEST structure when computing a provisioning key, a provisioning seal key, or a seal key.",
+        "implication": "ENCLU[EGETKEY] returns the same key in response to two requests that differ only in the value of KEYREQUEST.MISCMASK. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "When executing the ENCLU[EGETKEY] instruction, software should ensure the bits set in KEYREQUEST.MISCMASK are a subset of the bits set in the current SECS\u2019s MISCSELECT field.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML026": {
+        "title": "POPCNT Instruction May Take Longer to Execute Than Expected",
+        "problem": "POPCNT instruction execution with a 32 or 64-bit operand may be delayed until previous non-dependent instructions have executed.",
+        "implication": "Software using the POPCNT instruction may experience lower performance than expected.",
+        "workaround": "None identified",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML027": {
+        "title": "ENCLU[EREPORT] May Cause a #GP When TARGETINFO.MISCSELECT is Non-Zero",
+        "problem": "The Software Guard extensions (Intel \u00ae SGX) ENCLU[EREPORT] instruction may cause a # general protection (GP) fault, if any bit is set in TARGETINFO structure\u2019s MISCSELECT field.",
+        "implication": "This erratum may cause unexpected general-protection exceptions inside enclaves.",
+        "workaround": "When executing the ENCLU[EREPORT] instruction, software should ensure the bits set in TARGETINFO.MISCSELECT are a subset of the bits set in the current SECS\u2019s MISCSELECT field.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML028": {
+        "title": "A VMX Transition Attempting to Load a Non-Existent MSR May Result in a Shutdown",
+        "problem": "A VMX transition may result in a shutdown (without generating a machine-check event) if a non-existent MSR is included in the associated MSR-load area. When such a shutdown occurs, a machine check error is logged with IA32_MCi_STATUS.MCACOD (bits [15:0]) of 406H, but the processor does not issue the special shutdown cycle. A hardware reset must be used to restart the processor.",
+        "implication": "Due to this erratum, the hypervisor may experience an unexpected shutdown.",
+        "workaround": "Software should not configure VMX transitions to load non-existent MSRs.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML029": {
+        "title": "Transitions Out of 64-bit Mode May Lead to an Incorrect FDP And FIP",
+        "problem": "A transition from 64-bit mode to compatibility or legacy modes may result in cause a subsequent x87 FPU state save to zeroing bits [63:32] of the FDP (x87 FPU Data Pointer Offset) and the FIP (x87 FPU Instruction Pointer Offset).",
+        "implication": "Leaving 64-bit mode may result in incorrect FDP and FIP values, when x87 FPU state is saved.",
+        "workaround": "None identified. 64-bit software should save x87 FPU state before leaving 64-bit mode if it needs to access the FDP and/or FIP values.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML030": {
+        "title": "Intel \u00ae PT FUP May be Dropped After OVF",
+        "problem": "Some Intel Processor Trace (Intel \u00ae PT) Overflow (OVF) packets may not be followed by a Flow Update Packet (FUP) or Target IP Packet, Packet Generation Enable (TIP.PGE).",
+        "implication": "When this erratum occurs, an unexpected packet sequence is generated.",
+        "workaround": "When it encounters an OVF without a following FUP or TIP.PGE, the Intel \u00ae PT trace decoder should scan for the next TIP, TIP.PGE, or PSB+ to resume operation.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML031": {
+        "title": "ENCLS[ECREATE] Causes #GP if Enclave Base Address is Not Canonical",
+        "problem": "The ENCLS[ECREATE] instruction uses an SGX enclave control structure (SECS) referenced by the SRCPAGE pointer in the PAGEINFO structure, which is referenced by the RBX register. Due to this erratum, the instruction causes a # general-protection (GP) fault, if the SECS attributes indicate that the enclave should operate in 64-bit mode and the enclave base linear address in the SECS is not canonical.",
+        "implication": "System software incurs a general-protection fault if it mistakenly programs the SECS with a non-canonical address. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "System software should always specify a canonical address as the base address of the 64-bit mode enclave.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML033": {
+        "title": "Processor DDR VREF Signals May Briefly Exceed JEDEC Specifications When Entering S3 State",
+        "problem": "Voltage glitch of up to 200 mV on the VREF signal lasting for about 1 mS may be observed, when entering System S3 state. This violates the JEDEC DDR specifications.",
+        "implication": "Intel has not observed this erratum to impact the operation of any commercially available system.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML034": {
+        "title": "DR6.B0-B3 May Not Report All Breakpoints Matched When a MOV/POP SS is Followed by a Store or an MMX Instruction",
+        "problem": "Normally, data breakpoints matches that occur on a MOV SS, r/m or POP SS will not cause a debug exception immediately after MOV/POP SS but is delayed until the instruction boundary following the next instruction is reached. After the debug exception occurs, DR6.B0-B3 bits contains information about data breakpoints matched during the MOV/POP SS as well as breakpoints detected by the following instruction. Due to this erratum, DR6.B0-B3 bits may not contain information about data breakpoints matched during the MOV/POP SS when the following instruction is either an MMX instruction that uses a memory-addressing mode with an index or a store instruction.",
+        "implication": "When this erratum occurs, DR6 may not contain information about all breakpoints matched. This erratum is not observed under the recommended usage of the MOV SS, r/m or POP SS instructions (i.e., following them only with an instruction that writes (E/R)SP).",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML035": {
+        "title": "ENCLS[EINIT] Instruction May Unexpectedly #GP",
+        "problem": "When using Intel \u00ae Software Guard Extensions (Intel \u00ae SGX), the ENCLS[EINIT] instruction will incorrectly cause a # general protection fault (GP) if the MISCSELECT field of the SIGSTRUCT structure is not zero.",
+        "implication": "This erratum may cause an unexpected #GP, but only if software has set bits in the MISCSELECT field in SIGSTRUCT structure that do not correspond to extended features that is written to the MISC region of the State Save Area (SSA). Intel has not observed this erratum with any commercially available software.",
+        "workaround": "When executing the ENCLS[EINIT] instruction, software should only set bits in the MISCSELECT field in the SIGSTRUCT structure that are enumerated as 1 by CPUID.(EAX=12H,ECX=0):EBX (the bit vector of extended features that is written to the MISC region of the SSA).",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML036": {
+        "title": "Intel \u00ae PT OVF Packet May be Lost if Immediately Preceding a TraceStop",
+        "problem": "If an Intel \u00ae Processor Trace (Intel \u00ae PT) internal buffer overflow occurs immediately before software executes a taken branch or event that enters an Intel \u00ae PT TraceStop region, the Overflow (OVF) packet may be lost.",
+        "implication": "The trace decoder do not view the OVF packet, nor any subsequent packets (Example: TraceStop) that were lost due to overflow.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML037": {
+        "title": "WRMSR to IA32_BIOS_UPDT_TRIG May be Counted as Multiple Instructions",
+        "problem": "When software loads a microcode update by writing to MSR IA32_BIOS_UPDT_TRIG (79 H) on multiple logical processors in parallel, a logical processor may, due to this erratum, count the WRMSR instruction as multiple instruction-retired events.",
+        "implication": "Performance monitoring with the instruction-retired event may over count by up to four extra events per instance of WRMSR, which targets the IA32_BIOS_UPDT_TRIG register.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML038": {
+        "title": "Branch Instructions May Initialize MPX Bound Registers Incorrectly",
+        "problem": "Depending on the current Intel \u00ae Memory Protection Extensions (Intel \u00ae MPX) configuration, execution of certain branch instructions (near CALL, near RET, near JMP, and Jcc instructions) without a BND prefix (F2H) initialize the MPX bound registers. Due to this erratum, execution of such a branch instruction on a user-mode page may not use the MPX configuration register appropriate to the current privilege level (BNDCFGU for CPL 3 or BNDCFGS otherwise) for determining whether to initialize the bound registers; it may thus initialize the bound registers when it should not, or fail to initialize them when it should.",
+        "implication": "After a branch instruction on a user-mode page has executed, a bound-range (#BR) exception may occur when it should not have or a #BR may not occur when one should have.",
+        "workaround": "If supervisor software is not expected to execute instructions on user-mode pages, software can avoid this erratum by setting CR4.SMEP[bit 20] to enable supervisor-mode execution prevention (SMEP). If SMEP is not available or if supervisor software is expected to execute instructions on user-mode pages, no workaround is identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML039": {
+        "title": "Writing a Non-Canonical Value to an LBR MSR Does Not Signal a #GP When Intel \u00ae PT is Enabled",
+        "problem": "If Intel \u00ae PT (Intel Processor Trace) is enabled, WRMSR will not cause a general-protection exception (#GP) on an attempt to write a non-canonical value to any of the following MSRs: \u2022 MSR_LASTBRANCH_{0 - 31}_FROM_IP (680H \u2013 69FH) \u2022 MSR_LASTBRANCH__{0 - 31}_TO_IP (6C0H \u2013 6DFH) \u2022 MSR_LASTBRANCH_FROM_IP (1DBH) \u2022 MSR_LASTBRANCH_TO_IP (1DCH) \u2022 MSR_LASTINT_FROM_IP (1DDH) \u2022 MSR_LASTINT_TO_IP (1DEH)Instead the same behavior will occur as if a canonical value had been written. Specifically, the WRMSR will be dropped and the MSR value will not be changed.",
+        "implication": "Due to this erratum, an expected #GP may not be signaled.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer to Summary Table of Changes."
+    },
+    "CML041": {
+        "title": "Intel \u00ae PT Buffer Overflow May Result in Incorrect Packets",
+        "problem": "Under complex micro-architectural conditions, an Intel \u00ae Processor Trace (Intel \u00ae PT) Overflow (OVF) packet may be issued after the first byte of a multi-byte Cycle Count (CYC) packet, instead of any remaining bytes of the CYC.",
+        "implication": "When this erratum occurs, the splicing of the CYC and OVF packets may prevent the Intel \u00ae PT decoder from recognizing the overflow. The Intel \u00ae PT decoder may then encounter subsequent packets that are not consistent with expected behavior.",
+        "workaround": "None Identified. The decoder may be able to recognize that this erratum has occurred when a two-byte CYC packet is followed by a single byte CYC, where the latter 2 bytes are 0xf302, and where the CYC packets are followed by a Flow Update Packet (FUP) and a Packet Stream Boundary+ (PSB+). It should then treat the two CYC packets as indicating an overflow.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML042": {
+        "title": "Last Level Cache Performance Monitoring Events May be Inaccurate",
+        "problem": "Performance monitoring events LONGEST_LAT_CACHE.REFERENCE (Event 2EH; Umask 4FH) and LONGEST_LAT_CACHE.MISS (Event 2EH; Umask 41H) count requests that reference or miss in the last level cache. However, due to this erratum, the count may be incorrect.",
+        "implication": "LONGEST_LAT_CACHE events may be incorrect.",
+        "workaround": "",
+        "status": " None identified. Software may use the following OFFCORE_REQUESTS model-specific sub events that provide related performance monitoring data: DEMAND_DATA_RD, DEMAND_CODE_RD, DEMAND_RFO, ALL_DATA_RD, L3_MISS_DEMAND_DATA_RD, ALL_REQUESTS. For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML043": {
+        "title": "#GP Occurs Rather Than #DB on Code Page Split Inside an Intel \u00ae SGX Enclave",
+        "problem": "When executing within an Intel \u00ae Software Guard Extensions (Intel \u00ae SGX) enclave, a general-protection exception (#GP) may be delivered instead of a debug exception (#DB) when an instruction breakpoint is detected. This occurs when the instruction to be executed spans two pages, the second of which has an entry in the enclave page cache map (EPCM) that is not valid.",
+        "implication": "Debugging software may not be invoked when an instruction breakpoint is detected.",
+        "workaround": "Software should ensure that all pages containing enclave instructions have valid EPCM entries.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML044": {
+        "title": "Execution of VAESENCLAST Instruction May Produce a #NM Exception Instead of a #UD Exception",
+        "problem": "Execution of VAESENCLAST with VEX.L= 1 should signal a #UD (Invalid Opcode) exception, however, due to the erratum, a #NM (Device Not Available) exception may be signaled.",
+        "implication": "As a result of this erratum, an operating system may restore AVX and other state unnecessarily.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML045": {
+        "title": "Intel \u00ae SGX Enclave Accesses to the APIC-Access Page May Cause APIC-Access VM Exits",
+        "problem": "In VMX non-root operation, Intel \u00ae Software Guard Extensions (SGX) enclave accesses to the APIC-access page may cause APIC-access VM exits instead of page faults.",
+        "implication": "A virtual-machine monitor (VMM) may receive a VM exit due to an access that should have caused a page fault, which would be handled by the guest operating system (OS).",
+        "workaround": "A VMM avoids this erratum if it does not map any part of the Enclave Page Cache (EPC) to the guest\u2019s APIC-access address; an operating system avoids this erratum if it does not attempt indirect enclave accesses to the APIC.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML046": {
+        "title": "CR3 Filtering Does Not Compare Bits [11:5] of CR3 and IA32_RTIT_CR3_MATCH in PAE Paging Mode",
+        "problem": "In PAE paging mode, the CR3[11:5] is used to locate the page-directory-pointer table. Due to this erratum, those bits of CR3 are not compared to IA32_RTIT_CR3_MATCH (MSR 572H) when IA32_RTIT_CTL.CR3Filter (MSR 570H, bit 7) is set.",
+        "implication": "If multiple page-directory-pointer tables are co-located within a 4 KB region, CR3 filtering will not be able to distinguish between them so additional processes may be traced.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML047": {
+        "title": "x87 FDP Value May be Saved Incorrectly",
+        "problem": "Execution of the FSAVE, FNSAVE, FSTENV, or FNSTENV instructions in real-address mode or virtual-8086 mode may save an incorrect value for the x87 FPU data pointer (FDP). This erratum does not apply if the last non-control x87 instruction had an unmasked exception.",
+        "implication": "Software operating in real-address mode or virtual-8086 mode that depends on the FDP value for non-control x87 instructions without unmasked exceptions may not operate properly.",
+        "workaround": "None identified. Software should use the FDP value saved by the listed instructions only when the most recent non-control x87 instruction incurred an unmasked exception.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML048": {
+        "title": "PECI Frequency Limited to 1 MHz",
+        "problem": "The Platform Environmental Control Interface (PECI) 3.1 specification operating frequency range is 0.2 MHz to 2 MHz. Due to this erratum, PECI may be unreliable when operated above 1 MHz.",
+        "implication": "Platforms attempting to run PECI above 1 MHz may not behave as expected.",
+        "workaround": "None identified. Platforms should limit PECI operating frequency to 1 MHz.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML049": {
+        "title": "Processor Graphics IOMMU Unit May Not Mask DMA Remapping Faults",
+        "problem": "Intel \u00ae Virtualization Technology for Directed I/O specification specifies setting the Fault Processing Disable (FPD) field in the context (or extended-context) entry of IOMMU to mask recording of qualified DMA remapping faults for DMA requests processed through that context entry. Due to this erratum, the IOMMU unit for Processor Graphics device may record DMA remapping faults from Processor Graphics device (Bus: 0; Device: 2; Function: 0) even when the FPD field is set to 1.",
+        "implication": "Software may continue to observe DMA remapping faults recorded in the IOMMU Fault Recording Register even after setting the FPD field.",
+        "workaround": "None identified. Software may mask the fault reporting event by setting the Interrupt Mask (IM) field in the IOMMU Fault Event Control register (Offset 038 H in GFXVTBAR).",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML050": {
+        "title": "Intel \u00ae PT CYCThresh Value of 13 is Not Supported",
+        "problem": "Intel \u00ae Processor Trace (Intel \u00ae PT) Cycle Count (CYC) threshold is configured through CYCThresh field in bits [22:19] of IA32_RTIT_CTL MSR (570H). A value of 13 is advertised as supported by CPUID (leaf 14H, sub-lead 1H). Due to this erratum, if CYCThresh is set to 13 then the CYC threshold is 0 cycles instead of 4096 (213-1) cycles.",
+        "implication": "CYC packets may be issued in higher rate than expected if threshold value of 13 is used.",
+        "workaround": "None identified. Software should not use value of 13 for CYC threshold.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML051": {
+        "title": "Enabling VMX-Preemption Timer Blocks HDC Operation",
+        "problem": "Hardware Duty Cycling (HDC) will not put the physical package into the forced idle state while any logical processor is in VMX non-root operation and the \u201cactivate VMX-preemption timer\u201d VM-execution control is 1.",
+        "implication": "HDC will not provide the desired power reduction when the VMX-preemption timer is active in VMX non-root operation.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML052": {
+        "title": "Integrated Audio Codec May Not be Detected",
+        "problem": "Integrated Audio Codec may lose power when Low-Power Single Pipe (LPSP) mode is enabled for an embedded DisplayPort (eDP*) or DP/HDMI ports. Platforms with Intel \u00ae Smart Sound Technology (Intel \u00ae SST) enabled are not affected.",
+        "implication": "The Audio Bus driver may attempt to do enumeration of Codecs when eDP or DP/HDMI port enters LPSP mode, due to this erratum, the Integrated Audio Codec will not be detected and audio maybe be lost.",
+        "workaround": "Intel \u00ae Graphics Driver 15.40.11.4312 or later prevents the Integrated Audio Codec from losing power when LPSP mode is enabled.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML054": {
+        "title": "Incorrect Branch Predicted Bit in BTS/BTM Branch Records",
+        "problem": "Branch Trace Store (BTS) and Branch Trace Message (BTM) send branch records to the Debug Store management area and system bus respectively. The Branch Predicted bit (bit 4 of eighth byte in BTS/BTM records) should report whether the most recent branch was predicted correctly. Due to this erratum, the Branch Predicted bit may be incorrect.",
+        "implication": "BTS and BTM cannot be used to determine the accuracy of branch prediction.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML055": {
+        "title": "MACHINE_CLEARS.MEMORY_ORDERING Performance Monitoring Event May Undercount",
+        "problem": "The performance monitoring event MACHINE_CLEARS.MEMORY_ORDERING (Event C3H; Umask 02H) counts the number of machine clears caused by memory ordering conflicts. However due to this erratum, this event may undercount for VGATHER*/VPGATHER* instructions of four or more elements.",
+        "implication": "MACHINE_CLEARS.MEMORY_ORDERING performance monitoring event may undercount.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML056": {
+        "title": "CTR_FRZ May Not Freeze Some Counters",
+        "problem": "IA32_PERF_GLOBAL_STATUS.CTR_FRZ (MSR 38EH, bit 59) is set when either (1) IA32_DEBUGCTL.FREEZE_PERFMON_ON_PMI (MSR 1D9H, bit 12) is set and a PMI is triggered, or (2) software sets bit 59 of IA32_PERF_GLOBAL_STATUS_SET (MSR 391H). When set, CTR_FRZ should stop all core performance monitoring counters from counting. However, due to this erratum, IA32_PMC4-7 (MSR C5-C8H) may not stop counting. IA32_PMC4-7 are only available when a processor core is not shared by two logical processors.",
+        "implication": "General performance monitoring counters 4-7 may not freeze when IA32_PERF_GLOBAL_STATUS.CTR_FRZ is set.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML057": {
+        "title": "Instructions And Branches Retired Performance Monitoring Events May \nOvercount",
+        "problem": "The performance monitoring events INST_RETIRED (Event C0H; any Umask value) \nand BR_INST_RETIRED (Event C4H; any Umask value) count instructions retired and \nbranches retired, respectively. However, due to this erratum, these events may \novercount in certain conditions when: \nExecuting VMASKMOV* instructions with at least one masked vector \n\u2022 \nelement \nExecuting REP MOVS or REP STOS with Fast Strings enabled \n\u2022 \n(IA32_MISC_ENABLES MSR (1A0H), bit 0 set). \nAn MPX #BR exception occurred on BNDLDX/BNDSTX instructions and \n\u2022 \nthe BR_INST_RETIRED (Event C4H; Umask is 00H or 04H) is used.",
+        "implication": "INST_RETIRED and BR_INST_RETIRED performance monitoring events may \novercount.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML058": {
+        "title": "Some OFFCORE_RESPONSE Performance Monitoring Events May Overcount",
+        "problem": "The performance monitoring events OFFCORE_RESPONSE (Events B7H and BBH) should count off-core responses matching the request-response configuration specified in MSR_OFFCORE_RSP_0 and MSR_OFFCORE_RSP_1 (1A6H and 1A7H, respectively) for core- originated requests. However, due to this erratum, DMND_RFO (bit 1), DMND_IFETCH (bit 2) and OTHER (bit 15) request types may overcount.",
+        "implication": "Some OFFCORE_RESPONSE events may overcount.",
+        "workaround": "None identified. Software may use the following model-specific events that provide related performance monitoring data: OFFCORE_REQUESTS (all sub-events), L2_TRANS.L2_WB and L2_RQSTS.PF_MISS.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML059": {
+        "title": "Instructions Fetch #GP After RSM During Intel \u00ae PT May Push Incorrect RFLAGS Value on Stack",
+        "problem": "If Intel \u00ae Processor Trace (Intel \u00ae PT) is enabled, a General Protection Fault (#GP) caused by the instruction fetch immediately following execution of an RSM instruction may push an incorrect value for RFLAGS onto the stack.",
+        "implication": "Software that relies on RFLAGS value pushed on the stack under the conditions described may not work properly.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML060": {
+        "title": "Access to SGX EPC Page in BLOCKED State is Not Reported as an SGX-Induced Page Fault",
+        "problem": "If a page fault results from attempting to access a page in the Intel \u00ae Software Guard Extensions (Intel \u00ae SGX) Enclave Page Cache (EPC) that is in the BLOCKED state, the processor does not set bit 15 of the error code and thus fails to indicate that the page fault was SGX-induced.",
+        "implication": "Due to this erratum, software may not recognize these page faults as being SGX-induced.",
+        "workaround": "Before using the EBLOCK instruction to marking a page as BLOCKED, software should use paging to mark the page not present.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML061": {
+        "title": "MTF VM Exit on XBEGIN Instruction May Save State Incorrectly",
+        "problem": "Execution of an XBEGIN instruction while the monitor trap flag VM-execution control is 1 will be immediately followed by an MTF VM exit. If advanced debugging of RTM transactional regions has been enabled, the VM exit will erroneously save as instruction pointer the address of the XBEGIN instruction instead of the fallback instruction address specified by the XBEGIN instruction. In addition, it will erroneously set bit 16 of the pending-debug- exceptions field in the VMCS indicating that a debug exception or a breakpoint exception occurred.",
+        "implication": "Software using the monitor trap flag to debug or trace transactional regions may not operate properly. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "None identified",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML062": {
+        "title": "Performance Monitoring Counters May Undercount When Using CPL Filtering",
+        "problem": "Performance Monitoring counters configured to count only OS or only USR events by setting exactly one of bits 16 or 17 in IA32_PERFEVTSELx MSRs (186H-18DH) may not count for a brief period during the transition to a new CPL.",
+        "implication": "A measurement of ring transitions (using the edge-detect bit 18 in IA32_PERFEVTSELx) may undercount, such as CPL_CYCLES.RING0_TRANS (Event 5CH, Umask 01H). Additionally, the sum of an OS-only event and a USR-only event may not exactly equal an event counting both OS and USR. Intel has not observed any other software-visible impact",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML063": {
+        "title": "Certain Non-Canonical IA32_BNDCFGS Values Will Not Cause VM-Entry Failures",
+        "problem": "If the VM-entry controls Load IA32_BNDCFGS field (bit 16) is 1, VM-entry should fail when the value of the guest IA32_BNDCFGS field in the VMCS is not canonical (that is, when bits 63:47 are not identical). Due to this erratum, VM-entry does not fail if bits 63:48 are identical but differ from bit 47. In this case, VM-entry loads the IA32_BNDCFGS MSR with a value in which bits 63:48 are identical to the value of bit 47 in the VMCS field.",
+        "implication": "If the value of the guest IA32_BNDCFGS field in the VMCS is not canonical, VM-entry may load the IA32_BNDCFGS MSR with a value different from that of the VMCS field.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML064": {
+        "title": "PEBS EventingIP Field May Be Incorrect Under Certain Conditions",
+        "problem": "The EventingIP field in the Processor Event-Based Sampling (PEBS) record reports the address of the instruction that triggered the PEBS event. Under certain complex microarchitectural conditions, the EventingIP field may be incorrect.",
+        "implication": "When this erratum occurs, performance monitoring software may not attribute the PEBS events to the correct instruction.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML065": {
+        "title": "HWP\u2019s Guaranteed_Performance Updated Only on Configurable TDP Changes",
+        "problem": "According to Hardware P-states (HWP) specification, the Guaranteed_Performance field (bits[15:8]) in the IA32_HWP_CAPABILITIES MSR (771H) should be updated as a result of changes in the configuration of TDP, Running Average Power Limit (RAPL), and other platform tuning options that may have dynamic effects on the actual guaranteed performance support level. Due to this erratum, the processor updates the Guaranteed_Performance field only as a result of configurable TDP dynamic changes.",
+        "implication": "Software may read a stale value of the Guaranteed _Performance field.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML066": {
+        "title": "RF May be Incorrectly Set in The EFLAGS That is Saved on a Fault in PEBS or BTS",
+        "problem": "After a fault due to a failed Processor Event Based Sampling (PEBS) or Branch Trace Store (BTS) address translation, the resume flag (RF) may be incorrectly set in the EFLAGS image that is saved.",
+        "implication": "When this erratum occurs, a code breakpoint on the instruction following the return from handling the fault will not be detected. This erratum only happens when the user does not prevent faults on PEBS or BTS.",
+        "workaround": "Software should always prevent faults on PEBS or BTS.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML067": {
+        "title": "Intel \u00ae PT ToPA PMI Does Not Freeze Performance Monitoring Counters",
+        "problem": "Due to this erratum, if IA32_DEBUGCTL.FREEZE_PERFMON_ON_PMI (MSR 1D9H, bit 12) is set to 1 when Intel \u00ae Processor Trace (Intel \u00ae PT) triggers a Table of Physical Addresses (ToPA) PerfMon Interrupt (PMI), performance monitoring counters are not frozen as expected.",
+        "implication": "Performance monitoring counters continues to count for events that occur during PMI handler execution.",
+        "workaround": "PMI handler software can programmatically stop performance monitoring counters upon entry.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML068": {
+        "title": "HWP\u2019s Maximum_Performance Value is Reset to 0xFF",
+        "problem": "According to HWP (Hardware P-states) specification, the reset value of the Maximum_Performance field (bits [15:8]) in IA32_HWP_REQUEST MSR (774h) should be set to the value of IA32_HWP_CAPABILITIES MSR (771H) Highest_Performance field (bits[7:0]) after reset. Due to this erratum, the reset value of Maximum_Performance is always set to 0xFF.",
+        "implication": "Software may view an unexpected value in Maximum Performance field. Hardware clipping prevents invalid performance states.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML069": {
+        "title": "HWP\u2019s Guaranteed_Performance and Relevant Status/Interrupt May be Updated More Than Once Per Second",
+        "problem": "According to HWP (Hardware P-states) specification, the Guaranteed_Performance field (bits[15:8]) in the IA32_HWP_CAPABILITIES MSR (771H) and the Guaranteed_Performance_Change (bit 0) bit in IA32_HWP_STATUS MSR (777H) should not be changed more than once per second nor should the thermal interrupt associated with the change to these fields be signaled more than once per second. Due to this erratum, the processor may change these fields and generate the associated interrupt more than once per second",
+        "implication": "HWP interrupt rate due to Guaranteed_Performance field change can be higher than specified",
+        "workaround": "Clearing the Guaranteed_Performance_Change status bit no more than once per second ensures that interrupts are not generated at too fast a rate",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML070": {
+        "title": "Some Memory Performance Monitoring Events May Produce Incorrect Results When Filtering on Either OS or USR Modes",
+        "problem": "The memory at-retirement performance monitoring events (listed below) may produce incorrect results when a performance counter is configured in OS-only or USR-only modes (bits 17 or 16 in IA32_PERFEVTSELx MSR). Counters with both OS and USR bits set are not affected by this erratum.",
+        "implication": "The listed performance monitoring events may produce incorrect results including PEBS records generated at an incorrect point. The list of affected HSW memory at-retirement events is as follows: MEM_UOPS_RETIRED.STLB_MISS_LOADS event D0H, umask 11H MEM_UOPS_RETIRED.STLB_MISS_STORES event D0H, umask 12H MEM_UOPS_RETIRED.LOCK_LOADS event D0H, umask 21H MEM_UOPS_RETIRED.SPLIT_LOADS event D0H, umask 41H MEM_UOPS_RETIRED.SPLIT_STORES event D0H, umask 42H MEM_LOAD_UOPS_RETIRED.L2_HIT event D1H, umask 02H MEM_LOAD_UOPS_RETIRED.L3_HIT event D1H, umask 04H MEM_LOAD_UOPS_RETIRED.L1_MISS event D1H, umask 08H MEM_LOAD_UOPS_RETIRED.L2_MISS event D1H, umask 10H MEM_LOAD_UOPS_RETIRED.L3_MISS event D1H, umask 20H MEM_LOAD_UOPS_RETIRED.HIT_LFB event D1H, umask 40H MEM_LOAD_L3_HIT_RETIRED.XSNP_MISS event D2H, umask 01H MEM_LOAD_L3_HIT_RETIRED.XSNP_HIT event D2H, umask 02H MEM_LOAD_L3_HIT_RETIRED.XSNP_HITM event D2H, umask 04H MEM_LOAD_L3_HIT_RETIRED.XSNP_NONE event D2H, umask 08H MEM_LOAD_UOPS_L3_MISS_RETIRED.LOCAL_DRAM event D3H, umask 01H",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Table of Changes."
+    },
+    "CML071": {
+        "title": "HWP May Generate Thermal Interrupt While Not Enabled",
+        "problem": "Due to this erratum, the conditions for HWP (Hardware P-states) to generate a thermal interrupt on a logical processor may generate thermal interrupts on both logical processors of that core.",
+        "implication": "If two logical processors of a core have different configurations of HWP (Example: only enabled on one), an unexpected thermal interrupt may occur on one logical processor due to the HWP settings of the other logical processor.",
+        "workaround": "Software should configure HWP consistently on all logical processors of a core.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML072": {
+        "title": "Camera Device Does Not Issue an MSI When INTx is Enabled",
+        "problem": "When both Message Signaled Interrupts (MSI) and legacy INTx are enabled by the camera device, INTx is asserted rather than issuing the MSI, in violation of the PCI Local Bus Specification.",
+        "implication": "Due to this erratum, camera device interrupts can be lost leading to device failure.",
+        "workaround": "The camera device must disable legacy INTx by setting bit 10 of PCICMD (Bus 0; Device 5; Function 0; Offset 04H) before MSI is enabled",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML073": {
+        "title": "BNDLDX And BNDSTX May Not Signal #GP on Non-Canonical Bound Directory Access",
+        "problem": "BNDLDX and BNDSTX instructions access the bound\u2019s directory and table to load or store bounds. These accesses should signal #GP (general protection exception) when the address is not canonical (i.e. bits 48 to 63 are not the sign extension of bit 47). Due to this erratum, #GP may not be generated by the processor when a non-canonical address is used by BNDLDX or BNDSTX for their bound directory memory access.",
+        "implication": "Intel has not observed this erratum with any commercially available software.",
+        "workaround": "Software should use canonical addresses for bound directory accesses.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML075": {
+        "title": "Performance Monitoring Load Latency Events May Be Inaccurate For Gather Instructions",
+        "problem": "The performance monitoring events MEM_TRANS_RETIRED.LOAD_LATENCY_* (Event CDH; UMask 01H; any latency) count load instructions whose latency exceed a predefined threshold, where the loads are randomly selected using the load latency facility (an extension of PEBS). However due to this erratum, these events may count incorrectly for VGATHER*/VPGATHER* instructions.",
+        "implication": "The Load Latency Performance Monitoring events may be Inaccurate for Gather instructions.",
+        "workaround": "None identified",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML076": {
+        "title": "Some Bits in MSR_MISC_PWR_MGMT May be Updated on Writing Illegal Values to This MSR",
+        "problem": "Attempts to write illegal values to MSR_MISC_PWR_MGMT (MSR 0x1AA) result in #GP (General Protection Fault) and should not change the MSR value. Due to this erratum, some bits in the MSR may be updated on writing an illegal value.",
+        "implication": "Certain fields may be updated with allowed values when writing illegal values to MSR_MISC_PWR_MGMT. Such writes results in #GP as expected.",
+        "workaround": "None identified. Software should not attempt to write illegal values to this MSR.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML077": {
+        "title": "Violations of Intel \u00ae Software Guard Extensions (Intel \u00ae SGX) Access-Control Requirements Produce #GP Instead of #PF",
+        "problem": "Intel \u00ae Software Guard Extensions (Intel \u00ae SGX) define new access-control requirements on memory accesses. A violation of any of these requirements causes a page fault (#PF) that sets bit 15 (SGX) in the page-fault error code. Due to this erratum, these violations instead cause general-protection exceptions (#GP).",
+        "implication": "Software resuming from system sleep states S3 or S4 and relying on receiving a page fault from the above enclave accesses may not operate properly.",
+        "workaround": "Software can monitor #GP faults to detect that an enclave has been destroyed and needs to be rebuilt after resuming from S3 or S4",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML078": {
+        "title": "IA32_RTIT_CR3_MATCH MSR Bits[11:5] Are Treated As Reserved",
+        "problem": "Due to this erratum, bits[11:5] in IA32_RTIT_CR3_MATCH (MSR 572H) are reserved; an MSR write that attempts to set that field to a non-zero value results in a #GP fault.",
+        "implication": "The inability to write the identified bit field does not affect the functioning of Intel \u00ae Processor Trace (Intel \u00ae PT) operation because, as described in erratum SKL061, the bit field that is the subject of this erratum is not used during Intel \u00ae PT CR3 filtering.",
+        "workaround": "Ensure that bits 11:5 of the value written to IA32_RTIT_CR3_MATCH are zero, including cases where the selected page-directory-pointer-table base address has non-zero bits in this range.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML079": {
+        "title": "The Intel \u00ae PT CR3 Filter is Not Re-evaluated on VM Entry",
+        "problem": "On a VMRESUME or VMLAUNCH with both TraceEn[0] and CR3Filter[7] in IA32_RTIT_CTL (MSR 0570H) set to 1 both before the VM Entry and after, the new value of CR3 is not compared with IA32_RTIT_CR3_MATCH (MSR 0572H).",
+        "implication": "The Intel \u00ae Processor Trace (Intel \u00ae PT) CR3 filtering mechanism may continue to generate packets despite a mismatching CR3 value, or may fail to generate packets despite a matching CR3, as a result of an incorrect value of IA32_RTIT_STATUS.ContextEn[1] (MSR 0571H) that results from the failure to re-evaluate the CR3 match on VM entry.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML080": {
+        "title": "Display Slowness May be Observed Under Certain Display Commands Scenario",
+        "problem": "Back to back access to the VGA register ports (I/O addresses 0x3C2, 0x3CE, 0x3CF) experiences higher than expected latency.",
+        "implication": "Due to this erratum, the processor may redraw the slowly when in VGA mode.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML081": {
+        "title": "CPUID TLB Associativity Information is Inaccurate",
+        "problem": "CPUID leaf 2 (EAX=02H) TLB information inaccurately reports that the shared 2nd-Level TLB is 6-way set associative (value C3H), although it is 12-way set associative. Other information reported by CPUID leaf 2 is accurate.",
+        "implication": "Software that uses CPUID shared 2nd-level TLB associativity information for value C3H may operate incorrectly. Intel has not observed this erratum to impact the operation of any commercially available software",
+        "workaround": "None identified. Software should ignore the shared 2nd-Level TLB associativity information reported by CPUID for the affected processors.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML083": {
+        "title": "Processor May Hang on Complex Sequence of Conditions",
+        "problem": "A complex set of architectural and micro-architectural conditions may lead to a processor hang with an internal timeout error (MCACOD 0400H) logged into IA32_MCi_STATUS. When both logical processors in a core are active, this erratum will not occur unless there is no store on one of the logical processors for more than 10 seconds.",
+        "implication": "This erratum may result in a processor hang. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "None Identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML084": {
+        "title": "Potential Partial Trace Data Loss in Intel \u00ae Trace Hub ODLA When Storing to Memory",
+        "problem": "When Intel \u00ae Trace Hub\u2019s On-Die Logic Analyzer (ODLA) is configured to trace to memory, under complex microarchitectural conditions, the trace may lose a timestamp.",
+        "implication": "Some ODLA trace data may be lost. This erratum does not affect other trace data sources. Typically, lost trace data is displayed as \u201cOVERFLOW.\u201d Subsequent timestamps allows the trace decoder to resume tracing. Intel has not observed this erratum in commercially available software.",
+        "workaround": "None identified. For a particular workload, changing the memory buffer size or disabling deep compression may eliminate the microarchitectural condition that causes the erratum.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML085": {
+        "title": "Display Artifacts May be Seen With High Bandwidth, Multiple Display Configurations",
+        "problem": "With high bandwidth, multiple display configurations, display engine underruns may occur.",
+        "implication": "Due to this erratum, the display engine may generate display artifacts.",
+        "workaround": "This erratum is worked around by Intel \u00ae Graphics Driver revisions of 15.46.4.64.4749 or later.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML086": {
+        "title": "Spurious Corrected Errors May be Reported",
+        "problem": "Due to this erratum, spurious corrected errors may be logged in the IA32_MC0_STATUS MSR (401H) register with the valid field (bit 63) set, the uncorrected error field bit (bit 61) not set, a Model Specific Error Code (bits [31:16]) of 0x0001, and an MCA Error Code (bits [15:0]) of 0x0005. If CMCI is enabled, these spurious corrected errors also signal interrupts.",
+        "implication": "When this erratum occurs, software may view an unusually high rate of reported corrected errors. As it is not possible to distinguish between spurious and non-spurious errors, this erratum may interfere with reporting non-spurious corrected errors.",
+        "workaround": "None Identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML087": {
+        "title": "Masked Bytes in a Vector Masked Store Instructions May Cause Write Back of a Cache Line",
+        "problem": "Vector masked store instructions to WB (write-back) memory-type that cross cache lines may lead to CPU writing back cached data even for cache lines where all of the bytes are masked. The processor may generate writes of un-modified data. This can affect Memory Mapped IO (MMIO) or non-coherent agents in the following ways: 1. For MMIO range that is mapped as WB memory type, this erratum may lead to Machine Check Exception (MCE) due to writing back data into the MMIO space. This applies only to cross page vector masked stores where one of the pages is in MMIO range. 2. If the CPU cached data is stale, for example in the case of memory written directly by a non-coherent agent (agent that uses non-coherent writes), this erratum may lead to writing back stale cached data even if these bytes are masked.",
+        "implication": "",
+        "workaround": "Platforms should not map MMIO memory space or non-coherent device memory space as WB memory. If WB is used for MMIO range, software or VMM should not map such MMIO page adjacent to a regular WB page (adjacent on the linear address space, before or after the IO page). Memory that may be written by non-coherent agents should be separated by at least 64 bytes from regular memory used for other purposes (on the linear address space).",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML089": {
+        "title": "MOVNTDQA From WC Memory May Pass Earlier Locked Instructions",
+        "problem": "An execution of (V)MOVNTDQA (streaming load instruction) that loads from write combining (WC) memory may appear to pass an earlier locked instruction to a different cache line",
+        "implication": "Software that expects a lock to fence subsequent (V)MOVNTDQA instructions may not operate properly.",
+        "workaround": "Software should not rely on a locked instruction to fence subsequent executions of MOVNTDQA. Software should insert an MFENCE instruction if it needs to preserve order between streaming loads and other memory operations.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML090": {
+        "title": "PEBS Record After a WRMSR to IA32_BIOS_UPDT_TRIG May be Incorrect",
+        "problem": "A PEBS record generated by a WRMSR to IA32_BIOS_UPDT_TRIG MSR (79H) may have an incorrect value in the Eventing EIP field if an instruction prefix was used on the WRMSR.",
+        "implication": " The Eventing EIP field of the generated PEBS record may be incorrect. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "Instruction prefixes have no architecturally-defined function for the WRMSR instruction; instruction prefixes should not be used with the WRMSR instruction.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML091": {
+        "title": "Processor May Incorrectly Assert PROCHOT During PkgC10",
+        "problem": "If the PROCHOT# pin is configured as an output-only signal, PROCHOT# may incorrectly be asserted during PkgC10.",
+        "implication": "When this erratum occurs, PROCHOT# may be incorrectly asserted. This can lead to the system fan unnecessarily turning on during PkgC10 or other unexpected platform behaviors.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML092": {
+        "title": "eDP 1.4 Ports With Link Rate 2.16 or 4.32 GHz May Not Resume From Low Power Graphics or System States",
+        "problem": "When the Embedded Display Port is operating with link rates 2.16 GHz or 4.32 GHz, the port may not resume from DC5, DC6 display low power states or S3, S4, or S5 system states. This erratum only affects systems with eDP 1.4-compliant display panels.",
+        "implication": "Due to this erratum, system may hang when resuming from system idle or S3/4/5 states.",
+        "workaround": "The graphics device driver can contain a workaround for this erratum; Intel \u00ae Graphics Driver revisions 15.49 PR1 or later contains this workaround.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML093": {
+        "title": "Writing Non-Zero Values to Read Only Fields in IA32_THERM_STATUS MSR May Cause #GP",
+        "problem": "IA32_THERM_STATUS MSR (19CH) includes read-only (RO) fields as well as writable fields. Writing a non-zero value to any of the read-only fields may cause a #GP.",
+        "implication": "Due to this erratum, software that reads the IA32_THERM_STATUS MSR, modifies some of the writable fields, and attempts to write the MSR back may #GP.",
+        "workaround": "Software should clear all read-only fields before writing to this MSR.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML094": {
+        "title": "Precise Performance Monitoring May Generate Redundant PEBS Records",
+        "problem": "Processor Event Based Sampling (PEBS) may generate redundant records for a counter overflow when used to profile cycles. This may occur when a precise performance monitoring event is configured on a general counter while setting the Invert and Counter Mask fields in IA32_PERFEVTSELx MSRs (186H - 18DH), and the counter is reloaded with a value smaller than 1000 (through the PEBS-counter-reset field of the DS Buffer Management Area).",
+        "implication": "PEBS may generate multiple redundant records, when used to profile cycles in certain conditions.",
+        "workaround": "It is recommended for software to forbid the use of the Invert bit in IA32_PERFEVTSELx MSRs or restrict PEBS-counter-reset value to a value of at least 1000",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML095": {
+        "title": "Load Latency Performance Monitoring Facility May Stop Counting",
+        "problem": "The performance monitoring events MEM_TRANS_RETIRED.LOAD_LATENCY_* (Event CDH; UMask 01H; any latency) count load instructions whose latency exceed a predefined threshold, where the loads are randomly selected using the Load Latency facility (PEBS extension). However due to this erratum, load latency facility may stop counting load instructions when Intel \u00ae HyperThreading Technology is enabled.",
+        "implication": "Counters programmed with the affected events stop incrementing and do not generate PEBS records.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML096": {
+        "title": "SGX ENCLS[EINIT] May Not Signal an Error For an Incorrectly Formatted SIGSTRUCT Input",
+        "problem": "The ENCLS[EINIT] instruction leaf may not signal an error on a specific combination of SIGSTRUCT values even though the signature does not fully comply with RSA signature specifications.",
+        "implication": "When this erratum occurs, ENCLS[EINIT] instruction leaf may pass the checks although the SIGSTUCT signature does not fully comply with RSA signature specifications. This erratum does not compromise the security of Intel \u00ae SGX and does not impact normal usage of Intel \u00ae SGX.",
+        "workaround": "None identified. Software is not expected to be impacted by this erratum.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML097": {
+        "title": "Branch Instruction Address May be Incorrectly Reported on TSX Abort When Using MPX",
+        "problem": "When using Intel \u00ae Memory Protection Extensions (MPX), an Intel \u00ae Transactional Synchronization Extensions (Intel \u00ae TSX) transaction abort will occur in case of legacy branch (that causes bounds registers INIT) when at least one MPX bounds register was in a NON- INIT state. On such an abort, the branch Instruction address should be reported in the FROM_IP field in the Last Branch Records (LBR), Branch Trace Store (BTS) and Branch Trace Message (BTM) as well as in the Flow Update Packets (FUP) source IP address for Intel \u00ae Processor Trace (Intel \u00ae PT). Due to this erratum, the FROM_IP field in LBR/BTS/BTM, as well as the Flow Update Packets (FUP) source IP address that correspond to the TSX abort, may point to the preceding instruction.",
+        "implication": "Software that relies on the accuracy of the FROM_IP field/FUP source IP address and uses TSX may operate incorrectly when MPX is used.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML098": {
+        "title": "Setting Performance Monitoring IA32_PERF_GLOBAL_STATUS_SET MSR Bit 63 May Not #GP",
+        "problem": "Bit 63 of IA32_PERF_GLOBAL_STATUS_SET MSR (391H) is reserved. Due to this erratum, setting the bit will not result in General Protection Fault (#GP).",
+        "implication": "Software that attempts to set bit 63 of IA32_PERF_GLOBAL_STATUS_SET MSR does not generate #GP. There are no other system implications to this behavior.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML099": {
+        "title": "Hitting a Code Breakpoint Inside a SGX Debug Enclave May Cause The Processor to Hang",
+        "problem": "Under complex microarchitecture conditions, the processor may hang when hitting code breakpoint inside a Intel \u00ae Software Guard Extensions (Intel \u00ae SGX) debug enclave. This may happen only after opt-out entry into a SGX debug enclave and when the execution would set the accessed bit (A-bit) in any level of the paging or Extended Page Table (EPT) structures used to map the code page, and when both logical processors on the same physical core are active.",
+        "implication": "Due to this erratum, the processor may hang while debugging an Intel \u00ae SGX debug enclave.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML100": {
+        "title": "Performance Monitoring ASCI Status Bit May be Inaccurate",
+        "problem": "The Anti Side-Channel Interference (ASCI) field in IA32_PERF_GLOBAL_STATUS (MSR 38EH, bit 60) should be set when the count in any of the configured performance counters (i.e. IA32_PMCx or IA32_FIXED_CTRx) was altered due to direct or indirect operation of Intel \u00ae SGX. Due to this erratum, the ASCI bit may not be set properly when IA32_FIXED_CTR0 is used.",
+        "implication": "Software that relies on the value of the ASCI bit in IA32_PERF_GLOBAL_STATUS for its operation may not operate correctly when IA32_FIXED_CTR0 is used.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML101": {
+        "title": "Processor May Hang When Executing Code In an HLE Transaction Region",
+        "problem": "Under certain conditions, if the processor acquires an Hardware Lock Elision (HLE) lock via the XACQUIRE instruction in the Host Physical Address range between 40000000H and 403FFFFFH, it may hang with an internal timeout error (MCACOD 0400H) logged into IA32_MCi_STATUS.",
+        "implication": "Due to this erratum, the processor may hang after acquiring a lock via XACQUIRE.",
+        "workaround": "BIOS can reserve the host physical address ranges of 40000000H and 403FFFFFH (Example: map it as UC/MMIO). Alternatively, the Virtual Machine Monitor (VMM) can reserve that address range so no guest can use it. In non-virtualized systems, the OS can reserve that memory space.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML102": {
+        "title": "Intel \u00ae PT CYC Packets Can be Dropped When Immediately Preceding PSB",
+        "problem": "Due to a rare microarchitectural condition, generation of an Intel \u00ae Processor Trace (Intel \u00ae PT) Packet Stream Boundary (PSB) packet can cause a single Cycle Count (CYC) packet, possibly along with an associated Mini Time Counter (MTC) packet, to be dropped.",
+        "implication": "An Intel \u00ae PT decoder that is using CYCs to track time or frequency gets an improper value due to the lost CYC packet.",
+        "workaround": "If an Intel \u00ae PT decoder is using CYCs and MTCs to track frequency, and either the first MTC following a PSB shows that an MTC was dropped, or the CYC value appears to be 4095 cycles short of what is expected, the CYC value associated with that MTC should not be used. The decoder should wait for the next MTC before measuring frequency again.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML103": {
+        "title": "Intel \u00ae PT VM-entry Indication Depends on The Incorrect VMCS Control Field",
+        "problem": "An Intel \u00ae Processor Trace Paging Information Packet (PIP), which includes indication of entry into non-root operation, is generated on VM-entry as long as the \u201cConceal VMX in Intel \u00ae PT\u201d field (bit 19) in Secondary Execution Control register (IA32_VMX_PROCBASED_CTLS2, MSR 048BH) is clear. This diverges from expected behavior, since this PIP should instead be generated only with a zero value of the \u201cConceal VMX entries from Intel \u00ae PT\u201d field (Bit 17) in the Entry Control register (IA32_VMX_ENTRY_CTLS MSR 0484H).",
+        "implication": "An Intel \u00ae PT trace may incorrectly expose entry to non-root operation.",
+        "workaround": "A virtual machine monitor (VMM) should always set both the \u201cConceal VMX entries from Intel \u00ae PT\u201d field in the Entry Control register and the \u201cConceal VMX in Intel \u00ae PT\u201d in the Secondary Execution Control register to the same value.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML104": {
+        "title": "Performance Monitor Event For Outstanding Offcore Requests May be Incorrect",
+        "problem": "The performance monitor event OFFCORE_REQUESTS_OUTSTANDING (Event 60 H, any Umask Value) should count the number of offcore outstanding transactions each cycle. Due to this erratum, the counts may be higher or lower than expected.",
+        "implication": "The performance monitor event OFFCORE_REQUESTS_OUTSTANDING may reflect an incorrect count.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML105": {
+        "title": "VCVTPS2PH To Memory May Update MXCSR in The Case of a Fault on The Store",
+        "problem": "Execution of the VCVTPS2PH instruction with a memory destination may update the MXCSR exceptions flags (bits [5:0]) if the store to memory causes a fault (Example: #PF) or VM exit. The value written to the MXCSR exceptions flags is what would have been written if there were no fault.",
+        "implication": "Software may view exceptions flags set in MXCSR, although the instruction has not successfully completed due to a fault on the memory operation. Intel has not observed this erratum to affect any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML106": {
+        "title": "Intel \u00ae PT May Drop All Packets After an Internal Buffer Overflow",
+        "problem": "Due to a rare microarchitectural condition, an Intel \u00ae Processor Trace (Intel \u00ae PT) Table of Physical Addresses (ToPA) entry transition can cause an internal buffer overflow that may result in all trace packets, including the Overflow (OVF) packet, being dropped.",
+        "implication": "When this erratum occurs, all trace data is lost until either PT is disabled and re-enabled via IA32_RTIT_CTL.TraceEn [bit 0] (MSR 0570H) or the processor enters and exits a C6 or deeper C state.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML107": {
+        "title": "Intel \u00ae PT ToPA Tables Read From Non-Cacheable Memory During an Intel \u00ae TSX Transaction May Lead to Processor Hang",
+        "problem": "If an Intel \u00ae Processor Trace (Intel \u00ae PT) Table of Physical Addresses (ToPA) table is placed in Uncacheable (UC) or Uncacheable Speculative Write Combining (USWC) memory, and a ToPA output region is filled during an Intel \u00ae Transaction Synchronization (Intel \u00ae TSX) transaction, the resulting ToPA table read may cause a processor hang.",
+        "implication": "Placing Intel \u00ae PT ToPA tables in non-cacheable memory when Intel \u00ae TSX is in use may lead to a processor hang.",
+        "workaround": "None identified. Intel \u00ae PT ToPA tables should be located in WB memory if Intel \u00ae TSX is in use.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML108": {
+        "title": "Performing an XACQUIRE to an Intel \u00ae PT ToPA Table May Lead to Processor Hang",
+        "problem": "If an XACQUIRE lock is performed to the address of an Intel \u00ae Processor Trace (Intel \u00ae PT) Table of Physical Addresses (ToPA) table, and that table is later read by the CPU during the HLE (Hardware Lock Elision) transaction, the processor may hang.",
+        "implication": "Accessing ToPA tables with XACQUIRE may result in a processor hang.",
+        "workaround": "None identified. Software should not access ToPA tables using XACQUIRE. An OS or hypervisor may wish to ensure all application or guest writes to ToPA tables to take page faults or EPT violations.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML109": {
+        "title": "Data Breakpoint May Not be Detected on a REP MOVS",
+        "problem": "A REP MOVS instruction that causes an exception or a VM exit may not detect a data breakpoint that occurred on an earlier memory access of that REP MOVS instruction.",
+        "implication": "A debugger may miss a data read/write access if it is done by a REP MOVS instruction.",
+        "workaround": "Software that relies on data breakpoint for correct execution should disable fast-strings (bit 0 in IA32_MISC_ENABLE MSR).",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML110": {
+        "title": "Intel \u00ae PT CYC Packets Can be Dropped When Immediately Preceding PSB",
+        "problem": "Due to a rare microarchitectural condition, generation of an Intel \u00ae PT (Intel \u00ae Processor Trace) PSB (Packet Stream Boundary) packet can cause a single CYC (Cycle Count) packet, possibly along with an associated MTC (Mini Time Counter) packet, to be dropped.",
+        "implication": "An Intel \u00ae PT decoder that is using CYCs to track time or frequency gets an improper value due to the lost CYC packet.",
+        "workaround": "If an Intel \u00ae PT decoder is using CYCs and MTCs to track frequency, and either the first MTC following a PSB shows that an MTC was dropped, or the CYC value appears to be 4095 cycles short of what is expected, the CYC value associated with that MTC should not be used. The decoder should wait for the next MTC before measuring frequency again.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML111": {
+        "title": "When Virtualization Exceptions are Enabled, EPT Violations May Generate Erroneous Virtualization Exceptions",
+        "problem": "An access to a GPA (guest-physical address) may cause an EPT-violation VM exit. When the \u201cEPT-violation #VE\u201d VM-execution control is 1, an EPT violation may cause a #VE (virtualization exception) instead of a VM exit. Due to this erratum, an EPT violation may erroneously cause a #VE when the \u201csuppress #VE\u201d bit is set in the EPT paging-structure entry used to map the GPA being accessed. This erratum does not apply when the \u201cEPT- violation #VE\u201d VM-execution control is 0 or when delivering an event through the IDT. This erratum applies only when the GPA in CR3 is used to access the root of the guest paging- structure hierarchy (or, with PAE paging, when the GPA in a PDPTE is used to access a page directory).",
+        "implication": "When using PAE paging mode, an EPT violation that should cause an VMexit in the VMM may instead cause a VE# in the guest. In other paging modes, in addition to delivery of the erroneous #VE, the #VE may itself cause an EPT violation, but this EPT violation is correctly delivered to the VMM.",
+        "workaround": "A VMM may support an interface that guest software can invoke with the VMCALL instruction when it detects an erroneous #VE.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML113": {
+        "title": "Intel \u00ae PT Trace May Drop Second Byte of CYC Packet",
+        "problem": "Due to a rare microarchitectural condition, the second byte of a 2-byte CYC (Cycle Count) packet may be dropped without an OVF (Overflow) packet.",
+        "implication": "A trace decoder may signal a decode error due to the lost trace byte. None identified.",
+        "workaround": "",
+        "status": " 52 A mitigation is available for this erratum. If a decoder encounters a multi-byte CYC packet where the second byte has bit 0 (Ext) set to 1, it should assume that 4095 cycles have passed since the prior CYC packet, and it should ignore the first byte of the CYC and treat the second byte as the start of a new packet. For the steppings affected, refer the Summary Table of Changes. Specification Update"
+    },
+    "CML114": {
+        "title": "Unexpected Uncorrected Machine Check Errors May Be Reported",
+        "problem": "In rare micro-architectural conditions, the processor may report unexpected machine check errors. When this erratum occurs, IA32_MC0_STATUS (MSR 401H) has the valid bit set (bit 63), the uncorrected error bit set (bit 61), a model specific error code of 03H (bits [31:16]) and an MCA error code of 05H (bits [15:0]).",
+        "implication": "Due to this erratum, software may observe unexpected machine check exceptions.",
+        "workaround": "None Identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML115": {
+        "title": "Intel \u00ae PT PSB+ Packets May be Omitted on a C6 Transition",
+        "problem": "An Intel \u00ae PT (Intel \u00ae Processor Trace) PSB+ (Packet Stream Boundary+) set of packets may not be generated as expected when IA32_RTIT_STATUS.PacketByteCnt[48:32] (MSR 0x571) reaches the PSB threshold and a logical processor C6 entry occurs within the following one KByte of trace output.",
+        "implication": "After a logical processor enters C6, Intel \u00ae PT output may be missing PSB+ sets of packets.",
+        "workaround": "None Identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML116": {
+        "title": "Intel \u00ae PT PacketEn Change on C-state Wake May Not Generate a TIP Packet",
+        "problem": "A TIP.PGE (Target IP, Packet Generation Enabled) or TIP.PGD (Target IP, Packet Generation Disabled) packet may not be generated if Intel \u00ae PT (Intel \u00ae Processor Trace) PacketEn changes after IA32_RTIT_STATUS.FilterEn (MSR 571H, bit 0) is re-evaluated on wakeup from C6 or deeper sleep state.",
+        "implication": "When code enters or exits an IP filter region without a taken branch, tracing may begin or cease without proper indication in the trace output. This may affect trace decoder behavior.",
+        "workaround": "None identified. A trace decoder needs to skip ahead to the next TIP or FUP packet to determine the current IP.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML118": {
+        "title": "Graphics VTd Hardware May Cache Invalid Entries",
+        "problem": "The processor\u2019s graphics IOMMU (I/O Memory Management Unit) may cache invalid VTd context entries. This violates the VTd specification for HW Caching Mode where hardware implementations of this architecture must not cache invalid entries.",
+        "implication": "Due to this erratum, unpredictable system behavior and/or a system hang may occur.",
+        "workaround": "Software should flush the Gfx VTd context cache after any update of context table entries",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML119": {
+        "title": "Executing Some Instructions May Cause Unpredictable Behavior",
+        "problem": "Under complex micro-architectural conditions, executing an X87, AVX, or integer divide instruction may result in unpredictable system behavior.",
+        "implication": "When this erratum occurs, the system may behave unpredictably. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML120": {
+        "title": "Processor May Behave Unpredictably on Complex Sequence of Conditions Which Involve Branches That Cross 64 Byte Boundaries",
+        "problem": "Under complex micro-architectural conditions involving branch instructions bytes that span multiple 64 byte boundaries (cross cache line), unpredictable system behavior may occur.",
+        "implication": "When this erratum occurs, the system may behave unpredictably.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML121": {
+        "title": "A PMI That Freezes LBRs Can Cause a Duplicate Entry in TOS",
+        "problem": "If a PMI (Performance Monitor Interrupt) is taken while LBRs (Last Branch Records) are enabled and IA32_DEBUGCTL.FREEZE_LBRS_ON_PMI[bit 11]=1 (MSR 01D9H), a taken branch that performs an LBR update near the time of the PMI may instead record a duplicate of the prior entry into the TOS (Top of Stack) entry.",
+        "implication": "Software may unexpectedly observe the appearance of back-to-back execution of the same branch.",
+        "workaround": "In general, software can ignore the TOS entry if it matches the TOS-1 entry. Note that certain code sequences with no intervening taken branches can legitimately insert a valid duplicate LBR record in the TOS entry.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML122": {
+        "title": "Unexpected Page Faults in Guest Virtualization Environment",
+        "problem": "Under complex micro-architectural conditions, a virtualized guest could observe unpredictable system behavior.",
+        "implication": "When this erratum occurs, systems operating in a virtualization environment may exhibit unexpected page faults (double faults) leading to guest OS shutdown.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML123": {
+        "title": "SGX Key Confidentiality May be Compromised",
+        "problem": "Under complex micro-architectural conditions, it may be possible for the value of SGX keys to be inferred using speculative execution side channel methods.",
+        "implication": "If exposed, such keys could allow an attacker to access SGX enclave data. Processors that do not support Hyper-Threading are not affected by this issue.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML124": {
+        "title": "System May Hang Under Complex Conditions",
+        "problem": "Under complex conditions, insufficient access control in graphics subsystem may lead to a system hang or crash upon a register read.",
+        "implication": "When this erratum occurs a system hang or crash may occur.",
+        "workaround": "It is possible for a combination of BIOS and a graphics driver to contain a workaround for this erratum.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML125": {
+        "title": "Instruction Fetch May Cause Machine Check if Page Size Was Changed Without Invalidation",
+        "problem": "This erratum may cause a machine-check error (IA32_MCi_STATUS.MCACOD=005H with IA32_MCi_STATUS.MSCOD=00FH or IA32_MCi_STATUS.MCACOD=0150H with IA32_MCi_STATUS.MSCOD=00FH) on the fetch of an instruction. It applies only if (1) instruction bytes are fetched from a linear address translated using a 4-Kbyte page and cached in the processor; (2) the paging structures are later modified so that these bytes are translated using a large page (2-Mbyte, 4-Mbyte or 1-GByte) with a different physical address (PA), memory type (PWT, PCD and PAT bits), or User/Supervisor (U/S) bit; and (3) the same instruction is fetched after the paging structure modification but before software invalidates any TLB entries for the linear region.",
+        "implication": "Due to this erratum an unexpected machine check with error code 0150H with MSCOD 00FH may occur, possibly resulting in a shutdown. This erratum could also lead to unexpected correctable machine check (IA32_MCi_STATUS.UC=0) with error code 005H with MSCOD 00FH.",
+        "workaround": "Software should not write to a paging-structure entry in a way that would change the page size and either the physical address, memory type or User/Supervisor bit. It can instead use one of the following algorithms: first clear the P flag in the relevant paging-structure entry (Example: PDE); then invalidate any translations for the affected linear addresses; and then modify the relevant paging-structure entry to set the P flag and establish the new page size. An alternative algorithm: first change the physical page attributes (combination of physical address, memory type and User/Supervisor bit) in all 4K pages in the affected linear addresses; then invalidate any translations for the affected linear addresses; and then modify the relevant paging-structure entry to establish the new page size.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML126": {
+        "title": "Incorrect ECC Errors Reporting Following Entry to PKG-C7",
+        "problem": "Correctable and Uncorrectable ECC errors reported in ECCERRLOG0/1 (MCHBAR Offset 4048h/404Ch) may be overwritten after entry to PKG-C7.",
+        "implication": "DDR4 Correctable and Uncorrectable ECC errors reported in ECCERRLOG0/1 (MCHBAR Offset 4048h/404Ch) may be unreported resuming from PKG-C7. Intel has only observed this erratum in a synthetic test environment.",
+        "workaround": "None Identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML128": {
+        "title": "PCIe* Port Does Not Support DLL Link Activity Reporting",
+        "problem": "The PCIe* Base specification requires DLL (Data Link Layer) Link Activity Reporting when 8 GT/s link speed is supported. Due to this erratum, link activity reporting is not supported",
+        "implication": "Due to this erratum, PCIe* port does not support DLL Link Activity Reporting when 8 GT/s is supported.",
+        "workaround": "None identified",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML129": {
+        "title": "Using Different Vendors For DDR4 UDIMMs 2400 MHz or Above May Cause Correctable Errors or a System Hang",
+        "problem": "When using DDR4 UDIMMs 2400 MHz or above from different vendors or mixing single rank and dual rank DIMMs within the same channel, a higher rate of correctable errors may occur or the system may hang.",
+        "implication": "Due to this erratum, reported correctable error counts may increase or the system may hang.",
+        "workaround": "None identified. Use a single vendor and do not mix single rank and dual rank for UDIMMs 2400 MHz or above.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML130": {
+        "title": "Two DIMMs Per Channel 2133MHz DDR4 SODIMM Daisy-Chain Systems With Different Vendors May Hang",
+        "problem": "When, on a single memory channel with 2133 MHz DDR4 SODIMMs, mixing different vendors or mixing single rank and dual rank DIMMs, may lead to a higher rate of correctable error to system hangs.",
+        "implication": "Due to this erratum, reported correctable error counts may increase or system may hang.",
+        "workaround": "Use a single vendor for and do not mix single rank and dual rank 2133 MHz DDR4 SODIMM.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML132": {
+        "title": "Incorrect CPUID Reporting For Intel \u00ae Turbo Boost Max Technology 3.0 Capability",
+        "problem": "The CPUID instruction in leaf 06h doesn\u2019t report Intel \u00ae Turbo Boost Max Technology 3.0 capability in EAX[14].",
+        "implication": "Due to this Erratum software cannot detect if Intel \u00ae Turbo Boost Max Technology 3.0 capability is supported.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML133": {
+        "title": "PMU MSR_UNC_PERF_FIXED_CTR is Cleared After Pkg C7 or Deeper",
+        "problem": "The Performance Monitoring Unit Uncore Performance Fixed Counter (MSR_UNC_PERF_FIXED_CTR (MSR 395h)) is cleared after pkg C7 or deeper.",
+        "implication": "Due to this erratum, once the system enters pkg C7 or deeper the uncore fixed counter does not reflect the actual count.",
+        "workaround": "None Identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML134": {
+        "title": "Performance Monitoring General Counter 2 May Have Invalid Value Written When TSX Is Enabled",
+        "problem": "When Intel \u00ae Transactional Synchronization Extensions (Intel \u00ae TSX) is enabled, and there are aborts (HLE or RTM) overlapping with access or manipulation of the IA32_PMC2 general-purpose performance counter (Offset: C3h ) it may return invalid value.",
+        "implication": "Software may read invalid value from IA32_PMC2.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML135": {
+        "title": "A Pending Fixed Interrupt May Be Dispatched Before an Interrupt of The Same Priority Completes",
+        "problem": "Resuming from C6 Sleep-State, with Fixed Interrupts of the same priority queued (in the corresponding bits of the IRR and ISR APIC registers), the processor may dispatch the second interrupt (from the IRR bit) before the first interrupt has completed and written to the EOI register, causing the first interrupt to never complete.",
+        "implication": "Due to this erratum, Software may behave unexpectedly when an earlier call to an Interrupt Handler routine is overridden with another call (to the same Interrupt Handler) instead of completing its execution.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML136": {
+        "title": "VTd DMA Remapping Disable in Gfx IOMMU May Cause Display Artifacts or Flickering",
+        "problem": "If system software enables VTd translations for the Gfx IOMMU (TE=1) and then switches the Gfx IOMMU to disable translations (TE=0) while the display is enabled, display memory underrun condition can occur.",
+        "implication": "Due to this erratum, momentary display corruption may occur. Intel has only observed this issue when BIOS pre-boot DMA protection was enabled for Gfx IOMMU.",
+        "workaround": "A BIOS code change has been identified and may be implemented as a workaround for this erratum.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML137": {
+        "title": "Overflow Flag in IA32_MC0_STATUS MSR May be Incorrectly Set",
+        "problem": "Under complex micro-architectural conditions, a single internal parity error seen in IA32_MC0_STATUS MSR (401h) with MCACOD (bits 15:0) value of 5h and MSCOD (bits 31:16) value of 7h, may set the overflow flag (bit 62) in the same MSR.",
+        "implication": "Due to this erratum, the IA32_MC0_STATUS overflow flag may be set after a single parity error. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML138": {
+        "title": "Rare Internal Timing Conditions May Lead to Sporadic Hangs During Graphics VTd Flows",
+        "problem": "When both Intel \u00ae SGX and Graphics RC6 features are enabled, under complex microarchitectural conditions, VTd operations towards the Gfx IOMMU may lead to unexpected system behavior.",
+        "implication": "Due to this erratum, unexpected system behavior will occur.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML139": {
+        "title": "VERR Instruction Inside VM-entry May Cause DR6 to Contain Incorrect Values",
+        "problem": "Under complex micro-architectural conditions, a VERR instruction that follows a VM-entry with a guest-state area indicating MOV SS blocking (bit 1 in the Interruptibility state) and at least one of B3-B0 bits set (bits 3:0 in the pending debug exception) may lead to incorrect values in DR6.",
+        "implication": "Due to this erratum, DR6 may contain incorrect values. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML140": {
+        "title": "Processor May Hang if Warm Reset Triggers During BIOS Initialization",
+        "problem": "Under complex micro-architectural conditions, when the processor receives a warm reset during BIOS initialization, the processor may hang with a machine check error reported in IA32_MCi_STATUS, with MCACOD (bits [15:0]) value of 0400H, and MSCOD (bits [31:16]) value of 0080H.",
+        "implication": "Due to this erratum, the processor may hang. Intel has only observed this erratum in a synthetic test environment.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML141": {
+        "title": "MD_CLEAR Operations May Not Properly Overwrite All Buffers",
+        "problem": "On processors that enumerate the MD_CLEAR CPUID bit (CPUID.(EAX=7H,ECX=0):EDX[MD_CLEAR=10] ), L1D_FLUSH, RSM, and VERW memory instructions should overwrite affected buffers with constant data. Under complex micro- architectural conditions, these instructions may not overwrite all affected buffers.",
+        "implication": "Due to this erratum, use of MD_CLEAR operations to prevent MDS (Microarchitectural Data Sampling) or TAA ( Intel \u00ae Transactional Synchronization Extensions Asynchronous Abort) side-channel methods from revealing previously accessed data may not be fully effective.",
+        "workaround": "It is possible for BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    },
+    "CML142": {
+        "title": "Processor May Return an Incorrect Brand String Value",
+        "problem": "Intel \u00ae Pentium \u00ae Gold G6400TE processor may return an incorrect brand string value.",
+        "implication": "Software that relies upon the brand string may not operate as expected.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, refer the Summary Table of Changes."
+    }
+}

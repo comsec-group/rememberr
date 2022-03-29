@@ -1,0 +1,72 @@
+{
+    "361": {
+        "title": "Breakpoint Due to an Instruction That Has an Interrupt Shadow May Be Lost",
+        "problem": "A #DB exception occurring in guest mode may be discarded under the following conditions: \u2022 A trap-type #DB exception is generated in guest mode during execution of an instruction with an interrupt shadow, and \u2022 The instruction that generated the exception is immediately followed by an instruction resulting in #VMEXIT.",
+        "implication": "None expected under normal conditions. Debug exceptions may not be received for programs running under a hypervisor.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "638": {
+        "title": "Processor May Violate Trp During Dynamic Mode Switch",
+        "problem": "The processor may violate the precharge time (Trp) for a DIMM when sending a mode register set (MRS) command to dynamically adjust MR0[PPD] during a precharge power down. This erratum may occur only when fast exit/slow exit (dynamic) mode is selected as follows: \u2022 D18F2x94_dct[1:0][15] = 1b (DRAM Configuration High[PowerDownEn]) \u2022 D18F2x84_dct[1:0][23] = 1b (DRAM MRS[PchgPDModeSel])",
+        "implication": "Unpredictable system operation.",
+        "workaround": "If D18F2x84_dct[1:0] bit 23 (PchgPDModeSel) = 1b and D18F2x94_dct[1:0] bit 15 (PowerDownEn) = 1b, then precharge time (D18F2x200_dct[1:0]_mp[1:0] bits 20:16, Trp) should be set one higher than the DIMM specified value.",
+        "status": "No fix planned"
+    },
+    "732": {
+        "title": "IOMMU Event Log Ordering Violation",
+        "problem": "The processor IOMMU does not maintain producer-consumer ordering between the IOMMU event log DMA writes and IOMMU MMIO register read completions. The processor core may read stale or uninitialized event logs from memory when a read response from the event log tail pointer register passes the corresponding event log DMA write. A series or burst of event log DMA writes would normally be necessary for this ordering violation to be observed.",
+        "implication": "Software may process an event log before it has been completely written, possibly resulting in the operating system or hypervisor taking improper corrective actions.",
+        "workaround": "The IOMMU driver of the hypervisor or operating system should initialize the event log buffer to all zeros and write event log entries to zero after they are processed. If software subsequently observes an all zero event log entry, it should re-read the buffer until a non-zero event log is returned. It is recommended that software detects that the log buffer has not been written by checking for an EventCode (bits 63:60) that is equal to 0000b.",
+        "status": "No fix planned"
+    },
+    "733": {
+        "title": "IOMMU PPR Log Ordering Violation",
+        "problem": "The processor IOMMU does not maintain producer-consumer ordering between the IOMMU peripheral page service request (PPR) log DMA writes and IOMMU MMIO register read completions. The processor core may read stale or uninitialized PPR logs from memory when a read response from the PPR log tail pointer register passes the corresponding PPR log DMA write. A series or burst of PPR log DMA writes would normally be necessary for this ordering violation to be observed. This erratum only applies in systems where a device is performing Address Translation Service (ATS) requests.",
+        "implication": "Software may process a PPR log before it has been completely written, possibly resulting in the IOMMU software not properly processing a page service request. This may result in unpredictable IOMMU behavior.",
+        "workaround": "The IOMMU driver of the hypervisor or operating system should initialize the PPR log buffer to all zeros and write PPR log entries to zero after they are processed. If software subsequently observes an all zero PPR log entry, it should re-read the buffer until a non-zero PPR log is returned. It is recommended that software detects that the log buffer has not been written by checking for a PPRCode (bits 63:60) that is equal to 0000b.",
+        "status": "No fix planned"
+    },
+    "737": {
+        "title": "Processor Does Not Check 128-bit Canonical Address Boundary Case on Logical Address",
+        "problem": "The processor core may not detect a #GP exception if the processor is in 64-bit mode and the logical address of a 128-bit operation (for example, a octal-word SSE instruction) is canonical on the first byte, but whose final byte crosses over the canonical address boundary. The processor does check the linear address and signals a #GP exception if the linear address is not canonical (for all eight bytes of the operation). Therefore, this erratum can only occur if the segment register is non-zero and causes a wrap in the logical address space only. In the unlikely event that software causes this wrap, the processor core will execute the 128-bit operation as if the second part of the misaligned access starts at linear address equal to zero.",
+        "implication": "None expected, as the normal usage of segment registers and segment limits does not expose this erratum.",
+        "workaround": "None required.",
+        "status": "No fix planned"
+    },
+    "746": {
+        "title": "IOMMU Logging May Stall Translations",
+        "problem": "The processor IOMMU L2B miscellaneous clock gating feature may cause the IOMMU to stop processing IOMMU translations due to a perceived lack of credits for writing upstream command processor writebacks, MSI interrupts, peripheral page service request (PPR) logs, or event logs.",
+        "implication": "The IOMMU may hang. This may be observed as a system hang.",
+        "workaround": "BIOS should disable L2B miscellaneous clock gating by setting L2_L2B_CK_GATE_CONTROL[CKGateL2BMiscDisable] (D0F2xF4_x90[2]) = 1b.",
+        "status": "No fix planned"
+    },
+    "775": {
+        "title": "Processor May Present More Than One #DB Exception on REP-INS or REP-OUTS Instructions",
+        "problem": "When a REP-INSx or REP-OUTSx instruction is interrupted by a system management interrupt (SMI), the processor does not set RFLAGS.RF to 1b in the SMM save state. After the SMM code executes RSM to return from SMM, any debug exception present on the instruction may get presented again.",
+        "implication": "Debug software may observe two or more #DB exceptions for a single execution of REP-INS or REP-OUTS instruction.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "786": {
+        "title": "APIC Timer Periodic Mode is Imprecise",
+        "problem": "The APIC timer may not properly initialize back to the APIC timer initial count value (APIC380) when it transitions to zero and Timer Local Vector Table Entry[Mode] (APIC320[17]) is configured to run in periodic mode. In this mode, when the APIC timer reaches zero, the next value in the APIC current count register (APIC390) is set to the APIC initial count (APIC380), but the processor may incorrectly add or subtract an offset that is between 0 and 31.",
+        "implication": "The standard use of the APIC timer and the level of accuracy required does not make this error significant.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "787": {
+        "title": "IOMMU Interrupt May Be Lost",
+        "problem": "The IOMMU may not send a message-signaled interrupt (MSI) if the interrupt becomes pending around a very small timing window while the software is clearing a previous IOMMU interrupt. Once this erratum occurs, message-signaled interrupts are not sent until the software clears the interrupt pending status.",
+        "implication": "The IOMMU driver may not receive IOMMU interrupts. This effect may persist and cause the IOMMU to stop processing transactions since the software normally does not clear the interrupt pending status in the absence of an actual interrupt. AMD has only observed this erratum with IOMMU version 2 software.",
+        "workaround": "No workaround is recommended for IOMMU version 1 driver software. After clearing interrupts, the IOMMU version 2 driver software should read the interrupt status register and process any pending interrupts.",
+        "status": "No fix planned"
+    },
+    "792": {
+        "title": "DRAM Scrubbing May Overwrite CC6 Core Save State Data Resulting in Unpredictable System Behavior",
+        "problem": "The processor does not properly ensure that a DRAM scrub read and write sequence is atomic with respect to simultaneous processor core accesses to the CC6 save area. If a DRAM scrub access is to the same address as a concurrent save of the processor state, the CC6 entry may appear as if it was not written.",
+        "implication": "Unpredictable system behavior.",
+        "workaround": "BIOS should set Scrub Rate Control D18F3x58[4:0] = 00h to disable sequential DRAM scrubbing. BIOS should set DRAM Scrub Address Low D18F3x5C[0] = 0b to disable re-direct DRAM scrubbing.",
+        "status": "No fix planned"
+    }
+}

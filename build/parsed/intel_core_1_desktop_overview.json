@@ -1,0 +1,1010 @@
+{
+    "AAJ1": [
+        "X",
+        "X",
+        "No Fix",
+        "MCi_Status Overflow Bit May Be Incorrectly Set on a Single Instance of a DTLB Error"
+    ],
+    "AAJ2": [
+        "X",
+        "X",
+        "No Fix",
+        "Debug Exception Flags DR6.B0-B3 Flags May be Incorrect for Disabled Breakpoints"
+    ],
+    "AAJ3": [
+        "X",
+        "X",
+        "No Fix",
+        "MONITOR or CLFLUSH on the Local XAPIC's Address Space Results in Hang"
+    ],
+    "AAJ4": [
+        "X",
+        "X",
+        "No Fix",
+        "Corruption of CS Segment Register during RSM While Transitioning From Real Mode to Protected Mode"
+    ],
+    "AAJ5": [
+        "X",
+        "X",
+        "No Fix",
+        "The Processor May Report a #TS Instead of a #GP Fault"
+    ],
+    "AAJ6": [
+        "X",
+        "X",
+        "No Fix",
+        "REP MOVS/STOS Executing with Fast Strings Enabled and Crossing Page Boundaries with Inconsistent Memory Types may use an Incorrect Data Size or Lead to Memory-Ordering Violations"
+    ],
+    "AAJ7": [
+        "X",
+        "X",
+        "No Fix",
+        "Code Segment Limit/Canonical Faults on RSM May be Serviced before Higher Priority Interrupts/Exceptions and May Push the Wrong Address Onto the Stack"
+    ],
+    "AAJ8": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor SSE Retired Instructions May Return Incorrect Values"
+    ],
+    "AAJ9": [
+        "X",
+        "X",
+        "No Fix",
+        "Premature Execution of a Load Operation Prior to Exception Handler Invocation"
+    ],
+    "AAJ10": [
+        "X",
+        "X",
+        "No Fix",
+        "MOV To/From Debug Registers Causes Debug Exception"
+    ],
+    "AAJ11": [
+        "X",
+        "X",
+        "No Fix",
+        "Incorrect Address Computed For Last Byte of FXSAVE/FXRSTOR Image Leads to Partial Memory Update"
+    ],
+    "AAJ12": [
+        "X",
+        "X",
+        "No Fix",
+        "Values for LBR/BTS/BTM will be Incorrect after an Exit from SMM"
+    ],
+    "AAJ13": [
+        "X",
+        "X",
+        "No Fix",
+        "Single Step Interrupts with Floating Point Exception Pending May Be Mishandled"
+    ],
+    "AAJ14": [
+        "X",
+        "X",
+        "No Fix",
+        "Fault on ENTER Instruction May Result in Unexpected Values on Stack Frame"
+    ],
+    "AAJ15": [
+        "X",
+        "X",
+        "No Fix",
+        "IRET under Certain Conditions May Cause an Unexpected Alignment Check Exception"
+    ],
+    "AAJ16": [
+        "X",
+        "X",
+        "No Fix",
+        "General Protection Fault (#GP) for Instructions Greater than 15 Bytes May be Preempted"
+    ],
+    "AAJ17": [
+        "X",
+        "X",
+        "No Fix",
+        "General Protection (#GP) Fault May Not Be Signaled on Data Segment Limit Violation above 4-G Limit"
+    ],
+    "AAJ18": [
+        "X",
+        "X",
+        "No Fix",
+        "LBR, BTS, BTM May Report a Wrong Address when an Exception/Interrupt Occurs in 64-bit Mode"
+    ],
+    "AAJ19": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitoring Events for Read Miss to Level 3 Cache Fill Occupancy Counter may be Incorrect"
+    ],
+    "AAJ20": [
+        "X",
+        "X",
+        "No Fix",
+        "A VM Exit on MWAIT May Incorrectly Report the Monitoring Hardware as Armed"
+    ],
+    "AAJ21": [
+        "X",
+        "X",
+        "No Fix",
+        "Memory Aliasing of Code Pages May Cause Unpredictable System Behavior"
+    ],
+    "AAJ22": [
+        "X",
+        "X",
+        "No Fix",
+        "Delivery Status of the LINT0 Register of the Local Vector Table May be Lost"
+    ],
+    "AAJ23": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Event SEGMENT_REG_LOADS Counts Inaccurately"
+    ],
+    "AAJ24": [
+        "X",
+        "X",
+        "No Fix",
+        "#GP on Segment Selector Descriptor that Straddles Canonical Boundary May Not Provide Correct Exception Error Code"
+    ],
+    "AAJ25": [
+        "X",
+        "X",
+        "No Fix",
+        "Improper Parity Error Signaled in the IQ Following Reset When a Code Breakpoint is set on a #GP Instruction"
+    ],
+    "AAJ26": [
+        "X",
+        "X",
+        "No Fix",
+        "An Enabled Debug Breakpoint or Single Step Trap May Be Taken after MOV SS/POP SS Instruction if it is Followed by an Instruction That Signals a Floating Point Exception"
+    ],
+    "AAJ27": [
+        "X",
+        "X",
+        "No Fix",
+        "IA32_MPERF Counter Stops Counting During On-Demand TM1"
+    ],
+    "AAJ28": [
+        "X",
+        "X",
+        "No Fix",
+        "The Memory Controller tTHROT_OPREF Timings May Be Violated during Self-Refresh Entry"
+    ],
+    "AAJ29": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor May Over Count Correctable Cache MESI State Errors"
+    ],
+    "AAJ30": [
+        "X",
+        "X",
+        "No Fix",
+        "Synchronous Reset of IA32_APERF/IA32_MPERF Counters on Overflow Does Not Work"
+    ],
+    "AAJ31": [
+        "X",
+        "X",
+        "No Fix",
+        "Disabling Thermal Monitor While Processor is Hot, Then Re-enabling, May Result in Stuck Core Operating Ratio"
+    ],
+    "AAJ32": [
+        "X",
+        "",
+        "Fixed",
+        "The PECI Throttling Counter May Not be Accurate"
+    ],
+    "AAJ33": [
+        "X",
+        "X",
+        "No Fix",
+        "PECI Does Not Support PCI Configuration Reads/Writes to Misaligned Addresses"
+    ],
+    "AAJ34": [
+        "X",
+        "X",
+        "No Fix",
+        "OVER Bit for IA32_MCi_STATUS Register May Get Set on Specific lnternal Error"
+    ],
+    "AAJ35": [
+        "X",
+        "X",
+        "No Fix",
+        "Writing the Local Vector Table (LVT) when an Interrupt is Pending May Cause an Unexpected Interrupt"
+    ],
+    "AAJ36": [
+        "X",
+        "",
+        "Fixed",
+        "A Processor Core May Not Wake Up from S1 State"
+    ],
+    "AAJ37": [
+        "X",
+        "X",
+        "No Fix",
+        "Reading Reserved APIC Registers May Not Signal an APIC Error"
+    ],
+    "AAJ38": [
+        "X",
+        "",
+        "Fixed",
+        "A Logical Processor Receiving a SIPI after a VM Entry into WFS State May Become Unresponsive"
+    ],
+    "AAJ39": [
+        "X",
+        "X",
+        "No Fix",
+        "Memory Controller May Deliver Incorrect Data When Memory Ranks Are In Power-Down"
+    ],
+    "AAJ40": [
+        "X",
+        "X",
+        "No Fix",
+        "Faulting MMX Instruction May Incorrectly Update x87 FPU Tag Word"
+    ],
+    "AAJ41": [
+        "X",
+        "",
+        "Fixed",
+        "A Floating-Point Store Instruction May Cause an Unexpected x87 FPU Floating-Point Error (#MF)"
+    ],
+    "AAJ42": [
+        "X",
+        "",
+        "Fixed",
+        "Incorrect TLB Translation May Occur After Exit from C6"
+    ],
+    "AAJ43": [
+        "X",
+        "",
+        "Fixed",
+        "USB 1.1 ISOCH Audio Glitches with Intel\u00ae QuickPath Interconnect Locks and Deep C-States"
+    ],
+    "AAJ44": [
+        "X",
+        "",
+        "Fixed",
+        "Stack Pointer May Become Incorrect In Loops with Unbalanced Push and Pop Operations"
+    ],
+    "AAJ45": [
+        "X",
+        "",
+        "No Fix",
+        "A P-state Change While another Core is in C6 May Prevent Further C-state and P-state Transitions"
+    ],
+    "AAJ46": [
+        "X",
+        "X",
+        "No Fix",
+        "Certain Store Parity Errors May Not Log Correct Address in IA32_MCi_ADDR"
+    ],
+    "AAJ47": [
+        "X",
+        "X",
+        "No Fix",
+        "xAPIC Timer May Decrement Too Quickly Following an Automatic Reload While in Periodic Mode"
+    ],
+    "AAJ48": [
+        "X",
+        "X",
+        "No Fix",
+        "Certain Undefined Opcodes Crossing a Segment Limit May Result in #UD Instead of #GP Exception"
+    ],
+    "AAJ49": [
+        "X",
+        "X",
+        "No Fix",
+        "Indication of A20M Support is Inverted"
+    ],
+    "AAJ50": [
+        "X",
+        "X",
+        "No Fix",
+        "Reported Memory Type May Not Be Used to Access the VMCS and Referenced Data Structures"
+    ],
+    "AAJ51": [
+        "X",
+        "",
+        "Fixed",
+        "After VM Entry, Instructions May Incorrectly Operate as if CS.D=0"
+    ],
+    "AAJ52": [
+        "X",
+        "",
+        "Fixed",
+        "Spurious Machine Check Error May Occur When Logical Processor is Woken Up"
+    ],
+    "AAJ53": [
+        "X",
+        "X",
+        "No Fix",
+        "B0-B3 Bits in DR6 For Non-Enabled Breakpoints May be Incorrectly Set"
+    ],
+    "AAJ54": [
+        "X",
+        "X",
+        "No Fix",
+        "Core C6 May Clear Previously Logged TLB Errors"
+    ],
+    "AAJ55": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor May Hang When Two Logical Processors Are in Specific Low Power States"
+    ],
+    "AAJ56": [
+        "X",
+        "X",
+        "No Fix",
+        "MOVNTDQA from WC Memory May Pass Earlier Locked Instructions"
+    ],
+    "AAJ57": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Event MISALIGN_MEM_REF May Over Count"
+    ],
+    "AAJ58": [
+        "X",
+        "X",
+        "No Fix",
+        "Changing the Memory Type for an In-Use Page Translation May Lead to Memory-Ordering Violations"
+    ],
+    "AAJ59": [
+        "X",
+        "",
+        "Fixed",
+        "Writes to IA32_CR_PAT or IA32_EFER MSR May Cause an Incorrect ITLB Translation"
+    ],
+    "AAJ60": [
+        "X",
+        "",
+        "Fixed",
+        "The \"Virtualize APIC Accesses\" VM-Execution Control May be Ignored"
+    ],
+    "AAJ61": [
+        "X",
+        "",
+        "Fixed",
+        "C6 Transitions May Cause Spurious Updates to the xAPIC Error Status Register"
+    ],
+    "AAJ62": [
+        "X",
+        "",
+        "Fixed",
+        "Critical ISOCH Traffic May Cause Unpredictable System Behavior When Write Major Mode Enabled"
+    ],
+    "AAJ63": [
+        "X",
+        "X",
+        "No Fix",
+        "Running with Write Major Mode Disabled May Lead to a System Hang"
+    ],
+    "AAJ64": [
+        "X",
+        "X",
+        "No Fix",
+        "Memory Controller Address Parity Error Injection Does Not Work Correctly"
+    ],
+    "AAJ65": [
+        "X",
+        "X",
+        "No Fix",
+        "Memory Controller Opportunistic Refreshes Might be Missed"
+    ],
+    "AAJ66": [
+        "X",
+        "X",
+        "No Fix",
+        "Delivery of Certain Events Immediately Following a VM Exit May Push a Corrupted RIP onto the Stack"
+    ],
+    "AAJ67": [
+        "X",
+        "X",
+        "No Fix",
+        "The Combination of a Bus Lock and a Data Access that is Split Across Page Boundaries May Lead to Processor Livelock"
+    ],
+    "AAJ68": [
+        "X",
+        "X",
+        "No Fix",
+        "CPUID Instruction Returns Incorrect Brand String"
+    ],
+    "AAJ69": [
+        "X",
+        "X",
+        "No Fix",
+        "An Unexpected Page Fault May Occur Following the Unmapping and Re-mapping of a Page"
+    ],
+    "AAJ70": [
+        "X",
+        "X",
+        "No Fix",
+        "Infinite Stream of Interrupts May Occur if an ExtINT Delivery Mode Interrupt is Received while All Cores Are in C6"
+    ],
+    "AAJ71": [
+        "X",
+        "X",
+        "No Fix",
+        "Two xAPIC Timer Event Interrupts May Unexpectedly Occur"
+    ],
+    "AAJ72": [
+        "X",
+        "X",
+        "No Fix",
+        "EOI Transaction May Not be Sent if Software Enters Core C6 During an Interrupt Service Routine"
+    ],
+    "AAJ73": [
+        "X",
+        "X",
+        "No Fix",
+        "FREEZE_WHILE_SMM Does Not Prevent Event From Pending PEBS During SMM"
+    ],
+    "AAJ74": [
+        "X",
+        "X",
+        "No Fix",
+        "PEBS Records For Load Latency Monitoring May Contain an Incorrect Linear Address"
+    ],
+    "AAJ75": [
+        "X",
+        "X",
+        "No Fix",
+        "PEBS Field \u201cData Linear Address\u201d is Not Sign Extended to 64 Bits"
+    ],
+    "AAJ76": [
+        "X",
+        "X",
+        "No Fix",
+        "Core C6 May Not Operate Correctly in the Presence of Bus Locks"
+    ],
+    "AAJ77": [
+        "X",
+        "X",
+        "No Fix",
+        "Intel\u00ae Turbo Boost Technology May be Limited Immediately After Package C-state Exit with Intel\u00ae QPI L1 Mode Disabled"
+    ],
+    "AAJ78": [
+        "X",
+        "X",
+        "No Fix",
+        "APIC Error \u201cReceived Illegal Vector\u201d May be Lost"
+    ],
+    "AAJ79": [
+        "X",
+        "X",
+        "No Fix",
+        "CPUID Incorrectly Indicates the UnHalted Reference Cycle Architectural Event is Supported"
+    ],
+    "AAJ80": [
+        "X",
+        "",
+        "Fixed",
+        "Architectural Performance Monitor Event \u2018Branch Misses Retired\u2019 is Counted Incorrectly"
+    ],
+    "AAJ81": [
+        "X",
+        "X",
+        "No Fix",
+        "DR6.B0-B3 May Not Report All Breakpoints Matched When a MOV/POP SS is Followed by a Store Instruction"
+    ],
+    "AAJ82": [
+        "X",
+        "X",
+        "No Fix",
+        "An Uncorrectable Error Logged in IA32_CR_MC2_STATUS May also Result in a System Hang"
+    ],
+    "AAJ83": [
+        "X",
+        "X",
+        "No Fix",
+        "IA32_PERF_GLOBAL_CTRL MSR May be Incorrectly Initialized"
+    ],
+    "AAJ84": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Interrupts Generated From Uncore Fixed Counters (394H) May be Ignored"
+    ],
+    "AAJ85": [
+        "X",
+        "X",
+        "No Fix",
+        "Processors with SMT May Hang on P-State Transition or ACPI Clock Modulation Throttling"
+    ],
+    "AAJ86": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Counter MEM_INST_RETIRED.STORES May Count Higher than Expected"
+    ],
+    "AAJ87": [
+        "X",
+        "X",
+        "No Fix",
+        "Sleeping Cores May Not be Woken Up on Logical Cluster Mode Broadcast IPI Using Destination Field Instead of Shorthand"
+    ],
+    "AAJ88": [
+        "X",
+        "X",
+        "No Fix",
+        "Faulting Executions of FXRSTOR May Update State Inconsistently"
+    ],
+    "AAJ89": [
+        "X",
+        "X",
+        "No Fix",
+        "Unexpected Intel\u00ae QPI Link Behavior May Occur When a CRC Error Happens During L0s"
+    ],
+    "AAJ90": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Event EPT.EPDPE_MISS May be Counted While EPT is Disabled"
+    ],
+    "AAJ91": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Counters May Count Incorrectly"
+    ],
+    "AAJ92": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor Forward Progress Mechanism Interacting With Certain MSR/CSR Writes May Cause Unpredictable System Behavior"
+    ],
+    "AAJ93": [
+        "X",
+        "",
+        "Fixed",
+        "USB 1.1 Isoch Memory Latencies May Increase During Package C3/C6 Transitions"
+    ],
+    "AAJ94": [
+        "X",
+        "X",
+        "No Fix",
+        "Processor May Incorrectly Demote Processor C6 State to a C3 State"
+    ],
+    "AAJ95": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Event Offcore_response_0 (B7H) Does Not Count NT Stores to Local DRAM Correctly"
+    ],
+    "AAJ96": [
+        "X",
+        "X",
+        "No Fix",
+        "EFLAGS Discrepancy on Page Faults and on EPT-Induced VM Exits after a Translation Change"
+    ],
+    "AAJ97": [
+        "X",
+        "X",
+        "No Fix",
+        "System May Hang if MC_CHANNEL_{0,1,2}_MC_DIMM_INIT_CMD.DO_ZQCL Commands Are Not Issued in Increasing Populated DDR3 Rank Order"
+    ],
+    "AAJ98": [
+        "X",
+        "X",
+        "No Fix",
+        "LER and LBR MSRs May Be Incorrectly Updated During a Task Switch"
+    ],
+    "AAJ99": [
+        "X",
+        "",
+        "Fixed",
+        "Virtualized WRMSR to the IA32_EXT_XAPIC_TPR MSR Uses Incorrect Value for TPR Threshold"
+    ],
+    "AAJ100": [
+        "X",
+        "X",
+        "No Fix",
+        "Back to Back Uncorrected Machine Check Errors May Overwrite IA32_MC3_STATUS.MSCOD"
+    ],
+    "AAJ101": [
+        "X",
+        "X",
+        "No Fix",
+        "Memory Intensive Workloads with Core C6 Transitions May Cause System Hang"
+    ],
+    "AAJ102": [
+        "X",
+        "X",
+        "No Fix",
+        "Corrected Errors With a Yellow Error Indication May be Overwritten by Other Corrected Errors"
+    ],
+    "AAJ103": [
+        "X",
+        "X",
+        "No Fix",
+        "PSI# Signal May Incorrectly be Left Asserted"
+    ],
+    "AAJ104": [
+        "X",
+        "X",
+        "No Fix",
+        "A String Instruction that Re-maps a Page May Encounter an Unexpected Page Fault"
+    ],
+    "AAJ105": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Events DCACHE_CACHE_LD and DCACHE_CACHE_ST May Overcount"
+    ],
+    "AAJ106": [
+        "X",
+        "X",
+        "No Fix",
+        "Rapid Core C3/C6 Transitions May Cause Unpredictable System Behavior"
+    ],
+    "AAJ107": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Events INSTR_RETIRED and MEM_INST_RETIRED May Count Inaccurately"
+    ],
+    "AAJ108": [
+        "X",
+        "X",
+        "No Fix",
+        "A Page Fault May Not be Generated When the PS bit is set to \"1\" in a PML4E or PDPTE"
+    ],
+    "AAJ109": [
+        "X",
+        "X",
+        "Plan Fix",
+        "tRP Timing Violations May be Observed Near a Self Refresh Entry"
+    ],
+    "AAJ110": [
+        "X",
+        "X",
+        "No Fix",
+        "System May Hang if MC_CHANNEL_{0,1,2}_MC_DIMM_INIT_CMD.DO_ZQCL Commands Are Not Issued in Increasing Populated DDR3 Rank Order"
+    ],
+    "AAJ111": [
+        "X",
+        "X",
+        "No Fix",
+        "Concurrent Updates to a Segment Descriptor May be Lost"
+    ],
+    "AAJ112": [
+        "X",
+        "X",
+        "No Fix",
+        "Memory Controller Clock Circuits May Show a Temperature Sensitive Dependence on Power-On Conditions"
+    ],
+    "AAJ113": [
+        "X",
+        "X",
+        "No Fix",
+        "PMIs May be Lost During Core C6 Transitions"
+    ],
+    "AAJ114": [
+        "X",
+        "X",
+        "No Fix",
+        "Uncacheable Access to a Monitored Address Range May Prevent Future Triggering of the Monitor Hardware"
+    ],
+    "AAJ115": [
+        "X",
+        "X",
+        "No Fix",
+        "BIST Results May be Additionally Reported After a GETSEC[WAKEUP] or INIT-SIPI Sequence"
+    ],
+    "AAJ116": [
+        "X",
+        "X",
+        "No Fix",
+        "Pending x87 FPU Exceptions (#MF) May be Signaled Earlier Than Expected"
+    ],
+    "AAJ117": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Exits Due to \u201cNMI-Window Exiting\u201d May Be Delayed by One Instruction"
+    ],
+    "AAJ118": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Exits Due to EPT Violations Do Not Record Information About Pre-IRET NMI Blocking"
+    ],
+    "AAJ119": [
+        "X",
+        "X",
+        "No Fix",
+        "Multiple Performance Monitor Interrupts are Possible on Overflow of IA32_FIXED_CTR2"
+    ],
+    "AAJ120": [
+        "X",
+        "X",
+        "No Fix",
+        "LBRs May Not be Initialized During Power-On Reset of the Processor"
+    ],
+    "AAJ121": [
+        "X",
+        "X",
+        "No Fix",
+        "Unexpected Interrupts May Occur on C6 Exit If Using APIC Timer to Generate Interrupts"
+    ],
+    "AAJ122": [
+        "X",
+        "X",
+        "No Fix",
+        "LBR, BTM or BTS Records May have Incorrect Branch From Information After an Enhanced Intel SpeedStep Technology Transition, T-states, C1E, or Adaptive Thermal Throttling"
+    ],
+    "AAJ123": [
+        "X",
+        "X",
+        "No Fix",
+        "Redirection to Probe Mode May be delayed beyond Intended Instruction"
+    ],
+    "AAJ124": [
+        "X",
+        "X",
+        "No Fix",
+        "VMX-Preemption Timer Does Not Count Down at the Rate Specified"
+    ],
+    "AAJ125": [
+        "X",
+        "X",
+        "No Fix",
+        "Multiple Performance Monitor Interrupts are Possible on Overflow of Fixed Counter 0"
+    ],
+    "AAJ126": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Exits Due to LIDT/LGDT/SIDT/SGDT Do Not Report Correct Operand Size"
+    ],
+    "AAJ127": [
+        "X",
+        "",
+        "No Fix",
+        "Performance Monitoring Events STORE_BLOCKS.NOT_STA and STORE_BLOCKS.STA May Not Count Events Correctly"
+    ],
+    "AAJ128": [
+        "X",
+        "X",
+        "No Fix",
+        "Storage of PEBS Record Delayed Following Execution of MOV SS or STI"
+    ],
+    "AAJ129": [
+        "X",
+        "X",
+        "No Fix",
+        "<Erratum Removed>"
+    ],
+    "AAJ130": [
+        "X",
+        "X",
+        "Plan Fix",
+        "INVLPG Following INVEPT or INVVPID May Fail to Flush All Translations for a Large Page"
+    ],
+    "AAJ131": [
+        "X",
+        "X",
+        "No Fix",
+        "The PECI Bus May be Tri-stated After System Reset"
+    ],
+    "AAJ132": [
+        "X",
+        "X",
+        "No Fix",
+        "LER MSRs May Be Unreliable"
+    ],
+    "AAJ133": [
+        "X",
+        "X",
+        "No Fix",
+        "An Exit From the Core C6-state May Result in the Dropping of an Interrupt"
+    ],
+    "AAJ134": [
+        "X",
+        "X",
+        "No Fix",
+        "PMIs During Core C6 Transitions May Cause the System to Hang"
+    ],
+    "AAJ135": [
+        "X",
+        "X",
+        "No Fix",
+        "Page Split Lock Accesses Combined With Complex Internal Events May Cause Unpredictable System Behavior"
+    ],
+    "AAJ136": [
+        "X",
+        "X",
+        "No Fix",
+        "IA32_MC8_CTL2 MSR is Not Cleared on Processor Warm Reset"
+    ],
+    "AAJ137": [
+        "X",
+        "X",
+        "No Fix",
+        "The Combination of a Page-Split Lock Access And Data Accesses That Are Split Across Cacheline Boundaries May Lead to Processor Livelock"
+    ],
+    "AAJ138": [
+        "X",
+        "X",
+        "No Fix",
+        "FP Data Operand Pointer May Be Incorrectly Calculated After an FP Access Which Wraps a 4-Gbyte Boundary in Code That Uses 32-Bit Address Size in 64-bit Mode"
+    ],
+    "AAJ139": [
+        "X",
+        "X",
+        "No Fix",
+        "IO_SMI Indication in SMRAM State Save Area May be Set Incorrectly"
+    ],
+    "AAJ140": [
+        "X",
+        "X",
+        "No Fix",
+        "Performance Monitor Events for Hardware Prefetches Which Miss The L1 Data Cache May be Over Counted"
+    ],
+    "AAJ141": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Exit May Incorrectly Clear IA32_PERF_GLOBAL_CTRL [34:32]"
+    ],
+    "AAJ142": [
+        "X",
+        "X",
+        "No Fix",
+        "Intel\u00ae QPI Lane May Be Dropped During Full Frequency Deskew Phase of Training"
+    ],
+    "AAJ143": [
+        "X",
+        "X",
+        "No Fix",
+        "PerfMon Overflow Status Can Not be Cleared After Certain Conditions Have Occurred"
+    ],
+    "AAJ144": [
+        "X",
+        "X",
+        "No Fix",
+        "An Unexpected Page Fault or EPT Violation May Occur After Another Logical Processor Creates a Valid Translation for a Page"
+    ],
+    "AAJ145": [
+        "X",
+        "X",
+        "No Fix",
+        "L1 Data Cache Errors May be Logged With Level Set to 1 Instead of 0"
+    ],
+    "AAJ146": [
+        "X",
+        "X",
+        "No Fix",
+        "Stack Pushes May Not Occur Properly for Events Delivered Immediately After VM Entry to 16-Bit Software"
+    ],
+    "AAJ147": [
+        "X",
+        "X",
+        "No Fix",
+        "PerfMon Event LOAD_HIT_PRE.SW_PREFETCH May Overcount"
+    ],
+    "AAJ148": [
+        "X",
+        "X",
+        "No Fix",
+        "Successive Fixed Counter Overflows May be Discarded"
+    ],
+    "AAJ149": [
+        "X",
+        "X",
+        "No Fix",
+        "#GP May be Signaled When Invalid VEX Prefix Precedes Conditional Branch Instructions"
+    ],
+    "AAJ150": [
+        "X",
+        "X",
+        "No Fix",
+        "A Logical Processor May Wake From Shutdown State When Branch-Trace Messages or Branch-Trace Stores Are Enabled"
+    ],
+    "AAJ151": [
+        "X",
+        "X",
+        "No Fix",
+        "Task Switch to a TSS With an Inaccessible LDTR Descriptor May Cause Unexpected Faults"
+    ],
+    "AAJ152": [
+        "X",
+        "X",
+        "No Fix",
+        "Changes to Reserved Bits of Some Non-Architectural MSR\u2019s May Cause Unpredictable System Behavior"
+    ],
+    "AAJ153": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Entries That Return From SMM Using VMLAUNCH May Not Update The Launch State of the VMCS"
+    ],
+    "AAJ154": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Entry May Clear Bytes 81H-83H on Virtual-APIC Page When \u201cUse TPR Shadow\u201d Is 0"
+    ],
+    "AAJ155": [
+        "X",
+        "X",
+        "No Fix",
+        "A First Level Data Cache Parity Error May Result in Unexpected Behavior"
+    ],
+    "AAJ156": [
+        "X",
+        "X",
+        "No Fix",
+        "An Event May Intervene Before a System Management Interrupt That Results from IN or INS"
+    ],
+    "AAJ157": [
+        "X",
+        "X",
+        "No Fix",
+        "Successive Fixed Counter Overflows May be Discarded"
+    ],
+    "AAJ158": [
+        "X",
+        "X",
+        "No Fix",
+        "VM Exits Due to \u201cNMI-Window Exiting\u201d May Not Occur Following a VM Entry to the Shutdown State"
+    ],
+    "AAJ159": [
+        "X",
+        "X",
+        "No Fix",
+        "Execution of INVVPID Outside 64-Bit Mode Cannot Invalidate Translations For 64-Bit Linear Addresses"
+    ],
+    "AAJ160": [
+        "X",
+        "X",
+        "No Fix",
+        "A Combination of Data Accesses That Are Split Across Cacheline Boundaries May Lead to a Processor Hang"
+    ],
+    "AAJ161": [
+        "X",
+        "X",
+        "No Fix",
+        "A Machine Check Occurring During VM Entry May Cause Unpredictable Behavior"
+    ],
+    "AAJ162": [
+        "X",
+        "X",
+        "No Fix",
+        "MCI_ADDR May be Incorrect For Cache Parity Errors"
+    ],
+    "AAJ163": [
+        "X",
+        "X",
+        "No Fix",
+        "The Corrected Error Count Overflow Bit in IA32_ MC0_STATUS is Not Updated When the UC Bit is Set"
+    ],
+    "AAJ164": [
+        "X",
+        "X",
+        "No Fix",
+        "The Upper 32 Bits of CR3 May be Incorrectly Used With 32-Bit Paging"
+    ],
+    "AAJ165": [
+        "X",
+        "X",
+        "No Fix",
+        "EPT Violations May Report Bits 11:0 of Guest Linear Address Incorrectly"
+    ],
+    "AAJ166": [
+        "X",
+        "X",
+        "No Fix",
+        "SMRAM State-Save Area Above the 4GB Boundary May Cause Unpredictable System Behavior"
+    ],
+    "AAJ167": [
+        "X",
+        "X",
+        "No Fix",
+        "Virtual-APIC Page Accesses With 32-Bit PAE Paging May Cause a System Crash"
+    ],
+    "AAJ168": [
+        "X",
+        "X",
+        "No Fix",
+        "Interrupt Remapping May Lead to a System Hang"
+    ]
+}

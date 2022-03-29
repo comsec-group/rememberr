@@ -1,0 +1,821 @@
+{
+    "BK001": {
+        "title": "An Enabled Debug Breakpoint or Single Step Trap May Be Taken after MOV SS/POP SS Instruction if it is Followed by an Instruction That Signals a Floating Point Exception",
+        "problem": "A MOV SS/POP SS instruction should inhibit all interrupts including debug breakpoints until after execution of the following instruction. This is intended to allow the sequential execution of MOV SS/POP SS and MOV [r/e]SP, [r/e]BP instructions without having an invalid stack during interrupt handling. However, an enabled debug breakpoint or single step trap may be taken after MOV SS/POP SS if this instruction is followed by an instruction that signals a floating point exception rather than a MOV [r/e]SP, [r/e]BP instruction. This results in a debug exception being signaled on an unexpected instruction boundary, since the MOV SS/POP SS and the following instruction should be executed atomically.",
+        "implication": "This can result in incorrect signaling of a debug exception and possibly a mismatched Stack Segment and Stack Pointer. If MOV SS/POP SS is not followed by a MOV [r/e]SP, [r/e]BP, there may be a mismatched Stack Segment and Stack Pointer on any exception. Intel has not observed this erratum with any commercially available software or system.",
+        "workaround": "As recommended in the IA32 Intel\u00ae Architecture Software Developer's Manual, the use of MOV SS/POP SS in conjunction with MOV [r/e]SP, [r/e]BP will avoid the failure since the MOV [r/e]SP, [r/e]BP will not generate a floating point exception. Developers of debug tools should be aware of the potential incorrect debug event signaling created by this erratum",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK002": {
+        "title": "APIC Error \u201cReceived Illegal Vector\u201d May be Lost",
+        "problem": "APIC (Advanced Programmable Interrupt Controller) may not update the ESR (Error Status Register) flag Received Illegal Vector bit [6] properly when an illegal vector error is received on the same internal clock that the ESR is being written (as part of the write-read ESR access flow). The corresponding error interrupt will also not be generated for this case.",
+        "implication": "Due to this erratum, an incoming illegal vector error may not be logged into ESR properly and may not generate an error interrupt.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK003": {
+        "title": "An Uncorrectable Error Logged in IA32_CR_MC2_STATUS May also Result in a System Hang",
+        "problem": "Uncorrectable errors logged in IA32_CR_MC2_STATUS MSR (409H) may also result in a system hang causing an Internal Timer Error (MCACOD = 0x0400h) to be logged in another machine check bank (IA32_MCi_STATUS).",
+        "implication": "Uncorrectable errors logged in IA32_CR_MC2_STATUS can further cause a system hang and an Internal Timer Error to be logged.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes. \uf020"
+    },
+    "BK004": {
+        "title": "B0-B3 Bits in DR6 For Non-Enabled Breakpoints May be Incorrectly Set",
+        "problem": "Some of the B0-B3 bits (breakpoint conditions detect flags, bits [3:0]) in DR6 may be incorrectly set for non-enabled breakpoints when the following sequence happens: 1.     MOV or POP instruction to SS (Stack Segment) selector. 2.     Next instruction is FP (Floating Point) that gets FP assist. 3.     Another instruction after the FP instruction completes successfully. 4.     A breakpoint occurs due to either a data breakpoint on the preceding instruction or a code breakpoint on the next instruction. Due to this erratum a non-enabled breakpoint triggered on step 1 or step 2 may be reported in B0-B3 after the breakpoint occurs in step 4.",
+        "implication": "Due to this erratum, B0-B3 bits in DR6 may be incorrectly set for non-enabled breakpoints.",
+        "workaround": "Software should not execute a floating point instruction directly after a MOV SS or POP SS instruction.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK005": {
+        "title": "Changing the Memory Type for an In-Use Page Translation May Lead to Memory-Ordering Violations",
+        "problem": "Under complex microarchitectural conditions, if software changes the memory type for data being actively used and shared by multiple threads without the use of semaphores or barriers, software may see load operations execute out of order.",
+        "implication": "Memory ordering may be violated. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "Software should ensure pages are not being actively used before requesting their memory type be changed.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK006": {
+        "title": "Code Segment Limit/Canonical Faults on RSM May be Serviced before Higher Priority Interrupts/Exceptions and May Push the Wrong Address Onto the Stack",
+        "problem": "Normally, when the processor encounters a Segment Limit or Canonical Fault due to code execution, a #GP (General Protection Exception) fault is generated after all higher priority Interrupts and exceptions are serviced. Due to this erratum, if RSM (Resume from System Management Mode) returns to execution flow that results in a Code Segment Limit or Canonical Fault, the #GP fault may be serviced before a higher priority Interrupt or Exception (e.g. NMI (Non-Maskable Interrupt), Debug break(#DB), Machine Check (#MC), etc.). If the RSM attempts to return to a non-canonical address, the address pushed onto the stack for this #GP fault may not match the non-canonical address that caused the fault.",
+        "implication": "Operating systems may observe a #GP fault being serviced before higher priority Interrupts and Exceptions. Intel has not observed this erratum on any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK007": {
+        "title": "Corruption of CS Segment Register During RSM While Transitioning From Real Mode to Protected Mode",
+        "problem": "During the transition from real mode to protected mode, if an SMI (System Management Interrupt) occurs between the MOV to CR0 that sets PE (Protection Enable, bit 0) and the first far JMP, the subsequent RSM (Resume from System Management Mode) may cause the lower two bits of CS segment register to be corrupted.",
+        "implication": "The corruption of the bottom two bits of the CS segment register will have no impact unless software explicitly examines the CS segment register between enabling protected mode and the first far JMP. Intel\u00ae 64 and IA-32 Architectures Software Developer's Manual Volume 3A: System Programming Guide, Part 1, in the section titled \u201cSwitching to Protected Mode\u201d recommends the far JMP immediately follows the write to CR0 to enable protected mode. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK008": {
+        "title": "Debug Exception Flags DR6.B0-B3 Flags May be Incorrect for Disabled Breakpoints",
+        "problem": "When a debug exception is signaled on a load that crosses cache lines with data forwarded from a store and whose corresponding breakpoint enable flags are disabled (DR7.G0-G3 and DR7.L0-L3), the DR6.B0-B3 flags may be incorrect.",
+        "implication": "The debug exception DR6.B0-B3 flags may be incorrect for the load if the corresponding breakpoint enable flag in DR7 is disabled.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK009": {
+        "title": "DR6.B0-B3 May Not Report All Breakpoints Matched When a MOV/POP SS is Followed by a Store or an MMX Instruction",
+        "problem": "Normally, data breakpoints matches that occur on a MOV SS, r/m or POP SS will not cause a debug exception immediately after MOV/POP SS but will be delayed until the instruction boundary following the next instruction is reached. After the debug exception occurs, DR6.B0-B3 bits will contain information about data breakpoints matched during the MOV/POP SS as well as breakpoints detected by the following instruction. Due to this erratum, DR6.B0-B3 bits may not contain information about data breakpoints matched during the MOV/POP SS when the following instruction is either an MMX instruction that uses a memory addressing mode with an index or a store instruction.",
+        "implication": "When this erratum occurs, DR6 may not contain information about all breakpoints matched. This erratum will not be observed under the recommended usage of the MOV SS,r/m or POP SS instructions (i.e., following them only with an instruction that writes (E/R)SP).",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes. \uf020"
+    },
+    "BK010": {
+        "title": "EFLAGS Discrepancy on Page Faults and on EPT-Induced VM Exits after a Translation Change",
+        "problem": "This erratum is regarding the case where paging structures are modified to change a linear address from writable to non-writable without software performing an appropriate TLB invalidation. When a subsequent access to that address by a specific instruction (ADD, AND, BTC, BTR, BTS, CMPXCHG, DEC, INC, NEG, NOT, OR, ROL/ROR, SAL/SAR/SHL/SHR, SHLD, SHRD, SUB, XOR, and XADD) causes a page fault or an EPT- induced VM exit, the value saved for EFLAGS may incorrectly contain the arithmetic flag values that the EFLAGS register would have held had the instruction completed without fault or VM exit. For page faults, this can occur even if the fault causes a VM exit or if its delivery causes a nested fault.",
+        "implication": "None identified. Although the EFLAGS value saved by an affected event (a page fault or an EPT-induced VM exit) may contain incorrect arithmetic flag values, Intel has not identified software that is affected by this erratum. This erratum will have no further effects once the original instruction is restarted because the instruction will produce the same results as if it had initially completed without fault or VM exit.",
+        "workaround": "If the handler of the affected events inspects the arithmetic portion of the saved EFLAGS value, then system software should perform a synchronized paging structure modification and TLB invalidation.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK011": {
+        "title": "Fault on ENTER Instruction May Result in Unexpected Values on Stack Frame",
+        "problem": "The ENTER instruction is used to create a procedure stack frame. Due to this erratum, if execution of the ENTER instruction results in a fault, the dynamic storage area of the resultant stack frame may contain unexpected values (i.e. residual stack data as a result of processing the fault).",
+        "implication": "Data in the created stack frame may be altered following a fault on the ENTER instruction. Please refer to \u201cProcedure Calls For Block-Structured Languages\u201d in IA-32 Intel\u00ae Architecture Software Developer's Manual, Vol. 1, Basic Architecture, for information on the usage of the ENTER instructions. This erratum is not expected to occur in ring 3. Faults are usually processed in ring 0 and stack switch occurs when transferring to ring 0. Intel has not observed this erratum on any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK012": {
+        "title": "Faulting MMX Instruction May Incorrectly Update x87 FPU Tag Word",
+        "problem": "Under a specific set of conditions, MMX stores (MOVD, MOVQ, MOVNTQ, MASKMOVQ) which cause memory access faults (#GP, #SS, #PF, or #AC), may incorrectly update the x87 FPU tag word register. This erratum will occur when the following additional conditions are also met: \u2022The MMX store instruction must be the first MMX instruction to operate on x87 FPU state (i.e. the x87 FP tag word is not already set to 0x0000). \u2022For MOVD, MOVQ, MOVNTQ stores, the instruction must use an addressing mode that uses an index register (this condition does not apply to MASKMOVQ).",
+        "implication": "If the erratum conditions are met, the x87 FPU tag word register may be incorrectly set to a 0x0000 value when it should not have been modified.",
+        "workaround": "None identified",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK013": {
+        "title": "FREEZE_WHILE_SMM Does Not Prevent Event From Pending PEBS During SMM",
+        "problem": "In general, a PEBS record should be generated on the first count of the event after the counter has overflowed. However, IA32_DEBUGCTL_MSR.FREEZE_WHILE_SMM (MSR 1D9H, bit [14]) prevents performance counters from counting during SMM (System Management Mode). Due to this erratum, if: 1.   A performance counter overflowed before an SMI. 2. A PEBS record has not yet been generated because another count of the event has not occurred. 3. The monitored event occurs during SMM then a PEBS record will be saved after the next RSM instruction. When FREEZE_WHILE_SMM is set, a PEBS should not be generated until the event occurs outside of SMM.",
+        "implication": "A PEBS record may be saved after an RSM instruction due to the associated performance counter detecting the monitored event during SMM; even when FREEZE_WHILE_SMM is set.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK014": {
+        "title": "General Protection Fault (#GP) for Instructions Greater than 15 Bytes May be Preempted",
+        "problem": "When the processor encounters an instruction that is greater than 15 bytes in length, a #GP is signaled when the instruction is decoded. Under some circumstances, the #GP fault may be preempted by another lower priority fault (e.g. Page Fault (#PF)). However, if the preempting lower priority faults are resolved by the operating system and the instruction retried, a #GP fault will occur.",
+        "implication": "Software may observe a lower-priority fault occurring before or in lieu of a #GP fault. Instructions of greater than 15 bytes in length can only occur if redundant prefixes are placed before the instruction.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes. \uf020"
+    },
+    "BK015": {
+        "title": "#GP on Segment Selector Descriptor that Straddles Canonical Boundary May Not Provide Correct Exception Error Code",
+        "problem": "During a #GP (General Protection Exception), the processor pushes an error code on to the exception handler's stack. If the segment selector descriptor straddles the canonical boundary, the error code pushed onto the stack may be incorrect.",
+        "implication": "An incorrect error code may be pushed onto the stack. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK016": {
+        "title": "IO_SMI Indication in SMRAM State Save Area May be Set Incorrectly",
+        "problem": "The IO_SMI bit in SMRAM's location 7FA4H is set to \u201c1\u201d by the CPU to indicate a System Management Interrupt (SMI) occurred as the result of executing an instruction that reads from an I/O port. Due to this erratum, the IO_SMI bit may be incorrectly set by: \u2022A non-I/O instruction \u2022SMI is pending while a lower priority event interrupts \u2022A REP I/O read \u2022A I/O read that redirects to MWAIT",
+        "implication": "SMM handlers may get false IO_SMI indication.",
+        "workaround": "The SMM handler has to evaluate the saved context to determine if the SMI was triggered by an instruction that read from an I/O port. The SMM handler must not restart an I/O instruction if the platform has not been configured to generate a synchronous SMI for the recorded I/O port address.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK017": {
+        "title": "IRET under Certain Conditions May Cause an Unexpected Alignment Check Exception",
+        "problem": "In IA-32e mode, it is possible to get an Alignment Check Exception (#AC) on the IRET instruction even though alignment checks were disabled at the start of the IRET. This can only occur if the IRET instruction is returning from CPL3 code to CPL3 code. IRETs from CPL0/1/2 are not affected. This erratum can occur if the EFLAGS value on the stack has the AC flag set, and the interrupt handler's stack is misaligned. In IA-32e mode, RSP is aligned to a 16-byte boundary before pushing the stack frame.",
+        "implication": "In IA-32e mode, under the conditions given above, an IRET can get a #AC even if alignment checks are disabled at the start of the IRET. This erratum can only be observed with a software generated stack frame.",
+        "workaround": "Software should not generate misaligned stack frames for use with IRET.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK018": {
+        "title": "LER MSRs May Be Unreliable",
+        "problem": "Due to certain internal processor events, updates to the LER (Last Exception Record) MSRs, MSR_LER_FROM_LIP (1DDH) and MSR_LER_TO_LIP (1DEH), may happen when no update was expected.",
+        "implication": "The values of the LER MSRs may be unreliable.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK019": {
+        "title": "LBR, BTS, BTM May Report a Wrong Address when an Exception/ Interrupt Occurs in 64-bit Mode",
+        "problem": "An exception/interrupt event should be transparent to the LBR (Last Branch Record), BTS (Branch Trace Store) and BTM (Branch Trace Message) mechanisms. However, during a specific boundary condition where the exception/interrupt occurs right after the execution of an instruction at the lower canonical boundary (0x00007FFFFFFFFFFF) in 64-bit mode, the LBR return registers will save a wrong return address with bits 63 to 48 incorrectly sign extended to all 1's. Subsequent BTS and BTM operations which report the LBR will also be incorrect.",
+        "implication": "LBR, BTS and BTM may report incorrect information in the event of an exception/ interrupt.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK020": {
+        "title": "MCi_Status Overflow Bit May Be Incorrectly Set on a Single Instance of a DTLB Error",
+        "problem": "A single Data Translation Look Aside Buffer (DTLB) error can incorrectly set the Overflow (bit [62]) in the MCi_Status register. A DTLB error is indicated by MCA error code (bits [15:0]) appearing as binary value, 000x 0000 0001 0100, in the MCi_Status register.",
+        "implication": "Due to this erratum, the Overflow bit in the MCi_Status register may not be an accurate indication of multiple occurrences of DTLB errors. There is no other impact to normal processor functionality.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK021": {
+        "title": "MONITOR or CLFLUSH on the Local XAPIC's Address Space Results in Hang",
+        "problem": "If the target linear address range for a MONITOR or CLFLUSH is mapped to the local xAPIC's address space, the processor will hang.",
+        "implication": "When this erratum occurs, the processor will hang. The local xAPIC's address space must be uncached. The MONITOR instruction only functions correctly if the specified linear address range is of the type write-back. CLFLUSH flushes data from the cache. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "Do not execute MONITOR or CLFLUSH instructions on the local xAPIC address space.",
+        "status": "For the steppings affected, see the Summary Tables of Changes. \uf020"
+    },
+    "BK022": {
+        "title": "MOV To/From Debug Registers Causes Debug Exception",
+        "problem": "When in V86 mode, if a MOV instruction is executed to/from a debug registers, a general-protection exception (#GP) should be generated. However, in the case when the general detect enable flag (GD) bit is set, the observed behavior is that a debug exception (#DB) is generated instead.",
+        "implication": "With debug-register protection enabled (i.e., the GD bit set), when attempting to execute a MOV on debug registers in V86 mode, a debug exception will be generated instead of the expected general-protection fault.",
+        "workaround": "In general, operating systems do not set the GD bit when they are in V86 mode. The GD bit is generally set and used by debuggers. The debug exception handler should check that the exception did not occur in V86 mode before continuing. If the exception did occur in V86 mode, the exception may be directed to the general-protection exception handler.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK023": {
+        "title": "PEBS Record not Updated when in Probe Mode",
+        "problem": "When a performance monitoring counter is configured for PEBS (Precise Event Based Sampling), overflows of the counter can result in storage of a PEBS record in the PEBS buffer. Due to this erratum, if the overflow occurs during probe mode, it may be ignored and a new PEBS record may not be added to the PEBS buffer.",
+        "implication": "Due to this erratum, the PEBS buffer may not be updated by overflows that occur during probe mode.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK025": {
+        "title": "REP MOVS/STOS Executing with Fast Strings Enabled and Crossing Page Boundaries with Inconsistent Memory Types may use an Incorrect Data Size or Lead to Memory-Ordering Violations",
+        "problem": "Under certain conditions as described in the Software Developers Manual section \u201cOut- of-Order Stores For String Operations in Pentium 4, Intel Xeon, and P6 Family Processors\u201d the processor performs REP MOVS or REP STOS as fast strings. Due to this erratum fast string REP MOVS/REP STOS instructions that cross page boundaries from WB/WC memory types to UC/WP/WT memory types, may start using an incorrect data size or may observe memory ordering violations.",
+        "implication": "Upon crossing the page boundary the following may occur, dependent on the new page memory type: \u2022\u2022 UC the data size of each write will now always be 8 bytes, as opposed to the original data size. \u2022\u2022 WP the data size of each write will now always be 8 bytes, as opposed to the original data size and there may be a memory ordering violation. \u2022\u2022 WT there may be a memory ordering violation.",
+        "workaround": "Software should avoid crossing page boundaries from WB or WC memory type to UC, WP or WT memory type within a single REP MOVS or REP STOS instruction that will execute with fast strings enabled.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK026": {
+        "title": "Reported Memory Type May Not Be Used to Access the VMCS and Referenced Data Structures",
+        "problem": "Bits 53:50 of the IA32_VMX_BASIC MSR report the memory type that the processor uses to access the VMCS and data structures referenced by pointers in the VMCS. Due to this erratum, a VMX access to the VMCS or referenced data structures will instead use the memory type that the MTRRs (memory-type range registers) specify for the physical address of the access.",
+        "implication": "Bits 53:50 of the IA32_VMX_BASIC MSR report that the WB (write-back) memory type will be used but the processor may use a different memory type.",
+        "workaround": "Software should ensure that the VMCS and referenced data structures are located at physical addresses that are mapped to WB memory type by the MTRRs.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK027": {
+        "title": "Single Step Interrupts with Floating Point Exception Pending May Be Mishandled",
+        "problem": "In certain circumstances, when a floating point exception (#MF) is pending during single-step execution, processing of the single-step debug exception (#DB) may be mishandled.",
+        "implication": "When this erratum occurs, #DB will be incorrectly handled as follows: \u2022\u2022#DB is signaled before the pending higher priority #MF (Interrupt 16). \u2022\u2022#DB is generated twice on the same instruction.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK028": {
+        "title": "Storage of PEBS Record Delayed Following Execution of MOV SS or STI",
+        "problem": "When a performance monitoring counter is configured for PEBS (Precise Event Based Sampling), overflow of the counter results in storage of a PEBS record in the PEBS buffer. The information in the PEBS record represents the state of the next instruction to be executed following the counter overflow. Due to this erratum, if the counter overflow occurs after execution of either MOV SS or STI, storage of the PEBS record is delayed by one instruction.",
+        "implication": "When this erratum occurs, software may observe storage of the PEBS record being delayed by one instruction following execution of MOV SS or STI. The state information in the PEBS record will also reflect the one instruction delay.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK029": {
+        "title": "The Processor May Report a #TS Instead of a #GP Fault",
+        "problem": "A jump to a busy TSS (Task-State Segment) may cause a #TS (invalid TSS exception) instead of a #GP fault (general protection exception).",
+        "implication": "Operation systems that access a busy TSS may get invalid TSS fault instead of a #GP fault. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes. \uf020"
+    },
+    "BK030": {
+        "title": "VM Exits Due to \u201cNMI-Window Exiting\u201d May Be Delayed by One Instruction",
+        "problem": "If VM entry is executed with the \u201cNMI-window exiting\u201d VM-execution control set to 1, a VM exit with exit reason \u201cNMI window\u201d should occur before execution of any instruction if there is no virtual-NMI blocking, no blocking of events by MOV SS, and no blocking of events by STI. If VM entry is made with no virtual-NMI blocking but with blocking of events by either MOV SS or STI, such a VM exit should occur after execution of one instruction in VMX non-root operation. Due to this erratum, the VM exit may be delayed by one additional instruction.",
+        "implication": "VMM software using \u201cNMI-window exiting\u201d for NMI virtualization should generally be unaffected, as the erratum causes at most a one-instruction delay in the injection of a virtual NMI, which is virtually asynchronous. The erratum may affect VMMs relying on deterministic delivery of the affected VM exits.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK031": {
+        "title": "Pending x87 FPU Exceptions (#MF) May be Signaled Earlier Than Expected",
+        "problem": "x87 instructions that trigger #MF normally service interrupts before the #MF. Due to this erratum, if an instruction that triggers #MF is executed while Enhanced Intel SpeedStep\u00ae Technology transitions, Intel\u00ae Turbo Boost Technology transitions, or Thermal Monitor events occur, the pending #MF may be signaled before pending interrupts are serviced.",
+        "implication": "Software may observe #MF being signaled before pending interrupts are serviced.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK032": {
+        "title": "Values for LBR/BTS/BTM Will be Incorrect after an Exit from SMM",
+        "problem": "After a return from SMM (System Management Mode), the CPU will incorrectly update the LBR (Last Branch Record) and the BTS (Branch Trace Store), hence rendering their data invalid. The corresponding data if sent out as a BTM on the system bus will also be incorrect. Note: This issue would only occur when one of the 3 above mentioned debug support facilities are used.",
+        "implication": "The value of the LBR, BTS, and BTM immediately after an RSM operation should not be used.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK033": {
+        "title": "Unsupported PCIe* Upstream Access May Complete with an Incorrect Byte Count",
+        "problem": "PCIe* Upstream IO and Configuration accesses are not supported. If an IO or Configuration request is received upstream, the integrated PCIe controller will treat it as an unsupported request, the request will be dropped, and a completion will be sent with the UR (Unsupported Request) completion status. This completion, according to the PCIe specification, should indicate a byte count of 4. Due to this erratum, the byte count is set to the same byte count as the offending request.",
+        "implication": "The processor response to an unsupported PCIe access may not fully comply to the PCIe specification.",
+        "workaround": "PCIe agents should not issue unsupported accesses.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK034": {
+        "title": "Malformed PCIe* Transactions May be Treated as Unsupported Requests Instead of as Critical Errors",
+        "problem": "PCIe MSG/MSG_D TLPs (Transaction Layer Packets) with incorrect Routing Code as well as the deprecated TCfgRD and TCfgWr types should be treated as malformed transactions leading to a critical error. Due to this erratum, the integrated PCIe controller's root ports may treat such messages as UR (Unsupported Requests).",
+        "implication": "Legacy malformed PCIe transactions may be treated as UR instead of as critical errors.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK035": {
+        "title": "PCIe* Root Port May Not Initiate Link Speed Change",
+        "problem": "PCIe specification rev 2.0 requires the upstream component to maintain the PCIe link at the target link speed or the highest speed supported by both components on the link, whichever is lower. PCIe root port will not initiate the link speed change without being triggered by the software. System BIOS will trigger the link speed change under normal boot scenarios. However, BIOS is not involved in some scenarios such as link disable/re-enable or secondary bus reset and therefore the speed change may not occur unless initiated by the downstream component. This erratum does not affect the ability of the downstream component to initiate a link speed change. All known 5.0Gb/ s-capable PCIe downstream components have been observed to initiate the link speed change without relying on the root port to do so.",
+        "implication": "Due to this erratum, the PCIe root port may not initiate a link speed change during some hardware scenarios causing the PCIe link to operate at a lower than expected speed. Intel has not observed this erratum with any commercially available platform.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes. \uf020"
+    },
+    "BK036": {
+        "title": "Incorrect Address Computed For Last Byte of FXSAVE/FXRSTOR or XSAVE/XRSTOR Image Leads to Partial Memory Update",
+        "problem": "A partial memory state save of the FXSAVE or XSAVE image or a partial memory state restore of the FXRSTOR or XRSTOR image may occur if a memory address exceeds the 64KB limit while the processor is operating in 16-bit mode or if a memory address exceeds the 4GB limit while the processor is operating in 32-bit mode.",
+        "implication": "FXSAVE/FXRSTOR or XSAVE/XRSTOR will incur a #GP fault due to the memory limit violation as expected but the memory state may be only partially saved or restored.",
+        "workaround": "Software should avoid memory accesses that wrap around the respective 16-bit and 32-bit mode memory limits.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK037": {
+        "title": "Performance Monitor SSE Retired Instructions May Return Incorrect Values.",
+        "problem": "Performance Monitoring counter SMID_INST_RETIRED (Even C7H) is used to track retired SSE instructions. Due to this erratum, the processor may also count other types of instructions resulting in higher than expected values.",
+        "implication": "Performance Monitoring counter SIMD_INST_RETIRED may report count higher than expected.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK038": {
+        "title": "FP Data Operand Pointer May Be Incorrectly Calculated After an FP Access Which Wraps a 4-Gbyte Boundary in Code That Uses 32-Bit Address Size in 64-bit Mode",
+        "problem": "The FP (Floating Point) Data Operand Pointer is the effective address of the operand associated with the last non-control FP instruction executed by the processor. If an 80- bit FP access (load or store) uses a 32-bit address size in 64-bit mode and the memory access wraps a 4-Gbyte boundary and the FP environment is subsequently saved, the value contained in the FP Data Operand Pointer may be incorrect.",
+        "implication": "Due to this erratum, the FP Data Operand Pointer may be incorrect. Wrapping an 80-bit FP load around a 4-Gbyte boundary in this way is not a normal programming practice. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "If the FP Data Operand Pointer is used in a 64-bit operating system which may run code accessing 32-bit addresses, care must be taken to ensure that no 80-bit FP accesses are wrapped around a 4-Gbyte boundary.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK039": {
+        "title": "FP Data Operand Pointer May Be Incorrectly Calculated After an FP Access Which Wraps a 64-Kbyte Boundary in 16-Bit Code",
+        "problem": "The FP (Floating Point) Data Operand Pointer is the effective address of the operand associated with the last non-control FP instruction executed by the processor. If an 80- bit FP access (load or store) occurs in a 16-bit mode other than protected mode (in which case the access will produce a segment limit violation), the memory access wraps a 64-Kbyte boundary, and the FP environment is subsequently saved, the value contained in the FP Data Operand Pointer may be incorrect.",
+        "implication": "Due to this erratum, the FP Data Operand Pointer may be incorrect. Wrapping an 80-bit FP load around a segment boundary in this way is not a normal programming practice. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "If the FP Data Operand Pointer is used in an operating system which may run 16-bit FP code, care must be taken to ensure that no 80-bit FP accesses are wrapped around a 64-Kbyte boundary.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK040": {
+        "title": "Spurious Interrupts May be Generated From the Intel\u00ae VT-d Remap Engine",
+        "problem": "If software clears the F (Fault) bit 127 of the Fault Recording Register (FRCD_REG at offset 0x208 in Remap Engine BAR) by writing 1b through RW1C command (Read Write 1 to Clear) when the F bit is already clear then a spurious interrupt from Intel\u00ae VT-d (Intel\u00ae Virtualization Technology for Directed I/O) Remap Engine may be observed.",
+        "implication": "Due to this erratum, spurious interrupts will occur from the Intel VT-d Remap Engine following RW1C clearing F bit.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK041": {
+        "title": "Fault Not Reported When Setting Reserved Bits of Intel\u00ae VT-d Queued Invalidation Descriptors",
+        "problem": "Reserved bits in the Queued Invalidation descriptors of Intel VT-d (Virtualization Technology for Directed I/O) are expected to be zero, meaning that software must program them as zero while the processor checks if they are not zero. Upon detection of a non-zero bit in a reserved field, an Intel VT-d fault should be recorded. Due to this erratum, the processor does not check reserved bit values for Queued Invalidation descriptors.",
+        "implication": "Due to this erratum, faults will not be reported when writing to reserved bits of Intel VT-d Queued Invalidation Descriptors.",
+        "workaround": "None identified",
+        "status": "For the steppings affected, see the Summary Tables of Changes. \uf020"
+    },
+    "BK042": {
+        "title": "VPHMINPOSUW Instruction in Vex Format Does Not Signal #UD When vex.vvvv !=1111b",
+        "problem": "Processor does not signal #UD fault when executing the reserved instruction VPHMINPOSUW with vex.vvvv !=1111b.",
+        "implication": "Executing VPHMINPOSUW with vex.vvvv !=1111b results in the same behavior as executing with vex.vvvv=1111b.",
+        "workaround": "Software should not use VPHMINPOSUW with vex.vvvv !=1111b, in order to ensure future compatibility.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK043": {
+        "title": "LBR, BTM or BTS Records May have Incorrect Branch From Information After an EIST/T-state/S-state/C1E Transition or Adaptive Thermal Throttling",
+        "problem": "The \u201cFrom\u201d address associated with the LBR (Last Branch Record), BTM (Branch Trace Message) or BTS (Branch Trace Store) may be incorrect for the first branch after a transition of: \u2022 EIST (Enhanced Intel\u00ae SpeedStep Technology). \u2022 T-state (Thermal Monitor states). \u2022 S1-state (ACPI package sleep state). \u2022 C1E (Enhanced C1 Low Power state). \u2022 Adaptive Thermal Throttling.",
+        "implication": "When the LBRs, BTM or BTS are enabled, some records may have incorrect branch \u201cFrom\u201d addresses for the first branch after a transition of EIST, T-states, S-states, C1E, or Adaptive Thermal Throttling.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK044": {
+        "title": "VMREAD/VMWRITE Instructions May Not Fail When Accessing an Unsupported Field in VMCS",
+        "problem": "The Intel\u00ae 64 and IA-32 Architectures Software Developer's Manual, Volume 2B states that execution of VMREAD or VMWRITE should fail if the value of the instruction's register source operand corresponds to an unsupported field in the VMCS (Virtual Machine Control Structure). The correct operation is that the logical processor will set the ZF (Zero Flag), write 0CH into the VM-instruction error field and for VMREAD leave the instruction's destination operand unmodified. Due to this erratum, the instruction may instead clear the ZF, leave the VM-instruction error field unmodified and for VMREAD modify the contents of its destination operand.",
+        "implication": "Accessing an unsupported field in VMCS will fail to properly report an error. In addition, VMREAD from an unsupported VMCS field may unexpectedly change its destination operand. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "Software should avoid accessing unsupported fields in a VMCS.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK045": {
+        "title": "Clock Modulation Duty Cycle Cannot be Programmed to 6.25%",
+        "problem": "When programming field T_STATE_REQ of the IA32_CLOCK_MODULATION MSR (19AH) bits [3:0] to '0001, the actual clock modulation duty cycle will be 12.5% instead of the expected 6.25% ratio.",
+        "implication": "Due to this erratum, it is not possible to program the clock modulation to a 6.25% duty cycle.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK046": {
+        "title": "Execution of VAESIMC or VAESKEYGENASSIST With An Illegal Value for VEX.vvvv May Produce a #NM Exception",
+        "problem": "The VAESIMC and VAESKEYGENASSIST instructions should produce a #UD (Invalid- Opcode) exception if the value of the vvvv field in the VEX prefix is not 1111b. Due to this erratum, if CR0.TS is \u201c1\u201d, the processor may instead produce a #NM (Device-Not- Available) exception.",
+        "implication": "Due to this erratum, some undefined instruction encodings may produce a #NM instead of a #UD exception.",
+        "workaround": "Software should always set the vvvv field of the VEX prefix to 1111b for instances of the VAESIMC and VAESKEYGENASSIST instructions.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK047": {
+        "title": "Memory Aliasing of Code Pages May Cause Unpredictable System Behavior",
+        "problem": "The type of memory aliasing contributing to this erratum is the case where two different logical processors have the same code page mapped with two different memory types. Specifically, if one code page is mapped by one logical processor as write-back and by another as uncachable and certain instruction fetch timing conditions occur, the system may experience unpredictable behavior.",
+        "implication": "If this erratum occurs, the system may have unpredictable behavior, including a system hang. The aliasing of memory regions, a condition necessary for this erratum to occur, is documented as being unsupported in the Intel 64 and IA-32 Intel\u00ae Architecture Software Developer's Manual, Volume 3A, in the section titled Programming the PAT. Intel has not observed this erratum with any commercially available software or system.",
+        "workaround": "Code pages should not be mapped with uncacheable and cacheable memory types at the same time.",
+        "status": "For the steppings affected, see the Summary Tables of Changes. \uf020"
+    },
+    "BK048": {
+        "title": "PCI Express* Graphics Receiver Error Reported When Receiver With L0s Enabled and Link Retrain Performed",
+        "problem": "If the Processor PCI Express* root port is the receiver with L0s enabled and the root port itself initiates a transition to the recovery state via the retrain link configuration bit in the 'Link Control' register (Bus 0; Device 1; Functions 0, 1, 2 and Device 6; Function 0; Offset B0H; bit 5), then the root port may not mask the receiver or bad DLLP (Data Link Layer Packet) errors as expected. These correctable errors should only be considered valid during PCIe configuration and L0 but not L0s. This causes the processor to falsely report correctable errors in the 'Device Status' register (Bus 0; Device 1; Functions 0, 1, 2 and Device 6; Function 0; Offset AAH; bit 0) upon receiving the first FTS (Fast Training Sequence) when exiting Receiver L0s. Under normal conditions there is no reason for the Root Port to initiate a transition to Recovery. Note: This issue is only exposed when a recovery event is initiated by the processor.",
+        "implication": "The processor does not comply with the PCI Express 2.0 Specification. This does not impact functional compatibility or interoperability with other PCIe devices.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK049": {
+        "title": "Unexpected #UD on VZEROALL/VZEROUPPER",
+        "problem": "Execution of the VZEROALL or VZEROUPPER instructions in 64-bit mode with VEX.W set to 1 may erroneously cause a #UD (invalid-opcode exception).",
+        "implication": "The affected instructions may produce unexpected invalid-opcode exceptions in 64-bit mode.",
+        "workaround": "Compilers should encode VEX.W = 0 for executions of the VZEROALL and VZEROUPPER instructions in 64-bit mode to ensure future compatibility.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK050": {
+        "title": "Perfmon Event LD_BLOCKS.STORE_FORWARD May Overcount",
+        "problem": "Perfmon LD_BLOCKS.STORE_FORWARD (event 3H, umask 01H) may overcount in the cases of 4KB address aliasing and in some cases of blocked 32-byte AVX load operations. 4KB address aliasing happens when unrelated load and store that have different physical addresses appear to overlap due to partial address check done on the lower 12 bits of the address. In some cases, such memory aliasing can cause load execution to be significantly delayed. Blocked AVX load operations refer to 32-byte AVX loads that are blocked due to address conflict with an older store.",
+        "implication": "The perfmon event LD_BLOCKS.STORE_FORWARD may overcount for these cases.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK051": {
+        "title": "Conflict Between Processor Graphics Internal Message Cycles And Graphics Reads From Certain Physical Memory Ranges May Cause a System Hang",
+        "problem": "Processor Graphics internal message cycles occurring concurrently with a physical memory read by graphics from certain memory ranges may cause memory reads to be stalled resulting in a system hang. The following physical page (4K) addresses cannot be assigned to Processor Graphics: 00_2005_0xxx, 00_2013_0xxx, 00_2013_8xxx and 00_4000_4xxx.",
+        "implication": "Due to this erratum, accesses by the graphics engine to the defined memory ranges may cause memory reads to be stalled, resulting in a system hang.",
+        "workaround": "A BIOS code change has been identified and may be implemented as a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK052": {
+        "title": "Execution of Opcode 9BH with the VEX Opcode Extension May Produce a #NM Exception",
+        "problem": "Attempt to use opcode 9BH with a VEX opcode extension should produce a #UD (Invalid-Opcode) exception. Due to this erratum, if CR0.MP and CR0.TS are both 1, the processor may produce a #NM (Device-Not-Available) exception if one of the following conditions exists: \u202266H, F2H, F3H or REX as a preceding prefix. \u2022An illegal map specified in the VEX.mmmmm field.",
+        "implication": "Due to this erratum, some undefined instruction encodings may produce a #NM instead of a #UD exception.",
+        "workaround": "Software should not use opcode 9BH with the VEX opcode extension.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK053": {
+        "title": "Executing The GETSEC Instruction While Throttling May Result in a Processor Hang",
+        "problem": "If the processor throttles, due to either high temperature thermal conditions or due to an explicit operating system throttling request (TT1), while executing GETSEC[SENTER] or GETSEC[SEXIT] instructions, then under certain circumstances, the processor may hang. Intel has not been observed this erratum with any commercially available software.",
+        "implication": "Possible hang during execution of GETSEC instruction.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes. \uf020"
+    },
+    "BK054": {
+        "title": "A Write to the IA32_FIXED_CTR1 MSR May Result in Incorrect Value in Certain Conditions",
+        "problem": "Under specific internal conditions, if software tries to write the IA32_FIXED_CTR1 MSR (30AH) a value that has all bits [31:1] set while the counter was just about to overflow when the write is attempted (i.e. its value was 0xFFFF FFFF FFFF), then due to this erratum the new value in the MSR may be corrupted.",
+        "implication": "Due to this erratum, IA32_FIXED_CTR1 MSR may be written with a corrupted value.",
+        "workaround": "Software may avoid this erratum by writing zeros to the IA32_FIXED_CTR1 MSR, before the desired write operation.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK055": {
+        "title": "Instruction Fetch May Cause Machine Check if Page Size and Memory Type Was Changed Without Invalidation",
+        "problem": "This erratum may cause a machine-check error (IA32_MCi_STATUS.MCACOD=0150H) on the fetch of an instruction that crosses a 4-KByte address boundary. It applies only if (1) the 4-KByte linear region on which the instruction begins is originally translated using a 4-KByte page with the WB memory type; (2) the paging structures are later modified so that linear region is translated using a large page (2-MByte, 4-MByte, or 1- GByte) with the UC memory type; and (3) the instruction fetch occurs after the paging- structure modification but before software invalidates any TLB entries for the linear region.",
+        "implication": "Due to this erratum, an unexpected machine check with error code 0150H may occur, possibly resulting in a shutdown. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "Software should not write to a paging-structure entry in a way that would change, for any linear address, both the page size and the memory type. It can instead use the following algorithm: first clear the P flag in the relevant paging-structure entry (e.g., PDE); then invalidate any translations for the affected linear addresses; and then modify the relevant paging-structure entry to set the P flag and establish the new page size and memory type.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK056": {
+        "title": "Reception of Certain Malformed Transactions May Cause PCIe* Port to Hang Rather Than Reporting an Error",
+        "problem": "If the processor receives an upstream malformed non posted packet for which the type field is IO, Configuration or the deprecated TCfgRd and the format is 4 DW header, then due to this erratum the integrated PCIe controller may hang instead of reporting the malformed packet error or issuing an unsupported request completion transaction.",
+        "implication": "Due to this erratum, the processor may hang without reporting errors when receiving a malformed PCIe transaction. Intel has not observed this erratum with any commercially available device.",
+        "workaround": "None identified. Upstream transaction initiators should avoid issuing unsupported requests with 4 DW header formats.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK057": {
+        "title": "PCIe* LTR Incorrectly Reported as Being Supported",
+        "problem": "LTR (Latency Tolerance Reporting) is a new optional feature specified in PCIe rev. 2.1. The processor reports LTR as supported in LTRS bit in DCAP2 register (bus 0; Device 1; Function 0; offset 0xc4), but this feature is not supported.",
+        "implication": "Due to this erratum, LTR is always reported as supported by the LTRS bit in the DCAP2 register.",
+        "workaround": "None the identified.",
+        "status": "For steppings affected, see the Summary Tables of Changes."
+    },
+    "BK058": {
+        "title": "Performance-Counter Overflow Indication May Cause Undesired Behavior",
+        "problem": "Under certain conditions (listed below) when a performance counter overflows, its overflow indication may remain set indefinitely. This erratum affects the general- purpose performance counters IA32_PMC{0-7} and the fixed-function performance counters IA32_FIXED_CTR{0-2}. The erratum may occur if any of the following conditions are applied concurrent to when an actual counter overflow condition is reached: 1. Software disables the counter either globally through the IA32_PERF_GLOBAL_CTRL MSR (38FH), or locally through the IA32_PERFEVT- SEL{0-7} MSRs (186H-18DH), or the IA32_FIXED_CTR_CTRL MSR (38DH). 2. Software sets the IA32_DEBUGCTL MSR (1D9H) FREEZE_PERFMON_ON_PMI bit [12]. 3. The processor attempts to disable the counters by updating the state of the IA32_PERF_GLOBAL_CTRL MSR (38FH) as part of transitions such as VM exit, VM entry, SMI, RSM, or processor C-state.",
+        "implication": "Due to this erratum, the corresponding overflow status bit in IA32_PERF_GLOBAL_STATUS MSR (38DH) for an affected counter may not get cleared when expected. If a corresponding counter is configured to issue a PMI (performance monitor interrupt), multiple PMIs may be signaled from the same overflow condition. Likewise, if a corresponding counter is configured in PEBS mode (applies to only the general purpose counters), multiple PEBS events may be signaled.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK059": {
+        "title": "XSAVE Executed During Paging-Structure Modification May Cause Unexpected Processor Behavior",
+        "problem": "Execution of XSAVE may result in unexpected behavior if the XSAVE instruction writes to a page while another logical processor clears the dirty flag or the accessed flag in any paging-structure entry that maps that page.",
+        "implication": "This erratum may cause unpredictable system behavior. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Tables of Changes. \uf020"
+    },
+    "BK060": {
+        "title": "C-state Exit Latencies May be Higher Than Expected",
+        "problem": "Core C-state exit can be delayed if a P-state transition is requested before the pending C-state exit request is completed. Under certain internal conditions the core C-state exit latencies may be over twice the value specified in the Intel\u00ae 64 and IA-32 Architectures Optimization Reference Manual.",
+        "implication": "While typical exit latencies are not impacted, the worst case core C-state exit latency may be over twice the value specified in the Intel\u00ae 64 and IA-32 Architectures Optimization Reference Manual and may lead to a delay in servicing interrupts. Intel has not observed any system failures due to this erratum.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK061": {
+        "title": "Intel\u00ae VT-d Interrupt Remapping Will Not Report a Fault if Interrupt Index Exceeds FFFFH",
+        "problem": "With Intel VT-d (Virtualization Technology for Directed I/O) interrupt remapping, if subhandle valid (bit 3) is set in the address of an interrupt request, the interrupt index is computed as the sum of the interrupt request\u2019s handle and subhandle. If the sum is greater than FFFFH (the maximum possible interrupt-remapping table size), a remapping fault with fault reason 21H should be reported. Due to this erratum, this condition is not reported as a fault. Instead, the low 16 bits of the sum are erroneously used as an interrupt index to access the interrupt-remapping table.",
+        "implication": "If the interrupt index of an interrupt request exceeds FFFFH, a remapping fault with fault reason 21H is not reported and, instead, the request uses the IRTE (interrupt- remapping table entry) indexed by the low 16 bits of the interrupt index.",
+        "workaround": "Software can use requestor-id verification to block the interrupts that would be delivered due to this erratum. Interrupts blocked in this way produce a remapping fault with fault reason 26H.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK062": {
+        "title": "PCIe* Link Speed May Not Change From 5.0 GT/s to 2.5 GT/s",
+        "problem": "If a PCI Express device changes its supported PCIe link speed from 5.0 GT/s to 2.5 GT/ s without initiating a speed change request and subsequently the L1 power management mode is entered, further retrains initiated by software will not change speed to 2.5 GT/s.",
+        "implication": "Intel has not observed any PCI Express device that changes supported link speed without actually initiating a speed change.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK063": {
+        "title": "L1 Data Cache Errors May be Logged With Level Set to 1 Instead of 0",
+        "problem": "When an L1 Data Cache error is logged in IA32_MCi_STATUS[15:0], which is the MCA Error Code Field, with a cache error type of the format 0000 0001 RRRR TTLL, the LL field may be incorrectly encoded as 01 instead of 00.",
+        "implication": "An error in the L1 Data Cache may report the same LL value as the L2 Cache. Software should not assume that an LL value of 01 is the L2 Cache.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK064": {
+        "title": "An Unexpected Page Fault or EPT Violation May Occur After Another Logical Processor Creates a Valid Translation for a Page",
+        "problem": "An unexpected page fault (#PF) or EPT violation may occur for a page under the following conditions: \u2022 The paging structures initially specify no valid translation for the page. \u2022 Software on one logical processor modifies the paging structures so that there is a valid translation for the page (e.g., by setting to 1 the present bit in one of the paging-structure entries used to translate the page). \u2022 Software on another logical processor observes this modification (e.g., by accessing a linear address on the page or by reading the modified paging-structure entry and seeing value 1 for the present bit). \u2022 Shortly thereafter, software on that other logical processor performs a store to a linear address on the page. In this case, the store may cause a page fault or EPT violation that indicates that there is no translation for the page (e.g., with bit 0 clear in the page-fault error code, indicating that the fault was caused by a not-present page). Intel has not observed this erratum with any commercially available software.",
+        "implication": "An unexpected page fault may be reported. There are no other side effects due to this erratum.",
+        "workaround": "System software can be constructed to tolerate these unexpected page faults. See Section \u201cPropagation of Paging-Structure Changes to Multiple Processors\u201d of Volume 3A of IA-32 Intel\u00ae Architecture Software Developer\u2019s Manual, for recommendations for software treatment of asynchronous paging-structure updates.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK065": {
+        "title": "TSC Deadline Not Armed While in APIC Legacy Mode",
+        "problem": "Under specific timing conditions, when in Legacy APIC Mode, writing to IA32_TSC_DEADLINE MSR (6E0H) may fail to arm the TSC Deadline (Time Stamp Counter Deadline) event as expected. Exposure to this erratum is dependent on the proximity of TSC_Deadline MSR Write to a Timer CCR register read or to a write to the Timer LVT that enabled the TSC Deadline mode (writing 10 to bits [18:17] of Timer LVT).",
+        "implication": "Due to this erratum the expected timer event will either not be generated or will be generated at a wrong time. The TSC Deadline may fail until an LVT write to transition from \u201cTSC Deadline mode\u201d back to \u201cTimer mode\u201d occurs or until the next reset.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Tables of Changes. \uf020"
+    },
+    "BK066": {
+        "title": "PCIe* Upstream TCfgWr May Cause Unpredictable System Behavior",
+        "problem": "TCfgWr (Trusted Configuration Writes) is a PCIe Base spec deprecated transaction type which should be treated as a malformed packet. If a PCIe upstream TCfgWr request is received, then due to this erratum the request may not be managed as a Malformed Packet.",
+        "implication": "Upstream memory writes subsequent to a TCfgWr transaction may cause unpredictable system behavior. Intel has not observed any PCIe Device that sends such a TCfgWr request.",
+        "workaround": "PCIe end points should not initiate upstream TCfgWr requests.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK067": {
+        "title": "Processor May Fail to Acknowledge a TLP Request",
+        "problem": "When a PCIe root port\u2019s receiver is in Receiver L0s power state and the port initiates a Recovery event, it will issue Training Sets to the link partner. The link partner will respond by initiating an L0s exit sequence. Prior to transmitting its own Training Sets, the link partner may transmit a TLP (Transaction Layer Packet). Due to this erratum, the root port may not acknowledge the TLP request.",
+        "implication": "After completing the Recovery event, the PCIe link partner will replay the TLP request. The link partner may set a Correctable Error status bit, which has no functional effect.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK068": {
+        "title": "Executing The GETSEC Instruction While Throttling May Result in a Processor Hang",
+        "problem": "If the processor throttles, due to either high temperature thermal conditions or due to an explicit operating system throttling request (TT1), while executing GETSEC[SENTER] or GETSEC[SEXIT] instructions, then under certain circumstances, the processor may hang.",
+        "implication": "Possible hang during execution of GETSEC instruction. Intel has not been observed this erratum with any commercially available software.",
+        "workaround": "None Identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK069": {
+        "title": "PerfMon Event LOAD_HIT_PRE.SW_PREFETCH May Overcount",
+        "problem": "PerfMon event LOAD_HIT_PRE.SW_PREFETCH (event 4CH, umask 01H) should count load instructions hitting an ongoing software cache fill request initiated by a preceding software prefetch instruction. Due to this erratum, this event may also count when there is a preceding ongoing cache fill request initiated by a locking instruction.",
+        "implication": "PerfMon event LOAD_HIT_PRE.SW_PREFETCH may overcount.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK070": {
+        "title": "Execution of FXSAVE or FXRSTOR With the VEX Prefix May Produce a #NM Exception",
+        "problem": "Attempt to use FXSAVE or FXRSTOR with a VEX prefix should produce a #UD (Invalid- Opcode) exception. If either the TS or EM flag bits in CR0 are set, a #NM (device-not- available) exception will be raised instead of #UD exception.",
+        "implication": "Due to this erratum a #NM exception may be signaled instead of a #UD exception on an FXSAVE or an FXRSTOR with a VEX prefix.",
+        "workaround": "Software should not use FXSAVE or FXRSTOR with the VEX prefix.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK071": {
+        "title": "Unexpected #UD on VPEXTRD/VPINSRD",
+        "problem": "Execution of the VPEXTRD or VPINSRD instructions outside of 64-bit mode with VEX.W set to 1 may erroneously cause a #UD (invalid-opcode exception).",
+        "implication": "The affected instructions may produce unexpected invalid-opcode exceptions outside 64-bit mode.",
+        "workaround": "Software should encode VEX.W = 0 for executions of the VPEXTRD and VPINSRD instructions outside 64-bit mode.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK073": {
+        "title": "Successive Fixed Counter Overflows May be Discarded",
+        "problem": "Under specific internal conditions, when using Freeze PerfMon on PMI feature (bit 12 in IA32_DEBUGCTL.Freeze_PerfMon_on_PMI, MSR 1D9H), if two or more PerfMon Fixed Counters overflow very closely to each other, the overflow may be mishandled for some of them. This means that the counter\u2019s overflow status bit (in MSR_PERF_GLOBAL_STATUS, MSR 38EH) may not be updated properly; additionally, PMI interrupt may be missed if software programs a counter in Sampling-Mode (PMI bit is set on counter configuration).",
+        "implication": "Successive Fixed Counter overflows may be discarded when Freeze PerfMon on PMI is used.",
+        "workaround": "Software can avoid this by: \u2022Avoid using Freeze PerfMon on PMI bit. \u2022Enable only one fixed counter at a time when using Freeze PerfMon on PMI.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK074": {
+        "title": "#GP May be Signaled When Invalid VEX Prefix Precedes Conditional Branch Instructions",
+        "problem": "When a 2-byte opcode of a conditional branch (opcodes 0F8xH, for any value of x) instruction resides in 16-bit code-segment and is associated with invalid VEX prefix, it may sometimes signal a #GP fault (illegal instruction length > 15-bytes) instead of a #UD (illegal opcode) fault.",
+        "implication": "Due to this erratum, #GP fault instead of a #UD may be signaled on an illegal instruction.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes. \uf020"
+    },
+    "BK075": {
+        "title": "A Read from The APIC-Timer CCR May Disarm The TSC_Deadline Counter",
+        "problem": "When in TSC Deadline mode with TSC_Deadline timer armed (IA32_TSC_DEADLINE<>0, MSR 6E0H), a read from the local APIC\u2019s CCR (current count register) using RDMSR 0839H may disarm the TSC Deadline timer without generating an interrupt as specified in the APIC Timer LVT (Local Vector Table) entry.",
+        "implication": "Due to this erratum, unexpected disarming of the TSC_Deadline counter and possible loss of an interrupt may occur.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK076": {
+        "title": "An Unexpected PMI May Occur After Writing a Large Value to IA32_FIXED_CTR2",
+        "problem": "If the fixed-function performance counter IA32_FIXED_CTR2 MSR (30BH) is configured to generate a performance-monitor interrupt (PMI) on overflow and the counter\u2019s value is greater than FFFFFFFFFFC0H, then this erratum may incorrectly cause a PMI if software performs a write to this counter.",
+        "implication": "A PMI may be generated unexpectedly when programming IA32_FIXED_CTR2. Other than the PMI, the counter programming is not affected by this erratum as the attempted write operation does succeed.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK077": {
+        "title": "RDMSR From The APIC-Timer CCR May Disarm The APIC Timer in TSC Deadline Mode",
+        "problem": "When in TSC Deadline mode with TSC_Deadline timer armed (IA32_TSC_DEADLINE<>0, MSR 6E0H), a read from the local APIC\u2019s CCR (current count register) in APIC MMIO space may disarm the TSC Deadline timer without generating an interrupt as specified in the APIC Timer LVT (Local Vector Table) entry.",
+        "implication": "Due to this erratum, unexpected disarming of the APIC timer and possible loss of an interrupt may occur.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Tables of Changes"
+    },
+    "BK078": {
+        "title": "RC6 Entry Can be Blocked by Asynchronous Intel\u00ae VT-d Flows",
+        "problem": "The graphics Command Streamer can get into a state that will effectively inhibit graphic RC6 (Render C6) power management state entry until render reset occurs. Any asynchronous Intel VT-d (Virtualization Technology for Directed I/O) access to IOTLB can potentially cause graphics Command Streamer to get into this RC6 inhibited state.",
+        "implication": "Average power will increase until RC6 is activated with a render reset.",
+        "workaround": "A BIOS code change has been identified and may be implemented as a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK079": {
+        "title": "Repeated PCIe* and/or DMI L1 Transitions During Package Power States May Cause a System Hang",
+        "problem": "Under a complex set of internal conditions when the processor is in a deep power state (package C3, C6 or C7) and the PCIe and/or DMI links are toggling in and out of L1 state, internal states of the processor may become inaccessible resulting in a system hang.",
+        "implication": "Due to this erratum, the system may hang.",
+        "workaround": "A BIOS code change has been identified and may be implemented as a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK080": {
+        "title": "Execution of BIST During Cold RESET Will Result in a Machine Check Shutdown",
+        "problem": "If BIST (Built In Self-Test) is enabled and a Cold RESET follows, an unrecoverable machine check shutdown will occur.",
+        "implication": "Due to this erratum, BIST cannot be enabled.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK081": {
+        "title": "PCI Express* Differential Peak-Peak Tx Voltage Swing May Violate the Specification",
+        "problem": "Under certain conditions, including extreme voltage and temperature, the peak-peak voltage may be higher than the specification.",
+        "implication": "Violation of PCI Express Base Specification of the VTX--DIFF-PP voltage. No failures have been observed due to this erratum.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK082": {
+        "title": "PCIe* Presence Detect State May Not be Accurate After a Warm Reset",
+        "problem": "Under certain conditions, when there is no PCIe device present, the status of Presence Detect State bit (SLOTSTS Device 1; Function 0,1,2; Offset BAH; bit [6] and/or Device 6; Function 0; Offset BAH; bit [6]) may not be accurate after a warm reset.",
+        "implication": "The Presence Detect State bit may incorrectly report a PCIe device is present even though no device is actually present, which may result in a system hang.",
+        "workaround": "A BIOS code change has been identified and may be implemented as a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Tables of Changes. \uf020"
+    },
+    "BK083": {
+        "title": "Display Corruption May be Seen After Graphics Voltage Rail (VCC_AXG) Power Up",
+        "problem": "Powering up the processor graphics logic in the cases of initial poweron, Sx resume state power up, or powering up from RC6+ ( RC6 at 0V )may cause a nondeterministic state in the processor graphics logic.",
+        "implication": "This erratum may cause improper 3D rendering and may result in display corruption.",
+        "workaround": "A graphics driver workaround has been identified and may be implemented as a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK084": {
+        "title": "PCMPESTRI, PCMPESTRM, VPCMPESTRI and VPCMPESTRM Always Operate with 32-bit Length Registers",
+        "problem": "In 64-bit mode, using REX.W=1 with PCMPESTRI and PCMPESTRM or VEX.W=1 with VPCMPESTRI and VPCMPESTRM should support a 64-bit length operation with RAX/ RDX. Due to this erratum, the length registers are incorrectly interpreted as 32-bit values.",
+        "implication": "Due to this erratum, using REX.W=1 with PCMPESTRI and PCMPESTRM as well as VEX.W=1 with VPCMPESTRI and VPCMPESTRM do not result in promotion to 64-bit length registers.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK085": {
+        "title": "VM Entries That Return From SMM Using VMLAUNCH May Not Update The Launch State of the VMCS",
+        "problem": "Successful VM entries using the VMLAUNCH instruction should set the launch state of the VMCS to \u201claunched\u201d. Due to this erratum, such a VM entry may not update the launch state of the current VMCS if the VM entry is returning from SMM.",
+        "implication": "Subsequent VM entries using the VMRESUME instruction with this VMCS will fail. RFLAGS.ZF is set to 1 and the value 5 (indicating VMRESUME with non-launched VMCS) is stored in the VM-instruction error field. This erratum applies only if dual monitor treatment of SMI and SMM is active.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK086": {
+        "title": "Interrupt From Local APIC Timer May Not Be Detectable While Being Delivered",
+        "problem": "If the local-APIC timer\u2019s CCR (current-count register) is 0, software should be able to determine whether a previously generated timer interrupt is being delivered by first reading the delivery-status bit in the LVT timer register and then reading the bit in the IRR (interrupt-request register) corresponding to the vector in the LVT timer register. If both values are read as 0, no timer interrupt should be in the process of being delivered. Due to this erratum, a timer interrupt may be delivered even if the CCR is 0 and the LVT and IRR bits are read as 0. This can occur only if the DCR (Divide Configuration Register) is greater than or equal to 4. The erratum does not occur if software writes zero to the Initial Count Register before reading the LVT and IRR bits.",
+        "implication": "Software that relies on reads of the LVT and IRR bits to determine whether a timer interrupt is being delivered may not operate properly.",
+        "workaround": "Software that uses the local-APIC timer must be prepared to handle the timer interrupts, even those that would not be expected based on reading CCR and the LVT and IRR bits; alternatively, software can avoid the problem by writing zero to the Initial Count Register before reading the LVT and IRR bits.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK087": {
+        "title": "An Unexpected Page Fault May Occur Following the Unmapping and Re-mapping of a Page",
+        "problem": "An unexpected page fault (#PF) may occur for a page under the following conditions: \u2022The paging structures initially specify a valid translation for the page. \u2022Software modifies the paging structures so that there is no valid translation for the page (e.g., by clearing to 0 the present bit in one of the paging-structure entries used to translate the page). \u2022Software later modifies the paging structures so that the translation is again a valid translation for the page (e.g., by setting to 1 the bit that was cleared earlier). \u2022A subsequent instruction loads from a linear address on the page. \u2022Software did not invalidate TLB entries for the page between the first modification of the paging structures and the load from the linear address. In this case, the load by the later instruction may cause a page fault that indicates that there is no translation for the page (e.g., with bit 0 clear in the page-fault error code, indicating that the fault was caused by a not-present page).",
+        "implication": "Software may see an unexpected page fault that indicates that there is no translation for the page. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes. \uf020"
+    },
+    "BK088": {
+        "title": "A PCIe* Device That Initially Transmits Minimal Posted Data Credits May Cause a System Hang",
+        "problem": "Under certain conditions, if a PCIe device that initially transmits posted data credits less than Max_Payload_Size/16 + 4 (16B/4DW is unit of data flow control) and is the target of a Peer-to-Peer write of Max_Payload_Size, the system may hang due to Posted Data credit starvation.",
+        "implication": "Under certain conditions, the processor may encounter a Posted Data credit starvation scenario and hang.",
+        "workaround": "A BIOS code change has been identified and may be implemented as a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK089": {
+        "title": "Some Model Specific Branch Events May Overcount",
+        "problem": "Under certain internal conditions the following model specific performance monitoring branch events may overcount: \u2022BR_INST_RETIRED.NOT_TAKEN \u2022BR_INST_RETIRED.NEAR_TAKEN \u2022BR_MISP_RETIRED.NOT_TAKEN \u2022BR_MISP_RETIRED.TAKEN",
+        "implication": "Due to this erratum the events may overcount.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK090": {
+        "title": "Some Performance Monitoring Events in AnyThread Mode May Get Incorrect Count",
+        "problem": "Performance monitoring AnyThread mode allows a given thread to monitor events as a result of any thread running on the same core. Due to this erratum, on systems with SMT enabled, counting any of the following performance monitoring events in AnyThread mode may get incorrect values: \u2022INST_RETIRED; \u2022OTHER_ASSISTS; \u2022UOPS_RETIRED; \u2022MACHINE_CLEARS; \u2022BR_INST_RETIRED; \u2022BR_MISP_RETIRED; \u2022SIMD_INST_RETIRED; \u2022FP_ASSIST; \u2022HW_INTERRUPTS; \u2022ROB_MISC_EVENTS; \u2022MEM_LOAD_RETIRED; \u2022MEM_LOAD_LLC_HIT_RETIRED; \u2022MEM_LOAD_LLC_MISS_RETIRED; \u2022MEM_LOAD_MISC_RETIRED;",
+        "implication": "Incorrect results when counting the above performance monitoring events in AnyThread mode with SMT on.",
+        "workaround": "In order to get a correct count for the above events, software may count the same event on both threads of the same physical core, and at post-processing stage sum-up the two values to get the core\u2019s net value.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK091": {
+        "title": "PDIR May Not Function Properly With FREEZE_PERFMON_ON_PMI",
+        "problem": "When the PDIR (Precise Distribution for Instructions Retired) mechanism is activated (INST_RETIRED.ALL (event C0H, umask value 00H) on Counter 1 programmed in PEBS mode) along with FREEZE_PERFMON_ON_PMI, bit 11, in the IA32_DEBUGCTL MSR (1D9h), the processor may behave in an undefined manner.",
+        "implication": "Due to this erratum when FREEZE_PERFMON_ON_PMI is programmed along with PDIR the processor behavior is undefined. This can result in any of but not limited to the following: incorrect PMI interrupts, incorrect PEBS events or invalid processor state.",
+        "workaround": "A software driver should not program FreezeOnPMI in conjunction with the PDIR mechanism.",
+        "status": "For the steppings affected, see the Summary Tables of Changes. \uf020"
+    },
+    "BK092": {
+        "title": "For A Single Logical Processor Package, HTT May be Set to Zero Even Though The Package Reserves More Than One APIC ID",
+        "problem": "When maximum number of addressable IDs for logical processors in this physical package (CPUID.01H.EBX[23:16]) and maximum number of addressable IDs for processor cores in the physical package, (CPUID.04H.EAX[31:26]) indicate more than one reserved APIC ID, HTT (Multi-Threading, CPUID.01H.EDX[28]) should be set to One. However, due to this erratum, it may be set to Zero.",
+        "implication": "Software written expecting HTT to be Zero only when a single APIC ID is reserved for the package may not function correctly.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK093": {
+        "title": "LBR May Contain Incorrect Information When Using FREEZE_LBRS_ON_PMI",
+        "problem": "When FREEZE_LBRS_ON_PMI is enabled (bit 11 of IA32_DEBUGCTL MSR (1D9H) is set), and a taken branch retires at the same time that a PMI (Performance Monitor Interrupt) occurs, then under certain internal conditions the record at the top of the LBR stack may contain an incorrect \u201cFrom\u201d address.",
+        "implication": "When the LBRs are enabled with FREEZE_LRBS_ON_PMI, the \u201cFrom\u201d address at the top of the LBR stack may be incorrect.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK094": {
+        "title": "A First Level Data Cache Parity Error May Result in Unexpected Behavior",
+        "problem": "When a load occurs to a first level data cache line resulting in a parity error in close proximity to other software accesses to the same cache line and other locked accesses the processor may exhibit unexpected behavior.",
+        "implication": "Due to this erratum, unpredictable system behavior may occur. Intel has not observed this erratum with any commercially available system.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK095": {
+        "title": "Intel\u00ae Trusted Execution Technology ACM Revocation",
+        "problem": "SINIT ACM 2nd_gen_i5_i7_SINIT_1.9.BIN or earlier are revoked and will not launch with new processor configuration information.",
+        "implication": "Due to this erratum, 2nd_gen_i5_i7_SINIT_1.9.BIN and earlier will be revoked.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum. All Intel\u00ae TXT enabled software must use SINIT ACM 2nd_gen_i5_i7_SINIT_1.9.BIN or later.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK096": {
+        "title": "Programming PDIR And an Additional Precise PerfMon Event May Cause Unexpected PMI or PEBS Events",
+        "problem": "PDIR (Precise Distribution for Instructions Retired) mechanism is activated by programming INST_RETIRED.ALL (event C0H, umask value 00H) on Counter 1. When PDIR is activated in PEBS (Precise Event Based Sampling) mode with an additional precise PerfMon event, an incorrect PMI or PEBS event may occur.",
+        "implication": "Due to this erratum, when another PEBS event is programmed along with PDIR, an incorrect PMI or PEBS event may occur.",
+        "workaround": "Software should not program another PEBS event in conjunction with the PDIR mechanism.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK097": {
+        "title": "Performance Monitoring May Overcount Some Events During Debugging",
+        "problem": "If the debug-control register (DR7) is configured so that some but not all of the breakpoints in the debug-address registers (DR0-DR3) are enabled and one or more of the following performance-monitoring counters are locally enabled (via IA32_CR_PERMON_EVNTSEL_CNTR{3:0}):\uf020 \uf020 BR_INST_RETIRED\uf020 BR_MISP_RETIRED\uf020 FP_ASSIST\uf020 FP_ASSIST\uf020 INST_RETIRED\uf020 MACHINE_CLEARS\uf020 MEM_LOAD_UOPS_LLC_HIT_RETIRED\uf020 MEM_LOAD_UOPS_MISC_RETIRED.LLC_MISS\uf020 MEM_LOAD_UOPS_RETIRED\uf020 MEM_TRANS_RETIRED\uf020 MEM_UOPS_RETIRED\uf020 OTHER_ASSISTS\uf020 ROB_MISC_EVENTS.LBR_INSERTS\uf020 UOPS_RETIRED\uf020 \uf020 Any of the globally enabled (via IA32_CR_EMON_PERF_GLOBAL_CTRL) counters may overcount certain events when a disabled breakpoint condition is met",
+        "implication": "Performance-monitor counters may indicate a number greater than the number of events that occurred.",
+        "workaround": "Software can disable all breakpoints by clearing DR7. Alternatively, software can ensure that, for a breakpoint disabled in DR7, the corresponding debug-address register contains an address that prevents the breakpoint condition from being met (e.g., a non-canonical address).",
+        "status": "For the steppings affected, see the Summary Tables of Changes. \uf020"
+    },
+    "BK098": {
+        "title": "LTR Message is Not Treated as an Unsupported Request",
+        "problem": "The PCIe* root port does not support LTR (Latency Tolerance Reporting) capability. However, a received LTR message is not treated as a UR (Unsupported Request).",
+        "implication": "Due to this erratum, an LTR message does not generate a UR error.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK099": {
+        "title": "Use of VMASKMOV to Access Memory Mapped I/O or Uncached Memory May Cause The Logical Processor to Hang",
+        "problem": "Under a complex set of conditions, using VMASKMOV to reference memory mapped I/O or uncached memory may cause the logical processor to hang.",
+        "implication": "Due to this erratum, the logical processor may hang. Intel's Software Developers Manual states \u201cVMASKMOV should not be used to access memory mapped I/O and un- cached memory as the access and the ordering of the individual loads or stores it does is implementation specific.\u201d Intel has not observed this erratum with any commercially available software.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK100": {
+        "title": "PEBS May Unexpectedly Signal a PMI After The PEBS Buffer is Full",
+        "problem": "The Software Developer\u2019s Manual states that no PMI should be generated when PEBS index reaches PEBS Absolute Maximum. Due to this erratum a PMI may be generated even though the PEBS buffer is full.",
+        "implication": "PEBS may trigger a PMI even though the PEBS index has reached the PEBS Absolute Maximum.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK101": {
+        "title": "XSAVEOPT May Fail to Save Some State after Transitions Into or Out of STM",
+        "problem": "The XSAVEOPT instruction may optimize performance by not saving state that has not been modified since the last execution of XRSTOR. This optimization should occur only if the executions of XSAVEOPT and XRSTOR are either both or neither in SMM (system- management mode). Due to this erratum, this optimization may be performed by the first execution of XSAVEOPT after a transition into or out of the STM (SMM-transfer monitor) if the most recent execution of XRSTOR occurred before that transition. For transitions into the STM, the erratum applies only to transitions using the VMCALL instruction. This erratum can occur only if the two executions are at the same privilege level, use the same linear address, and are either both or neither in VMX non-root operation. The erratum does not apply if software in SMM never uses XRSTOR or XSAVEOPT.",
+        "implication": "This erratum may lead to unpredictable system behavior.",
+        "workaround": "STM software should execute the XRSTOR instruction with the value 0 in EDX:EAX after each transition into the STM (after setting CR4.OSXSAVE) and before each transition out of the STM. Bytes 512 to 575 of the save area used by XRSTOR should be allocated in memory, but bytes 0 to 511 need not be. Bytes 512 to 535 should all be 0.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK102": {
+        "title": "Performance Monitor Precise Instruction Retired Event May Present Wrong Indications",
+        "problem": "When the PDIR (Precise Distribution for Instructions Retired) mechanism is activated (INST_RETIRED.ALL (event C0H, umask value 00H) on Counter 1 programmed in PEBS mode), the processor may return wrong PEBS/PMI interrupts and/or incorrect counter values if the counter is reset with a SAV below 100 (Sample-After-Value is the counter reset value software programs in MSR IA32_PMC1[47:0] in order to control interrupt frequency).",
+        "implication": "Due to this erratum, when using low SAV values, the program may get incorrect PEBS or PMI interrupts and/or an invalid counter state.",
+        "workaround": "The sampling driver should avoid using SAV<100.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK103": {
+        "title": "The Value in IA32_MC3_ADDR MSR May Not be Accurate When MCACOD 0119H is Reported in IA32_MC3_Status",
+        "problem": "Under certain conditions, when the The Machine Check Error Code (MCACOD) in the IA32_MC3_STATUS (MSR 040DH) register is 0119H, the value in IA32_MC3_ADDR MSR (40EH) may refer to the incoming MLC (Mid-Level Cache) cache line instead of the evicted cache line.",
+        "implication": "The address in IA32_MC3_ADDR MSR (40EH) may not be accurate for MLC cache read errors with MSCOD of 119H.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK104": {
+        "title": "MSR_PKG_Cx_RESIDENCY MSRs May Not be Accurate",
+        "problem": "If the processor is in a package C-state for an extended period of time (greater than 40 seconds) with no wake events, the value in the MSR_PKG_C{2,3,6,7}_RESIDENCY MSRs (60DH and 3F8H\u20133FAH) will not be accurate.",
+        "implication": "Utilities that report C-state residency times will report incorrect data in cases of long duration package C-states.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK105": {
+        "title": "Enabling/Disabling PEBS May Result in Unpredictable System Behavior",
+        "problem": "Under certain conditions, enabling or disabling PEBS (Precise Event Based Sampling) via WRMSR to IA32_PEBS_ENABLE MSR may result in unpredictable system behavior near or coincident to this instruction.",
+        "implication": "Due to this erratum, unpredictable system behavior may result.",
+        "workaround": "It is possible for the BIOS to contain a workaround for this erratum.",
+        "status": "For the steppings affected, see the Summary Tables of Changes. \uf020"
+    },
+    "BK106": {
+        "title": "Execution of VAESIMC or VAESKEYGENASSIST With An Illegal Value for VEX.vvvv May Produce a #NM Exception",
+        "problem": "The VAESIMC and VAESKEYGENASSIST instructions should produce a #UD (Invalid- Opcode) exception if the value of the vvvv field in the VEX prefix is not 1111b. Due to this erratum, if CR0.TS is \u201c1\u201d, the processor may instead produce a #NM (Device-Not- Available) exception.",
+        "implication": "Due to this erratum, some undefined instruction encodings may produce a #NM instead of a #UD exception.",
+        "workaround": "Software should always set the vvvv field of the VEX prefix to 1111b for instances of the VAESIMC and VAESKEYGENASSIST instructions.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK107": {
+        "title": "Unexpected #UD on VZEROALL/VZEROUPPER",
+        "problem": "Execution of the VZEROALL or VZEROUPPER instructions in 64-bit mode with VEX.W set to 1 may erroneously cause a #UD (invalid-opcode exception).",
+        "implication": "The affected instructions may produce unexpected invalid-opcode exceptions in 64-bit mode.",
+        "workaround": "Compilers should encode VEX.W = 0 for the VZEROALL and VZEROUPPER instructions.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK108": {
+        "title": "Successive Fixed Counter Overflows May be Discarded",
+        "problem": "Under specific internal conditions, when using Freeze PerfMon on PMI feature (bit 12 in IA32_DEBUGCTL.Freeze_PerfMon_on_PMI, MSR 1D9H), if two or more PerfMon Fixed Counters overflow very closely to each other, the overflow may be mishandled for some of them. This means that the counter\u2019s overflow status bit (in MSR_PERF_GLOBAL_STATUS, MSR 38EH) may not be updated properly; additionally, PMI interrupt may be missed if software programs a counter in Sampling-Mode (PMI bit is set on counter configuration).",
+        "implication": "Successive Fixed Counter overflows may be discarded when Freeze PerfMon on PMI is used.",
+        "workaround": "Software can avoid this by: \u2022Avoid using Freeze PerfMon on PMI bit \u2022Enable only one fixed counter at a time when using Freeze PerfMon on PMI",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK109": {
+        "title": "Execution of FXSAVE or FXRSTOR With the VEX Prefix May Produce a #NM Exception",
+        "problem": "Attempt to use FXSAVE or FXRSTOR with a VEX prefix should produce a #UD (Invalid- Opcode) exception. If either the TS or EM flag bits in CR0 are set, a #NM (device-not- available) exception will be raised instead of #UD exception.",
+        "implication": "Due to this erratum a #NM exception may be signaled instead of a #UD exception on an FXSAVE or an FXRSTOR with a VEX prefix.",
+        "workaround": "Software should not use FXSAVE or FXRSTOR with the VEX prefix.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK110": {
+        "title": "VM Exits Due to \u201cNMI-Window Exiting\u201d May Not Occur Following a VM Entry to the Shutdown State",
+        "problem": "If VM entry is made with the \u201cvirtual NMIs\u201d and \u201cNMI-window exiting\u201d, VM-execution controls set to 1, and if there is no virtual-NMI blocking after VM entry, a VM exit with exit reason \u201cNMI window\u201d should occur immediately after VM entry unless the VM entry put the logical processor in the wait-for SIPI state. Due to this erratum, such VM exits do not occur if the VM entry put the processor in the shutdown state.",
+        "implication": "A VMM may fail to deliver a virtual NMI to a virtual machine in the shutdown state.",
+        "workaround": "Before performing a VM entry to the shutdown state, software should check whether the \u201cvirtual NMIs\u201d and \u201cNMI-window exiting\u201d VM-execution controls are both 1. If they are, software should clear \u201cNMI-window exiting\u201d and inject an NMI as part of VM entry.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK111": {
+        "title": "Execution of INVVPID Outside 64-Bit Mode Cannot Invalidate Translations For 64-Bit Linear Addresses",
+        "problem": "Executions of the INVVPID instruction outside 64-bit mode with the INVVPID type \u201cindividual-address invalidation\u201d ignore bits 63:32 of the linear address in the INVVPID descriptor and invalidate translations for bits 31:0 of the linear address.",
+        "implication": "The INVVPID instruction may fail to invalidate translations for linear addresses that set bits in the range 63:32. Because this erratum applies only to executions outside 64-bit mode, it applies only to attempts by a 32-bit virtual-machine monitor (VMM) to invalidate translations for a 64-bit guest. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK112": {
+        "title": "VEX.L is Not Ignored with VCVT*2SI Instructions",
+        "problem": "The VEX.L bit should be ignored for the VCVTSS2SI, VCVTSD2SI, VCVTTSS2SI, and VCVTTSD2SI instructions, however due to this erratum the VEX.L bit is not ignored and will cause a #UD.",
+        "implication": "Unexpected #UDs will be seen when the VEX.L bit is set to 1 with VCVTSS2SI, VCVTSD2SI, VCVTTSS2SI, and VCVTTSD2SI instructions.",
+        "workaround": "Software should ensure that the VEX.L bit is set to 0 for all scalar instructions.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK113": {
+        "title": "MCI_ADDR May be Incorrect For Cache Parity Errors",
+        "problem": "In cases when a WBINVD instruction evicts a line containing an address or data parity error (MCACOD of 0x124, and MSCOD of 0x10), the address of this error should be logged in the MCi_ADDR register. Due to this erratum, the logged address may be incorrect, even though MCi_Status.ADDRV (bit 63) is set.",
+        "implication": "The address reported in MCi_ADDR may not be correct for cases of a parity error found during WBINVD execution.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes. \uf020"
+    },
+    "BK114": {
+        "title": "Instruction Fetches Page-Table Walks May be Made Speculatively to Uncacheable Memory",
+        "problem": "Page-table walks on behalf of instruction fetches may be made speculatively to uncacheable (UC) memory.",
+        "implication": "If any paging structures are located at addresses in uncacheable memory that are used for memory-mapped I/O, such I/O operations may be invoked as a result of speculative execution that would never actually occur in the executed code path. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "Software should avoid locating paging structures at addresses in uncacheable memory that are used for memory-mapped I/O",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK115": {
+        "title": "The Processor May Not Properly Execute Code Modified Using A Floating-Point Store",
+        "problem": "Under complex internal conditions, a floating-point store used to modify the next sequential instruction may result in the old instruction being executed instead of the new instruction.",
+        "implication": "Self- or cross-modifying code may not execute as expected. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "None identified. Do not use floating-point stores to modify code.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK116": {
+        "title": "Execution of GETSEC[SEXIT] May Cause a Debug Exception to be Lost",
+        "problem": "A debug exception occurring at the same time that GETSEC[SEXIT] is executed or when an SEXIT doorbell event is serviced may be lost.",
+        "implication": "Due to this erratum, there may be a loss of a debug exception when it happens concurrently with the execution of GETSEC[SEXIT]. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK117": {
+        "title": "VM Exits Due to GETSEC May Save an Incorrect Value for \u201cBlocking by STI\u201d in the Context of Probe-Mode Redirection",
+        "problem": "The GETSEC instruction causes a VM exit when executed in VMX non-root operation. Such a VM exit should set bit 0 in the Interruptability-state field in the virtual-machine control structure (VMCS) if the STI instruction was blocking interrupts at the time GETSEC commenced execution. Due to this erratum, a VM exit executed in VMX non-root operation may erroneously clear bit 0 if redirection to probe mode occurs on the GETSEC instruction.",
+        "implication": "After returning from probe mode, a virtual interrupt may be incorrectly delivered prior to GETSEC instruction. Intel has not observed this erratum with any commercially software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK118": {
+        "title": "Specific Graphics Blitter Instructions May Result in Unpredictable Graphics Controller Behavior",
+        "problem": "Specific source-copy blitter instructions in Intel\u00ae HD Graphics 2000 and 3000 Processor may result in unpredictable behavior when a blit source and destination overlap.",
+        "implication": "Due to this erratum, the processor may exhibit unpredictable graphics controller behavior. Intel has not observed this erratum with any commercially available software.",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    },
+    "BK119": {
+        "title": "IA32_MC5_CTL2 is Not Cleared by a Warm Reset",
+        "problem": "IA32_MC5_CTL2 MSR (285H) is documented to be cleared on any reset. Due to this erratum this MSR is only cleared upon a cold reset.",
+        "implication": "The algorithm documented in Software Developer\u2019s Manual, Volume 3, section titled \u201cCMCI Initialization\u201d or any other algorithm that counts the IA32_MC5_CTL2 MSR being cleared on reset will not function as expected after a warm reset",
+        "workaround": "None identified.",
+        "status": "For the steppings affected, see the Summary Tables of Changes."
+    }
+}

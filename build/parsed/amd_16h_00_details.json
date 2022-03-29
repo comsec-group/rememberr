@@ -1,0 +1,149 @@
+{
+    "77": {
+        "title": "Long Mode CALLF or JMPF May Fail To Signal GP When Callgate Descriptor is Beyond GDT/LDT Limit",
+        "problem": "If the target selector of a far call or far jump (CALLF or JMPF) instruction references a 16-byte long mode system descriptor where any of the last 8 bytes are beyond the GDT or LDT limit, the processor fails to report a General Protection fault.",
+        "implication": "None expected, since the operating system typically aligns the GDT/LDT limit such that all descriptors are legal. However, in the case of erroneous operating system software, the above described GP fault will not be signaled, resulting in unpredictable system failure.",
+        "workaround": "None required, it is anticipated that long mode operating system software will ensure the GDT and LDT limits are set high enough to cover the larger (16-byte) long mode system descriptors.",
+        "status": "No fix planned"
+    },
+    "361": {
+        "title": "Breakpoint Due to an Instruction That Has an Interrupt Shadow May Be Lost",
+        "problem": "A #DB exception occurring in guest mode may be discarded under the following conditions: \u2022 A trap-type #DB exception is generated in guest mode during execution of an instruction with an interrupt shadow, and \u2022 The instruction that generated the exception is immediately followed by an instruction resulting in #VMEXIT.",
+        "implication": "None expected under normal conditions. Debug exceptions may not be received for programs running under a hypervisor.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "541": {
+        "title": "IBS Registers May be Unpredictable After CC6 State",
+        "problem": "The following Instruction-Based Sampling (IBS) registers may be unpredictable after the processor core exits the core C6 (CC6) state: \u2022 Read-only bits MSRC001_1030 IBS Fetch Control Register \u2022 MSRC001_1031 IBS Fetch Linear Address Register \u2022 MSRC001_1032 IBS Fetch Physical Address Register \u2022 MSRC001_1034 IBS Op Logical Address Register \u2022 MSRC001_1035 IBS Op Data Register \u2022 MSRC001_1036 IBS Op Data 2 Register \u2022 MSRC001_1037 IBS Op Data 3 Register \u2022 MSRC001_1038 IBS DC Linear Address Register \u2022 MSRC001_1039 IBS DC Physical Address Register \u2022 MSRC001_103B IBS Branch Target Address Register The registers are predictable as long as IBS is not enabled at the time that the processor core enters CC6 state.",
+        "implication": "In cases where the performance monitoring software fetches the IBS sampled data and the processor core has entered the CC6 state since this sample, the performance monitoring software may observe unpredictable values and may generate inaccurate results. The performance monitoring software would normally consume the sampled IBS data before a CC6 entry occurs, resulting in no observed effect under normal conditions.",
+        "workaround": "Performance monitoring software should avoid entering ACPI sleep states (C1/HALT or C2) prior to accessing the IBS registers.",
+        "status": "No fix planned"
+    },
+    "638": {
+        "title": "Processor May Violate Trp During Dynamic Mode Switch",
+        "problem": "The processor may violate the precharge time (Trp) for a DIMM when sending a mode register set (MRS) command to dynamically adjust MR0[PPD] during a precharge power down. This erratum may occur only when fast exit/slow exit (dynamic) mode is selected as follows: \u2022 D18F2x94_dct[1:0][15] = 1b (DRAM Configuration High[PowerDownEn]) \u2022 D18F2x84_dct[1:0][23] = 1b (DRAM MRS[PchgPDModeSel])",
+        "implication": "Unpredictable system operation.",
+        "workaround": "If D18F2x84_dct[1:0] bit 23 (PchgPDModeSel) = 1b and D18F2x94_dct[1:0] bit 15 (PowerDownEn) = 1b, then precharge time (D18F2x200_dct[1:0]_mp[1:0] bits 20:16, Trp) should be set one higher than the DIMM specified value.",
+        "status": "No fix planned"
+    },
+    "737": {
+        "title": "Processor Does Not Check 128-bit Canonical Address Boundary Case on Logical Address",
+        "problem": "The processor core may not detect a #GP exception if the processor is in 64-bit mode and the logical address of a 128-bit operation (for example, a octal-word SSE instruction) is canonical on the first byte, but whose final byte crosses over the canonical address boundary. The processor does check the linear address and signals a #GP exception if the linear address is not canonical (for all eight bytes of the operation). Therefore, this erratum can only occur if the segment register is non-zero and causes a wrap in the logical address space only. In the unlikely event that software causes this wrap, the processor core will execute the 128-bit operation as if the second part of the misaligned access starts at linear address equal to zero.",
+        "implication": "None expected, as the normal usage of segment registers and segment limits does not expose this erratum.",
+        "workaround": "None required.",
+        "status": "No fix planned"
+    },
+    "756": {
+        "title": "Machine Check Information May Show Inconsistent Signature from an Older Corrected Error",
+        "problem": "The processor core may not properly overwrite machine check architecture (MCA) information from an older corrected error in MC1_STATUS (MSR0000_0405) and MC1_ADDRESS (MSR0000_0406) when presenting a machine check exception (#MC) for a newer uncorrected error. Although the processor does set processor context corrupt (MC1_STATUS[PCC] bit 57) to 1b and error uncorrected status (MC1_STATUS[UC], bit 61) to 1b, it does not update the remaining bits in the registers.",
+        "implication": "The machine check handler may be presented with status and address registers that are not consistent with the cause of the uncorrected error. It is expected that the MCA handler will respond to a #MC when MC1_STATUS[PCC] is set with an operating system panic or crash, regardless of the remaining bits in MC1_STATUS. However, the information pertaining to the actual uncorrected error may be lost. In addition, debug engineers may note that the error signature does not align to MC1 error signatures documented in the BKDG, as the error signature will match a possibly unrelated corrected error except for the UC and PCC bits. This effect only occurs if a processor reports both corrected and uncorrected errors.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "757": {
+        "title": "L2 Tag Error Machine Check Status May Be Incorrect",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, the MC2 status information (MC2_STATUS, MSR0000_0409) for a corrected or uncorrected L2 tag error may not indicate the actual operation that was occurring at the time the error was detected. The status information may report that the processor was performing an L2 fill operation when in reality the error was detected while processing a probe. The MC2_STATUS fields that identify the possibility that this erratum applies (i.e., when MC2_STATUS may improperly indicate a fill operation) are: \u2022 MC2_STATUS[Valid] (bit 63) = 1b \u2022 MC2_STATUS[UC] (bit 61) = 0b or 1b (may be a corrected error or an uncorrected error) \u2022 MC2_STATUS[ErrorCodeExt] (bits 20:16) = 0Bh or 0Fh \u2022 MC2_STATUS[RRRR] (bits 7:4) = 0001b",
+        "implication": "None expected.",
+        "workaround": "None required.",
+        "status": "No fix planned"
+    },
+    "767": {
+        "title": "Processor APM Behavior May Be Incorrect After CC6",
+        "problem": "The processor core may not properly restore internal Application Power Management registers after it exits the core C6 (CC6) state.",
+        "implication": "The processor may exceed the specified thermal design power (TDP) or thermal design current (TDC).",
+        "workaround": "Contact your AMD representative for information on a BIOS update.",
+        "status": "No fix planned"
+    },
+    "776": {
+        "title": "Incorrect Processor Branch Prediction for Two Consecutive Linear Pages",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, the processor core may incorrectly fetch instructions when the instruction pointer (rIP) changes (via a branch or other call, return) between two consecutive linear address 4K pages with the same offset in rIP[11:6].",
+        "implication": "Unpredictable system behavior.",
+        "workaround": "BIOS should set MSRC001_1021[26] = 1b.",
+        "status": "No fix planned"
+    },
+    "778": {
+        "title": "Processor Core Time Stamp Counters May Experience Drift",
+        "problem": "Following a long period in a P-state without any core P-state or C-state activity, the time stamp counter for a processor core may appear to drift slightly from other processor cores. This TSC drift does not occur unless the processor has spent over four billion consecutive clocks in a single P-state at C0. This erratum does not apply if the processor is in the non-boosted software P0 frequency.",
+        "implication": "System software or software with multiple threads may observe that one thread or processor core provides TSC values that are behind another thread or processor core. This can only happen if the processor core is spending very long intervals in the C0 (running) state and is either pinned to a software P-state lower than P0, or the application power management (APM) behavior of the software running on this core allows the processor to remain in a boosted state without any changes to the P-state. A single thread operating on a single core can not observe successively stored TSC values that incorrectly decrement.",
+        "workaround": "Contact your AMD representative for information on a BIOS update.",
+        "status": "No fix planned"
+    },
+    "779": {
+        "title": "Initial Time Stamp Counter Frequency May Be Incorrect",
+        "problem": "The processor core may increment the core time stamp counter (TSC) at a frequency that is equal to the startup P-state frequency, instead of incrementing the TSC at the software P0 frequency. This effect occurs until the first instance of either a P-state or a C-state change. At the time that the first P-state or C-state change occurs, the actual value in the TSC will adjust as if it had incremented at this P-state rate for the entire duration.",
+        "implication": "The BIOS may calculate incorrect time stamps. For example, since the TSC is incrementing at a slower rate than it should increment, calculations of the elapsed time in BIOS boot may appear to be incorrect. In the unlikely event that the system is in a state where one or more cores are affected by the erratum (i.e., those cores have not performed any P-state or C-state changes) and other cores have performed a change, the operating system software may observe TSC synchronization failures during early boot due to the different frequencies. A normal system initialization causes at least one P-state change on all cores before the operating system boots.",
+        "workaround": "BIOS must perform a P-state change on all cores prior to the transfer of control to the operating system.",
+        "status": "No fix planned"
+    },
+    "780": {
+        "title": "Processor May Cache Guest Write Combining Memory Type",
+        "problem": "The processor may incorrectly cache reads performed to memory regions that are defined as WC+ memory type. The processor may incorrectly cache this memory type based on speculative read operations. The program does not need to retire a load instruction in order for the caching to occur. This incorrectly cached data is removed from the cache if there is any write to this address from this processor core, from another processor core, or from a device that probes all cores during the write. The WC+ memory type is only used when all of the following conditions apply: \u2022 An SVM guest with nested paging enabled is currently executing. \u2022 The guest page table maps the memory to WC as the guest PAT memory type. \u2022 The host page table maps the memory to WP, WT or WB as the host PAT memory type. \u2022 The MTRR memory type is either WP, WT, or WB.",
+        "implication": "Under most conditions, except as specified below, the incorrect caching has no effect as this WC+ memory type is still probed by processor and I/O accesses. As a result, these transactions still observe and maintain the most current copy of the data even in the presence of incorrect caching. Incorrect caching may have an effect when one of these conditions occurs: \u2022 An SVM guest program observes inconsistent \"stale\" data for a write-combining MMIO address due to the program observing cached data that is inconsistent with the current device state. In order for this to occur, the SVM guest must have direct mapped access to the MMIO address region for an I/O device that is capable of write-combining. However, the MTRR for the device's MMIO region would also normally be mapped as WC, and the erratum would not apply in this case. \u2022 An SVM guest program observes inconsistent \"stale\" data when it has DRAM pages marked as WC in the guest PAT tables and is using this memory as a buffer that a non-coherent device may also write (a non- coherent device is one that does not probe processor caches when it reads or writes the system memory). One possible example of a device that does not probe processor caches during the upstream writes to memory is a graphics engine (GPU) writing into a DRAM mapped buffer or a PCI Express\u00ae device that is using the No Snoop attribute in its upstream transactions.",
+        "workaround": "A workaround is not recommended. System developers may disable the ability for an I/O device to perform upstream writes without probing memory by setting D18F3x88[22] = 1b. In order to also require probing on writes performed by the integrated graphics device, system developers may also set GMMx206C[1:0] = 01b.",
+        "status": "No fix planned"
+    },
+    "781": {
+        "title": "Improper Handling of ECX Value During RDPMC Instruction",
+        "problem": "The processor may return the incorrect northbridge performance counter register, when a RDPMC instruction is executed with ECX equal to 6, 7, 8 or 9.",
+        "implication": "Performance monitoring software receives incorrect northbridge performance monitor results.",
+        "workaround": "Contact your AMD representative for information on a BIOS update.",
+        "status": "No fix planned"
+    },
+    "785": {
+        "title": "USB Interrupt Status May Not Be Set After a Short Packet",
+        "problem": "The Enhanced Host Controller Interface (EHCI) does not issue an interrupt after processing a short packet when the Interrupt on Completion (IOC) bit in the Transfer Descriptor (TD) is 0b. The specification violation is encountered only when the following conditions apply: \u2022 A USB full-speed or USB low-speed device is attached to the EHCI controller port (USB_HSD[9:0]P/N) through a USB high-speed external hub. \u2022 The USB device is performing bulk or interrupt transfers to the host controller. \u2022 The USB host controller driver (HCD) is not setting the IOC bit on all transfer descriptors.",
+        "implication": "USB 2.0 full-speed and low-speed devices connected to EHCI controller port (USB_HSD[9:0]P/N pins) via a high-speed external hub may encounter functional problems.",
+        "workaround": "The USB host controller driver should set the Interrupt On Complete bit on all Transfer Descriptors.",
+        "status": "No fix planned"
+    },
+    "786": {
+        "title": "APIC Timer Periodic Mode is Imprecise",
+        "problem": "The APIC timer may not properly initialize back to the APIC timer initial count value (APIC380) when it transitions to zero and Timer Local Vector Table Entry[Mode] (APIC320[17]) is configured to run in periodic mode. In this mode, when the APIC timer reaches zero, the next value in the APIC current count register (APIC390) is set to the APIC initial count (APIC380), but the processor may incorrectly add or subtract an offset that is between 0 and 31.",
+        "implication": "The standard use of the APIC timer and the level of accuracy required does not make this error significant.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    },
+    "789": {
+        "title": "G3 to S5 Power State Transition May Observe Real Time Clock Errors and Other Unpredictable System Behavior",
+        "problem": "Internal fusion controller hub (FCH) state may be unpredictable after a transition from G3 (mechanical off) to S5 (soft off) state.",
+        "implication": "Unpredictable system behavior.",
+        "workaround": "Contact your AMD representative for information on a workaround.",
+        "status": "No fix planned"
+    },
+    "791": {
+        "title": "RDTSCP Instruction Does Not Serialize",
+        "problem": "The instruction RDTSCP (Read Time Stamp Counter and Processor ID) does not wait for prior instructions to retire before reading the time stamp counter, as specified by AMD64 Architecture Programmer's Manual Volume 3: General-Purpose and System Instructions, order# 24594.",
+        "implication": "Programs that rely on the serialization of the RDTSCP instruction may observe incorrect results. For example, the program may observe a time stamp counter value that was fetched before all previous instructions were retired - possibly causing anomalies in timing and performance monitoring software.",
+        "workaround": "Contact your AMD representative for information on a BIOS update.",
+        "status": "No fix planned"
+    },
+    "792": {
+        "title": "DRAM Scrubbing May Overwrite CC6 Core Save State Data Resulting in Unpredictable System Behavior",
+        "problem": "The processor does not properly ensure that a DRAM scrub read and write sequence is atomic with respect to simultaneous processor core accesses to the CC6 save area. If a DRAM scrub access is to the same address as a concurrent save of the processor state, the CC6 entry may appear as if it was not written.",
+        "implication": "Unpredictable system behavior.",
+        "workaround": "BIOS should set Scrub Rate Control D18F3x58[4:0] = 00h to disable sequential DRAM scrubbing. BIOS should set DRAM Scrub Address Low D18F3x5C[0] = 0b to disable re-direct DRAM scrubbing.",
+        "status": "No fix planned"
+    },
+    "793": {
+        "title": "Specific Combination of Writes to Write Combined Memory Types and Locked Instructions May Cause Core Hang",
+        "problem": "Under a highly specific and detailed set of internal timing conditions, a locked instruction may trigger a timing sequence whereby the write to a write combined memory type is not flushed, causing the locked instruction to stall indefinitely.",
+        "implication": "Processor core hang.",
+        "workaround": "BIOS should set MSRC001_1020[15] = 1b.",
+        "status": "No fix planned"
+    },
+    "794": {
+        "title": "Performance Monitor PMCx076 May Be Inaccurate and Lose Overflow Interrupts When Halted",
+        "problem": "PMCx076, CPU Clocks Not Halted, should not increment whenever the core is in a halted state - e.g. due to a stop clock, I/O C-state or HALT instruction. However, the processor may continue to incorrectly increment this performance counter in these states. This may result in the performance monitor counter being incorrect. In addition, since overflows are not signaled in these states, an overflow interrupt may be lost.",
+        "implication": "Inaccuracies in performance monitoring software may be experienced.",
+        "workaround": "<KB or ML>Contact your AMD representative for information on a BIOS update. </KB or ML><ON>None.</ON>",
+        "status": "No fix planned"
+    },
+    "795": {
+        "title": "Core Performance Monitor Counters May Appear to be Cleared to Zero in the Least Significant 32 Bits",
+        "problem": "Core performance monitor counters may appear to clear to zero the least significant 32 bits of the count if disabled at the cycle that a carry-out from the least significant 32 bits to the most significant 16 bits of the counter occurs. Conditions which cause the counter to be disabled and may cause this erratum to be observed when: \u2022 Explicitly disabled by software through PERF_CTL[22] \u2022 The PMC is designated to count only in user or OS mode (PERF_CTL[17] is not equal to PERF_CTL[16]) and a change in the current privilege level (CPL) occurs \u2022 The PMC is designated to count only in guest or host mode (PERF_CTL[41] is not equal to PERF_CTL[40]) and a change between guest and host mode occurs",
+        "implication": "Inaccuracies in performance monitoring software may be experienced.",
+        "workaround": "None.",
+        "status": "No fix planned"
+    }
+}
