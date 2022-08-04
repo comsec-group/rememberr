@@ -2,61 +2,126 @@
 
 # RemembERR
 
-RemembERR is a database that contains and classifies microprocessor erratas from all Intel Core generations and AMD CPU families since 2008. 
+RemembERR is a database that contains and classifies microprocessor erratas from all Intel Core generations and AMD CPU families since 2008.
 
-## Setup
+We propose two ways of executing RemembERR, either with local tool installation, or with Docker.
 
-Our scripts rely on some Python3 packages. To avoid version conflicts with already installed packages, we recommend setting up a dedicated virtual environment. Then, install all required packages by running:
+## Reproducing the results with a local tool installation
+
+### Setup
+
+We recommend using Python 3.7 or a newer version. 
+
+For Ubuntu users, the required apt dependencies can be installed with:
+
+```
+sudo apt-get update && apt-get install build-essential libpoppler-cpp-dev build-essential libpoppler-cpp-dev software-properties-common python3.8-dev libgl1 libglib2.0-0 software-properties-common git -y
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt-get update && apt-get install python3.8 python3-pip python3-distutils python3-apt -y
+```
+
+Our scripts rely on some Python3 packages. To avoid version conflicts with already installed packages, we recommend setting up a dedicated virtual environment, for example:
+
+```
+python3 -m venv ~/.venv/rememberr
+source ~/.venv/rememberr/bin/activate
+```
+
+Then, install all required packages by running:
 
 ```
 python3 -m pip install -r requirements.txt
 ```
 
-## Reproducing of the results
+Precise package versions are not strictly necessary but guarantee that the code can be executed as expected.
+
+### Execution
 
 The results from the paper can be reproduced by running the commands below.
-The commands are mutually independent and can be run in any order, and can alternatively be launched together through `bash do_experiments.sh`.
+The experiments can be run through the following commands:
 
 ```
-source env.sh
-
-# 1. Count the number of errata and unique errata for Intel and AMD.
-cd luigicode && python3 do_counterrata.py | grep 'Number of' && cd ..
-
-# 2. Count the number of errata with explicitly blurry triggers such as 'under complex microarchitectural conditions'.
-cd luigicode && python3 do_estimblurtrg.py | grep 'Blurry triggers' && cd ..
-
-# 3. Plot the global timeline of Intel and AMD errata (Figure 2).
-cd luigicode && python3 plot_timeline.py && cd ..
-
-# 4. Plot the errata heredity between Intel Core generations (Figure 3).
-cd luigicode && python3 plot_heredityintel.py && cd ..
-
-# 5. Plot the timeline of disclosure dates of common errata between Intel Core generations 6 ot 10 (Figure 4).
-cd luigicode && python3 plot_commonskylake.py && cd ..
-
-# 6. Plot the statistics on workarounds for Intel and AMD designs (Figure 5).
-cd luigicode && python3 plot_workaroundsintelamd.py && cd ..
-
-# 7. Plot the proportion of fixed vs. non-fixed bugs (Figure 6).
-cd luigicode && python3 plot_fixednessintelamd.py && cd ..
-
-# 8. Plot the most frequent triggers, contexts and effects (Figures 7, 11 and 12).
-cd luigicode && python3 plot_trigctxeff.py && cd ..
-
-# 9. Plot the number of required triggers (Figure 8).
-cd luigicode && python3 plot_numtrigsrequired.py && cd ..
-
-# 10. Plot the trigger cross-correlation (Figure 9).
-cd luigicode && python3 plot_corrtrigctxteff.py && cd ..
-
-# 11. Plot the trigger class timeline (Figure 10).
-cd luigicode && python3 plot_triggertimeline.py && cd ..
-
-# 12. Plot the most frequent MSRs (Figure 13).
-cd luigicode && python3 plot_msrs.py && cd ..
+bash do_experiments.sh > build/experiments_stdout.log 2> build/experiments_stderr.log
+mkdir -p build/logs
+cat build/experiments_stdout.log | grep 'Number of Intel' > build/logs/num_errata_intel.log
+cat build/experiments_stdout.log | grep 'Number of AMD' > build/logs/num_errata_amd.log
+cat build/experiments_stdout.log | grep 'Blurry triggers' > build/logs/num_blurry_triggers.log
 ```
 
+### Expected results
+
+The expected final content of `build` is:
+
+```
+.
+├── catalog
+│   ├── ...
+├── experiments_stderr.log # Intermediate log file, you may ignore it.
+├── experiments_stdout.log # Intermediate log file, you may ignore it.
+├── figures
+│   ├── contexts.pdf
+│   ├── contexts.png
+│   ├── corrtriggers2d.pdf
+│   ├── corrtriggers2d.png
+│   ├── cpufix_intel_amd.pdf
+│   ├── cpufix_intel_amd.png
+│   ├── effects.pdf
+│   ├── effects.png
+│   ├── heredity_intel.pdf
+│   ├── heredity_intel.png
+│   ├── msrs_intel_amd.pdf
+│   ├── msrs_intel_amd.png
+│   ├── numtrigsrequired.pdf
+│   ├── numtrigsrequired.png
+│   ├── timeline.pdf
+│   ├── timeline.png
+│   ├── timeline_skylake.pdf
+│   ├── timeline_skylake.png
+│   ├── triggers.pdf
+│   ├── triggers.png
+│   ├── triggertimeline_relative.pdf
+│   ├── triggertimeline_relative.png
+│   ├── workarounds_intel_amd.pdf
+│   └── workarounds_intel_amd.png
+├── logs
+│   ├── num_blurry_triggers.log # Contains a brief numbered result provided in the paper.
+│   ├── num_errata_amd.log # Contains a brief numbered result provided in the paper.
+│   └── num_errata_intel.log # Contains a brief numbered result provided in the paper.
+├── manual_parsefix
+│   ├── ...
+└── parsed
+    ├── ...
+```
+
+## Reproducing the results with Docker
+
+Results can be reproduced using Docker.
+First, ensure to have make and Docker installed.
+
+Then, run `make`. Results will appear in a new `from-docker` directory, containing all figures, and the evaluated numbers in *.log files.
+
+The expected result is the creation of a `from-docker` directory with the following structure:
+
+```
+.
+├── figures
+│   ├── contexts.png
+│   ├── corrtriggers2d.png
+│   ├── cpufix_intel_amd.png
+│   ├── effects.png
+│   ├── heredity_intel.png
+│   ├── msrs_intel_amd.png
+│   ├── numtrigsrequired.png
+│   ├── timeline.png
+│   ├── timeline_skylake.png
+│   ├── triggers.png
+│   ├── triggertimeline_relative.png
+│   └── workarounds_intel_amd.png
+└── logs
+    ├── num_blurry_triggers.log
+    ├── num_errata_amd.log
+    └── num_errata_intel.log
+```
 ## Customization
 
 To help customization, we provide an example query script that prints all titles of errata triggered by power level changes.
@@ -65,6 +130,10 @@ The implementation is located in `luigicode/example/examplequery.py` and the que
 ```
 cd luigicode && python3 do_query.py && cd ..
 ```
+
+## Debugging
+
+The code in this repository relies on the Luigi framework. In general, messages indicating `This progress looks :)` indicate success, and messages indicating `This progress looks :(` indicate failure.
 
 ## Repository structure
 
@@ -75,8 +144,8 @@ The `build` directory contains processed data that does not relate to errata cla
 .
 ├── catalog: JSON data sets containing the unique errata for Intel and AMD.
 ├── figures: Generated figures will appear here.
-├── manual_parsefix: JSON data sets for documents that required specific manual effort for correct and accurate parsing. 
-└── parsed: JSON data sets containing all the errata. 
+├── manual_parsefix: JSON data sets for documents that required specific manual effort for correct and accurate parsing.
+└── parsed: JSON data sets containing all the errata.
 ```
 
 ### classification
