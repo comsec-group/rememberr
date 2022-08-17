@@ -12,6 +12,10 @@ from pipeline.uniqueintel import UniqueIntel
 from pipeline.uniqueamd import UniqueAMD
 from common import plainify_str, trigger_classes_map, trigger_classes
 
+from matplotlib import rc
+rc('font', **{'family':'serif', 'serif':['Times']})
+rc('text', usetex=True)
+
 NUM_TRIGGER_CLASSSES = len(trigger_classes)
 
 # @brief finds the parsed details, given a CPU name.
@@ -164,7 +168,7 @@ class PlotTriggerBetweenVendorsFEA(luigi.Task):
             ax.bar(Xs_intel[tick_id], Ys_intel[tick_id], width, alpha=1, zorder=3, color='#0071c5', label='Intel' if tick_id == 0 else '')
             ax.bar(Xs_amd[tick_id], Ys_amd[tick_id], width, alpha=1, zorder=3, color='#ED1C24', label='AMD' if tick_id == 0 else '')
 
-        ax.set_ylabel("Trigger occurrences (%)")
+        ax.set_ylabel("Trigger occurrences (\%)")
         ax.legend(ncol=4, framealpha=1)
 
         ax.set_xticks(xticks, triggers_FEA, rotation=45)

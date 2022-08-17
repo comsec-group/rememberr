@@ -11,6 +11,10 @@ from pipeline.parsedetailsintel import ParseDetailsIntel
 from common import intel_cpu_prettynames, plainify_str
 from timeline.timelineutil import fill_timeline_for_cpu, tupldate_to_int
 
+from matplotlib import rc
+rc('font', **{'family':'serif', 'serif':['Times']})
+rc('text', usetex=True)
+
 skylake_cpu_names = [
     "intel_core_6",
     "intel_core_7_8",

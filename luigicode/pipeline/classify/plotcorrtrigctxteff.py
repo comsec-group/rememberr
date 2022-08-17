@@ -13,6 +13,10 @@ from itertools import combinations
 import matplotlib.pyplot as plt
 from common import triggers
 
+from matplotlib import rc
+rc('font', **{'family':'serif', 'serif':['Times']})
+rc('text', usetex=True)
+
 #####
 # Luigi task
 #####

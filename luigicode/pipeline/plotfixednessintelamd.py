@@ -13,6 +13,10 @@ from pipeline.parsedetailsamd import ParseDetailsAMD
 from pipeline.parseoverviewintel import ParseOverviewIntel
 from common import intel_cpu_names, intel_cpu_prettynames, amd_cpu_names, amd_cpu_prettynames_abbrev
 
+from matplotlib import rc
+rc('font', **{'family':'serif', 'serif':['Times']})
+rc('text', usetex=True)
+
 intel_fixedness_row_indices = {
     "intel_core_1_desktop": (2,),
     "intel_core_1_mobile":  (2,),

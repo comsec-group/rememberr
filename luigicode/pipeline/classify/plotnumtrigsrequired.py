@@ -11,6 +11,10 @@ import matplotlib.pyplot as plt
 from pipeline.uniqueintel import UniqueIntel
 from common import intel_cpu_names, amd_cpu_names, plainify_str, trigger_classes, triggers
 
+from matplotlib import rc
+rc('font', **{'family':'serif', 'serif':['Times']})
+rc('text', usetex=True)
+
 NUM_TRIGGER_CLASSSES = len(trigger_classes)
 PLOT_ABSOLUTE = False
 
@@ -164,7 +168,7 @@ class NumTrigsRequired(luigi.Task):
         interm_bars = ax.bar(Xs, Ys)
         ax.bar_label(interm_bars)
         ax.set_axisbelow(True)
-        ax.set_ylabel('Porportion of errata (%)')
+        ax.set_ylabel('Proportion of errata (\%)')
         ax.set_xlabel('Number of involved triggers')
         ax.set_ylim(0, 48)
         fig.tight_layout()

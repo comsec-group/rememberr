@@ -11,6 +11,10 @@ import matplotlib.pyplot as plt
 from pipeline.parsedetailsintel import ParseDetailsIntel
 from common import intel_cpu_names, intel_cpu_prettynames, plainify_str
 
+from matplotlib import rc
+rc('font', **{'family':'serif', 'serif':['Times']})
+rc('text', usetex=True)
+
 # Choose another mode to get a lighter figure. This parameter is not yet implemented.
 HEREDITY_FILTER = 'ALL'
 # HEREDITY_FILTER = 'MOBILE_ONLY'

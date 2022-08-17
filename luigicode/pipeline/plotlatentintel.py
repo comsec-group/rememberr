@@ -2,17 +2,19 @@
 
 import json
 import luigi
-import numpy as np
 import os
 import pandas as pd
 from pathlib import Path
 import pprint
 
-from collections import defaultdict
 from timeline.timelineutil import strtodate, tupldate_to_int, MAX_MONTH, MAX_YEAR
 import matplotlib.pyplot as plt
 from pipeline.parsedetailsintel import ParseDetailsIntel
-from common import intel_cpu_names, intel_cpu_prettynames, plainify_str
+from common import intel_cpu_names, plainify_str
+
+from matplotlib import rc
+rc('font', **{'family':'serif', 'serif':['Times']})
+rc('text', usetex=True)
 
 #####
 # Luigi task

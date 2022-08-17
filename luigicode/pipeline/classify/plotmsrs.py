@@ -11,6 +11,10 @@ import pprint
 import matplotlib.pyplot as plt
 from pipeline.classify.classifymsrsintel import INTEL_MSR_NAMES
 
+from matplotlib import rc
+rc('font', **{'family':'serif', 'serif':['Times']})
+rc('text', usetex=True)
+
 intel_msr_prettylabels = [
     'MCx_STATUS',
     'DEBUGCTL'
@@ -237,7 +241,7 @@ class PlotMSRs(luigi.Task):
         ax[AX_INTEL].set_axisbelow(True)
         ax[AX_INTEL].set_xticks(np.arange(len(intel_msr_prettylabels)), step=1)
         ax[AX_INTEL].set_xticklabels(intel_msr_prettylabels, rotation=90)
-        ax[AX_INTEL].set_ylabel('Affected errata (%)')
+        ax[AX_INTEL].set_ylabel('Affected errata (\%)')
         ax[AX_INTEL].set_title('Intel')
         ax[AX_INTEL].set_ylim(0, 7.9)
 

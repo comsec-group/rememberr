@@ -7,6 +7,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
+from matplotlib import rc
+rc('font', **{'family':'serif', 'serif':['Times']})
+rc('text', usetex=True)
+
 if "ERRATA_BUILDDIR" not in os.environ:
     raise ValueError("Environment variable ERRATA_BUILDDIR must be defined. Please source env.sh.")
 

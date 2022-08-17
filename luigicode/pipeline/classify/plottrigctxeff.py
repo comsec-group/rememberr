@@ -16,6 +16,10 @@ from pipeline.uniqueintel import UniqueIntel
 from pipeline.uniqueamd import UniqueAMD
 from common import plainify_str, triggers, contexts, effects
 
+from matplotlib import rc
+rc('font', **{'family':'serif', 'serif':['Times']})
+rc('text', usetex=True)
+
 #####
 # Luigi task
 #####
@@ -175,7 +179,7 @@ class TrigCtxEff(luigi.Task):
         ax.set_axisbelow(True)
         ax.set_xticks(np.arange(tnum), step=1)
         ax.set_xticklabels(tlabels, rotation=90)
-        ax.set_ylabel('Affected errata (%)')
+        ax.set_ylabel('Affected errata (\%)')
         fig.tight_layout()
         # Save more figures than what luigi would.
         plt.savefig(os.path.join(target_dir, "triggers.pdf"), dpi=300)
@@ -189,7 +193,7 @@ class TrigCtxEff(luigi.Task):
         ax.set_axisbelow(True)
         ax.set_xticks(np.arange(cnum), step=1)
         ax.set_xticklabels(clabels, rotation=90)
-        ax.set_ylabel('Affected errata (%)')
+        ax.set_ylabel('Affected errata (\%)')
         ax.set_ylim(0, 8.6)
         fig.tight_layout()
         # Save more figures than what luigi would.
@@ -204,7 +208,7 @@ class TrigCtxEff(luigi.Task):
         ax.set_axisbelow(True)
         ax.set_xticks(np.arange(enum), step=1)
         ax.set_xticklabels(elabels, rotation=90)
-        ax.set_ylabel('Affected errata (%)')
+        ax.set_ylabel('Affected errata (\%)')
         ax.set_ylim(0, 23.5)
         fig.tight_layout()
         # Save more figures than what luigi would.

@@ -13,6 +13,10 @@ import matplotlib.pyplot as plt
 from pipeline.uniqueintel import UniqueIntel
 from pipeline.uniqueamd import UniqueAMD
 
+from matplotlib import rc
+rc('font', **{'family':'serif', 'serif':['Times']})
+rc('text', usetex=True)
+
 # Human-crafted and human-controlled regexes corresponding to the various possible workarounds.
 workaround_regexes = [
     ('BIOS/Firmware', [r'bios', r'firmware', r'\bL0s\b']),
@@ -134,7 +138,7 @@ class WorkaroundsIntelAMD(luigi.Task):
         ax[AX_INTEL].set_title("Intel")
         ax[AX_AMD].set_title("AMD")
 
-        ax[AX_INTEL].set_ylabel('Proportion of errata (%)')
+        ax[AX_INTEL].set_ylabel('Proportion of errata (\%)')
 
         ax[AX_INTEL].set_ylim(0, 48)
         ax[AX_AMD].set_ylim(0, 48)

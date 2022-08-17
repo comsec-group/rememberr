@@ -1,9 +1,12 @@
 import json
 import os
 from pathlib import Path
-import subprocess
 
 import matplotlib.pyplot as plt
+
+from matplotlib import rc
+rc('font', **{'family':'serif', 'serif':['Times']})
+rc('text', usetex=True)
 
 COMMITS = {
     'intel': [
@@ -137,7 +140,7 @@ AX = dict()
 AX['intel'] = 0
 AX['amd']   = 1
 
-ax[AX['intel']].set_ylabel('Agreements (%)')
+ax[AX['intel']].set_ylabel('Agreements (\%)')
 ax[AX['intel']].grid()
 ax[AX['intel']].plot(X_numagreements['intel'], Y_numagreements['intel'])
 ax[AX['intel']].set_title('Intel')

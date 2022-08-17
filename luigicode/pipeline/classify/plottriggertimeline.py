@@ -12,6 +12,10 @@ from pipeline.uniqueintel import UniqueIntel
 from pipeline.uniqueamd import UniqueAMD
 from common import intel_cpu_names, intel_cpu_prettynames, amd_cpu_names, plainify_str, trigger_classes_map, trigger_classes, triggers
 
+from matplotlib import rc
+rc('font', **{'family':'serif', 'serif':['Times']})
+rc('text', usetex=True)
+
 NUM_TRIGGER_CLASSSES = len(trigger_classes)
 PLOT_ABSOLUTE = False
 
@@ -192,7 +196,7 @@ class TriggerTimeline(luigi.Task):
             ax.set_ylabel("Number of affected errata")
             ax.legend(framealpha=1)
         else:
-            ax.set_ylabel("Relative trigger representation (%)")
+            ax.set_ylabel("Relative trigger representation (\%)")
             ax.legend(ncol=4, framealpha=1)
 
         ax.set_xticks(xticks, intel_cpu_prettynames.values(), rotation=90)
