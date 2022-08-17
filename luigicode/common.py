@@ -205,6 +205,7 @@ trigger_classes_map = {
     "trg_MOP_nst": "trg_MOP",
     "trg_MOP_ptw": "trg_MOP",
     "trg_MOP_seg": "trg_MOP",
+    "trg_MOP_cam": "trg_MOP",
     "trg_POW_pwc": "trg_POW",
     "trg_PRV_ret": "trg_PRV",
     "trg_PRV_vmt": "trg_PRV",

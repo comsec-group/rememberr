@@ -10,10 +10,10 @@ xl = pd.ExcelFile(errata_dates_xlsx)
 start_year = 2008
 
 # Limit fields for sanity-checking provided dates.
-SANITY_MIN_YEAR = 2000
-SANITY_MAX_YEAR = 2023
-SANITY_MIN_MONTH = 1
-SANITY_MAX_MONTH = 12
+MIN_YEAR = 2000
+MAX_YEAR = 2023
+MIN_MONTH = 1
+MAX_MONTH = 12
 
 ########################################
 # Helper functions.
@@ -30,16 +30,16 @@ def strtodate(strdate):
     assert len(ret_tuple) == 2, "Invalid date string `{}`.".format(strdate)
     try:
         month_int, year_int = int(ret_tuple[0]), int(ret_tuple[1])
-        assert month_int >= SANITY_MIN_MONTH and month_int <= SANITY_MAX_MONTH, "Unsupported strdate month: {}".format(month_int)
-        assert year_int >= SANITY_MIN_YEAR and year_int <= SANITY_MAX_YEAR, "Unsupported strdate year: {}".format(year_int)
+        assert month_int >= MIN_MONTH and month_int <= MAX_MONTH, "Unsupported strdate month: {}".format(month_int)
+        assert year_int >= MIN_YEAR and year_int <= MAX_YEAR, "Unsupported strdate year: {}".format(year_int)
     except:
         raise ValueError("Unsupported strdate: {}".format(strdate))
     return month_int, year_int
 
 # @brief transforms a tuple (month_int, year_int) into an integer using the formula. Performs sanity checks.
 def tupldate_to_int(month_int, year_int):
-    assert month_int >= SANITY_MIN_MONTH and month_int <= SANITY_MAX_MONTH, "Unsupported tupldate month: {}".format(month_int)
-    assert year_int >= SANITY_MIN_YEAR and year_int <= SANITY_MAX_YEAR, "Unsupported tupldate year: {}".format(year_int)
+    assert month_int >= MIN_MONTH and month_int <= MAX_MONTH, "Unsupported tupldate month: {}".format(month_int)
+    assert year_int >= MIN_YEAR and year_int <= MAX_YEAR, "Unsupported tupldate year: {}".format(year_int)
     assert type(month_int) == int
     assert type(year_int) == int
     return 12*(year_int-start_year)+month_int-1
@@ -50,8 +50,8 @@ def int_to_tupldate(tupldate_int):
     assert type(tupldate_int) == int
     curr_year = (tupldate_int // 12) + start_year
     curr_month = tupldate_int - 12 * (curr_year - start_year) + 1
-    assert curr_month >= SANITY_MIN_MONTH and curr_month <= SANITY_MAX_MONTH, "Unsupported tupldate month: {}".format(month_int)
-    assert curr_year >= SANITY_MIN_YEAR and curr_year <= SANITY_MAX_YEAR, "Unsupported tupldate year: {}".format(year_int)
+    assert curr_month >= MIN_MONTH and curr_month <= MAX_MONTH, "Unsupported tupldate month: {}".format(month_int)
+    assert curr_year >= MIN_YEAR and curr_year <= MAX_YEAR, "Unsupported tupldate year: {}".format(year_int)
     return curr_month, curr_year
 
 ########################################

@@ -154,6 +154,7 @@ The `classification` directory contains data related to errata classification.
 ```
 .
 ├── generic: contains classification data into trigger, context and observable effect categories.
+│   ├── history: history of the agreements between the two human classifiers.
 │   ├── human1: classification performed by the first (human) classifier.
 │   ├── human2: classification performed by the second (human) classifier.
 │   └── postagreement_intel.json: final classification after discussion and resolution of all mismatches between human1 and human2.
