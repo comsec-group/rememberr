@@ -15,7 +15,7 @@ We recommend using Python 3.7 or a newer version.
 For Ubuntu users, the required apt dependencies can be installed with:
 
 ```
-sudo apt-get update && apt-get install build-essential libpoppler-cpp-dev build-essential libpoppler-cpp-dev software-properties-common python3.8-dev libgl1 libglib2.0-0 software-properties-common git -y
+sudo apt-get update && apt-get install build-essential libpoppler-cpp-dev build-essential libpoppler-cpp-dev software-properties-common python3.8-dev libgl1 libglib2.0-0 software-properties-common git texlive-latex-extra texlive-fonts-recommended cm-super dvipng -y
 sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt-get update && apt-get install python3.8 python3-pip python3-distutils python3-apt -y
 ```

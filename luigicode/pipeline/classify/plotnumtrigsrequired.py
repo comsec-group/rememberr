@@ -137,40 +137,71 @@ class NumTrigsRequired(luigi.Task):
                 for trigger in triggers:
                     num_triggers_per_errnum[errnum] += int(amd_trigger_categorization_bool[trigger][errnum])
 
-        flattened_triggercnt = []
+        flattened_triggercnt_intel = []
         for cpuname in intel_cpu_names:
             # print('\n' + cpuname)
             for errnum in intel_errnums[cpuname]:
                 # if not num_triggers_per_errnum[errnum]:
                     # print("\t{}".format(intel_errnum_to_errid[cpuname][errnum]))
-                flattened_triggercnt.append(num_triggers_per_errnum[errnum])
+                flattened_triggercnt_intel.append(num_triggers_per_errnum[errnum])
+        flattened_triggercnt_amd = []
         for cpuname in amd_cpu_names:
             # print('\n' + cpuname)
             for errnum in amd_errnums[cpuname]:
                 # if not num_triggers_per_errnum[errnum]:
                     # print("\t{}".format(errnum))
-                flattened_triggercnt.append(num_triggers_per_errnum[errnum])
+                flattened_triggercnt_amd.append(num_triggers_per_errnum[errnum])
 
-        countdict = sorted(dict(Counter(flattened_triggercnt)).items(), key=lambda item: item[0], reverse=True)
-        Xs = list(map(lambda x: x[0], countdict))
-        Ys = list(map(lambda x: x[1], countdict))
-        Ys = list(map(lambda x: round(100*x/2564, 1), Ys))
+        countdict_intel = sorted(dict(Counter(flattened_triggercnt_intel)).items(), key=lambda item: item[0], reverse=True)
+        counts_intel = list(map(lambda x: x[0], countdict_intel))
+        Ys_intel = list(map(lambda x: x[1], countdict_intel))
+        Ys_intel = list(map(lambda x: round(100*x/2057, 1), Ys_intel))
+        countdict_amd = sorted(dict(Counter(flattened_triggercnt_amd)).items(), key=lambda item: item[0], reverse=True)
+        counts_amd = list(map(lambda x: x[0], countdict_amd))
+        Ys_amd = list(map(lambda x: x[1], countdict_amd))
+        Ys_amd = list(map(lambda x: round(100*x/506, 1), Ys_amd))
 
-        Xs = Xs[:-1]
-        Ys = Ys[:-1]
+        # Do not display the zero, will disturb the reader. The zero value will be mentioned in the text.
+        counts_intel = counts_intel[:-1]
+        Ys_intel = list(reversed(Ys_intel[:-1]))
+        counts_amd = counts_amd[:-1]
+        Ys_amd = list(reversed(Ys_amd[:-1]))
 
-        print(Xs)
-        print(Ys)
+        ########################################
+        # Update plot
+        ########################################
+
+        width = 2.5
+        spacing = 1
+
+        left_offset = spacing
+
+        xticks = []
 
         fig = plt.figure(figsize=(6, 2.5))
+
+        for trigger_class_id in range(len(counts_intel)):
+            xticks.append( left_offset + trigger_class_id*(2*width + 2*spacing))
+
+        Xs_intel = [xticks[tick_id] - width/2 for tick_id in range(len(xticks))]
+        Xs_amd   = [xticks[tick_id] + width/2 for tick_id in range(len(xticks))]
+
         ax = fig.gca()
         ax.grid(axis='y')
-        interm_bars = ax.bar(Xs, Ys)
-        ax.bar_label(interm_bars)
+
+        for tick_id in range(len(Ys_intel)):
+            intel_bars = ax.bar(Xs_intel[tick_id], Ys_intel[tick_id], width, alpha=1, zorder=3, color='#0071c5', label='Intel' if tick_id == 0 else '')
+            amd_bars   = ax.bar(Xs_amd[tick_id], Ys_amd[tick_id], width, alpha=1, zorder=3, color='#ED1C24', label='AMD' if tick_id == 0 else '')
+            ax.bar_label(intel_bars)
+            ax.bar_label(amd_bars)
+
+
         ax.set_axisbelow(True)
         ax.set_ylabel('Proportion of errata (\%)')
         ax.set_xlabel('Number of involved triggers')
         ax.set_ylim(0, 48)
+        ax.set_xticks(xticks, reversed(counts_intel))
+        ax.legend()
         fig.tight_layout()
         target_dir = os.path.join(os.environ["ERRATA_BUILDDIR"], 'figures')
         Path(target_dir).mkdir(parents=True, exist_ok=True)
