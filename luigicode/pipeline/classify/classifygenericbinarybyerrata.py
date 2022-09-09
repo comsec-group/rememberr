@@ -70,7 +70,7 @@ class ClassifyGenericBinaryByErrata(luigi.Task):
         return luigi.LocalTarget(self.outpath+'.dummy', format=luigi.format.Nop)
 
     def requires(self):
-        return [UniqueAMD(), UniqueIntel()]
+        return [UniqueIntel(), UniqueAMD()]
 
     # @brief highlights some predefined words (can be regexes).
     # Will dim the rest of the string.
@@ -239,7 +239,7 @@ class ClassifyGenericBinaryByErrata(luigi.Task):
         # Get all the unique errata.
         ########################################
 
-        with open(self.input()[int(self.is_intel)].path, "r") as infile:
+        with open(self.input()[1-int(self.is_intel)].path, "r") as infile:
             # all_unique_errata: list of dicts, each representing one erratum.
             all_unique_errata = json.load(infile)
         if self.is_intel:
