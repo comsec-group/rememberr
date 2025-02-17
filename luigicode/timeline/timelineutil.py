@@ -11,7 +11,7 @@ start_year = 2008
 
 # Limit fields for sanity-checking provided dates.
 MIN_YEAR = 2000
-MAX_YEAR = 2023
+MAX_YEAR = 2026
 MIN_MONTH = 1
 MAX_MONTH = 12
 

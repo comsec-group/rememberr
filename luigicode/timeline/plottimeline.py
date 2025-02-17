@@ -31,6 +31,10 @@ intel_cpu_prettynames = {
     "intel_core_10":        "Core 10",
     "intel_core_11":        "Core 11",
     "intel_core_12":        "Core 12",
+    "intel_core_13":        "Core 13",
+    "intel_core_13":        "Core 13",
+    "intel_core_ultra1":        "Core U1",
+    "intel_core_ultra2":        "Core U2",
 }
 
 amd_cpu_prettynames = {
@@ -66,6 +70,9 @@ intel_cpu_names = [
     "intel_core_10",
     "intel_core_11",
     "intel_core_12",
+    "intel_core_13",
+    "intel_core_ultra1",
+    "intel_core_ultra2",
 ]
 
 amd_cpu_names = [
@@ -177,9 +184,9 @@ def plot_timeline():
         axs[AX_INTEL].plot(Xs_intel[cpu_id], Ys_intel[cpu_id], marker='.', label=intel_cpu_prettynames[cpu_name])
     # Set the X labels
     xtick_locations = []
-    for year in range(2008, 2024):
+    for year in range(2008, 2027):
         xtick_locations.append(tupldate_to_int(1, year))
-    axs[AX_INTEL].set_xticks(xtick_locations, range(2008, 2024))
+    axs[AX_INTEL].set_xticks(xtick_locations, range(2008, 2027))
     axs[AX_INTEL].set_xlim(-2, xtick_locations[-1])
     axs[AX_INTEL].grid()
     axs[AX_INTEL].legend(loc="lower left", ncol=8)
