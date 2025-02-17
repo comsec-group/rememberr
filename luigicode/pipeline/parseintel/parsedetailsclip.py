@@ -8,7 +8,7 @@ import json
 import pprint
 import re
 
-from common import details_pages, cpu_prefixes, is_erratum_removed
+from common import details_pages
 
 def cpuname_to_cliptxtpath(cpu_name: str) -> str:
     return os.path.join('..', 'errata_documents', 'clip', "{}.txt".format(cpu_name))
@@ -38,12 +38,13 @@ class ParseDetailsClip(luigi.Task):
 
     def run(self):
 
+
         ################
         # Get the clip text
         ################
     
-        curr_cliptxt_path = cpuname_to_cliptxtpath(self.cpu_name)
-        with open(curr_cliptxt_path, "r") as f:
+        curr_text_path = cpuname_to_cliptxtpath(self.cpu_name)
+        with open(curr_text_path, "r") as f:
             cliptxt = f.read()
 
         ################

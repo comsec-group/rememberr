@@ -1,0 +1,468 @@
+NAME:RPL001
+TITLE:Intel® Processor Trace PSB+ Packets May Contain Unexpected Packets
+PROBLEM:Some Intel® Processor Trace packets should be issued only between TIP.PGE (Target IP Packet.Packet Generation Enable) and TIP.PGD (Target IP Packet.Packet Generation Disable) packets. Due to this erratum, when a TIP.PGE packet is generated it may be preceded by a PSB+ (Packet Stream Boundary) that incorrectly includes FUP (Flow Update Packet) and MODE.Exec packets.
+IMPLICATION:Due to this erratum, FUP and MODE.Exec may be generated unexpectedly.
+WORKAROUND:Decoders should ignore FUP and MODE.Exec packets that are not between TIP.PGE and TIP.PGD packets.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL002
+TITLE:x87 FDP Value May be Saved Incorrectly
+PROBLEM:Execution of the FSAVE, FNSAVE, FSTENV, or FNSTENV instructions in real-address mode or virtual-8086 mode may save an incorrect value for the x87 FDP (FPU data pointer). This erratum does not apply if the last non-control x87 instruction had an unmasked exception.
+IMPLICATION:Software operating in real-address mode or virtual-8086 mode that depends on the FDP value for non-control x87 instructions without unmasked exceptions may not operate properly. Intel® has not observed this erratum in any commercially available software.
+WORKAROUND:None identified. Software should use the FDP value saved by the listed instructions only when the most recent non-control x87 instruction incurred an unmasked exception.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL003
+TITLE:Debug Exceptions May Be Lost or Misreported When MOV SS or POP SS Instruction is Not Followed By a Write to SP
+PROBLEM:If a MOV SS or POP SS instruction generated a debug exception, and is not followed by an explicit write to the stack pointer (SP), the processor may fail to deliver the debug exception or, if it does, the DR6 register contents may not correctly reflect the causes of the debug exception.
+IMPLICATION:Debugging software may fail to operate properly if a debug exception is lost or does not report complete information. Intel® has not observed this erratum with any commercially available software.
+WORKAROUND:Software should explicitly write to the stack pointer immediately after executing MOV SS or POP SS.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL004
+TITLE:Intel® PT Trace May Drop Second Byte of CYC Packet
+PROBLEM:Due to a rare microarchitectural condition, the second byte of a 2-byte CYC (Cycle Count) packet may be dropped without an OVF (Overflow) packet.
+IMPLICATION:A trace decoder may signal a decode error due to the lost trace byte.
+WORKAROUND:None identified. A mitigation is available for this erratum. If a decoder encounters a multi-byte CYC packet where the second byte has bit 0 (Ext) set to 1, it should assume that 4095 cycles have passed since the prior CYC packet, and it should ignore the first byte of the CYC and treat the second byte as the start of a new packet.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL005
+TITLE:BMI1, BMI2, LZCNT, ADXC, and ADOX Instructions May Not Generate an #UD
+PROBLEM:BMI1, BMI2, LZCNT, ADXC, and ADOX instructions may not generate an #UD fault, even though the respective CPUID feature flags do not enumerate them as supported instructions.
+IMPLICATION:Software that relies on BMI1, BMI2, LZCNT, ADXC, and ADOX instructions to generate an #UD fault, may not work correctly.
+WORKAROUND:None identified. Software should check CPUID reported instructions availability and not rely on the #UD fault behavior.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL006
+TITLE:Exit Qualification For EPT Violations on Instruction Fetches May Incorrectly Indicate That The Guest-physical Address Was Writeable
+PROBLEM:On EPT violations, bit 4 of the Exit Qualification indicates whether the guest-physical address was writeable. When EPT is configured as supervisory shadow-stack (both bit 60 in EPT paging-structure leaf entry and bit 0 in EPT paging-structure entries are set), non-executable (bit 2 in EPT paging-structure entries is cleared), and non-writeable (bit 1 in EPT paging-structure entries is cleared) a VMExit due to a guest instruction fetch to a supervisory page may incorrectly set bit 4 of the Exit Qualification. Bits 3, 5, and 6 of the Exit Qualification are not impacted by this erratum.
+IMPLICATION:Due to this erratum, bit 4 of the Exit Qualification may be incorrectly set. Intel® has not observed this erratum on any commercially available software.
+WORKAROUND:EPT handlers processing an EPT violation due to an instruction fetch access on a present page should ignore the value of bit 4 of the Exit Qualification.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL007
+TITLE:Processor May Generate Spurious Page Faults On Shadow Stack Pages
+PROBLEM:When operating in a virtualized environment, if shadow stack pages are mapped over an APIC page, the processor may generate spurious page faults on that shadow stack page whenever its linear to physical address translation is cached in the Translation Look-aside Buffer.
+IMPLICATION:When this erratum occurs, the processor may generate a spurious page fault. Intel® is not aware of any software that maps shadow stack pages over an APIC page.
+WORKAROUND:Software should avoid mapping shadow stack pages over the APIC page.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL008
+TITLE:Processor May Hang if Warm Reset Triggers During BIOS Initialization
+PROBLEM:Under complex micro-architectural conditions, when the processor receives a warm reset during BIOS initialization, the processor may hang with a machine check error reported in IA32_​MCi_​STATUS, with MCACOD (bits [15:0]) value of 0400H, and MSCOD (bits [31:16]) value of 0080H.
+IMPLICATION:Due to this erratum, the processor may hang. Intel® has only observed this erratum in a synthetic test environment.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL009
+TITLE:System May Hang When Bus-Lock Detection Is Enabled And EPT Resides in Uncacheable Memory
+PROBLEM:On processors that support bus-lock detection (CPUID.(EAX=7, ECX=0).ECX[24]) and have it enabled (bit 2 in the IA32_​DEBUGCTL MSR (1D9h)), and employ an Extended Page Table (EPT) that is mapped to an uncacheable area (UC), and the EPT_​AD is enabled (bit 6 of the EPT Pointer is set), if the VMM performs an EPT modification on a predefined valid page while a virtual machine is running, the processor may hang.
+IMPLICATION:Due to this erratum, the system may hang when bus-lock detection is enabled. Intel® has not observed this erratum in any commercially available software.
+WORKAROUND:VMM should not map EPT tables to Uncacheable memory while using EPT_​AD.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL010
+TITLE:Processor May Generate Malformed TLP
+PROBLEM:If the processor root port receives an FetchAdd, Swap, or CAS TLP (an atomic operation) that is erroneous, it should generate a UR completion to the downstream requestor. If the TLP has an operand size greater than 4 bytes, the generated UR completion may report an operand size of 4 bytes, which may be interpreted as a malformed transaction.
+IMPLICATION:When this erratum occurs, the processor may respond with a malformed transaction.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL011
+TITLE:No #GP May be Signaled When Setting MSR_​MISC_​PWR_​MGMT.ENABLE_​SDC if MSR_​MISC_​PWR_​MGMT.LOCK is Set
+PROBLEM:If the MSR_​MISC_​PWR_​MGMT.LOCK (MSR 1AAh, bit13 ) is set, a General Protection Exception (#GP) may not be signaled when MSR_​MISC_​PWR_​MGMT.ENABLE_​SDC (MSR 1AAh, bit 10) is cleared while IA32_​XSS.HDC (MSR DA0h, bit 13) is set and if IA32_​PKG_​HDC_​CTL.HDC_​PKG_​Enable (MSR DB0h, bit 0) was set at least once before.
+IMPLICATION:Due to this erratum, MSR_​MISC_​PWR_​MGMT.ENABLE_​SDC may be cleared even though a #GP was not signaled.
+WORKAROUND:None identified. Software should not attempt to clear MSR_​MISC_​PWR_​MGMT.ENABLE_​SDC if the above #GP conditions are met.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL012
+TITLE:PCIe Link May Fail to Train Upon Exit From L1.2
+PROBLEM:When the PCIe Link exits the L1.2 low-power link state, the link may fail to correctly train to L0.
+IMPLICATION:Due to this erratum, a PCIe link may incur unexpected link recovery events or it may enter a Link_​Down state.
+WORKAROUND:It may be possible for a BIOS code change to workaround this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL013
+TITLE:Incorrectly Formed PCIe Packets May Generate Correctable Errors
+PROBLEM:Under complex microarchitectural conditions, the PCIe controller may transmit an incorrectly formed Transaction Layer Packet (TLP), which may fail CRC checks.
+IMPLICATION:When this erratum occurs, the PCIe end point may record correctable errors resulting in either a NAK or link recovery. Intel® has not observed any functional impact due to this erratum.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL014
+TITLE:Single Step on Branches Might be Missed When VMM Enables Notification On VM Exit
+PROBLEM:Under complex micro-architectural conditions, single step on branches (IA32_​DEBUGCTLMSR (Offset 1D9h, bit [1]) and also TF flag in EFLAGS register is set) in guest might be missed when VMM enables notification on VM Exit (IA32_​VMX_​PROCBASED_​CTLS2 MSR, Offset 48Bh, bit [31]) while the dirty access bit is not set for the code page (bit [6] in paging-structure entry).
+IMPLICATION:When single step is enabled under the above condition, some single step branches may be missed. Intel® has only observed this erratum in a synthetic test environment.
+WORKAROUND:When enabling single step on branches for debugging, software should first set the dirty bit of the code page.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL015
+TITLE:Incorrect #CP Error Code on UIRET
+PROBLEM:If a #CP exception is triggered during a UIRET instruction execution, the error code on the stack may report NEAR-RET instruction (code 1) instead of FAR-RET instruction (code 2).
+IMPLICATION:Due to this erratum, an incorrect #CP error code is logged when #CP is triggered during UIRET instruction.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL016
+TITLE:CPUID Reports Incorrect Number of Ways For The Load DTLB
+PROBLEM:CPUID leaf 18H sub-leaf 04H EBX [31:16] reports 4 ways instead of 6 ways for the Load DTLB.
+IMPLICATION:Due to this erratum, software that relies upon the number of ways in the load DTLB may operate sub optimally.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL017
+TITLE:Intel® PT Trace May Contain Incorrect Data When Configured With Single Range Output Larger Than 4KB
+PROBLEM:Under complex micro-architectural conditions, when using Intel(r) Processor Trace (PT) with single range output larger than 4KB, disabling PT and then enabling PT using the TraceEn bit in IA32_​RTIT_​CTL MSR (MSR 570h, bit 0) may cause incorrect output values to be recorded.
+IMPLICATION:Due to this erratum, a PT trace may contain incorrect values.
+WORKAROUND:None identified. Software should avoid using PT with single range output larger than 4KB.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL018
+TITLE:IA32_​PERF_​CAPABILITIES.PERF_​METRICS_​AVAILABLE is Not Set
+PROBLEM:PERF_​METRICS_​AVAILABLE indication inside IA32_​PERF_​CAPABILITIES MSR (bit 15 in MSR 345h) reports whether MSR_​PERF_​METRICS is available. This indication may not be set unless BIOS disables E-cores in the system.
+IMPLICATION:When this erratum occurs, the PERF_​METRICS are available even though IA32_​PERF_​CAPABILITIES.PERF_​METRICS_​AVAILABLE reports otherwise.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL019
+TITLE:OFFCORE_​REQUESTS_​OUTSTANDING Performance Monitoring Events May be Inaccurate
+PROBLEM:The OFFCORE_​REQUESTS_​OUTSTANDING.*DATA_​RD performance monitoring events (Event 20h; UMask 08h) counts the number of off-core outstanding data read transactions each cycle. Due to this erratum, an inaccurate count may be observed when Intel® HyperThreading Technology is enabled and hardware prefetchers are enabled.
+IMPLICATION:OFFCORE_​REQUESTS_​OUTSTANDING Performance Monitoring Events may be Inaccurate.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL020
+TITLE:On Instructions Longer Than 15 Bytes, #GP Exception is Prioritized And Delivered Over #CP Exception
+PROBLEM:A #GP (global protection exception) that results from an instruction being longer than 15 bytes is prioritized and served before a #CP (Controlflow Protection exception) that was created due to a missing ENDBRx instruction at the target of an indirect branch.
+IMPLICATION:Due to this erratum, during an indirect jump with ENDBRANCH tracking, if the processor lands on an illegal instruction with length longer than 15 bytes or that decodes to a CS limit, the processor may prioritize and deliver a #GP exception over the #CP exception.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL021
+TITLE:Mismatch on DR6 Value When Breakpoint Match is on Bitmap Address
+PROBLEM:Under complex microarchitectural conditions, on systems with Control-flow Enforcement Technology (CET) enabled, hitting a predefined data breakpoint may not be reported in B0-B3 (bits 3:0) in the DR6 register if that breakpoint was set on the legacy code page bitmap.
+IMPLICATION:Due to this erratum, software may not know which breakpoint triggered when setting breakpoints on the legacy code page bitmap.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL022
+TITLE:RTM Abort Status May be Incorrect For INT1/INT3 Instructions
+PROBLEM:When Intel® Transactional Synchronization Extensions (TSX) is enabled, and there is an RTM (Restricted Transactional Memory))abort due to an INT1 or INT3 instruction, bit 5 of the RTM abort status (nested transaction execution) may not be set even if the RTM was nested.
+IMPLICATION:Due to this erratum, software that manages RTM aborts cannot determine whether an abort is nested.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL023
+TITLE:Incorrect MCACOD For L2 Prefetch MCE
+PROBLEM:Under complex micro-architectural conditions, an L2 prefetch MCE that should be reported with MCACOD 165h in IA32_​MC3_​STATUS MSR (MSR 40dh, bits [15:0]) may be reported with an MCACOD of 101h.
+IMPLICATION:Due to this erratum, the reported MCACOD for this MCE may be incorrect.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL024
+TITLE:Call Instruction Wrapping Around The 32-bit Address Boundary May Return to Incorrect Address
+PROBLEM:In 32-bit mode, a call instruction wrapping around the 32-bit address should save a return address near the bottom of the address space (low address) around address zero. Under complex micro-architectural conditions, a return instruction following such a call may return to the next sequential address instead (high address).
+IMPLICATION:Due to this erratum, In 32-bit mode a return following a call instruction that wraps around the 32-bit address boundary may return to the next sequential IP without wrapping around the address, possibly resulting in a #PF. Intel® has not observed this behavior on any commercially available software.
+WORKAROUND:Software should not place call instructions in addresses that wrap around the 32-bit address space in 32-bit mode.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL025
+TITLE:VM Entry That Clears TraceEn May Generate a FUP
+PROBLEM:If VM entry clears Intel® PT (Intel® Processor Trace) IA32_​RTIT_​CTL.TraceEn (MSR 570H, bit 0) while PacketEn is 1 then a FUP (Flow Update Packet) may precede the TIP.PGD (Target IP Packet, Packet Generation Disable). VM entry can clear TraceEn if the VM-entry MSR-load area includes an entry for the IA32_​RTIT_​CTL MSR.
+IMPLICATION:When this erratum occurs, an unexpected FUP may be generated that creates the appearance of an asynchronous event taking place immediately before or during the VM entry.
+WORKAROUND:The Intel® PT trace decoder may opt to ignore any FUP whose IP matches that of a VM entry instruction.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL026
+TITLE:#UD May be Delivered Instead of Other Exceptions
+PROBLEM:An invalid instruction opcode that runs into another exception before fetching all instruction bytes (e.g. a #GP due to the instruction being longer than 15 bytes or a CS limit violation) may signal a #UD despite not fetching all instruction bytes under some microarchitectural conditions.
+IMPLICATION:Due to this erratum, a #UD exception may be serviced before other exceptions. This does not occur for valid instructions. Intel® has only observed this erratum in a synthetic test environment.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL027
+TITLE:#GP May be Serviced Before an Instruction Breakpoint
+PROBLEM:An instruction breakpoint should have the highest priority and needs to be serviced before any other exception. In case an instruction breakpoint is marked on an illegal instruction longer than 15 bytes that starts in bytes 0-16 of a 32B-aligned chunk, and that instruction does not complete within the same 32B-aligned chunk, a General Protection Exception (#GP) on the same instruction may be serviced before the breakpoint exception.
+IMPLICATION:Due to this erratum, an illegal instruction #GP exception may be serviced before an instruction breakpoint.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL028
+TITLE:Unexpected #PF Exception Might Be Serviced Before a #GP Exception
+PROBLEM:Instructions longer than 15 bytes should assert a General Protection Exception (#GP). For instructions longer than 15 bytes, a Page Fault Exception (#PF) from the subsequent page might be issued before the #GP exception in the following cases: 1. The GP instruction starts at byte 1 – 16 of the last 32B-aligned chunk of a page (starting the count at byte 0), and it is not a target of taken jump, and it does not complete within the same 32B-aligned chunk it started in. 2. The GP instruction starts at byte 17 of the last 32B-aligned chunk of a page.
+IMPLICATION:Due to this erratum, an unexpected #PF exception might be serviced before a #GP exception.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL029
+TITLE:WRMSR to Reserved Bits of IA32_​L3_​QOS_​Mask_​15 May Not Signal a #GP
+PROBLEM:A General Protection Exception (#GP) may not be signaled when writing non-zero values to the upper 32 bits of IA32_​L3_​QOS_​Mask_​15 MSR (Offset C9FH) even though they are defined as reserved bits.
+IMPLICATION:Due to this erratum, a #GP may not be signaled when the upper bits of IA32_​L3_​QOS_​Mask_​15 are written with a non-zero value.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL030
+TITLE:VMX-Preemption Timer May Not Work if Configured With a Value of 1
+PROBLEM:Under complex micro-architectural conditions, the VMX-preemption timer may not generate a VM Exit if the VMX-preemption timer value is set to 1.
+IMPLICATION:Due to this erratum, if the value configured to a value of 1, a VM exit may not occur.
+WORKAROUND:None identified. Software should avoid programming the VMX-preemption timer with a value of 1.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL031
+TITLE:Setting MISC_​FEATURE_​CONTROL.DISABLE_​THREE_​STRIKE_​CNT Does Not Prevent The Three-strike Counter From Incrementing
+PROBLEM:Setting MISC_​FEATURE_​CONTROL.DISABLE_​THREE_​STRIKE_​CNT (bit 11 in MSR 1A4h) does not prevent the three-strike counter from incrementing as documented; instead, it only prevents the signaling of the three-strike event once the counter has expired.
+IMPLICATION:Due to this erratum, software may be able to see the three-strike logged in the MC3_​STATUS (MSR 40Dh, MCACOD = 400h [bits 15:0]) even when MISC_​FEATURE_​CONTROL.DISABLE_​THREE_​STRIKE_​CNT is set.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL032
+TITLE:VM Exit Qualification May Not be Correctly Set on APIC Access While Serving a User Interrupt
+PROBLEM:A VM Exit that occurs while the processor is serving a user interrupt in non-root mode should set the “asynchronous to instruction execution” bit in the Exit Qualification field in the Virtual Machine Control Structure (bit 16). However, if a VM Exit occurs during processing a user interrupt due to an APIC access, the bit may not be set.
+IMPLICATION:Due to this erratum, the “asynchronous to instruction execution” bit may not be set if an APIC Access VM Exit occurs while the processor is serving a user interrupt. Intel® has not observed this erratum with any commercially available software.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL033
+TITLE:Unable to Transmit Modified Compliance Test Pattern at 2.5 GT/S or 5.0 GT/s Link Speeds
+PROBLEM:The processor's PCIe port (Bus 0, Device 1, Function 0/1/2 or Bus 0, Device 6, Function 0) does not transmit the Modified Compliance Test Pattern when in either 2.5 GT/S or 5.0 GT/s link speeds.
+IMPLICATION:Due to this erratum, PCIe compliance testing may fail at 2.5 GT/S or 5.0 GT/s link speeds when enabling the Modified Compliance Test Pattern.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL034
+TITLE:USB 3.2 Gen 1x1 Port Does Not Send 16 Polling LFPS Burst
+PROBLEM:On USB 3.2 Gen 1x1 only capable ports, including ports configured as USB 3.2 Gen 1x1 by soft strap, the xHCI controller may send only 15 LFPS signals instead of a burst of 16 LFPS signals as specified by the USB 3.2 specification.
+IMPLICATION:There are no known functional implications due to this erratum. LFPS handshake requires the receiver link partner to only detect 2 LFPS signals. This issue may impact the SuperSpeed compliance test case which checks for the 16 LFPS burst requirements: TD6.4, TD6.5, and TD7.31.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL035
+TITLE:Unsynchronized Cross-Modifying Code Operations Can Cause Unexpected Instruction Execution Results
+PROBLEM:The act of one processor or system bus master writing data into a currently executing code segment of a second processor with the intent of having the second processor execute that data as code is called cross-modifying code (XMC). XMC that does not force the second processor to execute a synchronizing instruction prior to execution of the new code is called unsynchronized XMC.Software using unsynchronized XMC to modify the instruction byte stream of a processor can see unexpected or unpredictable execution behavior from the processor that is executing the modified code.
+IMPLICATION:In this case the phrase "unexpected or unpredictable execution behavior" encompasses the generation of most of the exceptions listed in the Intel® Architecture Software Developer's Manual Volume 3: System Programming Guide including a General Protection Fault (GPF) or other unexpected behaviors. In the event that unpredictable execution causes a GPF the application executing the unsynchronized XMC operation would be terminated by the operating system.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL036
+TITLE:Type-C Host Controller Does Not Support Certain Qword Accesses
+PROBLEM:The Type-C controller does not properly support Qword accesses to its MSI-X interrupt table which may lead to unexpected behavior.
+IMPLICATION:When this erratum occurs, Qword reads do not return Unsupported Request and may not return correct data and Qword writes may lead to unexpected behavior. Intel® has not observed this erratum to affect any commercially available software.
+WORKAROUND:Software should not utilize Qword access for the Type-C MSI-X table.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL037
+TITLE:GPU Hang When Async Compute is Enabled
+PROBLEM:GPU may hang when Async Compute is enabled
+IMPLICATION:Due to this erratum, the GPU may hang when running high bandwidth GFx application such as benchmarks and/or games.
+WORKAROUND:None identified. The Async Compute feature may be disabled in a graphics driver update. See GFx Driver Revenue SV2 PR5 (101.3616 or later) and release notes.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL038
+TITLE:Processor Exiting Package C6 or C8 May Hang
+PROBLEM:When the processor exits a package C6 or C8 power state, it may encounter a machine check exception (MCACOD=PCU internal Errors(0402h) / MSCOD=MESSAGE_​CHANNEL_​TIMEOUT (0409h) / PKGC_​EXIT_​SA_​FIVR_​UNLOBOTOMY_​TIMEOUT (0441h) / PKGC_​WATCHDOG_​HANG_​C2P2_​RSP (0462h)).
+IMPLICATION:Due to this erratum the system may hang with machine check exception.
+WORKAROUND:It is possible for the BIOS to contain a workaround for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL039
+TITLE:Unexpected System Hang During Enhanced Intel® SpeedStep Transitions
+PROBLEM:Under complex microarchitectural conditions Enhanced Intel® SpeedStep transitions may lead to a system hang.
+IMPLICATION:Due to this issue a system may hang with MCACODE GCACHEL2_​ERR_​ERR (010Ah).
+WORKAROUND:It is possible for a BIOS code change to workaround this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL040
+TITLE:The Time-Stamp Counter May Report an Incorrect Value
+PROBLEM:Under complex micro-architectural conditions, the Time-Stamp Counter (TSC) may incorrectly report the time stamp to be less than the expected time stamp after exiting C6 power saving state.
+IMPLICATION:Due to this erratum, systems that rely upon a monotonically increasing value reported by the TSC may exhibit unpredictable system behavior.
+WORKAROUND:It is possible for the BIOS to contain a workaround for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL041
+TITLE:Processor May Encrypt TME Exclude Range if Mapped to Remap Range
+PROBLEM:The processor accesses to TME exclude range may be encrypted but not decrypted if mapped to remap range.
+IMPLICATION:Due to this erratum, the processor exclude range it may be encrypted but may but not decrypted if mapped to remap range.
+WORKAROUND:It may be possible for BIOS to workaround this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL042
+TITLE:Precision Time Measurement (PTM) Interpretation Capability Bit Incorrect Register Offset
+PROBLEM:The PTM Propagation Delay Adaptation Interpretation B (PTMPDAIB) Bit is implemented at Configuration Space (CFG) Offset 158h instead of at 50h as documented in the PCI-SIG PTM Byte Ordering Adaptation Engineering Change Notice (ECN).
+IMPLICATION:End Point Device (EPD) software that implements the PTM Byte Ordering Adaptation ECN may not be able to program their PTMPDAIB Bit correctly since it is located at a different register offset.
+WORKAROUND:None identified. To mitigate this issue, EPD software that implements the PTM Byte Ordering Adaptation ECN must access PTMPDAIB at CFG Offset 158h.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL043
+TITLE:INVLPG May Invalidate Global TLB Entries Only For The Current PCID
+PROBLEM:The INVLPG instruction should invalidate any global TLB entries for the specified linear address, regardless of PCID (Process-Context Identifier). Due to this erratum, INVLPG may fail to invalidate TLB entries for global pages with PCIDs different from the current PCID value. Note that, on affected processors, the CPU may not use global TLB entries with PCIDs different from the current PCID value. This erratum does not apply in VMX non-root operation. It applies only when PCIDs are enabled and either in VMX root operation or outside VMX operation.
+IMPLICATION:When this erratum occurs, TLB entries may incorrectly remain valid, leading to unpredictable system behavior, including unexpected exceptions. This erratum does not apply to a guest operating system running in VMX non-root operation.
+WORKAROUND:It may be possible for BIOS to contain a workaround for this erratum. Alternatively, this can be worked around by software using INVPCID type 2 instead of INVLPG.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL044
+TITLE:Machine Check Exception May be Observed During Package C6 Entry
+PROBLEM:The processor may hang during a package C6 entry with a machine check (MCACOD = 0x0402, MCSCOD = 0x0485 or 0x046C).
+IMPLICATION:Due to this erratum the system may hang.
+WORKAROUND:It is possible for BIOS to contain a workaround for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL045
+TITLE:Branch Predictor May Produce Incorrect Instruction Pointer
+PROBLEM:Under complex microarchitectural conditions, the branch predictor may produce an incorrect instruction pointer leading to unpredictable system behavior.
+IMPLICATION:Due to this erratum, the system may exhibit unpredictable behavior.
+WORKAROUND:It may be possible for BIOS to contain a workaround for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL046
+TITLE:IA32_​MC2_​ADDR And IA32_​MC2_​MISC MSRs May be Cleared on Warm Reset
+PROBLEM:A non-zero value written to IA32_​MC2_​ADDR (40Ah) and IA32_​MC2_​MISC(40Bh) MSRs may be incorrectly cleared following a warm reset.
+IMPLICATION:Due to this erratum, software that relies on the IA32_​MC2_​ADDR and IA32_​MC2_​MISC MSR values may not function correctly after a warm reset. Intel® has not observed this erratum with any commercially available software.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL047
+TITLE:xHCI Force Header Command Incorrect Return Code
+PROBLEM:The xHCI controller does not return the correct completion code for the Force Header Command as defined in the Section 4.6.16 of the eXtensible Host Controller Interface for Universal Serial Bus (xHCI) Requirements Specification Rev 1.2.
+IMPLICATION:xHCI CV TD4.12 - Force Header Command Test may report an error. Intel® has obtained a waiver for TD 4.12. The Force Header Command is only used by the USB-IF Command Verifier (xHCI CV) tool for device testing. There are no known functional failures due to this erratum.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL048
+TITLE:DDR5 Clock Jitter Out of Spec
+PROBLEM:DDR5 Clock Jitter, as measured by jitter parameters Dj, Rj, and Tj (Dynamic/Random/Total jitter), may be beyond the JEDEC specification (JEDEC doc number JESD79-5B, Chapter 8.3) limits.
+IMPLICATION:Due to this erratum Clock Jitter measurements may be out of spec. Intel has not observed any functional implications due to this erratum.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL049
+TITLE:IA32_​SPEC_​CTL Bits IPRED_​DIS_​U, IPRED_​DIS_​S And BHI_​DIS_​S May Not Function Correctly
+PROBLEM:IA32_​SPEC_​CTL (MSR 48h) bits IPRED_​DIS_​U (bit 3), IPRED_​DIS_​S (bit 4) and BHI_​DIS_​S (bit 10) may not function correctly after leaving a C6 or deeper sleep state.
+IMPLICATION:Due to this erratum, software that relies upon these bit values may not behave as intended.
+WORKAROUND:It may be possible for the BIOS to contain a workaround for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL050
+TITLE:CPU May Not Load The Most Recent Data
+PROBLEM:Under complex microarchitectural conditions, a read on one logical processor may not receive the most recently stored data by another logical processor.
+IMPLICATION:Due to this erratum, unpredictable system behavior or a system hang may occur. Intel has only observed this behavior in a synthetic test environment. Intel has not observed this erratum with any commercially available system.
+WORKAROUND:It is possible for the BIOS to contain a workaround for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL051
+TITLE:Performance Monitoring Event IDQ.MS_​UOPS May Undercount
+PROBLEM:The performance monitoring events IDQ.MS_​UOPS, IDQ.MS_​SWITCHES, and IDQ.MS_​CYCLES_​ANY (Event 79h, UMask 30h) may undercount MS_​UOPS that come from the Decode Stream Buffer (DSB).
+IMPLICATION:Due to this erratum, performance monitoring counters may report counts lower than expected.
+WORKAROUND:None identified. Performance monitoring event UOPS_​RETIRED.MS may be used instead.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL052
+TITLE:Performance Monitoring Events TOPDOWN.BACKEND_​BOUND_​SLOTS and IDQ_​BUBBLES May be Inaccurate
+PROBLEM:The performance monitoring events TOPDOWN.BACKEND_​BOUND_​SLOTS (Event A4h, UMask 02h) and IDQ_​BUBBLES.* (Event 9Ch, UMask 01h) may not count when the processor is in the C0.2 power sub-state, which is entered via the TPAUSE or UWAIT instructions. This erratum also impacts the accuracy of MSR_​PERF_​METRICS fields Frontend Bound, Backend Bound, and Fetch Latency (MSR 329h, Bits [23:16], [31:24] and [55:48]).
+IMPLICATION:Due to this erratum, these performance monitoring events and the fields in MSR_​PERF_​METRICS may be inaccurate.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL053
+TITLE:Type-C Display May be Blank Following S3/S4/S5 Resume
+PROBLEM:When switching between Type-C Display Alt Mode and an Multi-Function Device (MFD) while the system is in S3/S4/S5, the Display may not enumerate.
+IMPLICATION:When this erratum occurs the Display may be blank. A device unplug and re-plug may be necessary to recover the display.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL054
+TITLE:Performance Monitoring Event Branch Instruction Retired Will Not Count CALLs to Next Sequential Instruction
+PROBLEM:A CALL instruction whose target is the next sequential instruction (the same address pushed onto the stack) will not increment the performance monitoring event BR_​INST_​RETIRED (Event: C4H, UMask: 00H, F9H).
+IMPLICATION:Due to this erratum, software monitoring Branch Instruction Retired events may undercount. Since the CALL is to the next instruction, control flow tracing with the Last Branch Retired (LBR) records should not be affected.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL055
+TITLE:Performance Monitoring Event Branch Instruction Retired Will Overcount on Certain Types of Branch and Complex Instructions
+PROBLEM:On certain types of branch and complex instructions the performance monitoring event BR_​INST_​RETIRED (Event: C4H, UMask: 00H / 7EH / BFH / C0H / DFH / EBH / FBH / F9H) will overcount by 1. Affected instructions include FAR CALL/JMP, RETF, IRET, VMENTRY/VMEXIT/VMPTRLD and complex SGX/SMX/CSTATE instructions/flows.
+IMPLICATION:Due to this erratum, software monitoring Branch Instruction Retired events may overcount.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL056
+TITLE:Unexpected System Behavior When Re-Enabling Intel® HT
+PROBLEM:When performing a warm reset as part of enabling of Intel® Hyper-Threading, machine check banks may not be initialized correctly.
+IMPLICATION:Due to this erratum, software that relies on initialized values in machine check banks may not behave as expected.
+WORKAROUND:None identified. Software or BIOS can avoid this erratum by performing cold reset when re-enabling Intel® HT.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL057
+TITLE:Processor Trace May Generate PSB Packets Too Infrequently
+PROBLEM:A Packet Stream Boundary (PSB) packet should be generated for every PSBFreq number of trace output bytes. Due to this erratum, PSB packets may be generated only after as many as four times that number of output bytes have been generated.
+IMPLICATION:Due to this erratum, trace decoder software may see fewer PSB packets than expected. This may lead to the trace decoder software needing to search further to find a starting point to decode or, when used in circular mode, being unable to decode the trace due to lacking any PSB packets.
+WORKAROUND:None identified. Software can request more frequent PSB packets by programming PSBFreq (bits[27:24]) of IA32_​RTIT_​CTL MSR (570H) to a value 1/4 of the desired value.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL058
+TITLE:Processor Trace May Not Generate a CYC Packet Before MODE.EXEC Packets
+PROBLEM:When a Processor Trace MODE.EXEC packet is generated due to a change in RFLAGS.IF (interrupt flag) or the CS.L or CS.D bits, the processor may not generate a CYC packet before generating the MODE.EXEC packet.
+IMPLICATION:Due to this erratum, trace decoder software may not be able to precisely determine when mode changes that involve changing the interrupt flag or the application’s default operand size happened.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL059
+TITLE:Disabling The APIC While an Interrupt is Being Delivered May Cause a System Hang
+PROBLEM:If software disables the APIC by clearing APIC global enable flag (bit 11) in IA32_​APIC_​BASE (MSR 1Bh) while an interrupt is being delivered, the system may hang with a machine check exception reported in IA32_​​MCi_​​STATUS, with MCACOD (bits [15:0]) value of 0400H, and MSCOD (bits [31:16]) value of 0080H.
+IMPLICATION:Due to this erratum, the system may hang. Intel has not observed this erratum in any commercial available software.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL060
+TITLE:Split Load May Return Incorrect Data
+PROBLEM:Under complex microarchitectural conditions, a cache line split load may return incorrect data.
+IMPLICATION:Due to this erratum, split loads may return incorrect data, which may lead to unpredictable system behavior. Intel has only observed this erratum in a synthetic test environment.
+WORKAROUND:It may be possible for BIOS to contain a workaround for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL061
+TITLE:PCONFIG Error Reporting May be Incorrect
+PROBLEM:If invalid parameters are provided, the PCONFIG instruction should generate a #GP exception. Due to this erratum, the processor may instead set a ZF flag, with EAX reporting failure reasons.
+IMPLICATION:Due to this erratum, incorrectly configured PCONFIG usage may lead to unexpected error reporting.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL062
+TITLE:xHCI Out of Order ACK Due to LCRD1
+PROBLEM:A delay in the availability of LCRD1 (Link Credit 1) from a USB 3.2 hub, with two or more downstream USB 3.2 bulk endpoint devices engaged in SuperSpeedPlus concurrent transfers, may lead to the connected xHCI controller sending the ACK and Status of a transfer packet out of order.
+IMPLICATION:Due to this erratum, a USB 3.2 bulk endpoint device may not respond to subsequent transfers. It may be possible for a device driver to recover the USB 3.2 device.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL063
+TITLE:Incorrect Internal Voltage Request May Lead to Unpredictable System Behavior
+PROBLEM:The processor may request elevated voltages from the voltage regulator, resulting in an eventual increase to the minimum required operating voltage.
+IMPLICATION:Due to this erratum, an increase to minimum operating voltage may lead to unpredictable system behavior.
+WORKAROUND:It may be possible for the BIOS to contain a mitigation for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL064
+TITLE:PCIe REFCLK Inactive Prior to PERST#
+PROBLEM:PCIe differential reference clocks may go inactive prior to the assertion of PERST#.
+IMPLICATION:Due to this erratum, the PCI Express® Card Electromechanical Specification, Revision 5.0, Version 1.0 Power Section 2.2.2 "Management States (S0 to S3/S4 to S0)" requirement is not followed. Intel has not observed any functional implications due to this erratum.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL065
+TITLE:Display Artifacts With YUV420 Format
+PROBLEM:While in DP2.1 UHBR mode and using the YUV420 format with scaling, displays with a resolution higher than 5K @ 60Hz may show display artifacts.
+IMPLICATION:Due to this erratum, display artifacts may be seen.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL066
+TITLE:VM Exit Following MOV to CR8 Instruction May Lead to Unexpected IDT Vectoring-Information
+PROBLEM:Under certain conditions, a VM exit following execution of the MOV to CR8 instruction may unexpectedly result in setting the Valid bit (bit 31) of the IDT-Vectoring Information Field in the Virtual Machine Control Structure (VMCS).
+IMPLICATION:Depending on the operation of the virtual-machine monitor (VMM), this may result in unexpected VM behavior.
+WORKAROUND:It may be possible for the BIOS to contain a workaround for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:RPL067
+TITLE:Cache Level Wrongly Reported in Machine Check Banks
+PROBLEM:When reporting a machine check in the module level caches (IA32_​MC1_​STATUS, MSR 405H), a Compound Error Code of type Cache Hierarchy Error will be reported with a Level (LL) Sub-field of 0b10[L2] instead of 0b01[L1].
+IMPLICATION:Due to this erratum, system software relying on this data, may wrongly categorize the cache level in which the error was reported. The severity of the error will be reported accurately.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.

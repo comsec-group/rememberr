@@ -7,6 +7,7 @@ import pprint
 from pipeline.parseintel.parsedetailsnotables import ParseDetailsNoTables
 from pipeline.parseintel.parsedetailstables import ParseDetailsTables
 from pipeline.parseintel.parsedetailsclip import ParseDetailsClip
+from pipeline.parseintel.parsedetailstext import ParseDetailsText
 
 cpu_names_notables = [
     "intel_core_1_desktop",
@@ -23,12 +24,17 @@ cpu_names_notables = [
 cpu_names_tables = [
     "intel_core_8_9",
     "intel_core_11",
-    "intel_core_12",
 ]
 cpu_names_clip = [
     "intel_core_6",
     "intel_core_7_8",
     "intel_core_10",
+]
+cpu_names_text = [
+    "intel_core_12",
+    "intel_core_13",
+    "intel_core_ultra1",
+    "intel_core_ultra2",
 ]
 
 #####
@@ -56,6 +62,8 @@ class ParseDetailsIntel(luigi.Task):
             return [ParseDetailsTables(cpu_name=self.cpu_name)]
         elif self.cpu_name in cpu_names_clip:
             return [ParseDetailsClip(cpu_name=self.cpu_name)]
+        elif self.cpu_name in cpu_names_text:
+            return [ParseDetailsText(cpu_name=self.cpu_name)]
         else:
             raise ValueError("I do not know how to parse the Intel CPU `{}`.".format(self.cpu_name))
 

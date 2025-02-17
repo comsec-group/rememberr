@@ -33,8 +33,8 @@ intel_cpu_prettynames = {
     "intel_core_12":        "Core 12",
     "intel_core_13":        "Core 13",
     "intel_core_13":        "Core 13",
-    "intel_core_ultra1":        "Core U1",
-    "intel_core_ultra2":        "Core U2",
+    "intel_core_ultra1":    "Core U1",
+    "intel_core_ultra2":    "Core U2",
 }
 
 amd_cpu_prettynames = {

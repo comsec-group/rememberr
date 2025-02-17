@@ -88,6 +88,9 @@ intel_cpu_prettynames = {
     "intel_core_10":        "Core 10",
     "intel_core_11":        "Core 11",
     "intel_core_12":        "Core 12",
+    "intel_core_13":        "Core 13",
+    "intel_core_ultra1":    "Core U1",
+    "intel_core_ultra2":    "Core U2",
 }
 intel_cpu_names = list(intel_cpu_prettynames.keys())
 
@@ -178,6 +181,9 @@ cpu_prefixes = {
     "intel_core_10":        "CML",
     "intel_core_11":        "RKL",
     "intel_core_12":        "ADL",
+    "intel_core_13":        "RPL",
+    "intel_core_ultra1":    "MTL",
+    "intel_core_ultra2":    "ARL",
 }
 assert(set(intel_cpu_prettynames.keys()) == set(cpu_prefixes.keys()))
 

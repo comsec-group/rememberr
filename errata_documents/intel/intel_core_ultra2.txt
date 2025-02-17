@@ -1,0 +1,188 @@
+NAME:ARL001
+TITLE:Single Step on Branches Might be Missed When VMM Enables Notification On VM Exit
+PROBLEM:Under complex micro-architectural conditions, single step on branches (IA32_​DEBUGCTLMSR (Offset 1D9h, bit [1]) and also TF flag in EFLAGS register is set) in guest might be missed when VMM enables notification on VM Exit (IA32_​VMX_​PROCBASED_​CTLS2 MSR, Offset 48Bh, bit [31]) while the dirty access bit is not set for the code page (bit [6] in paging-structure entry).
+IMPLICATION:When single step is enabled under the above condition, some single step branches will be missed. Intel has only observed this erratum in a synthetic test environment.
+WORKAROUND:When enabling single step on branches for debugging, software should first set the dirty bit of the code page.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL002
+TITLE:Intel® VT-d Remapping Hardware Does Not Perform Reserved(0) Check on PGSNP Field of Scalable-mode PASID Table Entry
+PROBLEM:Intel® VT-d remapping hardware does perform Reserved(0) check on Page Snoop (PGSNP) field in scalable-mode Process Address ID (PASID) table entry when Snoop Control capability is defined as not available in the Extended Capability Register Offset 10h bit 7 (ECAP.SC=0).
+IMPLICATION:There are no known functional implications due to this erratum. Intel has not observed this erratum with any commercially available software.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL004
+TITLE:MSI From VMD-Owned Device May Pass Memory Write
+PROBLEM:When the storage subsystem is configured to operate in RAID 0 or 1 mode, a Message Signaled Interrupt (MSI) from an Intel® Volume Management Device (Intel® VMD) owned device may interrupt a core before a previous write from the device is completed.
+IMPLICATION:Due to this erratum, the platform may experience unpredictable system behavior.
+WORKAROUND:None identified. The VMD MSI interrupt-handler should initially perform a dummy register read to the MSI initiator device prior to any writes to ensure proper PCIe ordering.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL005
+TITLE:USB 3.2 Device May Not Function as Expected With TC10 Enabled
+PROBLEM:When TC10 is enabled, a USB 3.2 device connected to USB Type-C port directly without retimer may not function as expected.
+IMPLICATION:Due to this erratum, a USB 3.2 device may not function as expected.
+WORKAROUND:None identified. It may be possible for the BIOS to contain a mitigation for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL006
+TITLE:PCONFIG Error Reporting May be Incorrect
+PROBLEM:If invalid parameters are provided, the PCONFIG instruction should generate a #GP exception. Due to this erratum, the processor may instead set a ZF flag, with EAX reporting failure reasons.
+IMPLICATION:Due to this erratum, incorrectly configured PCONFIG usage may lead to unexpected error reporting.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL007
+TITLE:DP Monitor May Not Operate After S4/S5 Resume
+PROBLEM:When switching a USB Type-C Display Port (DP) monitor connection between Alt Mode and MFD in S4/S5, the monitor may not be enumerated when resuming from S4/S5.
+IMPLICATION:Due to this erratum, a DP Monitor may not operate when resuming from S4/S5 and may require a hot plug to recover.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL008
+TITLE:PCIe Root Port Lane Error Status Register May Not be Cleared
+PROBLEM:Re-enabling a port following a link disable or hot reset the PCIe Lane Error Status register (Offset 0xA38) may not be cleared.
+IMPLICATION:Due to this erratum, the Lane Error Status register may indicate lane errors on some of the Root Ports. Intel has not observed any functional issues due this erratum.
+WORKAROUND:None identified. Software should ignore the lane error status register to mitigate this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL009
+TITLE:Type-C Display May be Blank Following S3/S4/S5 Resume
+PROBLEM:When switching between Type-C Display Alt Mode and a Multi-Function Device (MFD) while the system is in S3/S4/S5, the Display may not enumerate.
+IMPLICATION:When this erratum occurs, the Display may be blank. A device unplug and re-plug may be necessary to recover the display.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL010
+TITLE:Performance Monitoring Event Branch Instruction Retired Will Not Count CALLs to Next Sequential Instruction
+PROBLEM:A CALL instruction whose target is the next sequential instruction (the same address pushed onto the stack) will not increment the performance monitoring event BR_​INST_​RETIRED (Event: C4H, UMask: 00H, F9H).
+IMPLICATION:Due to this erratum, software monitoring Branch Instruction Retired events may undercount. Since the CALL is to the next instruction, control flow tracing with the Last Branch Retired (LBR) records should not be affected.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL011
+TITLE:Performance Monitoring Event Branch Instruction Retired Will Overcount on Certain Types of Branch and Complex Instructions
+PROBLEM:On certain types of branch and complex instructions, the performance monitoring event BR_​INST_​RETIRED (Event: C4H, UMask: 00H / 7EH / BFH / C0H / DFH / EBH / FBH / F9H) will overcount by 1. Affected instructions include FAR CALL/JMP, RETF, IRET, VMENTRY/VMEXIT/VMPTRLD, and complex SGX/SMX/CSTATE instructions/flows.
+IMPLICATION:Due to this erratum, software monitoring Branch Instruction Retired events may overcount.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL012
+TITLE:Processor Trace May Generate PSB Packets Too Infrequently
+PROBLEM:A Packet Stream Boundary (PSB) packet should be generated for every PSBFreq number of trace output bytes. Due to this erratum, PSB packets may be generated only after as many as four times that number of output bytes have been generated.
+IMPLICATION:Due to this erratum, trace decoder software may see fewer PSB packets than expected. This may lead to the trace decoder software needing to search further to find a starting point to decode or, when used in circular mode, being unable to decode the trace due to lacking any PSB packets.
+WORKAROUND:None identified. The software can request more frequent PSB packets by programming PSBFreq (bits[27:24]) of IA32_​RTIT_​CTL MSR (570H) to a value 1/4 of the desired value.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL013
+TITLE:Unsynchronized Cross-Modifying Code Operations Can Cause Unexpected Instruction Execution Results
+PROBLEM:The act of one processor or system bus master writing data into a currently executing code segment of a second processor with the intent of having the second processor execute that data as code is called cross-modifying code (XMC). XMC that does not force the second processor to execute a synchronizing instruction prior to execution of the new code is called unsynchronized XMC.Software using unsynchronized XMC to modify the instruction byte stream of a processor can see unexpected or unpredictable execution behavior from the processor that is executing the modified code.
+IMPLICATION:In this case, the phrase "unexpected or unpredictable execution behavior" encompasses the generation of most of the exceptions listed in the Intel Architecture Software Developer's Manual Volume 3: System Programming Guide including a General Protection Fault (GPF) or other unexpected behaviors. In the event that unpredictable execution causes a GPF the application executing the unsynchronized XMC operation would be terminated by the operating system.
+WORKAROUND:In order to avoid this erratum programmers should use the XMC synchronization algorithm as detailed in the Intel Architecture Software Developer's Manual Volume 3: System Programming Guide Section: Handling Self- and Cross-Modifying Code.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL014
+TITLE:Architectural Performance Monitoring Events For Last Level Cache Will Overcount
+PROBLEM:The Performance Monitoring Event LONGEST_​LAT_​CACHE.REFERENCES (Event: 2EH, UMask: 4FH) and LONGEST_​LAT_​CACHE.MISS (Event: 2EH, UMask: 41H) will double count.
+IMPLICATION:Due to this erratum, software monitoring these two events for last level cache will observe counts that are two times the actual value.
+WORKAROUND:None identified. Software may mitigate this issue by dividing the counter value by two.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL015
+TITLE:Performance Monitoring Events TOPDOWN.BACKEND_​BOUND_​SLOTS and IDQ_​BUBBLES May be Inaccurate
+PROBLEM:The performance monitoring events TOPDOWN.BACKEND_​BOUND_​SLOTS (Event A4h, UMask 02h) and IDQ_​BUBBLES.* (Event 9Ch, UMask 01h) may not count when the processor is in the C0.2 power sub-state, which is entered via the TPAUSE or UWAIT instructions. This erratum also impacts the accuracy of MSR_​PERF_​METRICS fields Frontend Bound, Backend Bound, and Fetch Latency (MSR 329h, Bits [23:16], [31:24] and [55:48]).
+IMPLICATION:Due to this erratum, these performance monitoring events and the fields in MSR_​PERF_​METRICS may be inaccurate.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL016
+TITLE:Performance Monitoring Event IDQ.MS_​UOPS May Undercount
+PROBLEM:The performance monitoring events IDQ.MS_​UOPS, IDQ.MS_​SWITCHES, and IDQ.MS_​CYCLES_​ANY (Event 79h, UMask 30h) may undercount MS_​UOPS that come from the Decode Stream Buffer (DSB).
+IMPLICATION:Due to this erratum, performance monitoring counters may report counts lower than expected.
+WORKAROUND:None identified. Performance monitoring event UOPS_​RETIRED.MS may be used instead.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL017
+TITLE:Performance Monitoring Event INT_​VEC_​RETIRED.MUL_​256 May Undercount
+PROBLEM:The performance monitoring event INT_​VEC_​RETIRED.MUL_​256 (Event E7h, Umask 80h) may not count VPMULLQ instructions.
+IMPLICATION:Due to this erratum, the performance monitoring event may report lower counts than expected.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL018
+TITLE:VM Exit Qualification May Not be Correctly Set on APIC Access While Serving a User Interrupt
+PROBLEM:A VM Exit that occurs while the processor is serving a user interrupt in non-root mode should set the “asynchronous to instruction execution” bit in the Exit Qualification field in the Virtual Machine Control Structure (bit 16). However, if a VM Exit occurs during processing a user interrupt due to an APIC access, the bit will not be set.
+IMPLICATION:Due to this erratum, the “asynchronous to instruction execution” bit will not be set if an APIC Access VM Exit occurs while the processor is serving a user interrupt. Intel has not observed this erratum with any commercially available software.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL019
+TITLE:PCIe REFCLK Inactive Prior to PERST#
+PROBLEM:PCIe differential reference clocks may go inactive prior to the assertion of PERST#.
+IMPLICATION:Due to this erratum, the PCI Express® Card Electromechanical Specification, Revision 5.0, Version 1.0 Power Section 2.2.2 "Management States (S0 to S3/S4 to S0)" requirement is not followed. Intel has not observed any functional implications due to this erratum.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL020
+TITLE:Locked Page Split Access May Not be Detected by UC-lock Disable if Split-lock Disable is Not Used
+PROBLEM:The UC-lock disable feature (MSR_​MEMORY_​CTRL bit [28] (MSR 33h)) may not cause a fault (#AC(4)) for a page split lock that accesses a page with non-WB memory type if the split lock disable (MSR_​MEMORY_​CTRL bit [29]) is not set.
+IMPLICATION:Due to this erratum, system software may not be able to fully prevent bus locks due to locks to non-WB memory unless they use the split-lock disable feature to prevent bus locks due to splits. Intel has not observed this erratum with any commercially available software.
+WORKAROUND:None identified. Software using the UC-lock disable feature should also enable the split lock disable feature.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL021
+TITLE:Precision Time Measurement (PTM) Interpretation Capability Bit Incorrect Register Offset
+PROBLEM:The PTM Propagation Delay Adaptation Interpretation B (PTMPDAIB) Bit is implemented at Configuration Space (CFG) Offset 158h instead of at 50h as documented in the PCI-SIG PTM Byte Ordering Adaptation Engineering Change Notice (ECN).
+IMPLICATION:End Point Device (EPD) software that implements the PTM Byte Ordering Adaptation ECN will not be able to program their PTMPDAIB Bit correctly since it is located at a different register offset.
+WORKAROUND:None identified. To mitigate this issue, EPD software that implements the PTM Byte Ordering Adaptation ECN must access PTMPDAIB at CFG Offset 158h.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL022
+TITLE:Display Artifacts With YUV420 Format
+PROBLEM:While in DP2.1 UHBR mode and using the YUV420 format with scaling, displays with a resolution higher than 5K @ 60Hz may show display artifacts.
+IMPLICATION:Due to this erratum, display artifacts may be seen.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL023
+TITLE:Processor C-States With USB Full-Speed or Low-Speed Device Hotplug
+PROBLEM:When doing a hotplug on a USB hub with two or more USB Full-speed or Low-speed devices each with a 1 ms service interval interrupt endpoint, a race condition may occur between the PMC and the xHCI controller.
+IMPLICATION:The processor may fail to enter C3 or deeper package C-States. Note: This erratum has only been observed in a synthetic environment.
+WORKAROUND:None identified. This condition is recovered after the xHCI controller has successfully entered D3.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL024
+TITLE:xHCI Out of Order ACK Due to LCRD1
+PROBLEM:A delay in the availability of LCRD1 (Link Credit 1) from a USB 3.2 hub, with two or more downstream USB 3.2 bulk endpoint devices engaged in SuperSpeedPlus concurrent transfers, may lead to the connected xHCI controller sending the ACK and Status of a transfer packet out of order.
+IMPLICATION:Due to this erratum, a USB 3.2 bulk endpoint device may not respond to subsequent transfers. It may be possible for a device driver to recover the USB 3.2 device.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL025
+TITLE:Non Canonical Fault May be Signaled on Access That Wraps Address Space When LAM is Enabled
+PROBLEM:When Linear Address Masking (LAM) is enabled, a non-canonical fault may be signaled if there is an access which splits the 64-bit linear address space (and thus touches both linear address FFFF_​FFFF_​FFFF_​FFFFh and 0h).
+IMPLICATION:Due to this erratum, software may receive an unexpected exception on such accesses. Intel has not observed this erratum with any commercially available software.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL026
+TITLE:Processor May Encrypt TME Exclude Range if Mapped to Remap Range
+PROBLEM:The processor accesses to TME exclude range may be encrypted but not decrypted if mapped to remap range.
+IMPLICATION:Due to this erratum, the processor exclude range it will be encrypted but will but not decrypted if mapped to remap range.
+WORKAROUND:It may be possible for BIOS to workaround this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL027
+TITLE:SPI0 Dual IO Mode With SPI0_​IO2 And SPI0_​IO3 Connected to SPI Device
+PROBLEM:On systems with dual IO mode enabled, SPI0_​IO2 and SPI0_​IO3 may momentarily drive low before these signals are pulled high by internal resistors during boot from the G3 state.
+IMPLICATION:Due to this erratum, unexpected system behavior may occur on systems when SPI0_​IO2 and SPI0_​IO3 signals are connected to an SPI device.
+WORKAROUND:None identified. To mitigate this erratum, do not connect SPI0_​IO2 and SPI0_​IO3 to an SPI device in SPI0 dual IO mode enabled systems.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:ARL028
+TITLE:Cache Level Wrongly Reported in Machine Check Banks
+PROBLEM:When reporting a machine check in the module level caches (IA32_​MC1_​STATUS, MSR 405H), a Compound Error Code of type Cache Hierarchy Error will be reported with a Level (LL) Sub-field of 0b10[L2] instead of 0b01[L1].
+IMPLICATION:Due to this erratum, system software relying on this data, may wrongly categorize the cache level in which the error was reported. The severity of the error will be reported accurately.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.

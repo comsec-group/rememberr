@@ -1,0 +1,433 @@
+NAME:MTL001
+TITLE:USB DbC or Device Mode Port When Resuming From S4, S5, or G3 State
+PROBLEM:If a processor USB Type-C* port is configured in Device Mode (or in DbC mode) and connected to an external USB 3.2 host controller, it may cause the USB port to go into a non-functional state in the following scenarios.
+IMPLICATION:Due to this erratum, the processor USB Type-C port configured in Device Mode (or in DbC mode) may fail to enumerate or become unavailable.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL002
+TITLE:xHCI USB 2.0 ISOCH Device Missed Service Interval
+PROBLEM:When the xHCI controller is stressed with concurrent traffic across multiple USB ports, the xHCI controller may fail to service USB 2.0 Isochronous IN endpoints within the required service interval.
+IMPLICATION:Due to this erratum, USB 2.0 isochronous devices connected to the xHCI controller may experience dropped packets.NOTE: This issue has only been observed in a synthetic environment.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL003
+TITLE:Intel® VT-d Remapping Hardware Does Not Perform Reserved(0) Check on PGSNP Field of Scalable-mode PASID Table Entry
+PROBLEM:Intel® VT-d remapping hardware does perform Reserved(0) check on Page Snoop (PGSNP) field in scalable-mode Process Address ID (PASID) table entry when Snoop Control capability is defined as not available in the Extended Capability Register Offset 10h bit 7 (ECAP.SC=0)
+IMPLICATION:There are no known functional implications due to this erratum. Intel has not observed this erratum with any commercially available software.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL004
+TITLE:HDMI Analyzer Color Corruption in HDMI2.1 YUV420
+PROBLEM:When in HDMI2.1 FRL YUV420 mode, and the previous frame ended with an unexpected odd line, green image corruption may occur.
+IMPLICATION:Due to this erratum, when using HDMI analyzer, corruption may be observed as green color data, contained within a vertical bar on right side of the analyzer monitor. Intel has not observed and functional issue due to the Erratum.
+WORKAROUND:A workaround for this erratum is available in iGFX Driver revision 101.5005 or later.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL005
+TITLE:Processor C-States With USB Full-Speed or Low-Speed Device Hotplug
+PROBLEM:When doing a hotplug on a USB hub with two or more USB Full-speed or Low-speed devices each with a 1 ms service interval interrupt endpoint, a race condition may occur between the PMC and the xHCI controller.
+IMPLICATION:Due to this erratum, the processor may fail to enter C3 or deeper package C-States. Note:This erratum has only been observed in a synthetic environment.
+WORKAROUND:None identified. This condition is recovered after the xHCI controller has successfully entered D3.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL006
+TITLE:USB 3.2 Gen 1x1 Port Does Not Send 16 Polling LFPS Burst
+PROBLEM:On USB 3.2 Gen 1x1 only capable ports, including ports configured as USB 3.2 Gen 1x1 by soft strap, the xHCI controller may send only 15 LFPS signals instead of a burst of 16 LFPS signals as specified by the USB 3.2 specification.
+IMPLICATION:There are no known functional implications due to this erratum. LFPS handshake requires the receiver link partner to only detect 2 LFPS signals. This issue may impact the SuperSpeed compliance test case which checks for the 16 LFPS burst requirements: TD6.4, TD6.5, and TD7.31.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL007
+TITLE:xHCI Controller Reset Due to Missing Link Credit From Device
+PROBLEM:The xHCI controller may not send LCRD (Link Credit) to the device after the link U0 state recovery is completed if a USB 3.2 device incorrectly stops sending LCRD.
+IMPLICATION:When this erratum occurs, subsequence transfers from the device may not be completed and the xHCI host controller driver may initiate a host controller reset.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL008
+TITLE:xHCI Controller Hang With Zero-Length Data Packet
+PROBLEM:The xHCI controller may fail to handle a zero-length data packet when doing concurrent traffic with the following devices connected on three separate root ports: USB 3.2 Gen 2x1 (or 2x2) hub with at least two USB 3.2 bulk devices. USB 3.2 Gen 2x1 (or 2x2) hub with at least two USB 3.2 bulk devices. USB isochronous device that sends zero-length data packets.
+IMPLICATION:Due to this erratum, the xHCI controller may hang. Intel has only observed this behavior with USB audio offload enabled and USB 2.0 audio devices that send zero-length data packets.
+WORKAROUND:None identified. A mitigation for USB 2.0 audio devices using USB audio offload is available in Intel® Smart Sound Technology driver version 20.40.9509.0 or later.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL009
+TITLE:PCIe Root Port Lane Error Status Register May Not be Cleared
+PROBLEM:Re-enabling a port following a link disable or hot reset the PCIe Lane Error Status register (Offset 0xA38) may not be cleared.
+IMPLICATION:Due to this erratum, the Lane Error Status register may indicate lane errors on some of the Root Ports. Intel has not observed any functional issues due this erratum.
+WORKAROUND:None identified. Software should ignore the lane error status register to mitigate this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL010
+TITLE:Type-C Display May be Blank Following S3/S4/S5 Resume
+PROBLEM:When switching between Type-C Display Alt Mode and an Multi-Function Device (MFD) while the system is in S3/S4/S5, the Display may not enumerate.
+IMPLICATION:When this erratum occurs the Display may be blank. A device unplug and re-plug may be necessary to recover the display.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL011
+TITLE:Precision Time Measurement (PTM) Interpretation Capability Bit Incorrect Register Offset
+PROBLEM:The PTM Propagation Delay Adaptation Interpretation B (PTMPDAIB) Bit is implemented at Configuration Space (CFG) Offset 158h instead of at 50h as documented in the PCI-SIG PTM Byte Ordering Adaptation Engineering Change Notice (ECN).
+IMPLICATION:Due to this erratum, End Point Device (EPD) software that implements the PTM Byte Ordering Adaptation ECN may not be able to program their PTMPDAIB Bit correctly since it is located at a different register offset.
+WORKAROUND:None identified. To mitigate this issue, EPD software that implements the PTM Byte Ordering Adaptation ECN must access PTMPDAIB at CFG Offset 158h.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL012
+TITLE:Performance Monitoring Event Branch Instruction Retired May Not Count CALLs to Next Sequential Instruction
+PROBLEM:A CALL instruction whose target is the next sequential instruction (the same address pushed onto the stack) may not increment the performance monitoring event BR_​INST_​RETIRED (Event: C4H, UMask: 00H, F9H).
+IMPLICATION:Due to this erratum, software monitoring Branch Instruction Retired events may undercount. Since the CALL is to the next instruction, control flow tracing with the Last Branch Retired (LBR) records should not be affected.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL013
+TITLE:Performance Monitoring Event Branch Instruction Retired May Overcount on Certain Types of Branch and Complex Instructions
+PROBLEM:On certain types of branch and complex instructions the performance monitoring event BR_​INST_​RETIRED (Event: C4H, UMask: 00H / 7EH / BFH / C0H / DFH / EBH / FBH / F9H) may overcount by 1. Affected instructions include FAR CALL/JMP, RETF, IRET, VMENTRY/VMEXIT/VMPTRLD and complex SGX/SMX/CSTATE instructions/flows.
+IMPLICATION:Due to this erratum, software monitoring Branch Instruction Retired events may overcount.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL014
+TITLE:PCIe Gen5 Root Ports Link Equalization Unexpected Behavior at High Temperature
+PROBLEM:PCIe Lanes 21 through 28 may fail Gen5 link equalization at high temperatures due to complex lane microarchitectural conditions.
+IMPLICATION:Due to this erratum, the associated PCIe Gen5 link may exhibit link errors, hang, or fail compliance tests. No issues have been observed when the PCIe link attempts Gen4 or lower.
+WORKAROUND:It is possible for BIOS to contain a workaround for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL015
+TITLE:Unpredictable System Behavior When SAGV is Enabled
+PROBLEM:On platforms that enable System Agent Geyserville (SAGV), a technology that allows load-specific memory speeds, the processor may exhibit unpredictable system behavior.
+IMPLICATION:When this erratum occurs, the processor exhibits unpredictable system behavior.
+WORKAROUND:It is possible for BIOS to work around this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL016
+TITLE:MSI From VMD-Owned Device May Pass Memory Write
+PROBLEM:When the storage subsystem is configured to operate in RAID 0 or 1 mode, a Message Signaled Interrupt (MSI) from an Intel® Volume Management Device (Intel® VMD) owned device may interrupt a core before a previous write from the device is completed.
+IMPLICATION:Due to this erratum, the platform may experience unpredictable system behavior.
+WORKAROUND:None identified. The VMD MSI interrupt-handler should initially perform a dummy register read to the MSI initiator device prior to any writes to ensure proper PCIe ordering.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL017
+TITLE:IA32_​MC2_​ADDR And IA32_​MC2_​MISC MSRs May be Cleared on Warm Reset
+PROBLEM:A non-zero value written to IA32_​MC2_​ADDR (40Ah) and IA32_​MC2_​MISC(40Bh) MSRs may be incorrectly cleared following a warm reset.
+IMPLICATION:Due to this erratum, software that relies on the IA32_​MC2_​ADDR and IA32_​MC2_​MISC MSR values may not function correctly after a warm reset. Intel has not observed this erratum with any commercially available software.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL018
+TITLE:Performance Monitoring Events TOPDOWN.BACKEND_​BOUND_​SLOTS and IDQ_​BUBBLES May be Inaccurate
+PROBLEM:The performance monitoring events TOPDOWN.BACKEND_​BOUND_​SLOTS (Event A4h, UMask 02h) and IDQ_​BUBBLES.* (Event 9Ch, UMask 01h) may not count when the processor is in the C0.2 power sub-state, which is entered via the TPAUSE or UWAIT instructions. This erratum also impacts the accuracy of MSR_​PERF_​METRICS fields Frontend Bound, Backend Bound, and Fetch Latency (MSR 329h, Bits [23:16], [31:24] and [55:48]).
+IMPLICATION:Due to this erratum, these performance monitoring events and the fields in MSR_​PERF_​METRICS may be inaccurate.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL019
+TITLE:Performance Monitoring Event IDQ.MS_​UOPS May Undercount
+PROBLEM:The performance monitoring events IDQ.MS_​UOPS, IDQ.MS_​SWITCHES, and IDQ.MS_​CYCLES_​ANY (Event 79h, UMask 30h) may undercount MS_​UOPS that come from the Decode Stream Buffer (DSB).
+IMPLICATION:Due to this erratum, performance monitoring counters may report counts lower than expected.
+WORKAROUND:None identified. Performance monitoring event UOPS_​RETIRED.MS may be used instead.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL020
+TITLE:HDMI2.1 FRL Audio Distortion With 144Hz Display With Reduced Blanking Interval
+PROBLEM:The processor may not have sufficient display bandwidth to support display audio when using HDMI2.1 FRL (Fixed Rate Link) with a 144Hz display with reduced blanking interval.
+IMPLICATION:Due to this erratum, intermittent or complete loss of audio may occur.
+WORKAROUND:A mitigation has been identified for this erratum and may be available in a software update.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL021
+TITLE:P-core Not Exiting LFM
+PROBLEM:P-core frequency may not be updated after resuming from PKG C6.
+IMPLICATION:Due to this erratum, P-core may unexpectedly remain in Low Frequency Mode (LFM).
+WORKAROUND:A BIOS code change has been identified and may be implemented as a workaround for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL022
+TITLE:I2S Audio Channels Swapped With High Frame Polarity in Device Mode
+PROBLEM:When the I2S interface is in device mode, the audio controller may not be correctly configured if the audio codec requires high frame polarity.
+IMPLICATION:Due to this erratum, the left and right audio channels may swap when frame polarity is set to high.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL023
+TITLE:System May Hang When Operating at Maximum Turbo Frequency
+PROBLEM:The processor may fail to correctly thermally throttle when running at maximum turbo frequency.
+IMPLICATION:Due to this erratum, the system may hang with an Internal Timeout Error Machine Check (IA32_​MCi_​STATUS.MSCOD=080h and IA32_​MCi_​STATUS.MCACOD=0400h) or unpredictable system behavior may occur.
+WORKAROUND:None identified. It may be possible for BIOS to contain a mitigation for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL024
+TITLE:System May Signal MCE When Operating at Maximum Single Core Turbo Frequency
+PROBLEM:DCU DCACHEL0_​EVICT_​ERR (MSCOD=0100h and MCACOD=0174h) may be observed when the core frequency is operating at Maximum Single Core Turbo Frequency.
+IMPLICATION:Due to this erratum, the system may signal a fatal DCACHEL0_​EVICT_​ERR machine check exception.
+WORKAROUND:It is possible for the BIOS to contain a workaround for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL025
+TITLE:Processor May Hang When Intel® HD Graphics is Disabled
+PROBLEM:If internal graphics is disabled (Bus 0, Device 2, Function 0) when using a discrete graphics solution, the processor may fail to exit Package C6 state and report a machine check exception with an MCACOD=0402H and MSCOD=0823H.
+IMPLICATION:Due to this erratum, the processor may hang with a machine check exception.
+WORKAROUND:It is possible for the BIOS to contain a workaround for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL026
+TITLE:Processor Power Sharing May Not Perform as Expected
+PROBLEM:The processor exposes certain power sharing capabilities via the Intel Performance Framework. However, the processor may not honor power sharing requests made via SET_​PERF_​PREFERENCE_​MIN and SET_​PERF_​PREFERENCE_​MAX.
+IMPLICATION:Due to this erratum, software may not achieve its expected processor power allocation.
+WORKAROUND:It is possible for BIOS to contain a workaround for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL027
+TITLE:Unexpected System Behavior When Re-Enabling Intel® HT
+PROBLEM:When performing a warm reset as part of enabling of Intel® Hyper-Threading, machine check banks may not be initialized correctly.
+IMPLICATION:Due to this erratum, software that relies on initialized values in machine check banks may not behave as expected.
+WORKAROUND:None identified. Software or BIOS can avoid this erratum by performing cold reset when re-enabling Intel® HT.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL028
+TITLE:A Write to The TSC_​Deadline MSR May Cause an Unexpected Timer Interrupt
+PROBLEM:Under complex micro-architectural conditions, writing a non-zero value to the Time-Stamp Counter (TSC) Deadline counter, IA32-TSC_​DEADLINE MSR (6E0h), may cause timer interrupt following the write.
+IMPLICATION:Due to this erratum, a unexpected timer interrupt may be signaled.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL029
+TITLE:Processor Trace May Generate PSB Packets Too Infrequently
+PROBLEM:A Packet Stream Boundary (PSB) packet should be generated for every PSBFreq number of trace output bytes. Due to this erratum, PSB packets may be generated only after as many as four times that number of output bytes have been generated.
+IMPLICATION:Due to this erratum, trace decoder software may see fewer PSB packets than expected. This may lead to the trace decoder software needing to search further to find a starting point to decode or, when used in circular mode, being unable to decode the trace due to lacking any PSB packets.
+WORKAROUND:None identified. Software can request more frequent PSB packets by programming PSBFreq (bits[27:24]) of IA32_​RTIT_​CTL MSR (570H) to a value 1/4 of the desired value.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL030
+TITLE:Processor Trace May Not Generate a CYC Packet Before MODE.EXEC Packets
+PROBLEM:When a Processor Trace MODE.EXEC packet is generated due to a change in RFLAGS.IF (interrupt flag) or the CS.L or CS.D bits, the processor may not generate a CYC packet before generating the MODE.EXEC packet.
+IMPLICATION:Due to this erratum, trace decoder software may not be able to precisely determine when mode changes that involve changing the interrupt flag or the application’s default operand size happened.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL031
+TITLE:Unsynchronized Cross-Modifying Code Operations Can Cause Unexpected Instruction Execution Results
+PROBLEM:The act of one processor or system bus master writing data into a currently executing code segment of a second processor with the intent of having the second processor execute that data as code is called cross-modifying code (XMC). XMC that does not force the second processor to execute a synchronizing instruction prior to execution of the new code is called unsynchronized XMC.Software using unsynchronized XMC to modify the instruction byte stream of a processor can see unexpected or unpredictable execution behavior from the processor that is executing the modified code.
+IMPLICATION:In this case the phrase "unexpected or unpredictable execution behavior" encompasses the generation of most of the exceptions listed in the Intel Architecture Software Developer's Manual Volume 3: System Programming Guide including a General Protection Fault (GPF) or other unexpected behaviors. In the event that unpredictable execution causes a GPF the application executing the unsynchronized XMC operation would be terminated by the operating system.
+WORKAROUND:In order to avoid this erratum programmers should use the XMC synchronization algorithm as detailed in the Intel Architecture Software Developer's Manual Volume 3: System Programming Guide Section: Handling Self- and Cross-Modifying Code.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL032
+TITLE:Platform May Perform a Cold Reset Rather Than a Warm Reset
+PROBLEM:Under complex microarchitectural conditions, if a warm reset event occurs when an Address Translation invalidation transaction is in progress, the processor may perform a cold reset.
+IMPLICATION:Due to this erratum, the platform may perform a cold reset, rather than a warm reset. Intel has only observed this behavior in a synthetic test environment.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL033
+TITLE:Disabling The APIC While an Interrupt is Being Delivered May Cause a System Hang
+PROBLEM:If software disables the APIC by clearing APIC global enable flag (bit 11) in IA32_​APIC_​BASE (MSR 1Bh) while an interrupt is being delivered, the system may hang with a machine check exception reported in IA32_​​MCi_​​STATUS, with MCACOD (bits [15:0]) value of 0400H, and MSCOD (bits [31:16]) value of 0080H.
+IMPLICATION:Due to this erratum, the system may hang. Intel has not observed this erratum in any commercial available software.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL034
+TITLE:Guaranteed Bandwidth Requirement For Isochronous I/O Devices May be Violated
+PROBLEM:Longer exit C-State latency associated with SVID slew rate Fast/8 is not accounted for when handling Latency Tolerance Reporting (LTR) thresholds for processor Die/Pkg C-States.
+IMPLICATION:Due to this erratum, the guaranteed bandwidth requirement for isochronous I/O devices may be violated.
+WORKAROUND:It may be possible for the BIOS to contain a mitigation for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL035
+TITLE:Split Load May Return Incorrect Data
+PROBLEM:Under complex microarchitectural conditions, a cache line split load may return incorrect data.
+IMPLICATION:Due to this erratum, split loads may return incorrect data, which may lead to unpredictable system behavior. Intel has only observed this erratum in a synthetic test environment.
+WORKAROUND:It may be possible for BIOS to contain a workaround for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL036
+TITLE:Locked Operations May Hang
+PROBLEM:Under complex microarchitectural conditions, a locked operation, including instructions that use the LOCK prefix, may hang the system.
+IMPLICATION:The processor may hang with a Internal Timeout Error Machine Check exception (IA32_​MCi_​STATUS.MCACOD = 0400h). Intel has only observed this erratum in a synthetic test environment.
+WORKAROUND:It may be possible for BIOS to contain a workaround for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL037
+TITLE:RC6 Exit May Cause a System Hang
+PROBLEM:During boot, the initial RC6 exit may cause a system hang.
+IMPLICATION:Due to this erratum, the processor may hang with a machine check exception with IA32_​​MCi_​​STATUS.MSCOD=0x0096 and IA32_​​MCi_​​STATUS.MCACOD=0402h.
+WORKAROUND:It is possible for the BIOS to contain a workaround for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL038
+TITLE:E-core May Generate Speculative Requests Beyond 4k Boundary During Short String Operations
+PROBLEM:During short string operations, it is possible for the E-core to speculatively access addresses beyond the current 4K page boundary, including pages that may be mapped as UnCachable (UC).
+IMPLICATION:Due to this erratum, it is possible to speculatively access MMIO space, which may lead to unpredictable system behavior, including IO device malfunction.
+WORKAROUND:It is possible for BIOS to contain a workaround for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL039
+TITLE:Processor May Provide Insufficient System Agent Voltage
+PROBLEM:When operating at maximum bandwidth and lowest latency memory conditions (e.g., when SAGV is configured in a Gear 2 mode), the processor may not provide the necessary voltage to the System Agent devices supplied by the VccSA voltage rail.
+IMPLICATION:Due to this erratum, System Agent devices supplied by the VccSA rail may be operate at insufficient voltage, which may lead to unpredictable system behavior.
+WORKAROUND:None identified. It is possible for BIOS to contain a mitigation for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL040
+TITLE:Lower Than Expected VCCSA and VCCGT Voltage
+PROBLEM:The processor may incorrectly limit the VCCSA and VCCGT rail voltage.
+IMPLICATION:Due to this erratum, the system may exhibit unpredictable behavior.
+WORKAROUND:It may be possible for the BIOS to contain a workaround for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL041
+TITLE:Audio Distortions May Occur When Using Audio APOs
+PROBLEM:The processor may not meet package Cstate exit latency requirements when processing offline Audio Processing Objects (APOs).
+IMPLICATION:Due to this erratum, intermediate audio distortions may occur.
+WORKAROUND:It may be possible for the BIOS to contain a workaround for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL042
+TITLE:RC6 Exit May Cause Machine Check Exception System Hang
+PROBLEM:RC6 exit request may not complete when processor is in Package C-state C0.
+IMPLICATION:Due to this erratum, the processor may hang with a GPSB_​MESSAGE_​CHANNEL_​TIMEOUT machine check exception (MCACOD=0414h, MSCOD=0080h).
+WORKAROUND:It may be possible for the BIOS to contain a workaround for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL043
+TITLE:Debug Exceptions May Be Lost or Misreported When MOV SS or POP SS Instruction is Not Followed By a Write to SP
+PROBLEM:If a MOV SS or POP SS instruction generated a debug exception, and is not followed by an explicit write to the stack pointer (SP), the processor may fail to deliver the debug exception or, if it does, the DR6 register contents may not correctly reflect the causes of the debug exception.
+IMPLICATION:Debugging software may fail to operate properly if a debug exception is lost or does not report complete information. Intel has not observed this erratum with any commercially available software.
+WORKAROUND:Software should explicitly write to the stack pointer immediately after executing MOV SS or POP SS.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL044
+TITLE:Processor May Generate Malformed TLP
+PROBLEM:If the processor root port receives an FetchAdd, Swap, or CAS TLP (an atomic operation) that is erroneous, it should generate a UR completion to the downstream requestor. If the TLP has an operand size greater than 4 bytes, the generated UR completion will report an operand size of 4 bytes, which will be interpreted as a malformed transaction.
+IMPLICATION:When this erratum occurs, the processor may respond with a malformed transaction.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL045
+TITLE:Intel PT Trace May Contain Incorrect Data When Configured With Single Range Output Larger Than 4KB
+PROBLEM:Under complex micro-architectural conditions, when using Intel(r) Processor Trace (PT) with single range output larger than 4KB, disabling PT and then enabling PT using the TraceEn bit in IA32_​RTIT_​CTL MSR (MSR 570h, bit 0) may cause incorrect output values to be recorded.
+IMPLICATION:Due to this erratum, a PT trace may contain incorrect values.
+WORKAROUND:None identified. Software should avoid using PT with single range output larger than 4KB.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL046
+TITLE:Setting MISC_​FEATURE_​CONTROL.DISABLE_​THREE_​STRIKE_​CNT Does Not Prevent The Three-strike Counter From Incrementing
+PROBLEM:Setting MISC_​FEATURE_​CONTROL.DISABLE_​THREE_​STRIKE_​CNT (bit 11 in MSR 1A4h) does not prevent the three-strike counter from incrementing as documented; instead, it only prevents the signaling of the three-strike event once the counter has expired.
+IMPLICATION:Due to this erratum, software may be able to see the three-strike logged in the MC3_​STATUS (MSR 40Dh, MCACOD = 400h [bits 15:0]) even when MISC_​FEATURE_​CONTROL.DISABLE_​THREE_​STRIKE_​CNT is set.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL047
+TITLE:VM Exit Qualification May Not be Correctly Set on APIC Access While Serving a User Interrupt
+PROBLEM:A VM Exit that occurs while the processor is serving a user interrupt in non-root mode should set the “asynchronous to instruction execution” bit in the Exit Qualification field in the Virtual Machine Control Structure (bit 16). However, if a VM Exit occurs during processing a user interrupt due to an APIC access, the bit will not be set.
+IMPLICATION:Due to this erratum, the “asynchronous to instruction execution” bit will not be set if an APIC Access VM Exit occurs while the processor is serving a user interrupt. Intel has not observed this erratum with any commercially available software.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL048
+TITLE:Processor May Encrypt TME Exclude Range if Mapped to Remap Range
+PROBLEM:The processor accesses to TME exclude range may be encrypted but not decrypted if mapped to remap range.
+IMPLICATION:Due to this erratum, the processor exclude range it will be encrypted but will but not decrypted if mapped to remap range.
+WORKAROUND:It may be possible for BIOS to workaround this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL049
+TITLE:WRMSR to a Few Core MSRs Might be Overwritten
+PROBLEM:If any thread is in thread C6 while another thread is updating one of the following MSRs, a subsequent transition from single thread operation to multi-thread operation or vice versa might cause that MSR to revert to its previous value. The affected MSRs are: MEMORY_​CONTROL (MSR 33h bit 28), QUIESCE_​CTL1 (MSR 50h) and QUIESCE_​CTL2 (MSR 51h).
+IMPLICATION:Due to this erratum, the values of the above MSRs may be incorrect. Intel has not observed any functional impact due to this erratum.
+WORKAROUND:None identified. Software must ensure that the other thread is not in TC6 when writing this MSR.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL050
+TITLE:Single Step on Branches Might be Missed When VMM Enables Notification On VM Exit
+PROBLEM:Under complex micro-architectural conditions, single step on branches (IA32_​DEBUGCTLMSR (Offset 1D9h, bit [1]) and also TF flag in EFLAGS register is set) in guest might be missed when VMM enables notification on VM Exit (IA32_​VMX_​PROCBASED_​CTLS2 MSR, Offset 48Bh, bit [31]) while the dirty access bit is not set for the code page (bit [6] in paging-structure entry).
+IMPLICATION:When single step is enabled under the above condition, some single step branches will be missed. Intel has only observed this erratum in a synthetic test environment.
+WORKAROUND:When enabling single step on branches for debugging, software should first set the dirty bit of the code page.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL051
+TITLE:USB 3.2 Device May Not Function as Expected With TC10 Enabled
+PROBLEM:When TC10 is enabled, a USB 3.2 device connected to USB Type-C port directly without retimer may not function as expected.
+IMPLICATION:Due to this erratum, a USB 3.2 device may not function as expected.
+WORKAROUND:None identified. It may be possible for the BIOS to contain a mitigation for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL052
+TITLE:PCONFIG Error Reporting May be Incorrect
+PROBLEM:If invalid parameters are provided, the PCONFIG instruction should generate a #GP exception. Due to this erratum, the processor may instead set a ZF flag, with EAX reporting failure reasons.
+IMPLICATION:Due to this erratum, incorrectly configured PCONFIG usage may lead to unexpected error reporting.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL053
+TITLE:DP Monitor May Not Operate After S4/S5 Resume
+PROBLEM:When switching a USB Type-C Display Port (DP) monitor connection between Alt Mode and MFD in S4/S5, the monitor may not be enumerated when resuming from S4/S5.
+IMPLICATION:Due to this erratum, a DP Monitor may not operate when resuming from S4/S5 and may require a hot plug to recover.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL054
+TITLE:Remapping Hardware May Abort ZLR to Second-Stage Write Only Pages
+PROBLEM:Remapping hardware will report non-recoverable VT-d fault and cause the Zero-Length-Read (ZLR) to be aborted, If a ZLR encounters read-only page in first-stage tables and write-only page in second-stage tables.
+IMPLICATION:Due to this erratum, device may observe an unexpected abort on a ZLR and a VT-d fault may be indicated. Intel has not observed this erratum with any commercially available software.
+WORKAROUND:None identified. System software should not create write only pages in second-stage page tables.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL055
+TITLE:xHCI Out of Order ACK Due to LCRD1
+PROBLEM:A delay in the availability of LCRD1 (Link Credit 1) from a USB 3.2 hub, with two or more downstream USB 3.2 bulk endpoint devices engaged in SuperSpeedPlus concurrent transfers, may lead to the connected xHCI controller sending the ACK and Status of a transfer packet out of order.
+IMPLICATION:Due to this erratum, a USB 3.2 bulk endpoint device may not respond to subsequent transfers. It may be possible for a device driver to recover the USB 3.2 device.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL056
+TITLE:Non-Responsive USB Port After Disconnecting Full-speed Device
+PROBLEM:Disconnecting a USB full-speed device from the USB port while the xHCI controller is in the process of sending the Start of Frame may cause the USB 2.0 functionality to become unresponsive for that specific port.
+IMPLICATION:Due to this erratum, USB 2.0 devices may not be recognized on the USB port until a host controller reset occurs. Intel has only observed this behavior in a synthetic test environment.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL058
+TITLE:Display Artifacts With YUV420 Format
+PROBLEM:While in DP2.1 UHBR mode and using the YUV420 format with scaling, displays with a resolution higher than 5K @ 60Hz may show display artifacts.
+IMPLICATION:Due to this erratum, display artifacts may be seen.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL059
+TITLE:SPI0 Dual IO Mode With SPI0_​IO2 And SPI0_​IO3 Connected to SPI Device
+PROBLEM:On systems with dual IO mode enabled, SPI0_​IO2 and SPI0_​IO3 may momentarily drive low before these signals are pulled high by internal resistors during boot from the G3 state.
+IMPLICATION:Due to this erratum, unexpected system behavior may occur on systems when SPI0_​IO2 and SPI0_​IO3 signals are connected to an SPI device.
+WORKAROUND:None identified. To mitigate this erratum, do not connect SPI0_​IO2 and SPI0_​IO3 to an SPI device in SPI0 dual IO mode enabled systems.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL060
+TITLE:Locked Page Split Access May Not be Detected by UC-lock Disable if Split-lock Disable is Not Used
+PROBLEM:The UC-lock disable feature (MSR_​MEMORY_​CTRL bit [28] (MSR 33h)) may not cause a fault (#AC(4)) for a page split lock that accesses a page with non-WB memory type if the split lock disable (MSR_​MEMORY_​CTRL bit [29]) is not set.
+IMPLICATION:Due to this erratum, system software may not be able to fully prevent bus locks due to locks to non-WB memory unless they use the split-lock disable feature to prevent bus locks due to splits. Intel has not observed this erratum with any commercially available software.
+WORKAROUND:None identified. Software using the UC-lock disable feature should also enable the split lock disable feature.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL061
+TITLE:Non Canonical Fault May be Signaled on Access That Wraps Address Space When LAM is Enabled
+PROBLEM:When Linear Address Masking (LAM) is enabled, a non-canonical fault may be signaled if there is an access which splits the 64-bit linear address space (and thus touches both linear address FFFF_​FFFF_​FFFF_​FFFFh and 0h).
+IMPLICATION:Due to this erratum, software may receive an unexpected exception on such accesses. Intel has not observed this erratum with any commercially available software.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL062
+TITLE:VM Exit Following MOV to CR8 Instruction May Lead to Unexpected IDT Vectoring-Information
+PROBLEM:Under certain conditions, a VM exit following execution of the MOV to CR8 instruction may unexpectedly result in setting the Valid bit (bit 31) of the IDT-Vectoring Information Field in the Virtual Machine Control Structure (VMCS).
+IMPLICATION:Depending on the operation of the virtual-machine monitor (VMM), this may result in unexpected VM behavior.
+WORKAROUND:It may be possible for the BIOS to contain a workaround for this erratum.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
+
+NAME:MTL063
+TITLE:Cache Level Wrongly Reported in Machine Check Banks
+PROBLEM:When reporting a machine check in the module level caches (IA32_​MC1_​STATUS, MSR 405H), a Compound Error Code of type Cache Hierarchy Error will be reported with a Level (LL) Sub-field of 0b10[L2] instead of 0b01[L1].
+IMPLICATION:Due to this erratum, system software relying on this data, may wrongly categorize the cache level in which the error was reported. The severity of the error will be reported accurately.
+WORKAROUND:None identified.
+STATUS:For the steppings affected, refer to the Summary Table of Changes.
