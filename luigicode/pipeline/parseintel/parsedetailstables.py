@@ -68,10 +68,10 @@ class ParseDetailsTables(luigi.Task):
             left_elem = left_elem.strip()
             right_elem = right_elem.strip()
             # Check if the line starts a new erratum
-            eratumname_match = re.match(cpu_prefixes[self.cpu_name]+r"(\d{3})", left_elem)
-            if eratumname_match is not None:
+            erratumname_match = re.match(cpu_prefixes[self.cpu_name]+r"(\d{3})", left_elem)
+            if erratumname_match is not None:
                 curr_datatype = "title"
-                curr_erratumnum = int(eratumname_match.group(1))
+                curr_erratumnum = int(erratumname_match.group(1))
                 curr_erratumkey = cpu_prefixes[self.cpu_name]+f"{curr_erratumnum:03}"
                 # Sanity check: we check that the erratum name was not already used. If it was, then we first clear it (because AAJ143 for example).
                 if curr_erratumkey in errata_details:

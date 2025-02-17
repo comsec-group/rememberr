@@ -76,16 +76,16 @@ class ParseDetailsClip(luigi.Task):
         curr_erratumkey = None # For example AAJ001
         for line_id, line in enumerate(filtered_lines):
             # Check if the line starts a new erratum
-            eratumname_match = re.match(cpu_prefixes[self.cpu_name]+r"(\d{3})", line)
-            if eratumname_match is not None:
+            erratumname_match = re.match(cpu_prefixes[self.cpu_name]+r"(\d{3})", line)
+            if erratumname_match is not None:
                 curr_datatype = "title"
-                curr_erratumnum = int(eratumname_match.group(1))
+                curr_erratumnum = int(erratumname_match.group(1))
                 curr_erratumkey = cpu_prefixes[self.cpu_name]+f"{curr_erratumnum:03}"
                 # Sanity check: we check that the erratum name was not already used. If it was, then we first clear it (because AAJ143 for example).
                 if curr_erratumkey in errata_details:
                     print("Warning: Erratum already exists and will be overwritten: {}".format(curr_erratumkey))
                     errata_details[curr_erratumkey] = defaultdict(str)
-                errata_details[curr_erratumkey][curr_datatype] += line[len(eratumname_match.group(0)):].strip()
+                errata_details[curr_erratumkey][curr_datatype] += line[len(erratumname_match.group(0)):].strip()
             elif curr_datatype == "title" and len(line) >= 7 and line[:7] == "Problem":
                 curr_datatype = "problem"
                 errata_details[curr_erratumkey][curr_datatype] += line[7:].strip()
