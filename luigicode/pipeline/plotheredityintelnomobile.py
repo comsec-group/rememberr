@@ -9,19 +9,43 @@ import pprint
 
 import matplotlib.pyplot as plt
 from pipeline.parsedetailsintel import ParseDetailsIntel
-from common import intel_cpu_names, intel_cpu_prettynames, plainify_str
+from common import plainify_str
 
 from matplotlib import rc
 rc('font', **{'family':'serif', 'serif':['Times']})
 rc('text', usetex=True)
 
+intel_cpu_prettynames_nomobile = {
+    "intel_core_1_desktop": "Core 1",
+    # "intel_core_1_mobile":  "Core 1 (M)",
+    "intel_core_2_desktop": "Core 2",
+    # "intel_core_2_mobile":  "Core 2 (M)",
+    "intel_core_3_desktop": "Core 3",
+    # "intel_core_3_mobile":  "Core 3 (M)",
+    "intel_core_4_desktop": "Core 4",
+    # "intel_core_4_mobile":  "Core 4 (M)",
+    "intel_core_5_desktop": "Core 5",
+    # "intel_core_5_mobile":  "Core 5 (M)",
+    "intel_core_6":         "Core 6",
+    "intel_core_7_8":       "Core 7-8",
+    "intel_core_8_9":       "Core 8-9",
+    "intel_core_10":        "Core 10",
+    "intel_core_11":        "Core 11",
+    "intel_core_12":        "Core 12",
+    "intel_core_13":        "Core 13",
+    "intel_core_ultra1":    "Core U1",
+    "intel_core_ultra2":    "Core U2",
+}
+
+intel_cpu_names_nomobile = list(intel_cpu_prettynames_nomobile.keys())
+
 #####
 # Luigi task
 #####
 
-class HeredityIntel(luigi.Task):
+class HeredityIntelNoMobile(luigi.Task):
     def __init__(self, *args, **kwargs):
-        super(HeredityIntel, self).__init__(*args, **kwargs)
+        super(HeredityIntelNoMobile, self).__init__(*args, **kwargs)
 
         # Ensure that the target builddir environment variable exists.
         if "ERRATA_BUILDDIR" not in os.environ:
@@ -34,12 +58,12 @@ class HeredityIntel(luigi.Task):
 
     def requires(self):
         ret = []
-        for cpu_name in intel_cpu_names:
+        for cpu_name in intel_cpu_names_nomobile:
             ret.append(ParseDetailsIntel(cpu_name=cpu_name))
         return ret
 
     def run(self):
-        num_cpus = len(intel_cpu_names)
+        num_cpus = len(intel_cpu_names_nomobile)
         ########################################
         # Get all the manufacturer's errata.
         ########################################
@@ -60,7 +84,7 @@ class HeredityIntel(luigi.Task):
             for _, erratum in errata_dict.items():
                 title_sets[-1].add(plainify_str(erratum['title']))
 
-        my_intersection_matrix = np.array([[0 for _ in intel_cpu_names] for _ in intel_cpu_names])
+        my_intersection_matrix = np.array([[0 for _ in intel_cpu_names_nomobile] for _ in intel_cpu_names_nomobile])
 
         for low_cpuname_id in range(num_cpus):
             for high_cpuname_id in range(low_cpuname_id, num_cpus):
@@ -91,14 +115,14 @@ class HeredityIntel(luigi.Task):
                     bbox=dict(boxstyle='round', facecolor='white', edgecolor='0.3'))
 
         # Ticks
-        ax.set_xticks(np.arange(len(intel_cpu_names), step=1))
-        ax.set_yticks(list(range(0,len(intel_cpu_names))))
-        ax.set_xticklabels(map(lambda x: intel_cpu_prettynames[x], intel_cpu_names), rotation=45)
-        ax.set_yticklabels(map(lambda x: intel_cpu_prettynames[x], intel_cpu_names))
+        ax.set_xticks(np.arange(len(intel_cpu_names_nomobile), step=1))
+        ax.set_yticks(list(range(0,len(intel_cpu_names_nomobile))))
+        ax.set_xticklabels(map(lambda x: intel_cpu_prettynames_nomobile[x], intel_cpu_names_nomobile), rotation=45)
+        ax.set_yticklabels(map(lambda x: intel_cpu_prettynames_nomobile[x], intel_cpu_names_nomobile))
         fig.tight_layout()
 
         # Save more figures than what luigi would.
         target_dir = os.path.join(os.environ["ERRATA_BUILDDIR"], 'figures')
         Path(target_dir).mkdir(parents=True, exist_ok=True)
-        plt.savefig(os.path.join(target_dir, "heredity_intel.pdf"), dpi=300)
-        plt.savefig(os.path.join(target_dir, "heredity_intel.png"), dpi=300)
+        plt.savefig(os.path.join(target_dir, "heredity_intel_nomobile.pdf"), dpi=300)
+        plt.savefig(os.path.join(target_dir, "heredity_intel_nomobile.png"), dpi=300)
