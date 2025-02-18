@@ -75,27 +75,26 @@ def plot_timeline():
     # Intel.
     ########################################
 
-    # intel_timelines = dict()
+    intel_timelines = dict()
 
-    # for cpu_name in intel_cpu_prettynames:
-    #     curr_df = xl.parse(cpu_name)
-    #     intel_timelines[cpu_name] = fill_timelines(curr_df)
+    for cpu_name in intel_cpu_prettynames:
+        curr_df = xl.parse(cpu_name)
+        intel_timelines[cpu_name] = fill_timelines(curr_df)
 
-    # intel_cumulnbs = dict()
-    # for cpu_name in intel_timelines:
-    #     intel_cumulnbs[cpu_name] = intel_timelines[cpu_name][max(intel_timelines[cpu_name].keys())]
-
+    intel_cumulnbs = dict()
+    for cpu_name in intel_timelines:
+        intel_cumulnbs[cpu_name] = intel_timelines[cpu_name][max(intel_timelines[cpu_name].keys())]
 
     # # So we don't need to reparse everything all the time. Not clean.
     # with open(os.path.join(os.environ['ERRATA_BUILDDIR'], 'figures', "timelinebars_intel.txt"), "w") as outfile:
     #     for cpu_name in intel_cpu_prettynames:
     #         outfile.write(f"{cpu_name} {intel_cumulnbs[cpu_name]}\n")
-    with open(os.path.join(os.environ['ERRATA_BUILDDIR'], 'figures', "timelinebars_intel.txt"), "r") as outfile:
-        print("WARNING: Using cached values!")
-        intel_cumulnbs = dict()
-        for line in outfile:
-            cpu_name, cumulnb = line.split()
-            intel_cumulnbs[cpu_name] = int(cumulnb)
+    # with open(os.path.join(os.environ['ERRATA_BUILDDIR'], 'figures', "timelinebars_intel.txt"), "r") as outfile:
+    #     print("WARNING: Using cached values!")
+    #     intel_cumulnbs = dict()
+    #     for line in outfile:
+    #         cpu_name, cumulnb = line.split()
+    #         intel_cumulnbs[cpu_name] = int(cumulnb)
 
     #########################
     # Display the timeline.
